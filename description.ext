@@ -1,0 +1,26 @@
+
+#include "gridDefines.h"
+#include "parent.h"
+
+class RscTitles
+{
+ titles[]={ComOverlay}; 
+   
+ #include "overlay.h"
+};
+
+
+class BattleGroups
+{
+
+class west
+{
+ mbt[] = {"uns_m48a3"};
+
+ testteam[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT"};
+
+};
+
+};
+
+
