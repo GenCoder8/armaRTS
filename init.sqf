@@ -2,6 +2,12 @@
 
 findFromArray = compile preprocessFileLineNumbers "findFromArrayFn.sqf";
 
+[] spawn
+{
+waituntil { ! isnull (player getvariable ["BIS_HC_scope",objnull]) };
+waituntil {count hcallgroups player > 0};
+[player] execvm ("hc\HC_GUI.sqf");
+};
 
 unitHighlights = [];
 
@@ -71,6 +77,35 @@ else
  mainhc synchronizeObjectsAdd [_subOrd];
 
  player hcsetgroup [_group];
+
+
+_group spawn
+{
+ params ["_group"];
+
+while { true } do
+{
+ _wps = waypoints _group;
+
+if(count _wps > 0) then
+{
+ _lastWp = _wps select (count _wps - 1);
+
+if(!(_group getVariable ["wpArrived",false])) then
+{
+if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
+{
+ hint "ARRIVED";
+ _group setVariable ["wpArrived",true];
+};
+};
+
+};
+
+ sleep 2;
+};
+};
+
 };
 
 sleep 0.01;
