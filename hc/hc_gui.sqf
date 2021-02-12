@@ -381,7 +381,7 @@ _GUI_SELECT = {scriptname "HC: _GUI_SELECT";
 ///////////////////////////////////////////////////////////////////////////////////
 _GUI_WP_MOVE = {scriptname "HC: _GUI_WP_MOVE";
 
-hint "WORKING!";
+// hint "WORKING!";
 
 	_is3D = _this select 0;
 	_worldpos = _this select 1;
