@@ -18,3 +18,9 @@ private _vehs = [];
 
 _vehs
 };
+
+inVehicle =
+{
+ params ["_unit"];
+ (vehicle _unit) != _unit
+};

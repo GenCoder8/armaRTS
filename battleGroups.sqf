@@ -1,4 +1,6 @@
 
+#define SURRENDER_DIST 100
+
 unitHighlights = [];
 
 createBattleGroup =
@@ -73,7 +75,7 @@ _group spawn
 {
  params ["_group"];
 
-while { true } do
+while { !isnull _group } do
 {
  _wps = waypoints _group;
 
@@ -94,6 +96,46 @@ if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 
  sleep 2;
 };
+};
+
+_group spawn
+{
+ params ["_group"];
+
+while { !isnull _group } do
+{
+
+ // Check for surrender
+ private _didSurrender = false;
+ {
+ private _man = _x;
+ if(!(_man call inVehicle)) then // Only for infantry using this instead of getGroupInfantry because we dont want parachuting guys
+ {
+ if(fleeing _man && !captive _man && alive _man) then
+ {
+  //if(([_group call getGroupPos,_side,200] call isEnemyNear)) then // Only surrender if enemies near
+  //{
+  private _ls = lifeState _man;
+  if(!(_ls in ["INCAPACITATED","INJURED"])) then
+  {
+  private _ne = _man findNearestEnemy _man; 
+  if(!isnull _ne) then
+  {
+   if(_ne distance _man < SURRENDER_DIST) then
+   {
+    _man call surrenderAI;
+	_didSurrender = true;
+   };
+  };
+  };
+  //};
+ };
+ };
+ } foreach (units _group);
+
+ sleep 3;
+};
+
 };
 
 };
