@@ -73,7 +73,7 @@ if(!isnull _circle) then
 };
 
 // Show KIA for while
-if( !alive _obj && !isnull _obj) then
+if( !alive _obj && !isnull _obj ) then
 {
 
 _showTime = _obj getvariable ["kiaShowTime", 0];
@@ -82,7 +82,7 @@ if(_showTime == 0) then
 _obj setvariable ["kiaShowTime", time];
 };
 
-if( (time - _showTime) < 15 ) then
+if( (time - _showTime) < 30 ) then
 {
  drawIcon3D ["\a3\ui_f_curator\data\cfgmarkers\kia_ca.paa", [1,1,1,1], getposATL _obj, 1, 1, 0, "", false];
 };
