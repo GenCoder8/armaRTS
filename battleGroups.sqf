@@ -87,7 +87,7 @@ if(!(_group getVariable ["wpArrived",false])) then
 {
 if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 {
- hint "ARRIVED";
+ // hint "ARRIVED";
  _group setVariable ["wpArrived",true];
 };
 };

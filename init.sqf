@@ -1,4 +1,21 @@
 
+folderPrefix = "";
+compileFile =
+{
+ params ["_path"];
+ _path = folderPrefix + _path;
+ private _code = compile preprocessFileLineNumbers _path;
+ _code
+};
+
+ getAngle = "math\getAngleFn.sqf" call compileFile;
+ getVecLength = "math\getVecLengthFn.sqf" call compileFile;
+ getVecDir = "math\getVecDirFn.sqf" call compileFile;
+ getvector = "math\getvectorFn.sqf" call compileFile;
+ addvector = "math\addVecFn.sqf" call compileFile;
+ angleDist = "math\angleDistFn.sqf" call compileFile;
+ make360 = "math\make360Fn.sqf" call compileFile;
+
 
 findFromArray = compile preprocessFileLineNumbers "findFromArrayFn.sqf";
 
@@ -9,8 +26,11 @@ waituntil {count hcallgroups player > 0};
 [player] execvm ("hc\HC_GUI.sqf");
 };
 
+execvm "fns.sqf";
+execvm "scripts\garrison.sqf";
+execvm "bgFns.sqf";
 execvm "battleGroups.sqf";
-
+execvm "gui.sqf";
 
 sleep 0.01;
 
@@ -99,8 +119,7 @@ if( (time - _showTime) < 30 ) then
 
 // sleep 1;
 
-execvm "fns.sqf";
-execvm "gui.sqf";
+
 
 
 cutRsc["ComOverlay","PLAIN",0];

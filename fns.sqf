@@ -1,26 +1,21 @@
-getVehicles =
+dbgmsg =
 {
- params ["_group",["_incParachutes",false]];
- 
-private _vehs = [];
+if(typename _this == "ARRAY") then
 {
- private _veh = vehicle _x;
- 
- // todo maybe remove this check for speed, doesnt work with static weapons anyway
- if(isnull (group _veh) && !(_veh isKindof "StaticWeapon")) then { ["Vehicle has no group! %1 %2",_group, units _group] call errmsg; };
-
- if( (_incParachutes || ((tolower (typeof _veh)) find "parachute") < 0 )
- && _veh != _x && alive _veh && alive _x && (group _veh) == _group) then
- {
-  _vehs pushBackUnique (vehicle _x);
- };
-} forEach (units _group);
-
-_vehs
+_this = format _this;
+};
+ systemchat format["dbg: %1",_this];
 };
 
-inVehicle =
+getObjectSize =
 {
- params ["_unit"];
- (vehicle _unit) != _unit
+ private _veh = _this;
+ private ["_bbr","_p1","_p2"]; 
+ 
+ _bbr = boundingBoxReal _veh;
+ _p1 = _bbr select 0;
+ _p2 = _bbr select 1;
+
+ // Width, Length, Height
+ [abs ((_p2 select 0) - (_p1 select 0)), abs ((_p2 select 1) - (_p1 select 1)), abs ((_p2 select 2) - (_p1 select 2))]
 };
