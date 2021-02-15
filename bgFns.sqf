@@ -87,3 +87,40 @@ surrenderAI =
  _man call safeDelete;
  };
 };
+
+resetUnitScripts =
+{
+ params ["_group"];
+ {
+
+  _x call resetUnitScript;
+
+ } foreach (units _group);
+};
+
+resetUnitScript =
+{
+ params ["_man"];
+
+  private _us = _man getVariable ["unitScript",scriptNull];
+  if(!isnull _us) then { terminate _us; };
+  _man setVariable ["unitScript",scriptNull];
+};
+
+applyStopSCript =
+{
+ params ["_man","_stopPos"];
+
+ // Make sure ended
+ _man call resetUnitScript;
+
+private _us = [_man,_stopPos] spawn
+{
+ params ["_man","_stopPos"];
+ waituntil { sleep 0.5; _man distance _stopPos < 1 };
+ dostop _man;
+};
+
+_man setVariable ["unitScript",_us];
+ 
+};

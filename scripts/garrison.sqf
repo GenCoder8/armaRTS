@@ -151,63 +151,6 @@ _clear
 };
 
 
-#define GUARD_RELEASE_TIME_MIN  (60 * 2)
-#define GUARD_RELEASE_TIME_RAND (60 * 5)
-
-
-standOnGuard =
-{
- params ["_man","_dir",["_mustStand",true]];
- 
- if(_man call isOnGuard) exitWith {};
- 
-  dostop _man;
-  
- //_man setUnitPos "UP";
- 
- _man setDir _dir;
- 
-// [_man, "STAND_IA", "ASIS"] call BIS_fnc_ambientAnimCombat; 
-
-_man disableAI "PATH"; 
-
-if(_mustStand) then
-{
-_man setUnitPos "UP";
-};
-
- _man setVariable ["onGuard",true];
- _man setVariable ["guardEngageTime", time + GUARD_RELEASE_TIME_MIN + (random GUARD_RELEASE_TIME_RAND) ];
-};
-
-releaseGuard =
-{
- params ["_man"];
- 
- if(!(_man call isOnGuard)) exitWith {};
- 
- if(_man call inVehicle) then
- {
-  if((vehicle _man) call isStaticWeapon) then
-  {
-  
-   unassignVehicle _man;
-   moveOut _man;
-  
-  };
- };
- 
- _man enableAI "PATH"; 
- _man setUnitPos "AUTO";
- 
- /*if(!isnil "BIS_fnc_ambientAnim__terminate") then // Maybe that animation is not set in case the man is supposed to be a static gun gunner
- {
-  _man call BIS_fnc_ambientAnim__terminate;
-  _man setUnitPos "AUTO";
- };*/
- 
- _man setVariable ["onGuard",false];
-};
 
 
 
@@ -271,7 +214,7 @@ else
  //systemchat format["Looping %1 -- %2", _bldg, count _bpositions];
  
  _bsize = _bldg call getObjectSize;
- _numInThisBldg = 0;
+
 
 _shouldUsePos =
 {
@@ -355,16 +298,21 @@ params ["_bpos","_bposDir"];
 //_sortedPositions = [_goodPositions, [], { _x call _selectPosFirst }, "ASCEND"] call BIS_fnc_sortBy;
 
 _sf = _goodPositions select { _x call _selectPosFirst };
-//_se = _goodPositions select { !(_x call _selectPosFirst) };
-_se = [];
+_se = _goodPositions select { !(_x call _selectPosFirst) };
+// _se = [];
 
 _sortedPositions = _sf + _se;
+
+ _numInThisBldg = 0;
+
+hint format["MANNING %1",  (count _sortedPositions) ];
+
 
 _units = units _group;
 {
 
 private _u = _x;
-if(_forEachIndex >= (count _sortedPositions) || _forEachIndex >= (count _sf) ) exitWith {};
+if(_forEachIndex >= (count _sortedPositions) ) exitWith {};
 
 private _goodPos = _sortedPositions select _forEachIndex;
 _goodPos params ["_bpos","_bposDir"];
@@ -378,15 +326,10 @@ diag_log format["--> %1 %2",_forEachIndex, _bposDir];
  _watchPos = [_bpos,_watchPos] call addvector;
  _u doWatch _watchPos;
 
- _numInThisBldg = _numInThisBldg + 1;
- _numMenPlaced = _numMenPlaced + 1;
+ //_numInThisBldg = _numInThisBldg + 1;
+ //_numMenPlaced = _numMenPlaced + 1;
 
-[_u,_bpos] spawn
-{
- params ["_u","_bpos"];
- waituntil { sleep 1; _u distance _bpos < 1 };
- dostop _u;
-};
+[_u,_bpos] call applyStopSCript;
 
 } foreach _units;
 	

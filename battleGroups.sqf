@@ -89,6 +89,9 @@ if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 {
  // hint "ARRIVED";
  _group setVariable ["wpArrived",true];
+
+[_group,(waypointPosition _lastWp),15,true,100,100] call manBuildings;
+
 };
 };
 
