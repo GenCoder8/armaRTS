@@ -90,7 +90,10 @@ if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
  // hint "ARRIVED";
  _group setVariable ["wpArrived",true];
 
+if(_group getVariable ["manBuildings",false]) then
+{
 [_group,(waypointPosition _lastWp),15,true,100,100] call manBuildings;
+};
 
 };
 };
@@ -145,7 +148,9 @@ while { !isnull _group } do
 
 onNewMove =
 {
- params ["_group"];
+ params ["_group","_isAttack"];
+
+ _group setVariable ["manBuildings",!_isAttack]; 
 
  _group setVariable ["wpArrived",false];
 
