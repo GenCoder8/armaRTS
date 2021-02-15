@@ -142,3 +142,12 @@ while { !isnull _group } do
 };
 
 };
+
+onNewMove =
+{
+ params ["_group"];
+
+ _group setVariable ["wpArrived",false];
+
+ _group call resetUnitScripts;
+};

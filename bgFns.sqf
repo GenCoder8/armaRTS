@@ -92,7 +92,6 @@ resetUnitScripts =
 {
  params ["_group"];
  {
-
   _x call resetUnitScript;
 
  } foreach (units _group);
@@ -102,9 +101,9 @@ resetUnitScript =
 {
  params ["_man"];
 
-  private _us = _man getVariable ["unitScript",scriptNull];
-  if(!isnull _us) then { terminate _us; };
-  _man setVariable ["unitScript",scriptNull];
+ private _us = _man getVariable ["unitScript",scriptNull];
+ if(!isnull _us) then { terminate _us; };
+ _man setVariable ["unitScript",scriptNull];
 };
 
 applyStopSCript =

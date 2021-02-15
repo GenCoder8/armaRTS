@@ -431,7 +431,7 @@ _GUI_WP_MOVE = {scriptname "HC: _GUI_WP_MOVE";
 		//--- Add new waypoint (wait if button is not still pressed)
 		_group = _selected select _i;
 
-_group setVariable ["wpArrived",false];
+_group call onNewMove;
 
 		_offsetBase = _posList select 0;
 		_offsetGroup = _posList select (_i + 1);
@@ -493,6 +493,8 @@ _GUI_WP_ATTACK = {scriptname "HC: _GUI_WP_ATTACK";
 		//--- Reset waypoints
 		while {count (waypoints _group) > 0} do {deletewaypoint ((waypoints _group) select 0)};
 	};
+
+_group call onNewMove;
 
 	_wp = _group addwaypoint [position vehicle leader _target,0];
 	_wp setwaypointstatements ["false",""];
