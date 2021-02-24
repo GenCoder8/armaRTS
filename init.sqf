@@ -71,8 +71,11 @@ if(isnull _circle) then
 {
 //systemchat "creating circle";
 
- _circle = "VR_Area_01_circle_4_grey_F" createVehicle position _obj;
+ _circle = createSimpleObject ["VR_Area_01_circle_4_grey_F", getposASL _obj,false];
+
  _circle setObjectTexture [0, "#(argb,8,8,3)color(0,0.80,0,1,co)"];
+ _circle setObjectScale 0.5;
+
  _obj setVariable ["circle",_circle];
 };
 
@@ -117,14 +120,44 @@ if( (time - _showTime) < 30 ) then
 }];
 
 
-// sleep 1;
+sleep 1;
 
 
 
 
 cutRsc["ComOverlay","PLAIN",0];
 
+//sleep 1;
+/*
+showCinemaBorder false;
 
+_target = player;
+
+_commandCamera = "camcurator" camCreate (_target modelToWorld [0,0,5]);
+_commandCamera cameraEffect ["internal","back"];
+
+_commandCamera camCommit 0;
+
+//Define parameters for the curator camera
+_commandCamera camCommand "maxPitch 40"; //Maximum pitch of the camera, in degrees, relative to the horizontal plane
+_commandCamera camCommand "minPitch -89"; //Minimum pitch
+///_commandCamera camCommand "speedDefault 0.1";
+/// _commandCamera camCommand "speedMax 2";
+_commandCamera camCommand "ceilingHeight 500"; //Maximum height of camera above terrain or sea level
+_commandCamera camCommand "atl on"; //Determines whether camera height (and ceiling) is adjusted relative to terrain (on) or sea level (off)
+_commandCamera camCommand "surfaceSpeed on"; //Whether camera speed is decreased (on) or increased (off) by proximity to terrain
+
+_commandCamera camCommand "manual on";
+_commandCamera camCommand "inertia on";
+
+
+//sleep 1;
+
+
+cameraEffectEnableHUD true;
+
+showHUD true;
+*/
 
 /*
 {
