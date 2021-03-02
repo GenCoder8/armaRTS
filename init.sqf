@@ -128,18 +128,18 @@ sleep 1;
 cutRsc["ComOverlay","PLAIN",0];
 
 //sleep 1;
-/*
+
 showCinemaBorder false;
 
 _target = player;
 
-_commandCamera = "camcurator" camCreate (_target modelToWorld [0,0,5]);
+_commandCamera = "camera" camCreate (_target modelToWorld [0,0,5]);
 _commandCamera cameraEffect ["internal","back"];
 
 _commandCamera camCommit 0;
 
 //Define parameters for the curator camera
-_commandCamera camCommand "maxPitch 40"; //Maximum pitch of the camera, in degrees, relative to the horizontal plane
+_commandCamera camCommand "maxPitch 90"; //Maximum pitch of the camera, in degrees, relative to the horizontal plane
 _commandCamera camCommand "minPitch -89"; //Minimum pitch
 ///_commandCamera camCommand "speedDefault 0.1";
 /// _commandCamera camCommand "speedMax 2";
@@ -157,7 +157,7 @@ _commandCamera camCommand "inertia on";
 cameraEffectEnableHUD true;
 
 showHUD true;
-*/
+
 
 /*
 {
