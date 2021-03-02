@@ -7,17 +7,24 @@ createBGPanel =
 
 #define EPADD 0.01
 #define LINEHEIGHT 0.03
-#define LINEWIDTH 0.2
+#define LINEWIDTH 0.2 - (EPADD*2)
 
 _display = findDisplay UNITPOOLDLGID;
 
 _ReservePoolArea = _display displayCtrl 2300;
 
+_panelWidth = 0.2;
 _panelHeight = (EPADD + LINEHEIGHT) * 2 + 0.1;
 
 _cont = _display ctrlCreate ["RscControlsGroup", -1, _ReservePoolArea];
-_cont ctrlSetPosition [_px * 0.25,_py * _panelHeight, 0.20, _panelHeight];
+_cont ctrlSetPosition [_px * 0.25,_py * _panelHeight, _panelWidth, _panelHeight];
 _cont ctrlCommit 0;
+
+_text = _display ctrlCreate ["RscPicture", -1, _cont];
+_text ctrlSetText format["bgPool\bgPanel.jpg"];
+_text ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
+_text ctrlCommit 0;
+
 
 _selBut = _display ctrlCreate ["RscButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
