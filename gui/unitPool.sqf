@@ -2,7 +2,7 @@
 #include "ctrlIds.h"
 
 
-createBgPanels = [];
+createdBgPanels = [];
 
 selectedBattleGroups = [];
 
@@ -30,7 +30,7 @@ _cont = _display ctrlCreate ["RscControlsGroup", -1, _ReservePoolArea];
 _cont ctrlSetPosition [_px * (0.2 + PANEL_PADD),_py * (_panelHeight + PANEL_PADD), _panelWidth, _panelHeight];
 _cont ctrlCommit 0;
 
-createBgPanels pushback _cont;
+createdBgPanels pushback _cont;
 
 _bgr = _display ctrlCreate ["RscPicture", -1, _cont];
 _bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
@@ -97,8 +97,8 @@ createBgPoolPanels =
 
 {
  ctrlDelete _x;
-} foreach createBgPanels;
-createBgPanels = [];
+} foreach createdBgPanels;
+createdBgPanels = [];
 
 _availBgs = missionconfigfile >> "BattleGroups" >> "west";
 
