@@ -1,24 +1,29 @@
 
 #define UNITPOOLDLGID 12345577
 
+createBgPanels = [];
+
 createBGPanel =
 {
- params ["_bgcfg","_px","_py"];
+ params ["_bgcfg","_ctrlgId","_px","_py"];
 
 #define EPADD 0.01
 #define LINEHEIGHT 0.03
 #define LINEWIDTH 0.2 - (EPADD*2)
+#define PANEL_PADD 0.04
 
 _display = findDisplay UNITPOOLDLGID;
 
-_ReservePoolArea = _display displayCtrl 2300;
+_ReservePoolArea = _display displayCtrl _ctrlgId;
 
 _panelWidth = 0.2;
 _panelHeight = (EPADD + LINEHEIGHT) * 2 + 0.1;
 
 _cont = _display ctrlCreate ["RscControlsGroup", -1, _ReservePoolArea];
-_cont ctrlSetPosition [_px * 0.25,_py * _panelHeight, _panelWidth, _panelHeight];
+_cont ctrlSetPosition [_px * (0.2 + PANEL_PADD),_py * (_panelHeight + PANEL_PADD), _panelWidth, _panelHeight];
 _cont ctrlCommit 0;
+
+createBgPanels pushback _cont;
 
 _bgr = _display ctrlCreate ["RscPicture", -1, _cont];
 _bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
@@ -26,18 +31,18 @@ _bgr ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
 _bgr ctrlCommit 0;
 
 
-_selBut = _display ctrlCreate ["RscButton", -1, _cont];
+_selBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
 _selBut ctrlSetPosition [EPADD, EPADD, LINEWIDTH, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
-_selBut ctrlSetBackgroundColor  [0, 1, 0, 1];
+//_selBut ctrlSetBackgroundColor  [0, 1, 0, 1];
 //_selBut ctrlSetDisabledColor  [1, 0, 0, 1];
 //_selBut ctrlSetForegroundColor  [1, 0, 0, 1];
-_selBut ctrlSetActiveColor [0, 0, 1, 1];
+//_selBut ctrlSetActiveColor [0, 0, 1, 1];
 
 
-_selBut buttonSetAction format["%1 call selectReserveBG",numPoolPanels];
+_selBut buttonSetAction format["[%1,%2] call selectReserveBG",_ctrlgId,numPoolPanels];
 
 _text = _display ctrlCreate ["RscText", -1, _cont];
 _text ctrlSetText format["%1", gettext (_bgcfg >> "name")];
@@ -68,6 +73,16 @@ _text2 ctrlCommit 0;
 
 };
 
+selectedBattleGroups = [];
+
+createBgPoolPanels =
+{
+ params ["_init"];
+
+{
+ ctrlDelete _x;
+} foreach createBgPanels;
+createBgPanels = [];
 
 _availBgs = missionconfigfile >> "BattleGroups" >> "west";
 
@@ -77,19 +92,46 @@ for "_i" from 0 to (count _availBgs - 1) do
 {
  _bgCfg = _availBgs select _i;
 
- [_bgCfg,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
+ [_bgCfg,2301,0,numPoolPanels] call createBGPanel;
 
  numPoolPanels = numPoolPanels + 1;
 };
 
+numPoolPanels = 0;
+for "_i" from 0 to (count selectedBattleGroups - 1) do
+{
+ _bgCfg = selectedBattleGroups select _i;
+
+ [_bgCfg,2300,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
+
+ numPoolPanels = numPoolPanels + 1;
+};
+
+};
+
+call createBgPoolPanels;
+
 selectReserveBG =
 {
- params ["_selBgIndex"];
+ params ["_bgListId","_selBgIndex"];
  //hint (str _this);
 
- _availBgs = missionconfigfile >> "BattleGroups" >> "west";
+ _bgCfg = configNull;
 
+if(_bgListId == 2301) then
+{
+ _availBgs = missionconfigfile >> "BattleGroups" >> "west";
  _bgCfg = _availBgs select _selBgIndex;
+
+ selectedBattleGroups pushback _bgCfg;
+
+ call createBgPoolPanels;
+}
+else
+{
+ 
+ _bgCfg = selectedBattleGroups select _selBgIndex;
+};
 
 _display = findDisplay UNITPOOLDLGID;
 
@@ -114,3 +156,6 @@ _bgView lnbSetPicture [[_rowIndex, 0], _rankIcon];
 } foreach _units;
 
 };
+
+
+

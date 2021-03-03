@@ -1,12 +1,14 @@
 
-/* #Faquci
+/* #Kegidy
 $[
 	1.063,
 	["bgpool",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
-	[2300,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","24.5 * UI_GRID_W","17 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1500,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","24 * UI_GRID_H + UI_GRID_Y","24 * UI_GRID_W","9 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = BG_VIEW_COLS;"]]
+	[2300,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","24.5 * UI_GRID_W","16 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1500,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","23 * UI_GRID_H + UI_GRID_Y","24 * UI_GRID_W","9 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = BG_VIEW_COLS;"]],
+	[2301,"",[2,"",["2 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","13 * UI_GRID_W","27 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
+
 
 #define BG_VIEW_COLS {0,0.5}
 
@@ -50,7 +52,7 @@ class controls
 
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Faquci)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Kegidy)
 ////////////////////////////////////////////////////////
 
 class RscControlsGroup_2300: RscControlsGroup
@@ -59,7 +61,7 @@ class RscControlsGroup_2300: RscControlsGroup
 	x = 22 * UI_GRID_W + UI_GRID_X;
 	y = 6 * UI_GRID_H + UI_GRID_Y;
 	w = 24.5 * UI_GRID_W;
-	h = 17 * UI_GRID_H;
+	h = 16 * UI_GRID_H;
 	class Controls
 	{
 	};
@@ -71,9 +73,20 @@ class RscListbox_1500: RscListbox
 
 	idc = 1500;
 	x = 22 * UI_GRID_W + UI_GRID_X;
-	y = 24 * UI_GRID_H + UI_GRID_Y;
+	y = 23 * UI_GRID_H + UI_GRID_Y;
 	w = 24 * UI_GRID_W;
 	h = 9 * UI_GRID_H;
+};
+class RscControlsGroup_2301: RscControlsGroup
+{
+	idc = 2301;
+	x = 2 * UI_GRID_W + UI_GRID_X;
+	y = 6 * UI_GRID_H + UI_GRID_Y;
+	w = 13 * UI_GRID_W;
+	h = 27 * UI_GRID_H;
+	class Controls
+	{
+	};
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
