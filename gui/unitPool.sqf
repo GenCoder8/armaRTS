@@ -1,7 +1,12 @@
 
-#define UNITPOOLDLGID 12345577
+#include "ctrlIds.h"
+
 
 createBgPanels = [];
+
+selectedBattleGroups = [];
+
+#define BGPOOLID 2301
 
 createBGPanel =
 {
@@ -11,6 +16,8 @@ createBGPanel =
 #define LINEHEIGHT 0.03
 #define LINEWIDTH 0.2 - (EPADD*2)
 #define PANEL_PADD 0.04
+
+#define DEL_BUTTON_WIDTH 0.025
 
 _display = findDisplay UNITPOOLDLGID;
 
@@ -30,19 +37,30 @@ _bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
 _bgr ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
 _bgr ctrlCommit 0;
 
+_selButtonWidth = LINEWIDTH;
+
+if(_ctrlgId != BGPOOLID) then
+{
+ _selButtonWidth = _selButtonWidth - DEL_BUTTON_WIDTH;
+
+_delBut = _display ctrlCreate ["RtsButton", -1, _cont];
+_delBut ctrlSetText format["%1", "X"];
+_delBut ctrlSetPosition [EPADD + _selButtonWidth, EPADD, DEL_BUTTON_WIDTH, LINEHEIGHT];
+_delBut ctrlCommit 0;
+
+_delBut buttonSetAction format["[%1,%2] call deleteSelectedBG",_ctrlgId,numPoolPanels];
+
+};
 
 _selBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
-_selBut ctrlSetPosition [EPADD, EPADD, LINEWIDTH, LINEHEIGHT];
+_selBut ctrlSetPosition [EPADD, EPADD, _selButtonWidth, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
-//_selBut ctrlSetBackgroundColor  [0, 1, 0, 1];
-//_selBut ctrlSetDisabledColor  [1, 0, 0, 1];
-//_selBut ctrlSetForegroundColor  [1, 0, 0, 1];
-//_selBut ctrlSetActiveColor [0, 0, 1, 1];
-
-
 _selBut buttonSetAction format["[%1,%2] call selectReserveBG",_ctrlgId,numPoolPanels];
+
+
+
 
 _text = _display ctrlCreate ["RscText", -1, _cont];
 _text ctrlSetText format["%1", gettext (_bgcfg >> "name")];
@@ -73,8 +91,6 @@ _text2 ctrlCommit 0;
 
 };
 
-selectedBattleGroups = [];
-
 createBgPoolPanels =
 {
  params ["_init"];
@@ -86,8 +102,8 @@ createBgPanels = [];
 
 _availBgs = missionconfigfile >> "BattleGroups" >> "west";
 
+// Create battle groups pool
 numPoolPanels = 0;
-
 for "_i" from 0 to (count _availBgs - 1) do
 {
  _bgCfg = _availBgs select _i;
@@ -97,6 +113,7 @@ for "_i" from 0 to (count _availBgs - 1) do
  numPoolPanels = numPoolPanels + 1;
 };
 
+// Create selected battle groups
 numPoolPanels = 0;
 for "_i" from 0 to (count selectedBattleGroups - 1) do
 {
@@ -109,7 +126,6 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 
 };
 
-call createBgPoolPanels;
 
 selectReserveBG =
 {
@@ -134,9 +150,7 @@ else
 };
 
 _display = findDisplay UNITPOOLDLGID;
-
 _bgView = _display displayCtrl 1500;
-
 lbClear _bgView;
 
  _units = getArray (_bgCfg >> "units");
@@ -157,5 +171,19 @@ _bgView lnbSetPicture [[_rowIndex, 0], _rankIcon];
 
 };
 
+deleteSelectedBG =
+{
+ params ["_bgListId","_selBgIndex"];
+
+ selectedBattleGroups deleteAt _selBgIndex;
+
+call createBgPoolPanels;
+
+_display = findDisplay UNITPOOLDLGID;
+_bgView = _display displayCtrl 1500;
+lbClear _bgView;
+
+};
 
 
+call createBgPoolPanels;

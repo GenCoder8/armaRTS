@@ -1,3 +1,5 @@
+#include "ctrlIds.h"
+
 
 /* #Kegidy
 $[
@@ -12,7 +14,7 @@ $[
 
 #define BG_VIEW_COLS {0,0.5}
 
-#define UNITPOOLDLGID 12345577
+
 
 class UnitPoolDlg
 {
