@@ -20,10 +20,10 @@ _cont = _display ctrlCreate ["RscControlsGroup", -1, _ReservePoolArea];
 _cont ctrlSetPosition [_px * 0.25,_py * _panelHeight, _panelWidth, _panelHeight];
 _cont ctrlCommit 0;
 
-_text = _display ctrlCreate ["RscPicture", -1, _cont];
-_text ctrlSetText format["bgPool\bgPanel.jpg"];
-_text ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
-_text ctrlCommit 0;
+_bgr = _display ctrlCreate ["RscPicture", -1, _cont];
+_bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
+_bgr ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
+_bgr ctrlCommit 0;
 
 
 _selBut = _display ctrlCreate ["RscButton", -1, _cont];

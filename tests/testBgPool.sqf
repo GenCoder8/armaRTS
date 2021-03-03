@@ -1,5 +1,7 @@
 
-_w = execvm "bgPool\bgFns.sqf";
+RTSmainPath = "armaRTS.Altis\";
+
+_w = execvm (RTSmainPath+"bgFns.sqf");
 waituntil { scriptdone _w };
 
 errmsg =
@@ -21,7 +23,7 @@ player globalchat _print;
 diag_log _print;
 };
 
-_w = execvm "bgPool\bgMain.sqf";
+_w = execvm (RTSmainPath+"bgPool.sqf");
 waituntil { scriptdone _w };
 
 [manPoolWest,"testteam"] call addBattleGroupToPool;
@@ -36,7 +38,7 @@ waituntil { scriptdone _w };
 
 sleep 0.1;
 createDialog "UnitPoolDlg";
-_w = execvm "bgPool\unitPool.sqf";
+_w = execvm (RTSmainPath+"gui\unitPool.sqf");
 waituntil { scriptdone _w };
 
 
