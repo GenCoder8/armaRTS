@@ -273,7 +273,7 @@ countListTypeNumbers =
 {
   private _ue = _x;
  _cn = _ue call getUnitTypeNumbers;
-  _counts = [_counts,_cn] call addBgTypes;
+  _counts = [_counts,_cn] call addList;
 
 } foreach _units;
 
@@ -297,7 +297,7 @@ private _counts = [0,0,0];
  _counts
 };
 
-addBgTypes =
+addList =
 {
  params ["_counts1","_counts2"];
 
@@ -306,7 +306,7 @@ addBgTypes =
  _counts1
 };
 
-subBgTypes =
+subList =
 {
  params ["_counts1","_counts2"];
 

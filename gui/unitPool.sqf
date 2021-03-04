@@ -116,14 +116,14 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
  private _cn = (configname _bgCfg) call countBgPoolNeed;
 
 
- _neededMen = [_neededMen,_cn] call addBgTypes;
+ _neededMen = [_neededMen,_cn] call addList;
 };
  
 
 _mpool = call getManPool;
 _poolCounts = [_mpool] call countListTypeNumbers;
 
-_poolLeftTypes = [_poolCounts,_neededMen] call subBgTypes;
+_poolLeftTypes = [_poolCounts,_neededMen] call subList;
 
  systemchat format[">> %1", _poolLeftTypes];
 
@@ -137,7 +137,7 @@ for "_i" from 0 to (count _availBgs - 1) do
  _bgCfg = _availBgs select _i;
 
  private _cn = (configname _bgCfg) call countBgPoolNeed;
- private _left = [+_poolLeftTypes,_cn] call subBgTypes;
+ private _left = [+_poolLeftTypes,_cn] call subList;
  
 _notEnough = false;
 if((_left findIf { _x < 0}) >= 0 ) then
