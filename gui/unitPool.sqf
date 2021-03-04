@@ -1,7 +1,6 @@
 
 #include "ctrlIds.h"
 
-
 createdBgPanels = [];
 
 selectedBattleGroups = [];
@@ -10,7 +9,7 @@ selectedBattleGroups = [];
 
 createBGPanel =
 {
- params ["_bgcfg","_ctrlgId","_px","_py"];
+ params ["_bgcfg","_ctrlgId","_px","_py",["_active",true]];
 
 #define EPADD 0.01
 #define LINEHEIGHT 0.03
@@ -52,13 +51,15 @@ _delBut buttonSetAction format["[%1,%2] call poolDeleteSelectedBG",_ctrlgId,numP
 
 };
 
+if(_active) then
+{
 _selBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
 _selBut ctrlSetPosition [EPADD, EPADD, _selButtonWidth, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
 _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
-
+};
 
 
 
@@ -100,18 +101,7 @@ createBgPoolPanels =
 } foreach createdBgPanels;
 createdBgPanels = [];
 
-_availBgs = missionconfigfile >> "BattleGroups" >> "west";
-
-// Create battle groups pool
-numPoolPanels = 0;
-for "_i" from 0 to (count _availBgs - 1) do
-{
- _bgCfg = _availBgs select _i;
-
- [_bgCfg,2301,0,numPoolPanels] call createBGPanel;
-
- numPoolPanels = numPoolPanels + 1;
-};
+_neededMen = [0,0,0];
 
 // Create selected battle groups
 numPoolPanels = 0;
@@ -120,6 +110,44 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
  _bgCfg = selectedBattleGroups select _i;
 
  [_bgCfg,2300,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
+
+ numPoolPanels = numPoolPanels + 1;
+
+ private _cn = (configname _bgCfg) call countBgPoolNeed;
+
+
+ _neededMen = [_neededMen,_cn] call addBgTypes;
+};
+ 
+
+_mpool = call getManPool;
+_poolCounts = [_mpool] call countListTypeNumbers;
+
+_poolLeftTypes = [_poolCounts,_neededMen] call subBgTypes;
+
+ systemchat format[">> %1", _poolLeftTypes];
+
+
+_availBgs = missionconfigfile >> "BattleGroups" >> "west";
+
+// Create battle groups pool
+numPoolPanels = 0;
+for "_i" from 0 to (count _availBgs - 1) do
+{
+ _bgCfg = _availBgs select _i;
+
+ private _cn = (configname _bgCfg) call countBgPoolNeed;
+ private _left = [+_poolLeftTypes,_cn] call subBgTypes;
+ 
+_notEnough = false;
+if((_left findIf { _x < 0}) >= 0 ) then
+{
+ _notEnough = true;
+
+ systemchat format["not enough: %1 %2",(configname _bgCfg),_left];
+};
+
+ [_bgCfg,2301,0,numPoolPanels,!_notEnough] call createBGPanel;
 
  numPoolPanels = numPoolPanels + 1;
 };

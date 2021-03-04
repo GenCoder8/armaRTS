@@ -1,5 +1,21 @@
 
 
+getPoolSide =
+{
+ west
+};
+
+getSideText =
+{
+ str _this
+};
+
+getManPool =
+{
+ params ["_side"];
+ manPoolWest
+};
+
 vehicleAttributes = [];
 
 #define VEH_ATTRS_TYPE   0
@@ -221,3 +237,81 @@ if(count _entry == 0) exitWith
  } foreach _units;
 
 };
+
+getUnitTypeNumbers =
+{
+params ["_ue"];
+
+private _counts = [0,0,0];
+
+ // vehicle
+if(!(_ue iskindOf "man")) then
+{
+ _counts set [1, (_counts # 1) + 1];
+
+private _vattrs = _ue call getVehicleAttrs;
+
+private _crewList = _vattrs # VEH_ATTRS_CREW;
+
+ _counts set [2, (_counts # 2) + count _crewList];
+
+}
+else // infantry
+{
+ _counts set [0, (_counts # 0) + 1];
+};
+
+_counts
+};
+
+countListTypeNumbers =
+{
+ params ["_units"];
+
+ private _counts = [0,0,0];
+
+{
+  private _ue = _x;
+ _cn = _ue call getUnitTypeNumbers;
+  _counts = [_counts,_cn] call addBgTypes;
+
+} foreach _units;
+
+ _counts
+};
+
+countBgPoolNeed =
+{
+ params ["_bgname"];
+
+ _side = call getPoolSide;
+ _pos = getPos player;
+
+ private _ce = [_side,_bgname] call getBattleGroupCfg;
+
+private _counts = [0,0,0];
+
+ private _units = getArray(_ce >> "units");
+ _counts = [_units] call countListTypeNumbers;
+
+ _counts
+};
+
+addBgTypes =
+{
+ params ["_counts1","_counts2"];
+
+ { _counts1 set [_foreachIndex, (_counts1 # _foreachIndex) + _x ]; } foreach _counts2;
+
+ _counts1
+};
+
+subBgTypes =
+{
+ params ["_counts1","_counts2"];
+
+ { _counts1 set [_foreachIndex, (_counts1 # _foreachIndex) - _x ]; } foreach _counts2;
+
+ _counts1
+};
+
