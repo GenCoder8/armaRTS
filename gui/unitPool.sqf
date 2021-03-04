@@ -48,7 +48,7 @@ _delBut ctrlSetText format["%1", "X"];
 _delBut ctrlSetPosition [EPADD + _selButtonWidth, EPADD, DEL_BUTTON_WIDTH, LINEHEIGHT];
 _delBut ctrlCommit 0;
 
-_delBut buttonSetAction format["[%1,%2] call deleteSelectedBG",_ctrlgId,numPoolPanels];
+_delBut buttonSetAction format["[%1,%2] call poolDeleteSelectedBG",_ctrlgId,numPoolPanels];
 
 };
 
@@ -57,7 +57,7 @@ _selBut ctrlSetText format["%1", "Select"];
 _selBut ctrlSetPosition [EPADD, EPADD, _selButtonWidth, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
-_selBut buttonSetAction format["[%1,%2] call selectReserveBG",_ctrlgId,numPoolPanels];
+_selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
 
 
 
@@ -126,11 +126,14 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 
 };
 
+selectedReserveBG = configNull;
 
-selectReserveBG =
+poolSelectBG =
 {
  params ["_bgListId","_selBgIndex"];
  //hint (str _this);
+
+ call poolDeselectBG;
 
  _bgCfg = configNull;
 
@@ -139,9 +142,9 @@ if(_bgListId == 2301) then
  _availBgs = missionconfigfile >> "BattleGroups" >> "west";
  _bgCfg = _availBgs select _selBgIndex;
 
- selectedBattleGroups pushback _bgCfg;
+ selectedReserveBG = _bgCfg;
 
- call createBgPoolPanels;
+ ctrlShow [1600, true];
 }
 else
 {
@@ -171,7 +174,7 @@ _bgView lnbSetPicture [[_rowIndex, 0], _rankIcon];
 
 };
 
-deleteSelectedBG =
+poolDeleteSelectedBG =
 {
  params ["_bgListId","_selBgIndex"];
 
@@ -179,11 +182,31 @@ deleteSelectedBG =
 
 call createBgPoolPanels;
 
+ call poolDeselectBG;
+
+};
+
+poolAddReserveBG =
+{
+
+ selectedBattleGroups pushback selectedReserveBG;
+
+ call createBgPoolPanels;
+
+};
+
+poolDeselectBG =
+{
 _display = findDisplay UNITPOOLDLGID;
 _bgView = _display displayCtrl 1500;
 lbClear _bgView;
+
+ctrlShow [1600, false];
+
+selectedReserveBG = configNull;
 
 };
 
 
 call createBgPoolPanels;
+call poolDeselectBG;
