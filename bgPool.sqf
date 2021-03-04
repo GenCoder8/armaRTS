@@ -67,6 +67,12 @@ vehicleAttributes pushback [_type,_crew apply { typeof _x }];
 deleteVehicle _veh;
 };
 
+// Add crew to pool
+_vattrs = _type call getVehicleAttrs;
+{
+_manPool pushback [_x,"PRIVATE",_skill]; // Same skill, todo rank
+} foreach (_vattrs # VEH_ATTRS_CREW);
+
 };
 
 };

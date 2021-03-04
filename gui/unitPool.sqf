@@ -96,6 +96,8 @@ createBgPoolPanels =
 {
  params ["_init"];
 
+call poolDeselectBG;
+
 {
  ctrlDelete _x;
 } foreach createdBgPanels;
@@ -140,7 +142,7 @@ for "_i" from 0 to (count _availBgs - 1) do
  private _left = [+_poolLeftTypes,_cn] call subList;
  
 _notEnough = false;
-if((_left findIf { _x < 0}) >= 0 ) then
+if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 {
  _notEnough = true;
 
@@ -236,5 +238,3 @@ selectedReserveBG = configNull;
 };
 
 
-call createBgPoolPanels;
-call poolDeselectBG;
