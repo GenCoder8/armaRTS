@@ -75,8 +75,20 @@ systemchat format ["Connections: %1", count _connections];
 
  _dir = [_otherBL,_bl] call getAngle;
 
+ _dist = (_bl distance2D _otherBL) - 1000; // Get dist again
+
+
+#define MIN_CON_ARROW_DIST 800
+
 {
-_vec = [_x,300] call getvector;
+
+_maxdist = 400;
+if(_dist < MIN_CON_ARROW_DIST) then
+{
+ _maxdist = _maxdist - (MIN_CON_ARROW_DIST - _dist);
+};
+
+_vec = [_x,_maxdist] call getvector;
 _apos = [_vec,_center] call addvector;
 
 _mrk = createmarker [format["conCen_%1_%2",_apos,_dir], _apos];
