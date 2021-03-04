@@ -38,7 +38,7 @@ _mrk setMarkerColor "ColorRed";
 
 sleep 0.1;
 
-_battleLocations = allMapMarkers select { markerColor _x == "ColorOrange" };
+_battleLocations = allMapMarkers select { markerColor _x == "ColorOrange" }; // TODO
 
 systemchat format ["found %1 locations", count _battleLocations];
 
@@ -75,14 +75,14 @@ systemchat format ["Connections: %1", count _connections];
 
  _dir = [_otherBL,_bl] call getAngle;
 
- _dist = (_bl distance2D _otherBL) - 1000; // Get dist again
+ _dist = (_bl distance2D _otherBL); // Get dist again
 
 
-#define MIN_CON_ARROW_DIST 800
+#define MIN_CON_ARROW_DIST 1700
 
 {
 
-_maxdist = 400;
+_maxdist = 300;
 if(_dist < MIN_CON_ARROW_DIST) then
 {
  _maxdist = _maxdist - (MIN_CON_ARROW_DIST - _dist);
