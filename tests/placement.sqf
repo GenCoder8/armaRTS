@@ -11,13 +11,9 @@ compileFile =
  _code
 };
 
- getAngle = RTSmainPath+"math\getAngleFn.sqf" call compileFile;
- getVecLength = RTSmainPath+"math\getVecLengthFn.sqf" call compileFile;
- getVecDir = RTSmainPath+"math\getVecDirFn.sqf" call compileFile;
- getvector = RTSmainPath+"math\getvectorFn.sqf" call compileFile;
- addvector = RTSmainPath+"math\addVecFn.sqf" call compileFile;
- angleDist = RTSmainPath+"math\angleDistFn.sqf" call compileFile;
- make360 = RTSmainPath+"math\make360Fn.sqf" call compileFile;
+_w = execvm (RTSmainPath+"load.sqf");
+waituntil { scriptdone _w };
+
 
 /*
 for "_i" from 0 to 1000 do
