@@ -29,6 +29,30 @@ _mrk setMarkerColor "ColorBlack";
 _mrk setMarkerSize [_areaSize # 0,_deployAreaDepth];
 _mrk setMarkerDir _attackDir;
 
+_angle = 0;
+{
+_x params ["_width","_depth"];
+
+_pax = 0;
+while { _pax < (_width * 2) } do
+{
+
+_vex = [_attackDir + 90 + _angle, _pax - (_width)  ] call getvector;
+_vey = [_attackDir + _angle, _depth ] call getvector;
+_ve = [_vex,_vey] call addvector;
+
+_vf = [_ve,_vecFromCenter] call addvector;
+_vf = [_areaPos,_vf] call addvector;
+
+_vf set [2,0];
+createSimpleObject ["Sign_Arrow_F",AGLToASL _vf,true];
+
+_pax = _pax + 5;
+};
+
+_angle = _angle + 90;
+} foreach [[_deployAreaWidth,_deployAreaDepth], [_deployAreaDepth,_deployAreaWidth], [_deployAreaWidth,_deployAreaDepth], [_deployAreaDepth,_deployAreaWidth]];
+
 if(_foreachIndex == 0) then
 {
 deployAreaA = _mrk;
