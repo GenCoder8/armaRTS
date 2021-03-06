@@ -1,20 +1,5 @@
 
-folderPrefix = "";
-compileFile =
-{
- params ["_path"];
- _path = folderPrefix + _path;
- private _code = compile preprocessFileLineNumbers _path;
- _code
-};
 
- getAngle = "math\getAngleFn.sqf" call compileFile;
- getVecLength = "math\getVecLengthFn.sqf" call compileFile;
- getVecDir = "math\getVecDirFn.sqf" call compileFile;
- getvector = "math\getvectorFn.sqf" call compileFile;
- addvector = "math\addVecFn.sqf" call compileFile;
- angleDist = "math\angleDistFn.sqf" call compileFile;
- make360 = "math\make360Fn.sqf" call compileFile;
 
 
 findFromArray = compile preprocessFileLineNumbers "findFromArrayFn.sqf";
