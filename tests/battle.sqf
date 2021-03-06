@@ -9,22 +9,38 @@ beginBattlePlacement =
 {
  params ["_areaMarker","_attackDir"];
 
+deployAreaMain = _areaMarker;
+
 _areaPos = markerPos _areaMarker;
 _areaSize = markerSize _areaMarker;
 
 _deployAreaDepth = 75;
 _deployAreaWidth = _areaSize # 0;
 
-_vecFromCenter = [_attackDir, _areaSize # 0 - _deployAreaDepth ] call getvector;
+{
+_deployDir = _x;
+
+_vecFromCenter = [_attackDir + _deployDir, _areaSize # 0 - _deployAreaDepth ] call getvector;
 _placeAreaRectPos = [_vecFromCenter,_areaPos] call addvector;
 
-_mrk = createmarker [format["%1",random 1000], _placeAreaRectPos];
+_mrk = createmarker [format["deploySide%1",_deployDir], _placeAreaRectPos];
 _mrk setMarkerShape "RECTANGLE";
 _mrk setMarkerColor "ColorBlack";
 _mrk setMarkerSize [_areaSize # 0,_deployAreaDepth];
 _mrk setMarkerDir _attackDir;
 
+if(_foreachIndex == 0) then
+{
+deployAreaA = _mrk;
+}
+else
+{
+deployAreaB = _mrk;
+};
 
+} foreach [0,180];
+
+/*
 for "_i" from 0 to 1000 do
 {
 
@@ -39,7 +55,7 @@ _mrk setMarkerShape "icon";
 _mrk setMarkerType "mil_dot";
 _mrk setMarkerColor "ColorRed";
 
-};
+};*/
 
 
 };
