@@ -17,6 +17,7 @@ _areaSize = markerSize _areaMarker;
 _deployAreaDepth = 75;
 _deployAreaWidth = _areaSize # 0;
 
+/*
 {
 _deployDir = _x;
 
@@ -63,6 +64,7 @@ deployAreaB = _mrk;
 };
 
 } foreach [0,180];
+*/
 
 /*
 for "_i" from 0 to 1000 do
@@ -82,6 +84,63 @@ _mrk setMarkerColor "ColorRed";
 };*/
 
 
+
+
+_zg = creategroup (call getPlayerSide);
+
+
+_zeus = _zg createUnit ["ModuleCurator_F", [0,0,0], [], 0, "NONE"];
+plrZeus = _zeus;
+
+_zeus synchronizeObjectsAdd [player];
+ 
+
+//_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"]; 
+//_zeus synchronizeObjectsAdd [_zmCamArea];
+
+_deployAreaPos = [_areaPos,120] call getBattleDeployPos;
+
+
+_zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
+
+
+
+_zeus addCuratorEditingArea [0,_deployAreaPos,75];
+
+
+//_zeus setCuratorEditingAreaType true;
+
+};
+
+#define DEPLOY_AREA_SIZE 75
+#define BATTLE_AREA_SIZE 255
+
+getBattleDeployPos =
+{
+ params ["_areaPos","_attackDir"];
+
+_vecFromCenter = [_attackDir + 0, BATTLE_AREA_SIZE - DEPLOY_AREA_SIZE ] call getvector;
+_placeAreaRectPos = [_vecFromCenter,_areaPos] call addvector;
+
+_placeAreaRectPos set [2,0];
+
+ _placeAreaRectPos
+};
+
+beginBattle =
+{
+
+
+//plrZeus allowCuratorLogicIgnoreAreas true;
+ 
+plrZeus removeCuratorEditingArea 0;
+};
+
+
+
+getPlayerSide =
+{
+playerside
 };
 
 
