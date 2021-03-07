@@ -58,6 +58,15 @@ class fury
 #include "gui\parent.h"
 #include "gui\rtsCtrls.h"
 
+
+class RscTitles
+{
+ titles[]={ComOverlay}; 
+   
+ #include "gui\overlay.h"
+};
+
+
 #include "gui\bgpool.h"
 
 

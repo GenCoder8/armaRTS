@@ -14,6 +14,12 @@ toRoundsText =
  format["%1",_ammoCount]
 };
 
+activateBattleGui =
+{
+ cutRsc["ComOverlay","PLAIN",0];
+
+};
+
 while { true } do
 {
  _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
@@ -23,7 +29,9 @@ while { true } do
 
  _groupView = _overlay displayCtrl 1500;
  
-_sel = hcSelected player;
+_sel = curatorSelected # 1;
+
+// hint format[">>> %1 ", curatorSelected];
 
 if(count _sel > 0) then
 {

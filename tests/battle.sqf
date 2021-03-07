@@ -4,6 +4,10 @@ RTSmainPath = "armaRTS.Altis\";
 _w = execvm (RTSmainPath+"load.sqf");
 waituntil { scriptdone _w };
 
+// Radius
+#define DEPLOY_AREA_SIZE 75
+#define BATTLE_AREA_SIZE 255
+
 
 beginBattlePlacement =
 {
@@ -110,21 +114,26 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 
 //_zeus setCuratorEditingAreaType true;
 
+_tg = [_deployAreaPos, side player, (configFile >> "CfgGroups" >> "West" >> "BLU_F" >> "Infantry" >> "BUS_InfAssault")] call BIS_fnc_spawnGroup;
+
+
+_zeus addCuratorEditableObjects [units _tg, false];
+
+
 };
 
-#define DEPLOY_AREA_SIZE 75
-#define BATTLE_AREA_SIZE 255
+
 
 getBattleDeployPos =
 {
  params ["_areaPos","_attackDir"];
 
-_vecFromCenter = [_attackDir + 0, BATTLE_AREA_SIZE - DEPLOY_AREA_SIZE ] call getvector;
-_placeAreaRectPos = [_vecFromCenter,_areaPos] call addvector;
+ private _vecFromCenter = [_attackDir, BATTLE_AREA_SIZE - DEPLOY_AREA_SIZE ] call getvector;
+ private _pos = [_vecFromCenter,_areaPos] call addvector;
 
-_placeAreaRectPos set [2,0];
+ _pos set [2,0];
 
- _placeAreaRectPos
+ _pos
 };
 
 beginBattle =
@@ -134,6 +143,8 @@ beginBattle =
 //plrZeus allowCuratorLogicIgnoreAreas true;
  
 plrZeus removeCuratorEditingArea 0;
+
+call activateBattleGui;
 };
 
 
@@ -145,3 +156,5 @@ playerside
 
 
 ["marker_0",120] call beginBattlePlacement;
+
+call beginBattle;
