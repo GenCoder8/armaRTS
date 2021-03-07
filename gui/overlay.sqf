@@ -1,7 +1,3 @@
-addMissionEventHandler ["HCGroupSelectionChanged", {
-	params ["_group", "_isSelected"];
-hint "SEL";
-}];
 
 lastViewedGroup = grpNull;
 lastViewUpdate = 0;
@@ -29,7 +25,7 @@ while { true } do
 
  _groupView = _overlay displayCtrl 1500;
  
-_sel = curatorSelected # 1;
+_sel = curatorSelected # 1; // get groups
 
 // hint format[">>> %1 ", curatorSelected];
 
