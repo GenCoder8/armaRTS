@@ -142,7 +142,7 @@ beginBattle =
 
 //plrZeus allowCuratorLogicIgnoreAreas true;
  
-plrZeus removeCuratorEditingArea 0;
+//plrZeus removeCuratorEditingArea 0;
 
 call activateBattleGui;
 };

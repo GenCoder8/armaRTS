@@ -1,3 +1,88 @@
+#include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
+#include "\a3\ui_f\hpp\definedikcodes.inc"
+
+
+
+/*
+this addEventHandler ["CuratorGroupSelectionChanged", {
+	params ["_curator", "_group"];
+}];
+
+*/
+
+onZeusOpen =
+{
+
+waitUntil { !isNull findDisplay 312 };
+sleep 0.1;
+
+with (uinamespace) do
+{
+_display = finddisplay 312;
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBARTITLE;
+['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
+
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
+_ctrl ctrlShow false;
+};
+
+ call interceptZeusKeys;
+};
+
+
+{
+(findDisplay _x) displayRemoveAllEventHandlers "KeyDown";
+
+findDisplay _x displayAddEventHandler ["KeyDown",
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+private _handled = false;
+
+if(inputAction "CuratorInterface" > 0) then 
+{
+ systemchat format["zeus open... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
+
+ [] spawn onZeusOpen;
+};
+
+_handled
+}];
+} foreach [12];
+
+
+interceptZeusKeys =
+{
+(findDisplay 312) displayRemoveAllEventHandlers "KeyDown";
+
+findDisplay 312 displayAddEventHandler ["KeyDown",
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+private _handled = false;
+
+// R+E+backspace
+
+if(_key isEqualTo DIK_E) then 
+{
+ _handled = true;
+};
+
+if(_key isEqualTo DIK_TAB) then 
+{
+ _handled = true;
+
+ systemchat format["jeeee... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
+
+};
+
+_handled
+}] 
+
+};
+
+// curatorToggleCreate
+// https://community.bistudio.com/wiki/inputAction/actions
 
 lastViewedGroup = grpNull;
 lastViewUpdate = 0;

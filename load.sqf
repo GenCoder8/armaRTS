@@ -23,7 +23,7 @@ _w = execvm (RTSmainPath+"bgPool.sqf");
 waituntil { scriptdone _w };
 
 
-_w = execvm (RTSmainPath+"gui\overlay.sqf");
+_w = execvm (RTSmainPath+"gui\battleGui.sqf");
 //waituntil { scriptdone _w };
 
 

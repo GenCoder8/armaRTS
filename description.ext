@@ -63,7 +63,7 @@ class RscTitles
 {
  titles[]={ComOverlay}; 
    
- #include "gui\overlay.h"
+ #include "gui\battleGui.h"
 };
 
 
