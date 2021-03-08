@@ -10,24 +10,46 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 
 */
 
+
 onZeusOpen =
 {
 
 waitUntil { !isNull findDisplay 312 };
 sleep 0.1;
 
+
+_display = finddisplay 312;
+
+if(isnil "hidden") then
+{
+
+{
 with (uinamespace) do
 {
-_display = finddisplay 312;
-_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBARTITLE;
+_ctrl = _display displayctrl _x;
 ['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
+};
 
+} foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
+
+
+ hidden = true;
+};
+
+// Create button
 _ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
 _ctrl ctrlShow false;
-};
+
+// Edit button
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_MISSIONBAR;
+_ctrl ctrlShow false;
+
 
  call interceptZeusKeys;
 };
+
+
+waitUntil { !isNull findDisplay 46 };
 
 
 {
@@ -65,21 +87,21 @@ params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
-if(_key in [DIK_E,DIK_R,DIK_BACKSLASH]) then 
+if(_key in [DIK_E,DIK_R,DIK_BACKSLASH,DIK_TAB]) then 
 {
  _handled = true;
 };
-
+/*
 if(_key isEqualTo DIK_TAB) then 
 {
  _handled = true;
 
  systemchat format["jeeee... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
 
-};
+};*/
 
 _handled
-}] 
+}];
 
 };
 
