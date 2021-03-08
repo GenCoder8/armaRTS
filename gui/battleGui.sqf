@@ -32,6 +32,10 @@ _ctrl ctrlShow false;
 
 {
 (findDisplay _x) displayRemoveAllEventHandlers "KeyDown";
+} foreach [0,46];
+
+
+{
 
 findDisplay _x displayAddEventHandler ["KeyDown",
 {
@@ -48,7 +52,7 @@ if(inputAction "CuratorInterface" > 0) then
 
 _handled
 }];
-} foreach [12];
+} foreach [46]; //[0,12,46,312,313];
 
 
 interceptZeusKeys =
@@ -61,9 +65,7 @@ params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
-// R+E+backspace
-
-if(_key isEqualTo DIK_E) then 
+if(_key in [DIK_E,DIK_R,DIK_BACKSLASH]) then 
 {
  _handled = true;
 };
