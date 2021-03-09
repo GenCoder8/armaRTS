@@ -23,7 +23,15 @@ getSideText =
 getManPool =
 {
  params ["_side"];
- manPoolWest
+
+private _pool = switch(_side) do
+{
+ case east: { manPoolEast };
+ case west: { manPoolWest };
+ default { "invalid side for man pool" call errmsg; };
+};
+
+ _pool
 };
 
 vehicleAttributes = [];
@@ -33,6 +41,7 @@ vehicleAttributes = [];
 
 
 manPoolWest = [];
+manPoolEast = [];
 
 #define MANP_TYPE  0
 #define MANP_RANK  1
