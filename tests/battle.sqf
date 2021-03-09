@@ -118,8 +118,9 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 
 // ["testteam",call getPlayerSide,_deployAreaPos] call createBattleGroup;
 
-[manPoolWest,"testteam"] call addBattleGroupToPool;
-[manPoolWest,"testteam",call getPlayerSide,_deployAreaPos] call createBattleGroupFromPool;
+
+[call getPlayerSide,"testteam"] call addBattleGroupToPool;
+[call getPlayerSide,"testteam",_deployAreaPos] call createBattleGroupFromPool;
 
 
 

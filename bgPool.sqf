@@ -1,9 +1,13 @@
 
-
+/*
 getPoolSide =
 {
- west
-};
+ private _ret = east;
+
+ if(_this == manPoolWest) then { _ret = west; };
+
+ _ret
+};*/
 
 getSideText =
 {
@@ -147,9 +151,11 @@ getBattleGroupCfg =
 
 addBattleGroupToPool =
 {
- params ["_manPool","_bgname"];
+ params ["_side","_bgname"];
 
- private _ce = [west,_bgname] call getBattleGroupCfg;
+ private _manPool = _side call getManPool;
+
+ private _ce = [_side,_bgname] call getBattleGroupCfg;
 
  _skill = 0.8;
 
@@ -167,7 +173,9 @@ addBattleGroupToPool =
 
 createBattleGroupFromPool =
 {
- params ["_manPool","_bgname","_side","_pos"];
+ params ["_side","_bgname","_pos"];
+
+ private _manPool = _side call getManPool;
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
