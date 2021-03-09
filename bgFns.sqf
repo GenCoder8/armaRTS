@@ -163,3 +163,8 @@ if(_index < (count _ranks)) then
 _rank
 };
 
+
+getPlayerSide =
+{
+playerside
+};

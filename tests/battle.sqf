@@ -114,13 +114,40 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 
 //_zeus setCuratorEditingAreaType true;
 
-_tg = [_deployAreaPos, side player, (configFile >> "CfgGroups" >> "West" >> "BLU_F" >> "Infantry" >> "BUS_InfAssault")] call BIS_fnc_spawnGroup;
+//_tg = [_deployAreaPos, side player, (configFile >> "CfgGroups" >> "West" >> "BLU_F" >> "Infantry" >> "BUS_InfAssault")] call BIS_fnc_spawnGroup;
+
+// ["testteam",call getPlayerSide,_deployAreaPos] call createBattleGroup;
+
+[manPoolWest,"testteam"] call addBattleGroupToPool;
+[manPoolWest,"testteam",call getPlayerSide,_deployAreaPos] call createBattleGroupFromPool;
 
 
-_zeus addCuratorEditableObjects [units _tg, false];
+
+
+plrZeus addEventHandler ["CuratorWaypointPlaced", {
+	params ["_curator", "_group", "_waypointID"];
+
+ // man buildings
+ [_group,false] call onNewMove;
+
+ _wps = waypoints _group;
+
+ // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
+
+// Continue moving if first waypoints...
+if(count _wps <= 2) then
+{
+
+ (leader _group) doMove (waypointPosition [_group,_waypointID]);
+};
+
+}];
+
+
 
 
 };
+
 
 
 
@@ -149,10 +176,6 @@ call activateBattleGui;
 
 
 
-getPlayerSide =
-{
-playerside
-};
 
 
 ["marker_0",120] call beginBattlePlacement;

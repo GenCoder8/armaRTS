@@ -138,6 +138,7 @@ private  _clear = false;
 for "_d" from _startDir to (360 + _startDir) step 90 do
 {
  scopename "cangles";
+
  _clear =  [_spos,_d,_bLength / 2] call checkWindowLine;
  
  if(_clear) then
@@ -305,7 +306,7 @@ _sortedPositions = _sf + _se;
 
  _numInThisBldg = 0;
 
-hint format["MANNING %1",  (count _sortedPositions) ];
+// hint format["MANNING %1",  (count _sortedPositions) ];
 
 
 _units = units _group;

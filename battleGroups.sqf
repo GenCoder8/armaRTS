@@ -3,72 +3,27 @@
 
 unitHighlights = [];
 
-createBattleGroup =
+registerBattleGroup =
 {
- params ["_bgname","_bgSide","_spawnPos"];
- private _bgs = missionconfigfile >> "BattleGroups";
+ params ["_group"];
 
- _foundBgConfig = _bgs >> (str _bgSide) >> _bgname;
- 
-/*
-_foundBgSide = west;
+ _bgSide = side _group;
 
-{
-_checkBgCfg = _bgs >> (str _x) >> _bgname;
-if(!isnull _checkBgCfg) exitWith
-{
- _foundBgConfig = _checkBgCfg;
- _foundBgSide = _x;
-};
+ _highlighted = [];
+ {
 
-} foreach
- [west,east];
-*/
 
-if(isnull _foundBgConfig) exitWith { hint "Error finding battle group"; }; // Error
+ if(vehicle _x != _x) then
+ {
+  _highlighted pushbackUnique (vehicle _x);
+ };
 
-_bgRoster = getArray _foundBgConfig;
+ _highlighted pushbackUnique _x;
 
-_group = createGroup _bgSide;
-
-_highlighted = [];
-
-{
- _type = _x;
-
- //systemchat "Creating one...";
-
-if(_type iskindof "man") then
-{
-
- _unit = _group createUnit [_type, _spawnPos, [], 0, "FORM"];
-
- _highlighted = _highlighted + [_unit];
-}
-else
-{
- _vehSpawn = [_spawnPos, 0, _type, _group] call BIS_fnc_spawnVehicle;
- _vehSpawn params ["_veh","_crew","_group"];
- _veh allowCrewInImmobile true;
-
- _highlighted = _highlighted + _crew + [_veh];
-};
-
-} foreach _bgRoster;
+ } foreach units _group;
 
  unitHighlights = unitHighlights + _highlighted;
 
- //_subOrd = "HighCommandSubordinate" createVehicle [0,0,0];
- _lgroup = createGroup _bgSide;
- _subOrd = _lgroup createUnit ["HighCommandSubordinate", [0,0,0], [], 0, "NONE"];
- _subOrd synchronizeObjectsAdd [leader _group];
-
-
- systemchat format["Creating one... %1 %2 %3 %4", _group,_subOrd,leader _group, mainhc];
-
- mainhc synchronizeObjectsAdd [_subOrd];
-
- player hcsetgroup [_group];
 
 
 _group spawn
@@ -83,11 +38,14 @@ if(count _wps > 0) then
 {
  _lastWp = _wps select (count _wps - 1);
 
+// hint "teeeest";
+
 if(!(_group getVariable ["wpArrived",false])) then
 {
 if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 {
- // hint "ARRIVED";
+  hint "ARRIVED";
+
  _group setVariable ["wpArrived",true];
 
 if(_group getVariable ["manBuildings",false]) then
@@ -142,6 +100,12 @@ while { !isnull _group } do
  sleep 3;
 };
 
+};
+
+// Reg player groups for zeus
+if(_bgSide == (call getPlayerSide)) then
+{
+ plrZeus addCuratorEditableObjects [units _group, false];
 };
 
 };

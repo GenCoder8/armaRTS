@@ -167,14 +167,13 @@ addBattleGroupToPool =
 
 createBattleGroupFromPool =
 {
- params ["_manPool","_bgname"];
-
- _side = west;
- _pos = getPos player;
+ params ["_manPool","_bgname","_side","_pos"];
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
- private _group = creategroup west;
+ if(isnull _ce) exitWith { "Failed to get battlegroup cfg" call errmsg; };
+
+ private _group = creategroup _side;
 
 _setupMan =
 {
@@ -242,6 +241,7 @@ if(count _entry == 0) exitWith
 
  } foreach _units;
 
+ _group call registerBattleGroup;
 };
 
 getUnitTypeNumbers =
