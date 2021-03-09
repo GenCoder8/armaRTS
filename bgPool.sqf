@@ -9,6 +9,12 @@ getPoolSide =
  _ret
 };*/
 
+
+#define UTYPE_NUMBER_INFANTRY 0
+#define UTYPE_NUMBER_VEHICLE  1
+#define UTYPE_NUMBER_CREW     2
+
+
 getSideText =
 {
  str _this
@@ -143,7 +149,7 @@ getBattleGroupCfg =
 
  if(isnull _ce) then
  {
-  diag_log format ["Invalid BG name '%1'", _bgname];
+  ["Invalid BG name '%1'", _bgname] call errmsg;
  };
 
  _ce
@@ -212,6 +218,8 @@ if(count _vattrs == 0) then
 _sveh = [_pos, 0, (_vehEntry # MANP_TYPE), _group] call BIS_fnc_spawnVehicle;
 _sveh params ["_veh", "_crew", "_group"];
 
+_veh setVariable ["utypeNumber", UTYPE_NUMBER_VEHICLE]; // Not really needed
+
 private _crewList = _vattrs # VEH_ATTRS_CREW;
 
 if(count _crewList != count _crew) then
@@ -226,6 +234,7 @@ if(count _crewList != count _crew) then
 
  _cm = _crew # _foreachIndex;
  _cm call _setupMan;
+ _cm setVariable ["utypeNumber", UTYPE_NUMBER_CREW];
 
  } foreach _crewList;
  
@@ -244,6 +253,7 @@ if(count _entry == 0) exitWith
  // Set skills, etc
  _unit = _group createUnit [_entry # MANP_TYPE, _pos, [], 0, "FORM"];
  _unit call _setupMan;
+ _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
  };
 
@@ -261,18 +271,18 @@ private _counts = [0,0,0];
  // vehicle
 if(!(_ue iskindOf "man")) then
 {
- _counts set [1, (_counts # 1) + 1];
+ _counts set [UTYPE_NUMBER_VEHICLE, (_counts # UTYPE_NUMBER_VEHICLE) + 1];
 
 private _vattrs = _ue call getVehicleAttrs;
 
 private _crewList = _vattrs # VEH_ATTRS_CREW;
 
- _counts set [2, (_counts # 2) + count _crewList];
+ _counts set [UTYPE_NUMBER_CREW, (_counts # UTYPE_NUMBER_CREW) + count _crewList];
 
 }
 else // infantry
 {
- _counts set [0, (_counts # 0) + 1];
+ _counts set [UTYPE_NUMBER_INFANTRY, (_counts # UTYPE_NUMBER_INFANTRY) + 1];
 };
 
 _counts
