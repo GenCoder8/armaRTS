@@ -20,7 +20,7 @@ sleep 0.1;
 
 _display = finddisplay 312;
 
-if(isnil "hidden") then
+if(isnil "zeusModded") then
 {
 
 {
@@ -33,7 +33,7 @@ _ctrl = _display displayctrl _x;
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
 
 
- hidden = true;
+ zeusModded = true;
 };
 
 // Create button
