@@ -137,8 +137,11 @@ plrZeus addEventHandler ["CuratorWaypointPlaced", {
 // Continue moving if first waypoints...
 if(count _wps <= 2) then
 {
+ _ldr = (leader _group);
 
- (leader _group) doMove (waypointPosition [_group,_waypointID]);
+ _ldr doMove (waypointPosition [_group,_waypointID]);
+
+ (units _group - [_ldr]) doFollow _ldr;
 };
 
 }];

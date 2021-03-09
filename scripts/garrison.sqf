@@ -306,16 +306,23 @@ _sortedPositions = _sf + _se;
 
  _numInThisBldg = 0;
 
+if(count _sortedPositions == 0) exitWith { };
+
 // hint format["MANNING %1",  (count _sortedPositions) ];
 
 
+_curPosition = 0;
 _units = units _group;
 {
 
 private _u = _x;
-if(_forEachIndex >= (count _sortedPositions) ) exitWith {};
+//if(_forEachIndex >= (count _sortedPositions) ) exitWith {};
+if(_curPosition >= (count _sortedPositions)) then
+{
+ _curPosition = 0;
+};
 
-private _goodPos = _sortedPositions select _forEachIndex;
+private _goodPos = _sortedPositions select _curPosition;
 _goodPos params ["_bpos","_bposDir"];
 
 diag_log format["--> %1 %2",_forEachIndex, _bposDir];
@@ -332,6 +339,7 @@ diag_log format["--> %1 %2",_forEachIndex, _bposDir];
 
 [_u,_bpos] call applyStopSCript;
 
+_curPosition = _curPosition + 1;
 } foreach _units;
 	
 };

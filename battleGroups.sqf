@@ -9,6 +9,7 @@ registerBattleGroup =
 
  _bgSide = side _group;
 
+/*
  _highlighted = [];
  {
 
@@ -23,7 +24,7 @@ registerBattleGroup =
  } foreach units _group;
 
  unitHighlights = unitHighlights + _highlighted;
-
+*/
 
 
 _group spawn
@@ -38,13 +39,12 @@ if(count _wps > 0) then
 {
  _lastWp = _wps select (count _wps - 1);
 
-// hint "teeeest";
 
 if(!(_group getVariable ["wpArrived",false])) then
 {
 if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 {
-  hint "ARRIVED";
+  // hint "ARRIVED";
 
  _group setVariable ["wpArrived",true];
 
@@ -117,6 +117,8 @@ onNewMove =
  _group setVariable ["manBuildings",!_isAttack]; 
 
  _group setVariable ["wpArrived",false];
+
+ // todo: _group enableAttack true;
 
  _group call resetUnitScripts;
 };
