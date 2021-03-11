@@ -41,6 +41,20 @@ isInfantry =
 getVehicles =
 {
  params ["_group",["_incParachutes",false]];
+
+// Incase empty array passed
+//if(isnil "_group") exitWith { [] };
+
+private _units = [];
+if(typename _group == "ARRAY") then
+{
+ _units = _group;
+ _group = group (_units # 0); // Need this below
+}
+else
+{
+ _units = units _group;
+};
  
 private _vehs = [];
 {
@@ -54,7 +68,7 @@ private _vehs = [];
  {
   _vehs pushBackUnique (vehicle _x);
  };
-} forEach (units _group);
+} forEach _units;
 
 _vehs
 };

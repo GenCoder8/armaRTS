@@ -50,6 +50,9 @@ waituntil { scriptdone _w };
 _w = execvm (RTSmainPath+"bgPool.sqf");
 waituntil { scriptdone _w };
 
+_w = execvm (RTSmainPath+"zeus.sqf");
+waituntil { scriptdone _w };
+
 _w = execvm (RTSmainPath+"scripts\garrison.sqf");
 waituntil { scriptdone _w };
 

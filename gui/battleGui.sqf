@@ -10,9 +10,6 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 
 */
 
-[] spawn
-{
-
 onZeusOpen =
 {
 
@@ -34,6 +31,58 @@ _ctrl = _display displayctrl _x;
 
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
 
+ // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
+
+_display displayAddEventHandler ["MouseButtonDown",
+{
+ params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+_handled = true;
+
+if(_shift) then
+{
+
+
+_sel = curatorSelected # 1;
+if(count _sel > 0) then
+{
+
+{
+_group = _x;
+_ldr = (leader _group);
+
+if(alive _ldr) then
+{
+
+_wpos = screenToWorld [_xPos,_yPos];
+
+_dir = [getpos _ldr, _wpos] call getAngle;
+
+
+_group setFormDir _dir;
+
+ systemchat format["ROTATE %1", _dir];
+
+}
+else
+{
+ systemchat "Ldr not alive";
+};
+
+} foreach _sel;
+
+};
+//_handled = true;
+};
+
+ _handled
+}];
+
+/*
+_display displayAddEventHandler ["MouseZChanged",{
+
+ systemchat "TEST123";
+}];*/
 
  zeusModded = true;
 };
@@ -51,12 +100,15 @@ _ctrl ctrlShow false;
 };
 
 
+[] spawn
+{
+
 waitUntil { !isNull findDisplay 46 };
 
 
 {
 (findDisplay _x) displayRemoveAllEventHandlers "KeyDown";
-} foreach [0,46];
+} foreach [46];
 
 
 {

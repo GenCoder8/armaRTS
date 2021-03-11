@@ -106,6 +106,8 @@ while { !isnull _group } do
 if(_bgSide == (call getPlayerSide)) then
 {
  plrZeus addCuratorEditableObjects [units _group, false];
+
+
 };
 
 };

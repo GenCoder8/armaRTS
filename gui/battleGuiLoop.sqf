@@ -1,4 +1,6 @@
 
+newZeusSelect = false;
+
 while { true } do
 {
  _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
@@ -7,23 +9,36 @@ while { true } do
  {
 
  _groupView = _overlay displayCtrl 1500;
+
+_viewUnits = [];
  
-_sel = curatorSelected # 1; // get groups
+_selGroups = curatorSelected # 1; // get groups
+_selUnits = curatorSelected # 0;
+
+if(count _selGroups > 0) then
+{
+ _viewUnits = units (_selGroups # 0);
+}
+else
+{
+ if(count _selUnits > 0) then
+ {
+ _viewUnits = _selUnits;
+ };
+};
 
 // hint format[">>> %1 ", curatorSelected];
 
-if(count _sel > 0) then
+if(true) then
 {
 
-_group = _sel select 0;
-
-if(lastViewedGroup != _group || (time - lastViewUpdate) >= 1 ) then
+if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
 {
 
 lnbClear _groupView;
 
 _mainVeh = objNull;
-_vehs = _group call getVehicles;
+_vehs = [_viewUnits] call getVehicles;
 _men = [];
 if(count _vehs > 0) then
 {
@@ -32,7 +47,7 @@ if(count _vehs > 0) then
 }
 else
 {
- _men = units _group;
+ _men = _viewUnits;
 };
 
 {
