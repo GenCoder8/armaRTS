@@ -161,6 +161,31 @@ plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
  true
 }];
 
+
+shiftPressed = false;
+plrZeus addeventhandler ["curatorWaypointPlaced",
+{
+params ["_curator", "_group", "_waypointID"];
+
+if(inputaction "curatorRotateMod" > 0) then
+{
+hint "TEST!";
+
+_wp = [_group,_waypointID];
+
+(waypointPosition _wp) call setGroupFacing;
+
+deleteWaypoint _wp;
+
+}
+else
+{
+ hint "NO";
+};
+
+}];
+
+
 /*
 addMissionEventHandler ["GroupIconOverEnter", {
 	params [
@@ -172,6 +197,13 @@ addMissionEventHandler ["GroupIconOverEnter", {
  systemchat "GroupIconOverEnter";
 }];
 */
+
+ [] spawn
+{
+ sleep 0.1; 
+ openCuratorInterface;
+ [] spawn onZeusOpen;
+};
 
 };
 

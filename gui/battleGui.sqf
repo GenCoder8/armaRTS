@@ -1,7 +1,9 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 #include "\a3\ui_f\hpp\definedikcodes.inc"
 
-
+// Todo disable:
+// _logic addeventhandler ["curatorObjectDoubleClicked",{(_this select 1) call bis_fnc_showCuratorAttributes;}];
+// etc
 
 /*
 this addEventHandler ["CuratorGroupSelectionChanged", {
@@ -14,7 +16,8 @@ onZeusOpen =
 {
 
 waitUntil { !isNull findDisplay 312 };
-sleep 0.1;
+
+sleep 0.5;
 
 
 _display = finddisplay 312;
@@ -22,61 +25,50 @@ _display = finddisplay 312;
 if(isnil "zeusModded") then
 {
 
+//waituntil { _sb = missionnamespace getvariable ["RscDisplayCurator_sidebarShow",[false,false]]; ((_sb # 0) && (_sb # 1)) };
+
+
 {
 with (uinamespace) do
 {
 _ctrl = _display displayctrl _x;
+_pc = ctrlParentControlsGroup _ctrl;
+/*
+hint format["PC: %1", _pc];
+waituntil { ctrlenabled _ctrl && (ctrlfade _pc) <= 0 };
+*/
+
 ['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
 };
 
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
 
+
+
+_display displayAddEventHandler ["KeyUp", 
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+systemchat format["UP %1 %2", _key,_shift];
+
+false
+}];
+
+_display displayAddEventHandler ["KeyDown", 
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+systemchat format["DOWN %1 %2", _key,_shift];
+
+false
+}];
+
+
+
  // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
 
-_display displayAddEventHandler ["MouseButtonDown",
-{
- params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+// _display displayaddeventhandler ["mouseholding",{ systemchat format["TEST %1",time]; }];
 
-_handled = true;
-
-if(_shift) then
-{
-
-
-_sel = curatorSelected # 1;
-if(count _sel > 0) then
-{
-
-{
-_group = _x;
-_ldr = (leader _group);
-
-if(alive _ldr) then
-{
-
-_wpos = screenToWorld [_xPos,_yPos];
-
-_dir = [getpos _ldr, _wpos] call getAngle;
-
-
-_group setFormDir _dir;
-
- systemchat format["ROTATE %1", _dir];
-
-}
-else
-{
- systemchat "Ldr not alive";
-};
-
-} foreach _sel;
-
-};
-//_handled = true;
-};
-
- _handled
-}];
 
 /*
 _display displayAddEventHandler ["MouseZChanged",{
@@ -119,15 +111,26 @@ params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
-if(inputAction "CuratorInterface" > 0) then 
+if(inputAction "CuratorInterface" > 0) then
+{
+// Allow open but not close
+if(isnull (findDisplay 312)) then 
 {
  systemchat format["zeus open... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
 
  [] spawn onZeusOpen;
+}
+else
+{
+ _handled = true;
+};
+
 };
 
 _handled
 }];
+
+
 } foreach [46]; //[0,12,46,312,313];
 
 };
@@ -157,6 +160,49 @@ if(_key isEqualTo DIK_TAB) then
 
 _handled
 }];
+
+};
+
+setGroupFacing =
+{
+ params ["_xPos","_yPos"];
+
+_sel = curatorSelected # 1;
+if(count _sel > 0) then
+{
+
+{
+_group = _x;
+_ldr = (leader _group);
+
+if(alive _ldr) then
+{
+
+
+
+_wpos = [_xPos,_yPos]; // screenToWorld
+
+systemchat format["_wpos %1", _wpos];
+
+_dir = [getpos _ldr, _wpos] call getAngle;
+
+
+_group setFormDir _dir;
+
+ systemchat format["ROTATE %1", _dir];
+
+dostop _ldr;
+(units _group - [_ldr]) doFollow _ldr;
+
+}
+else
+{
+ systemchat "Ldr not alive";
+};
+
+} foreach _sel;
+
+};
 
 };
 
