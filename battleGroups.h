@@ -41,14 +41,14 @@ class HeavyTeam
 {
  name = "Heavy weapons squad";
  ranks[] = BASIC_SQUAD_RANKS;
-  units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_GL","uns_men_USMC_68_RF4","uns_men_USMC_68_SCT","uns_men_USMC_68_RF2","uns_men_USMC_68_ENG"};
+  units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_GL","uns_men_USMC_68_RF4","uns_men_USMC_68_SCT","uns_men_USMC_68_RF2","uns_men_USMC_68_ENG","uns_men_USMC_68_AT"};
 };
 
 class LightTeam
 {
  name = "Rifle squad";
  ranks[] = BASIC_SQUAD_RANKS;
-  units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_ENG","uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
+  units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_ENG","uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
 };
 
 class MachineGunTeam
@@ -57,6 +57,14 @@ class MachineGunTeam
  ranks[] = TEAM_RANKS;
  units[] = {"uns_men_USMC_68_HMG","uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2"};
 };
+
+class AntiTankTeam
+{
+ name = "Anti tank team";
+ ranks[] = TEAM_RANKS;
+ units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
+};
+
 
 class Sniper
 {
