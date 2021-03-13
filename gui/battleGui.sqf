@@ -128,6 +128,7 @@ params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
+// Can only open here, 312 takes close Y press
 if(inputAction "CuratorInterface" > 0) then
 {
 // Allow open but not close
@@ -139,7 +140,7 @@ if(isnull (findDisplay 312)) then
 }
 else
 {
- _handled = true;
+ // _handled = true; 
 };
 
 };
@@ -179,6 +180,12 @@ if(_key isEqualTo DIK_TAB) then
 
 };
 
+
+if(inputAction "CuratorInterface" > 0) then
+{
+ _handled = true;
+};
+
 _handled
 }];
 
@@ -214,6 +221,9 @@ _group setFormDir _dir;
 
 dostop _ldr;
 (units _group - [_ldr]) doFollow _ldr;
+
+
+[_group,getpos _ldr] call groupLocationSet;
 
 }
 else
