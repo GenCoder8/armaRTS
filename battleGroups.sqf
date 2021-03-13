@@ -50,7 +50,8 @@ if((waypointPosition _lastWp) distance2D (leader _group) < 10) then
 
 if(_group getVariable ["manBuildings",false]) then
 {
-[_group,(waypointPosition _lastWp),15,true,100,100] call manBuildings;
+
+[_group,(waypointPosition _lastWp)] call groupLocationSet;
 };
 
 };
@@ -123,4 +124,11 @@ onNewMove =
  // todo: _group enableAttack true;
 
  _group call resetUnitScripts;
+};
+
+groupLocationSet =
+{
+ params ["_group","_pos"];
+
+ [_group,_pos,15,true,100,100] call manBuildings;
 };
