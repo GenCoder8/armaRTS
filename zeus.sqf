@@ -167,9 +167,8 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
-if(inputaction "curatorRotateMod" > 0) then
+if(shiftDown) then
 {
-hint "TEST!";
 
 _wp = [_group,_waypointID];
 
@@ -180,7 +179,7 @@ deleteWaypoint _wp;
 }
 else
 {
- hint "NO";
+ 
 };
 
 }];

@@ -12,6 +12,8 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 
 */
 
+shiftDown = false;
+
 onZeusOpen =
 {
 
@@ -49,7 +51,12 @@ _display displayAddEventHandler ["KeyUp",
 {
 params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
-systemchat format["UP %1 %2", _key,_shift];
+//systemchat format["UP %1 %2", _key,_shift];
+
+if(_shift) then
+{
+ shiftDown = false;
+};
 
 false
 }];
@@ -58,7 +65,13 @@ _display displayAddEventHandler ["KeyDown",
 {
 params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
-systemchat format["DOWN %1 %2", _key,_shift];
+// systemchat format["DOWN 777 %1 %2", _key,_shift];
+
+if(_shift) then
+{
+ shiftDown = true;
+};
+
 
 false
 }];
@@ -89,6 +102,10 @@ _ctrl ctrlShow false;
 
 
  call interceptZeusKeys;
+
+
+
+
 };
 
 
@@ -127,6 +144,8 @@ else
 
 };
 
+systemchat format["_key %1 ",_key];
+
 _handled
 }];
 
@@ -137,7 +156,7 @@ _handled
 
 interceptZeusKeys =
 {
-(findDisplay 312) displayRemoveAllEventHandlers "KeyDown";
+//(findDisplay 312) displayRemoveAllEventHandlers "KeyDown";
 
 findDisplay 312 displayAddEventHandler ["KeyDown",
 {
@@ -145,18 +164,20 @@ params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
+// systemchat format["DOWN 123 %1 %2", _key,_shift];
+
 if(_key in [DIK_E,DIK_R,DIK_BACKSLASH,DIK_TAB]) then 
 {
  _handled = true;
 };
-/*
+
 if(_key isEqualTo DIK_TAB) then 
 {
  _handled = true;
 
- systemchat format["jeeee... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
+ //systemchat format["test.... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
 
-};*/
+};
 
 _handled
 }];
