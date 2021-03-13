@@ -141,6 +141,14 @@ isInfantry =
  [_manType,_cfg] call isOfSpecialType
 };
 
+isSniper =
+{
+ params ["_manType"];
+ private _cfg = missionconfigfile >> "RTSDefs" >> "Snipers";
+
+ [_manType,_cfg] call isOfSpecialType
+};
+
 isUnitType =
 {
  params ["_type","_wantType"];

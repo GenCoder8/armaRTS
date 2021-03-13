@@ -1,57 +1,5 @@
 
-
-class RTSDefs
-{
-class TankCrews
-{
- units[] = {"uns_US_2MI_DRV"};
-};
-
-class Infantry
-{
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT"};
-};
-};
-
-class BattleGroups
-{
-
-class west
-{
-
-class mbt
-{
- name = "Main battle tank";
- ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_m48a3"};
-};
-
-class testteam
-{
- name = "The testers";
- ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT"};
-};
-
-class theRollers
-{
- name = "The Rollers";
- ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT"};
-};
-
-class fury
-{
- name = "Fury";
- ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT"};
-};
-
-};
-
-// a animate ["plants1",1];
-
-};
+#include "battleGroups.h"
 
 
 #include "gui\gridDefines.h"
