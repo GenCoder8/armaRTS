@@ -1,4 +1,5 @@
 
+debugMode = false;
 
 errmsg =
 {

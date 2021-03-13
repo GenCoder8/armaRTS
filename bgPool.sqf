@@ -92,6 +92,17 @@ _vattrs = _type call getVehicleAttrs;
 _manPool pushback [_x,"PRIVATE",_skill]; // Same skill, todo rank
 } foreach (_vattrs # VEH_ATTRS_CREW);
 
+}
+else
+{
+ if(debugMode) then
+ {
+  // If not regognized type
+ if(!(_type call isTankCrew) && !(_type call isInfantry) && !(_type call isSniper)) then
+{
+ ["Unknown unit type '%1'", _type] call errmsg;
+};
+ };
 };
 
 };
