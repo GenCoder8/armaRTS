@@ -31,6 +31,16 @@ compileFile =
  _code
 };
 
+execFile =
+{
+params ["_file",["_wait",true]];
+_w = execvm (RTSmainPath + _file);
+if(_wait) then
+{
+waituntil { scriptdone _w };
+};
+};
+
  getAngle = RTSmainPath+"scripts\math\getAngleFn.sqf" call compileFile;
  getVecLength = RTSmainPath+"scripts\math\getVecLengthFn.sqf" call compileFile;
  getVecDir = RTSmainPath+"scripts\math\getVecDirFn.sqf" call compileFile;
@@ -39,33 +49,25 @@ compileFile =
  angleDist = RTSmainPath+"scripts\math\angleDistFn.sqf" call compileFile;
  make360 = RTSmainPath+"scripts\math\make360Fn.sqf" call compileFile;
 
-_w = execvm (RTSmainPath+"fns.sqf");
-waituntil { scriptdone _w };
+"fns.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"bgFns.sqf");
-waituntil { scriptdone _w };
+"bgFns.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"battleGroups.sqf");
-waituntil { scriptdone _w };
+"battleGroups.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"bgPool.sqf");
-waituntil { scriptdone _w };
+"bgPool.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"zeus.sqf");
-waituntil { scriptdone _w };
+"zeus.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"scripts\garrison.sqf");
-waituntil { scriptdone _w };
+"scripts\garrison.sqf" call execFile;
 
-_w = execvm (RTSmainPath+"gui\battleGui.sqf");
-waituntil { scriptdone _w };
+"gui\battleGui.sqf" call execFile;
+
+"gui\unitPool.sqf" call execFile;
 
 
-_w = execvm (RTSmainPath+"gui\unitPool.sqf");
-waituntil { scriptdone _w };
 
-
-_w = execvm (RTSmainPath+"gui\battleGuiLoop.sqf");
+["gui\battleGuiLoop.sqf",false] call execFile;
 
 
 
