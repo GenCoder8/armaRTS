@@ -19,10 +19,11 @@ execvm "gui.sqf";
 
 sleep 0.01;
 
-["mbt",west,getmarkerpos "ts"] call createBattleGroup;
+// Old
+//["mbt",west,getmarkerpos "ts"] call createBattleGroup;
 
-["testteam",west,getmarkerpos "tt"] call createBattleGroup;
-["testteam",west,getmarkerpos "tt2"] call createBattleGroup;
+//["testteam",west,getmarkerpos "tt"] call createBattleGroup;
+//["testteam",west,getmarkerpos "tt2"] call createBattleGroup;
 
 
 // 
