@@ -157,7 +157,7 @@ _clear
 
 manBuildings =
 {
- params ["_group","_aroundPos","_distance","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
+ params ["_group","_aroundPos","_distance","_useAngleFirst","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
  
  private _side = side _group;
  
@@ -287,7 +287,7 @@ if(_numPositions > 0) then
 
 _group enableAttack false; // <------------------------------------ 
 
-_useAngleFirst = 90;
+
 _selectPosFirst = {
 params ["_bpos","_bposDir"];
 

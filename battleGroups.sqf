@@ -130,5 +130,5 @@ groupLocationSet =
 {
  params ["_group","_pos"];
 
- [_group,_pos,15,true,100,100] call manBuildings;
+ [_group,_pos,15,formationDirection _group,true,100,100] call manBuildings;
 };
