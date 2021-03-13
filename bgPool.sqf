@@ -212,6 +212,7 @@ params ["_unit"];
 _unit setRank (_entry # MANP_RANK);
 _unit setSkill (_entry # MANP_SKILL);
 
+_unit setVariable ["orgSkill", skill _unit]; // Needed later
 };
 
  private _units = getArray(_ce >> "units");
