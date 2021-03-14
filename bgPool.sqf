@@ -62,7 +62,12 @@ addUnitEntryToPool =
 
 diag_log format ["Adding man to pool: %1 - %2 - %3", _type, _rank, _skill ];
 
-_manPool pushback [_type,_rank,_skill];
+_pushToPool =
+{
+ _manPool = [_this] + _manPool; // Add to beginning to maintain same order
+};
+
+[_type,_rank,_skill] call _pushToPool;
 
 if(!(_type iskindOf "man")) then
 {
@@ -89,7 +94,7 @@ deleteVehicle _veh;
 // Add crew to pool
 _vattrs = _type call getVehicleAttrs;
 {
-_manPool pushback [_x,"PRIVATE",_skill]; // Same skill, todo rank
+[_x,"PRIVATE",_skill] call _pushToPool; // Same skill, todo rank
 } foreach (_vattrs # VEH_ATTRS_CREW);
 
 }
@@ -203,6 +208,38 @@ addBattleGroupToPool =
   if(_skill < 0.1) then { _skill = 0.1; };
  } foreach _units;
 
+};
+
+retBattleGroupToPool =
+{
+ params ["_group"];
+
+ private _side = side _group;
+
+ private _manPool = _side call getManPool;
+
+ {
+  private _man = _x;
+
+  [_manPool,_man,rank _man,skill _man] call addUnitEntryToPool;
+
+ } foreach (units _group);
+};
+
+retAllBattleGroupsToPool =
+{
+  params ["_side"];
+
+  private _groups = allgroups select { _side == (side _x) && (leader _group != player) };
+
+ // Loop backwards to keep same order as when picked from the pool
+ for "_i" from (count _groups - 1) to 0 step -1 do
+ {
+  private _group = _groups select _i;
+
+  _group call retBattleGroupToPool;
+ };
+ 
 };
 
 createBattleGroupFromPool =

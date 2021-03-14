@@ -49,6 +49,7 @@ waituntil { scriptdone _w };
  angleDist = RTSmainPath+"scripts\math\angleDistFn.sqf" call compileFile;
  make360 = RTSmainPath+"scripts\math\make360Fn.sqf" call compileFile;
 
+
 "fns.sqf" call execFile;
 
 "bgFns.sqf" call execFile;
