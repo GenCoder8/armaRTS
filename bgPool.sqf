@@ -238,6 +238,8 @@ retAllBattleGroupsToPool =
   private _group = _groups select _i;
 
   _group call retBattleGroupToPool;
+
+  _group call deleteGroupInstantly;
  };
  
 };

@@ -182,3 +182,100 @@ getPlayerSide =
 {
 playerside
 };
+
+
+safeDelete =
+{
+ params ["_man"];
+ if(isnull _man) exitWith {};
+
+ if(_man iskindof "man") then
+ {
+
+// A must or buggy (ghosts)
+if(_man getVariable ["channelReg",false]) then
+{
+supportChannel radioChannelRemove [_man];
+};
+
+ if(_man call inVehicle) then
+ {
+ (vehicle _man) deleteVehicleCrew _man;
+ }
+ else
+ {
+
+ deleteVehicle _man;
+ };
+ }
+ else
+ {
+  ["SafeDelete not man %1",_man] call errmsg;
+ };
+};
+
+safeDeleteVeh =
+{
+ params ["_veh"];
+ 
+if(!(_veh iskindof "man")) then
+{
+
+ {
+  _x call safeDelete;
+ } forEach (crew _veh);
+ 
+ deleteVehicle _veh;
+
+}
+else
+{
+ ["SafeDeleteVeh not veh %1",_veh] call errmsg;
+};
+
+};
+
+safeDeleteAny =
+{
+ params ["_obj"];
+if(_obj iskindof "man") then
+{
+ _obj call safeDelete;
+}
+else
+{
+ _obj call safeDeleteVeh;
+};
+};
+
+deleteGroupInstantly =
+{
+ params ["_group", ["_delayUnits",false]];
+ 
+ if(isnull _group) exitWith {}; // Todo problem...
+ 
+ private _vehs = _group call getvehicles;
+
+  
+ // Objects get sometimes delay deleted
+ [_group,_vehs,_delayUnits] spawn
+ {
+  params ["_group","_vehs","_delayUnits"];
+  
+  if(_delayUnits) then
+  {
+  sleep 5;
+  };
+  
+ {
+ 
+_x call safeDelete;
+ 
+ } foreach (units _group);
+ 
+ { _x call safeDeleteVeh; } foreach _vehs;
+ 
+  deleteGroup _group;
+ };
+
+};
