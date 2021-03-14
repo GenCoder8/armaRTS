@@ -1,11 +1,13 @@
-/* #Natufe
+/* #Minisy
 $[
 	1.063,
 	["groupview",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
-	[1200,"",[2,"#(argb,8,8,3)color(0,0.75,0,1)",["47.5 * UI_GRID_W + UI_GRID_X","26 * UI_GRID_H + UI_GRID_Y","20 * UI_GRID_W","12.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1500,"",[2,"",["48 * UI_GRID_W + UI_GRID_X","26.5 * UI_GRID_H + UI_GRID_Y","19 * UI_GRID_W","11.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = GROUP_VIEW_COLS;"]]
+	[1500,"",[2,"",["47 * UI_GRID_W + UI_GRID_X","27.5 * UI_GRID_H + UI_GRID_Y","19 * UI_GRID_W","10 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = GROUP_VIEW_COLS;"]],
+	[1000,"",[2,"Group info",["47.5 * UI_GRID_W + UI_GRID_X","26 * UI_GRID_H + UI_GRID_Y","17.5 * UI_GRID_W","1 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
+
+
 
 
 
@@ -81,28 +83,28 @@ class controls
 {
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Habywo)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Minisy)
 ////////////////////////////////////////////////////////
 
-class RscPicture_1200: RscPicture
-{
-	idc = 1200;
-	text = "#(argb,8,8,3)color(0,0.75,0,1)";
-	x = 47.5 * UI_GRID_W + UI_GRID_X;
-	y = 26 * UI_GRID_H + UI_GRID_Y;
-	w = 20 * UI_GRID_W;
-	h = 12.5 * UI_GRID_H;
-};
 class RscListbox_1500: RscListbox
 {
 	type = CT_LISTNBOX;
 	columns[] = GROUP_VIEW_COLS;
 
 	idc = 1500;
-	x = 48 * UI_GRID_W + UI_GRID_X;
-	y = 26.5 * UI_GRID_H + UI_GRID_Y;
+	x = 47 * UI_GRID_W + UI_GRID_X;
+	y = 27.5 * UI_GRID_H + UI_GRID_Y;
 	w = 19 * UI_GRID_W;
-	h = 11.5 * UI_GRID_H;
+	h = 10 * UI_GRID_H;
+};
+class RscText_1000: RscText
+{
+	idc = 1000;
+	text = "Group info"; //--- ToDo: Localize;
+	x = 47.5 * UI_GRID_W + UI_GRID_X;
+	y = 26 * UI_GRID_H + UI_GRID_Y;
+	w = 17.5 * UI_GRID_W;
+	h = 1 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END

@@ -263,6 +263,8 @@ createBattleGroupFromPool =
 
  private _group = creategroup _side;
 
+ _group setVariable ["cfg",_ce];
+
 _setupMan =
 {
 params ["_unit"];
@@ -333,6 +335,9 @@ if(count _entry == 0) exitWith
  };
 
  } foreach _units;
+
+_as = _group call getGroupAverageSkill;
+ _group setVariable ["expStr",_as call getExperienceStr];
 
  _group call registerBattleGroup;
 };

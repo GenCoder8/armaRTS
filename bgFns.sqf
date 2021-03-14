@@ -60,8 +60,8 @@ private _vehs = [];
 {
  private _veh = vehicle _x;
  
- // todo maybe remove this check for speed, doesnt work with static weapons anyway
- if(isnull (group _veh) && !(_veh isKindof "StaticWeapon")) then { ["Vehicle has no group! %1 %2",_group, _units] call errmsg; };
+ // todo maybe remove this check for speed, doesnt work with static weapons anyway (not if dead/civilian)
+ if(side _x != civilian && isnull (group _veh) && !(_veh isKindof "StaticWeapon")) then { ["Vehicle has no group! %1 %2",_group, _units] call errmsg; };
 
  if( (_incParachutes || ((tolower (typeof _veh)) find "parachute") < 0 )
  && _veh != _x && alive _veh && alive _x && (group _veh) == _group) then
@@ -181,6 +181,41 @@ _rank
 getPlayerSide =
 {
 playerside
+};
+
+getGroupAverageSkill =
+{
+ params ["_group"];
+
+ if(count (units _group) == 0) exitWith { 0 };
+
+ private _skill = 0;
+ {
+  _skill = _skill + (skill _x);
+ } forEach (units _group);
+
+ _skill = _skill / (count (units _group));
+
+ _skill
+};
+
+experienceStatus = ["Green", "Regular", "Veteran", "Elite"];
+
+getExperienceStr =
+{
+ params ["_skill"];
+ private _expName = "Recruit";
+
+ {
+
+ if(_skill >= (_foreachIndex * 0.30)) then
+ {
+  _expName = _x;
+ };
+
+ } foreach experienceStatus;
+
+ _expName
 };
 
 

@@ -11,19 +11,22 @@ while { true } do
  _groupView = _overlay displayCtrl 1500;
 
 _viewUnits = [];
- 
+_selGroup = grpNull;
+
 _selGroups = curatorSelected # 1; // get groups
 _selUnits = curatorSelected # 0;
 
 if(count _selGroups > 0) then
 {
- _viewUnits = units (_selGroups # 0);
+ _selGroup = _selGroups # 0;
+ _viewUnits = units _selGroup;
 }
 else
 {
  if(count _selUnits > 0) then
  {
  _viewUnits = _selUnits;
+ _selGroup = group (_viewUnits # 0);
  };
 };
 
@@ -34,6 +37,17 @@ if(true) then
 
 if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
 {
+
+_groupInfo = _overlay displayCtrl 1000;
+private _bgcfg = _selGroup getVariable ["cfg",configNull];
+if(!isnull _bgcfg) then
+{
+_groupInfo ctrlSetText format ["%1 (%2)", getText (_bgcfg >> "name"), _selGroup getVariable "expStr" ];
+}
+else
+{
+_groupInfo ctrlSetText "";
+};
 
 lnbClear _groupView;
 
@@ -49,6 +63,8 @@ else
 {
  _men = _viewUnits;
 };
+
+_men = _men select { alive _x };
 
 {
  _veh = _x;
@@ -70,6 +86,8 @@ else
 {
 _man = _x;
 _row = (lnbSize _groupView) # 0;
+
+ diag_log format[" %1 %2 ", _man, rankId _man];
 
  _rankStr = ranksShort select (rankId _man);
 

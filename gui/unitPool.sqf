@@ -81,7 +81,7 @@ if(_leadUnit iskindof "man") then
 }
 else
 {
-  _typeText = format ["%1", getText(_leadCfg >> "displayname") ];
+ _typeText = format ["%1", getText(_leadCfg >> "displayname") ];
 };
 
 
@@ -99,23 +99,6 @@ _text3 ctrlCommit 0;
 
 };
 
-experienceStatus = ["Green","Regular", "Veteran" , "Elite"];
-
-getExperienceStr =
-{
- params ["_skill"];
- private _expName = "Recruit";
-
- {
-
- if(_skill >= (_foreachIndex * 0.30)) then
- {
-  _expName = _x;
- };
-
- } foreach experienceStatus;
- _expName
-};
 
 createBgPoolPanels =
 {
