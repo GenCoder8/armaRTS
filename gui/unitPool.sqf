@@ -90,6 +90,31 @@ _text2 ctrlSetText format["%1", _typeText];
 _text2 ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 2, LINEWIDTH, LINEHEIGHT];
 _text2 ctrlCommit 0;
 
+/*
+_text3 = _display ctrlCreate ["RscText", -1, _cont];
+_text3 ctrlSetText format["%1", call getExperienceStr];
+_text3 ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 3, LINEWIDTH, LINEHEIGHT];
+_text3 ctrlCommit 0;
+*/
+
+};
+
+experienceStatus = ["Green","Regular", "Veteran" , "Elite"];
+
+getExperienceStr =
+{
+ params ["_skill"];
+ private _expName = "Recruit";
+
+ {
+
+ if(_skill >= (_foreachIndex * 0.30)) then
+ {
+  _expName = _x;
+ };
+
+ } foreach experienceStatus;
+ _expName
 };
 
 createBgPoolPanels =
@@ -122,7 +147,7 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 };
  
 
-_mpool = call getManPool;
+_mpool = (call getPlayerSide) call getManPool;
 _poolCounts = [_mpool] call countListTypeNumbers;
 
 _poolLeftTypes = [_poolCounts,_neededMen] call subList;

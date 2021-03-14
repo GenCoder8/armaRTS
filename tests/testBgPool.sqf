@@ -4,9 +4,11 @@ RTSmainPath = "armaRTS.Altis\";
 _w = execvm (RTSmainPath+"load.sqf");
 waituntil { scriptdone _w };
 
-[manPoolWest,"testteam"] call addBattleGroupToPool;
-[manPoolWest,"testteam"] call addBattleGroupToPool;
-[manPoolWest,"mbt"] call addBattleGroupToPool;
+debugMode = true;
+
+[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
+[call getPlayerSide,"LightTeam"] call addBattleGroupToPool;
+[call getPlayerSide,"mbt"] call addBattleGroupToPool;
 
 
 //[manPoolWest,"testteam"] call createBattleGroupFromPool;

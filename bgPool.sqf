@@ -64,7 +64,12 @@ diag_log format ["Adding man to pool: %1 - %2 - %3", _type, _rank, _skill ];
 
 _pushToPool =
 {
- _manPool = [_this] + _manPool; // Add to beginning to maintain same order
+ 
+ //_manPool insert [0, [[_this]]]; // Add to beginning to maintain same order
+
+ _manPool pushback _this;
+
+ //_manPool2 = [_this] + _manPool;
 };
 
 [_type,_rank,_skill] call _pushToPool;
@@ -127,7 +132,7 @@ getUnitEntryFromPool =
 
 if(count _entry == 0) then
 {
- ["getUnitEntryFromPool failed %1",_type] call errmsg;
+ ["getUnitEntryFromPool failed %1 %2",_type,_manPool] call errmsg;
 };
 
  _entry
@@ -249,6 +254,8 @@ createBattleGroupFromPool =
  params ["_side","_bgname","_pos"];
 
  private _manPool = _side call getManPool;
+
+ if(count _manPool == 0) exitWith { ["Empty manpool %1",_side] call errmsg; };
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
@@ -376,8 +383,7 @@ countBgPoolNeed =
 {
  params ["_bgname"];
 
- _side = call getPoolSide;
- _pos = getPos player;
+ _side = (call getPlayerSide);
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
