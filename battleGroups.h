@@ -23,6 +23,7 @@ class Snipers
 #define BASIC_SQUAD_RANKS  {"SERGEANT","CORPORAL"}
 #define TEAM_RANKS {"SERGEANT","CORPORAL"}
 #define SNIPER_RANK {"SERGEANT"}
+#define ARMORED_RANKS {"SERGEANT","CORPORAL"}
 
 class BattleGroups
 {
@@ -30,11 +31,18 @@ class BattleGroups
 class west
 {
 
-class mbt
+class Patton
 {
- name = "Main battle tank";
- ranks[] = BASIC_SQUAD_RANKS;
+ name = "M-48A3 Patton";
+ ranks[] = ARMORED_RANKS;
  units[] = {"uns_m48a3"};
+};
+
+class Sheridan
+{
+ name = "M-551 Sheridan";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_m551"};
 };
 
 class HeavyTeam
