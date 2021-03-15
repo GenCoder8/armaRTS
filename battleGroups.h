@@ -20,7 +20,7 @@ class Snipers
 
 };
 
-#define BASIC_SQUAD_RANKS  {"SERGEANT","CORPORAL"}
+#define SQUAD_RANKS  {"SERGEANT","CORPORAL"}
 #define TEAM_RANKS {"SERGEANT","CORPORAL"}
 #define SNIPER_RANK {"SERGEANT"}
 #define ARMORED_RANKS {"SERGEANT","CORPORAL"}
@@ -48,21 +48,21 @@ class Sheridan
 class HeavyTeam
 {
  name = "Heavy weapons squad";
- ranks[] = BASIC_SQUAD_RANKS;
+ ranks[] = SQUAD_RANKS;
   units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_GL","uns_men_USMC_68_RF4","uns_men_USMC_68_SCT","uns_men_USMC_68_RF2","uns_men_USMC_68_ENG","uns_men_USMC_68_AT"};
 };
 
 class LightTeam
 {
  name = "Rifle squad";
- ranks[] = BASIC_SQUAD_RANKS;
+ ranks[] = SQUAD_RANKS;
   units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_ENG","uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
 };
 
 class ReconTeam
 {
  name = "Recon team";
- ranks[] = BASIC_SQUAD_RANKS;
+ ranks[] = SQUAD_RANKS;
  units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF1","uns_men_USMC_68_RF2","uns_men_USMC_68_RF3","uns_men_USMC_68_AT"};
 };
 
