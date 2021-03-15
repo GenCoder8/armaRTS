@@ -35,12 +35,13 @@ with (uinamespace) do
 {
 _ctrl = _display displayctrl _x;
 _pc = ctrlParentControlsGroup _ctrl;
+
 /*
 hint format["PC: %1", _pc];
 waituntil { ctrlenabled _ctrl && (ctrlfade _pc) <= 0 };
 */
 
-['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
+ ['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
 };
 
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
@@ -92,6 +93,7 @@ _display displayAddEventHandler ["MouseZChanged",{
  zeusModded = true;
 };
 
+/*
 // Create button
 _ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
 _ctrl ctrlShow false;
@@ -99,7 +101,7 @@ _ctrl ctrlShow false;
 // Edit button
 _ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_MISSIONBAR;
 _ctrl ctrlShow false;
-
+*/
 
  call interceptZeusKeys;
 
@@ -255,4 +257,22 @@ activateBattleGui =
 {
  cutRsc["ComOverlay","PLAIN",0];
 
+
+ _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
+
+_groupView = _overlay displayCtrl 1500;
+
+_pos = ctrlposition _groupView;
+/*
+_bg = _overlay ctrlCreate ["RscPicture", 7000];
+
+ _bg ctrlSetText "#(argb,8,8,3)color(0,0.75,0,1)";
+
+#define TITLE_HEIGHT 0.1
+
+_bg ctrlSetPosition [_pos # 0, _pos # 1 - TITLE_HEIGHT, _pos # 2, _pos # 3 + TITLE_HEIGHT];
+_bg ctrlCommit 0;
+*/
+
 };
+

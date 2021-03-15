@@ -92,6 +92,13 @@ _zeus = _zg createUnit ["ModuleCurator_F", [0,0,0], [], 0, "NONE"];
 plrZeus = _zeus;
 
 _zeus synchronizeObjectsAdd [player];
+/*
+{
+diag_log format[">> %1", _x];
+} foreach (curatorAddons plrZeus);
+*/
+removeAllCuratorAddons plrZeus;
+plrZeus addCuratorAddons ["a3_modules_f_curator_cas"];
  
 
 //_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"]; 
@@ -105,6 +112,7 @@ _zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
 
 
 _zeus addCuratorEditingArea [0,_deployAreaPos,75];
+
 
 
 //_zeus setCuratorEditingAreaType true;

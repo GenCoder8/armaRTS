@@ -8,7 +8,8 @@ while { true } do
  if(!isnull _overlay) then
  {
 
- _groupView = _overlay displayCtrl 1500;
+_groupView = _overlay displayCtrl 1500;
+
 
 _viewUnits = [];
 _selGroup = grpNull;
@@ -39,14 +40,19 @@ if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
 {
 
 _groupInfo = _overlay displayCtrl 1000;
+_bg = _overlay displayCtrl 7000;
+
 private _bgcfg = _selGroup getVariable ["cfg",configNull];
 if(!isnull _bgcfg) then
 {
 _groupInfo ctrlSetText format ["%1 (%2)", getText (_bgcfg >> "name"), _selGroup getVariable "expStr" ];
+ _bg ctrlShow true;
 }
 else
 {
 _groupInfo ctrlSetText "";
+
+ _bg ctrlShow false;
 };
 
 lnbClear _groupView;
@@ -64,7 +70,7 @@ else
  _men = _viewUnits;
 };
 
-_men = _men select { alive _x };
+_men = _men select { alive _x && side _x in [east,west] };
 
 {
  _veh = _x;
