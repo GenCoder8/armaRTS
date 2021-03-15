@@ -20,7 +20,7 @@ class Snipers
 
 };
 
-#define BASIC_SQUAD_RANKS  {"LIEUTENANT","SERGEANT","CORPORAL"}
+#define BASIC_SQUAD_RANKS  {"SERGEANT","CORPORAL"}
 #define TEAM_RANKS {"SERGEANT","CORPORAL"}
 #define SNIPER_RANK {"SERGEANT"}
 
@@ -49,6 +49,20 @@ class LightTeam
  name = "Rifle squad";
  ranks[] = BASIC_SQUAD_RANKS;
   units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_ENG","uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+};
+
+class ReconTeam
+{
+ name = "Recon team";
+ ranks[] = BASIC_SQUAD_RANKS;
+ units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF1","uns_men_USMC_68_RF2","uns_men_USMC_68_RF3","uns_men_USMC_68_AT"};
+};
+
+class PlatoonHQ
+{
+ name = "Platoon HQ";
+ ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
+ units[] = {"uns_men_USMC_68_RTO","uns_men_USMC_68_RF4","uns_men_USMC_68_SL","uns_men_USMC_68_PL"};
 };
 
 class MachineGunTeam

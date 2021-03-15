@@ -82,7 +82,7 @@ class controlsBackground
 class ComBg: RscPicture
 {
 	idc = 7000;
-	text = "#(argb,8,8,3)color(0,0.75,0,1)"; //--- ToDo: Localize;
+	text = "#(argb,8,8,3)color(0,0.75,0,1)";
 	x = 47 * UI_GRID_W + UI_GRID_X;
 	y = 25.5 * UI_GRID_H + UI_GRID_Y;
 	w = 19 * UI_GRID_W;
