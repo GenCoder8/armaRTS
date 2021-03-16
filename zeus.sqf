@@ -3,6 +3,153 @@
 #define DEPLOY_AREA_SIZE 75
 #define BATTLE_AREA_SIZE 255
 
+shiftDown = false;
+firemisDown = false;
+
+onZeusOpen =
+{
+
+waitUntil { !isNull findDisplay 312 };
+
+sleep 0.5;
+
+
+_display = finddisplay 312;
+
+if(isnil "zeusModded") then
+{
+
+//waituntil { _sb = missionnamespace getvariable ["RscDisplayCurator_sidebarShow",[false,false]]; ((_sb # 0) && (_sb # 1)) };
+
+
+{
+with (uinamespace) do
+{
+_ctrl = _display displayctrl _x;
+_pc = ctrlParentControlsGroup _ctrl;
+
+/*
+hint format["PC: %1", _pc];
+waituntil { ctrlenabled _ctrl && (ctrlfade _pc) <= 0 };
+*/
+
+ ['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
+};
+
+} foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
+
+
+#define FIRE_MISSION_KEY DIK_V
+
+_display displayAddEventHandler ["KeyUp", 
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+//systemchat format["UP %1 %2", _key,_shift];
+
+if(_key == FIRE_MISSION_KEY) then
+{
+ firemisDown = false;
+};
+
+if(_shift) then
+{
+ shiftDown = false;
+};
+
+false
+}];
+
+_display displayAddEventHandler ["KeyDown", 
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+// systemchat format["DOWN 777 %1 %2", _key,_shift];
+
+if(_key == FIRE_MISSION_KEY) then
+{
+ firemisDown = true;
+};
+
+if(_shift) then
+{
+ shiftDown = true;
+};
+
+
+false
+}];
+
+
+
+ // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
+
+// _display displayaddeventhandler ["mouseholding",{ systemchat format["TEST %1",time]; }];
+
+
+/*
+_display displayAddEventHandler ["MouseZChanged",{
+
+ systemchat "TEST123";
+}];*/
+
+ zeusModded = true;
+};
+
+/*
+// Create button
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
+_ctrl ctrlShow false;
+
+// Edit button
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_MISSIONBAR;
+_ctrl ctrlShow false;
+*/
+
+ call interceptZeusKeys;
+
+
+
+
+};
+
+
+interceptZeusKeys =
+{
+//(findDisplay 312) displayRemoveAllEventHandlers "KeyDown";
+
+findDisplay 312 displayAddEventHandler ["KeyDown",
+{
+params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+
+private _handled = false;
+
+// systemchat format["DOWN 123 %1 %2", _key,_shift];
+
+if(_key in [DIK_E,DIK_R,DIK_BACKSLASH,DIK_TAB]) then 
+{
+ _handled = true;
+};
+
+if(_key isEqualTo DIK_TAB) then 
+{
+ _handled = true;
+
+ //systemchat format["test.... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
+
+};
+
+
+if(inputAction "CuratorInterface" > 0) then
+{
+ _handled = true;
+};
+
+_handled
+}];
+
+};
+
 
 beginBattlePlacement =
 {
@@ -111,6 +258,7 @@ _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
  };
+
  case shiftDown: // Group facing
  {
 
@@ -121,7 +269,8 @@ _wp = [_group,_waypointID];
 deleteWaypoint _wp;
 
  };
- default // Move
+
+default // Move
 {
 
  // man buildings

@@ -8,6 +8,8 @@ while { true } do
  if(!isnull _overlay) then
  {
 
+if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
+{
 _groupView = _overlay displayCtrl 1500;
 
 
@@ -33,11 +35,7 @@ else
 
 // hint format[">>> %1 ", curatorSelected];
 
-if(true) then
-{
 
-if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
-{
 
 _groupInfo = _overlay displayCtrl 1000;
 _bg = _overlay displayCtrl 7000;
@@ -47,12 +45,15 @@ if(!isnull _bgcfg) then
 {
 _groupInfo ctrlSetText format ["%1 (%2)", getText (_bgcfg >> "name"), _selGroup getVariable "expStr" ];
  _bg ctrlShow true;
+_groupView ctrlShow true;
 }
 else
 {
 _groupInfo ctrlSetText "";
 
  _bg ctrlShow false;
+
+ _groupView ctrlShow false; // Not really needed
 };
 
 lnbClear _groupView;
@@ -138,14 +139,15 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 lastViewUpdate = time;
 };
 
- _groupView ctrlShow true;
+
+/*
 }
 else
 {
  _groupView ctrlShow false;
-};
+};*/
 
  };
 
- sleep 0.5;
+ sleep 0.1;
 };
