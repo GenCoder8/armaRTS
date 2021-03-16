@@ -14,7 +14,7 @@ $[
 
 
 
-#define BG_VIEW_COLS {0,0.5}
+#define BG_VIEW_COLS {0,0.075,0.4,0.6}
 
 
 

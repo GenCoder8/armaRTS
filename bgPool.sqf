@@ -43,6 +43,9 @@ vehicleAttributes = [];
 manPoolWest = [];
 manPoolEast = [];
 
+// Keeps all the bgs that can be used
+selectableBgs = [];
+
 #define MANP_TYPE  0
 #define MANP_RANK  1
 #define MANP_SKILL 2
@@ -193,7 +196,6 @@ getBattleGroupCfg =
  _ce
 };
 
-selectableBgs = [];
 
 addBattleGroupToPool =
 {

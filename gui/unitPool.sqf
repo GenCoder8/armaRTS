@@ -197,6 +197,18 @@ _display = findDisplay UNITPOOLDLGID;
 _bgView = _display displayCtrl 1500;
 lbClear _bgView;
 
+_getWeapPic =
+{
+ params ["_wcfg"];
+ if(isnull _wcfg) exitwith { "" };
+
+ private _weapPic = getText(_wcfg >> "picture");
+
+ _weapPic
+
+ //getText (_wcfg >> "displayName");
+};
+
  _units = getArray (_bgCfg >> "units");
  _ranks = getArray (_bgCfg >> "ranks");
 {
@@ -204,12 +216,34 @@ _type = _x;
 _unitCfg = configfile >> "CfgVehicles" >> _type;
 _rank = [_bgCfg,_foreachIndex] call getRankFromCfg;
 
+_weapons = getArray(_unitCfg >> "weapons");
+
+_priWeap = configNull;
+_secWeap = configNull;
+
+{
+ private _wcfg = configfile >> "CfgWeapons" >> _x;
+ private _type = getNumber(_wcfg >> "type");
+ if(_type == 1) then
+ {
+  _priWeap = _wcfg;
+ };
+ if(_type == 4) then
+ {
+  _secWeap = _wcfg;
+ };
+} foreach _weapons;
+
 _rankIcon = (_rank call rankToNumber) call getRankIcon;
 _name = getText (_unitCfg >> "displayName");
 
-_rowIndex = _bgView lnbAddRow ["",_name];
+
+_rowIndex = _bgView lnbAddRow ["",_name, "", ""];
 
 _bgView lnbSetPicture [[_rowIndex, 0], _rankIcon];
+
+ _bgView lnbSetPicture [[_rowIndex, 2], _priWeap call _getWeapPic];
+ _bgView lnbSetPicture [[_rowIndex, 3], _secWeap call _getWeapPic];
 
 } foreach _units;
 
