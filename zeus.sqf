@@ -175,6 +175,12 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
+/*
+_wp = [_group,_waypointID];
+_wp setwaypointtype "SCRIPTED";
+_wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
+*/
+
 if(shiftDown) then
 {
 

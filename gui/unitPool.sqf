@@ -138,15 +138,16 @@ _poolLeftTypes = [_poolCounts,_neededMen] call subList;
  systemchat format[">> %1", _poolLeftTypes];
 
 
-_availBgs = missionconfigfile >> "BattleGroups" >> "west";
+_availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
 
 // Create battle groups pool
 numPoolPanels = 0;
 for "_i" from 0 to (count _availBgs - 1) do
 {
- _bgCfg = _availBgs select _i;
+ _bgName = _availBgs select _i;
+ _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
 
- private _cn = (configname _bgCfg) call countBgPoolNeed;
+ private _cn = _bgName call countBgPoolNeed;
  private _left = [+_poolLeftTypes,_cn] call subList;
  
 _notEnough = false;
@@ -154,7 +155,7 @@ if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 {
  _notEnough = true;
 
- systemchat format["not enough: %1 %2",(configname _bgCfg),_left];
+ systemchat format["not enough: %1 %2",_bgName,_left];
 };
 
  [_bgCfg,2301,0,numPoolPanels,!_notEnough] call createBGPanel;
@@ -177,8 +178,10 @@ poolSelectBG =
 
 if(_bgListId == 2301) then
 {
- _availBgs = missionconfigfile >> "BattleGroups" >> "west";
- _bgCfg = _availBgs select _selBgIndex;
+ _availBgs = selectableBgs;
+ _bgName = _availBgs select _selBgIndex;
+
+ _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
 
  selectedReserveBG = _bgCfg;
 

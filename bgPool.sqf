@@ -193,9 +193,13 @@ getBattleGroupCfg =
  _ce
 };
 
+selectableBgs = [];
+
 addBattleGroupToPool =
 {
  params ["_side","_bgname"];
+
+ selectableBgs pushbackUnique _bgname;
 
  private _manPool = _side call getManPool;
 

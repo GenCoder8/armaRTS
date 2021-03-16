@@ -183,6 +183,11 @@ getPlayerSide =
 playerside
 };
 
+getPlrSideStr =
+{
+ str (call getPlayerSide)
+};
+
 getGroupAverageSkill =
 {
  params ["_group"];
