@@ -211,6 +211,15 @@ _getWeapPic =
 
  _units = getArray (_bgCfg >> "units");
  _ranks = getArray (_bgCfg >> "ranks");
+
+private _funit = (_units # 0);
+
+if(!(_funit isKindOf "man")) then
+{
+ private _vattr = _funit call getVehicleAttrs;
+ _units = [_funit] + _vattr # 1;
+};
+
 {
 _type = _x;
 _unitCfg = configfile >> "CfgVehicles" >> _type;
@@ -221,6 +230,9 @@ _weapons = getArray(_unitCfg >> "weapons");
 _priWeap = configNull;
 _secWeap = configNull;
 
+// Only for men atm
+if((_type isKindOf "man")) then
+{
 {
  private _wcfg = configfile >> "CfgWeapons" >> _x;
  private _type = getNumber(_wcfg >> "type");
@@ -233,6 +245,8 @@ _secWeap = configNull;
   _secWeap = _wcfg;
  };
 } foreach _weapons;
+
+};
 
 _rankIcon = (_rank call rankToNumber) call getRankIcon;
 _name = getText (_unitCfg >> "displayName");
