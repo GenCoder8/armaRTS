@@ -16,71 +16,6 @@ _areaSize = markerSize _areaMarker;
 _deployAreaDepth = 75;
 _deployAreaWidth = _areaSize # 0;
 
-/*
-{
-_deployDir = _x;
-
-_vecFromCenter = [_attackDir + _deployDir, _areaSize # 0 - _deployAreaDepth ] call getvector;
-_placeAreaRectPos = [_vecFromCenter,_areaPos] call addvector;
-
-_mrk = createmarker [format["deploySide%1",_deployDir], _placeAreaRectPos];
-_mrk setMarkerShape "RECTANGLE";
-_mrk setMarkerColor "ColorBlack";
-_mrk setMarkerSize [_areaSize # 0,_deployAreaDepth];
-_mrk setMarkerDir _attackDir;
-
-_angle = 0;
-{
-_x params ["_width","_depth"];
-
-_pax = 0;
-while { _pax < (_width * 2) } do
-{
-
-_vex = [_attackDir + 90 + _angle, _pax - (_width)  ] call getvector;
-_vey = [_attackDir + _angle, _depth ] call getvector;
-_ve = [_vex,_vey] call addvector;
-
-_vf = [_ve,_vecFromCenter] call addvector;
-_vf = [_areaPos,_vf] call addvector;
-
-_vf set [2,0];
-createSimpleObject ["Sign_Arrow_F",AGLToASL _vf,true];
-
-_pax = _pax + 5;
-};
-
-_angle = _angle + 90;
-} foreach [[_deployAreaWidth,_deployAreaDepth], [_deployAreaDepth,_deployAreaWidth], [_deployAreaWidth,_deployAreaDepth], [_deployAreaDepth,_deployAreaWidth]];
-
-if(_foreachIndex == 0) then
-{
-deployAreaA = _mrk;
-}
-else
-{
-deployAreaB = _mrk;
-};
-
-} foreach [0,180];
-*/
-
-/*
-for "_i" from 0 to 1000 do
-{
-
-_v1 = [_attackDir + 90, -_deployAreaWidth + random (_deployAreaWidth*2) ] call getvector;
-_v2 = [_attackDir, -_deployAreaDepth + random (_deployAreaDepth*2) ] call getvector;
-_vf = [_v1,_v2] call addvector;
-_vf = [_vecFromCenter,_vf] call addvector;
-_vf = [_areaPos,_vf] call addvector;
-
-_mrk = createmarker [format["%1",random 1000], _vf];
-_mrk setMarkerShape "icon";
-_mrk setMarkerType "mil_dot";
-_mrk setMarkerColor "ColorRed";
-
-};*/
 
 
 
@@ -127,27 +62,18 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 
 
 
+/*
+plrZeus addEventHandler ["CuratorWaypointEdited", {
+	params ["_curator", "_waypoint"];
 
-plrZeus addEventHandler ["CuratorWaypointPlaced", {
-	params ["_curator", "_group", "_waypointID"];
+systemchat format["CHANGE! %1",time];
+}];
 
- // man buildings
- [_group,false] call onNewMove;
 
- _wps = waypoints _group;
+plrZeus addEventHandler ["CuratorWaypointSelectionChanged", {
+	params ["_curator", "_waypoint"];
 
- // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
-
-// Continue moving if first waypoints...
-if(count _wps <= 2) then
-{
- _ldr = (leader _group);
-
- _ldr doMove (waypointPosition [_group,_waypointID]);
-
- (units _group - [_ldr]) doFollow _ldr;
-};
-
+systemchat format["SEL! %1",time];
 }];
 
 plrZeus addEventHandler ["CuratorObjectSelectionChanged", {
@@ -168,21 +94,25 @@ plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
 
  true
 }];
+*/
 
-
-shiftPressed = false;
 plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
-/*
+
+switch (true) do
+{
+ case firemisDown: // Fire mission
+ {
+
 _wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
-*/
 
-if(shiftDown) then
-{
+ };
+ case shiftDown: // Group facing
+ {
 
 _wp = [_group,_waypointID];
 
@@ -190,11 +120,30 @@ _wp = [_group,_waypointID];
 
 deleteWaypoint _wp;
 
-}
-else
+ };
+ default // Move
 {
- 
+
+ // man buildings
+ [_group,false] call onNewMove;
+
+ _wps = waypoints _group;
+
+ // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
+
+// Continue moving if first waypoints...
+if(count _wps <= 2) then
+{
+ _ldr = (leader _group);
+
+ _ldr doMove (waypointPosition [_group,_waypointID]);
+
+ (units _group - [_ldr]) doFollow _ldr;
 };
+
+};
+};
+
 
 }];
 
