@@ -41,6 +41,9 @@ waituntil { scriptdone _w };
 };
 };
 
+findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
+
+
  getAngle = RTSmainPath+"scripts\math\getAngleFn.sqf" call compileFile;
  getVecLength = RTSmainPath+"scripts\math\getVecLengthFn.sqf" call compileFile;
  getVecDir = RTSmainPath+"scripts\math\getVecDirFn.sqf" call compileFile;

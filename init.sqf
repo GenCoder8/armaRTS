@@ -2,7 +2,6 @@
 
 
 
-findFromArray = compile preprocessFileLineNumbers "findFromArrayFn.sqf";
 
 [] spawn
 {
