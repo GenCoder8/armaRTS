@@ -151,6 +151,13 @@ getGroupPos =
 };
 
 
+getOwnGroups =
+{
+ params ["_side"];
+ private _ownGroups = allgroups select { side _x == _side && !(player in (units _x)) };
+ _ownGroups
+};
+
 
 sleep 0.1;
 
@@ -207,7 +214,7 @@ while { true } do
 _side = west;
 _enemySide = east;
 
-_ownGroups = allgroups select { side _x == _side };
+_ownGroups = _side call getOwnGroups;
 { _x setVariable ["isFree",false]; } foreach _ownGroups;
 
 _freeGroups = [];
@@ -423,7 +430,9 @@ while { true } do
 
 
 _side = west;
-_ownGroups = allgroups select { side _x == _side };
+_ownGroups = _side call getOwnGroups;
+
+hint format["num own groups: %1", count _ownGroups ];
 
 {
 scopename "handlePlace";
