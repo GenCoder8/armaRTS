@@ -110,6 +110,21 @@ class Sniper
 class east
 {
 
+class TO55
+{
+ name = "TO-55";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_to55_nva"};
+};
+
+class T34
+{
+ name = "T-34";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_t34_85_nva"};
+};
+
+
 class HeavyTeam
 {
  name = "Heavy weapons squad";
