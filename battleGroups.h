@@ -9,8 +9,17 @@ class TankCrews
 
 class Infantry
 {
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT",
- "uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2","uns_men_USMC_68_SCT","uns_men_USMC_68_ENG","uns_men_USMC_68_RF1"};
+ units[] = {
+ // West
+ "uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT",
+ "uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2","uns_men_USMC_68_SCT","uns_men_USMC_68_ENG","uns_men_USMC_68_RF1",
+
+ // East
+ "uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", 
+ "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP" ,"uns_men_NVA_65_MRK",
+ "uns_men_NVA_65_HMG"
+
+};
 };
 
 class Snipers
@@ -95,6 +104,45 @@ class Sniper
  units[] = {"uns_men_USMC_68_MRK"};
 };
 
+};
+
+
+class east
+{
+
+class HeavyTeam
+{
+ name = "Heavy weapons squad";
+ ranks[] = SQUAD_RANKS;
+ units[] = {"uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP" };
+};
+
+class LightTeam
+{
+ name = "Rifle squad";
+ ranks[] = SQUAD_RANKS;
+ units[] = {"uns_men_NVA_65_off", "uns_men_NVA_65_RTO", "uns_men_NVA_65_MED", "uns_men_NVA_65_SAP", "uns_men_NVA_65_AS3", "uns_men_NVA_65_AS4", "uns_men_NVA_65_AS6"};
+};
+
+class MachineGunTeam
+{
+ name = "Machine gun team";
+ ranks[] = TEAM_RANKS;
+ units[] = {"uns_men_NVA_65_HMG","uns_men_NVA_65_RF1"};
+};
+
+class AntiTankTeam
+{
+ name = "Anti tank team";
+ ranks[] = TEAM_RANKS;
+ units[] = {"uns_men_NVA_65_AT","uns_men_NVA_65_RF1"};
+};
+
+class Sniper
+{
+ name = "Sniper";
+ ranks[] = SNIPER_RANK;
+ units[] = {"uns_men_NVA_65_MRK"};
 };
 
 // a animate ["plants1",1];
