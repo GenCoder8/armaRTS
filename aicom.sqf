@@ -20,7 +20,7 @@ aiNumAttackLocations = 2;
 
 // Start the com
 
-startAiCom =
+setupBattleLocation =
 {
 
 _vicmarkers = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
@@ -59,6 +59,64 @@ _vlId = count victoryLocations;
 victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 } foreach _vicmarkers;
+
+
+// Capture vic loc logic 
+
+
+[] spawn
+{
+
+while { true } do
+{
+
+
+_side = west;
+_ownGroups = _side call getOwnGroups;
+
+hint format["num own groups: %1", count _ownGroups ];
+
+{
+scopename "handlePlace";
+_place = _x;
+
+if(_x # VICLOC_OWNER != _side) then
+{
+
+{
+_group = _x;
+_near = [(_group call getGroupPos)] call getNearVictoryLoc;
+
+if(count _near > 0) then
+{
+// Capture
+if([_near,_place] call isSameLoc) then
+{
+systemchat format["PLACE CAPTURED '%1'", _place # VICLOC_NAME];
+
+_place set[VICLOC_OWNER, _side];
+
+[_place # VICLOC_MARKER,_side] call updateVictoryLocMarker;
+
+
+breakTo "handlePlace";
+};
+};
+
+} foreach _ownGroups;
+
+
+};
+
+
+
+} foreach victoryLocations;
+
+ sleep 2;
+};
+
+};
+
 
 };
 
@@ -159,7 +217,15 @@ getOwnGroups =
  _ownGroups
 };
 
+isSameLoc =
+{
+ (_this#0#VICLOC_POS) distance2D (_this#1#VICLOC_POS) < VICINITY_DIST
+};
 
+
+
+startAiCom =
+{
 
 [] spawn
 {
@@ -373,60 +439,7 @@ if(_stuck <= 0) then
 
 };
 
-isSameLoc =
-{
- (_this#0#VICLOC_POS) distance2D (_this#1#VICLOC_POS) < VICINITY_DIST
-};
-
-[] spawn
-{
-
-while { true } do
-{
-
-
-_side = west;
-_ownGroups = _side call getOwnGroups;
-
-hint format["num own groups: %1", count _ownGroups ];
-
-{
-scopename "handlePlace";
-_place = _x;
-
-if(_x # VICLOC_OWNER != _side) then
-{
-
-{
-_group = _x;
-_near = [(_group call getGroupPos)] call getNearVictoryLoc;
-
-if(count _near > 0) then
-{
-// Capture
-if([_near,_place] call isSameLoc) then
-{
-systemchat format["PLACE CAPTURED '%1'", _place # VICLOC_NAME];
-
-_place set[VICLOC_OWNER, _side];
-
-[_place # VICLOC_MARKER,_side] call updateVictoryLocMarker;
-
-
-breakTo "handlePlace";
-};
-};
-
-} foreach _ownGroups;
-
-
 };
 
 
 
-} foreach victoryLocations;
-
- sleep 2;
-};
-
-};
