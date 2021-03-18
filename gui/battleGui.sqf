@@ -49,7 +49,7 @@ else
 
 };
 
-systemchat format["_key %1 ",_key];
+// systemchat format["_key %1 ",_key];
 
 _handled
 }];
