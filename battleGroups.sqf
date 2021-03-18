@@ -117,7 +117,7 @@ onNewMove =
 {
  params ["_group","_isAttack"];
 
- _group setVariable ["manBuildings",!_isAttack]; 
+ _group setVariable ["manBuildings",!_isAttack];
 
  _group setVariable ["wpArrived",false];
 
