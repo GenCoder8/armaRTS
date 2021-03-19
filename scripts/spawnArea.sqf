@@ -82,7 +82,7 @@ checkBoundingCollide =
 
 findSafePosVehicle =
 {
- params ["_pos",["_vehSize",SPAWN_VEH_SPACE],["_notOnRoad",false],["_blacklist",[]]];
+ params ["_pos",["_vehSize",SPAWN_VEH_SPACE],["_maxSearchDist",750],["_inArea",[]],["_notOnRoad",false],["_blacklist",[]]];
  
  private _circleBl = [];
  
@@ -91,7 +91,7 @@ findSafePosVehicle =
  private _nspos = [];
  
  #define RADIUS_STEP_SIZE 20
- #define POS_SEARCH_ATTEMBS (ceil (750 / RADIUS_STEP_SIZE))
+ #define POS_SEARCH_ATTEMBS (ceil (_maxSearchDist / RADIUS_STEP_SIZE))
  
  _dbgTime = time;
  
@@ -99,8 +99,12 @@ findSafePosVehicle =
  {
   scopename "lookpos";
   
-  _args set[1, RADIUS_STEP_SIZE * (_i - 1)];
-  _args set[2, RADIUS_STEP_SIZE * _i];
+   // padd so pos doesnt get skipped because it goes over the edge
+  #define SEARCH_PADD 20
+  private _s = RADIUS_STEP_SIZE * (_i - 1) - SEARCH_PADD;
+   if(_s < 0) then { _s = 0; };
+  _args set[1, _s];
+  _args set[2, RADIUS_STEP_SIZE * _i + SEARCH_PADD];
   
   for "_a" from 1 to 4 do
   {
@@ -111,10 +115,16 @@ findSafePosVehicle =
   if(count _nspos > 0) then
   {
    _circleBl pushback [_nspos, _vehSize];
+
    // _nspos set[2,0];
    
    _cpos = _nspos;
    _nspos = [];
+
+ if(count _inArea > 0) then
+ {
+ if(!(_cpos inArea _inArea)) then { breakto "lookpos"; };
+ };
    
   // _eobjs = nearestObjects [_nspos, ["Car", "Motorcycle","Truck","Tank"], SPAWN_VEH_SPACE * 2];
  // _eobjs = _nspos nearEntities [["Car", "Motorcycle","Truck","Tank"], 30];
@@ -150,6 +160,7 @@ findSafePosVehicle =
   //systemchat format ["Pos found at %1 attemb", _i];
   
   breakout "lookpos";
+
    
   };
   };
@@ -163,4 +174,58 @@ findSafePosVehicle =
  };
  
  _nspos
+};
+
+
+#define SEARCH_SPACE_STEP_SIZE 25
+
+findFreePosInArea =
+{
+scopename "findFreePos";
+params ["_cenPos","_radiusX","_radiusY","_size"];
+
+_mdir = 0;
+
+private _fposRet = [];
+
+_posFound = false;
+_stepY = 0;
+while { !_posFound && (abs _stepY) < _radiusY } do
+{
+ _vecY = [_mdir,_stepY] call getVector;
+
+_step = 0;
+while { !_posFound && (abs _step) < _radiusX } do
+{
+private _vec = [_mdir + 90,_step] call getVector;
+private _vec = [_vecY,_vec] call addvector;
+private _checkPos = [_cenPos,_vec] call addvector;
+
+_mrk = createMarker [format["DbgMrk_%1",random 100000], _checkPos];
+_mrk setMarkercolor "ColorRed";
+_mrk setMarkerShape "ICON";
+_mrk setMarkerType "hd_dot";
+
+
+private _npos = [_checkPos,_size,100,[_checkPos, _radiusX/2, _radiusY/2, _mdir, false]] call findSafePosVehicle;
+
+if(count _npos > 0) then // If ok
+{
+_npos set [2,0];
+_fposRet = _npos;
+
+_posFound = true; // Not used...
+
+breakto "findFreePos";
+};
+
+ if(_step >= 0) then { _step = _step + SEARCH_SPACE_STEP_SIZE; };
+ _step = _step * -1;
+};
+
+ if(_stepY >= 0) then { _stepY = _stepY + SEARCH_SPACE_STEP_SIZE; };
+ _stepY = _stepY * -1;
+};
+
+ _fposRet
 };

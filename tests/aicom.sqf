@@ -31,7 +31,7 @@ if(isnull (_group getVariable ["arrow",objNull])) then
  _arrow setObjectScale 5;
 
 
-_mrk = createmarker [format["%1",random 1000], getposASL _ldr];
+_mrk = createmarker [format["%1",random 100000], getposASL _ldr];
 _mrk setMarkerShape "icon";
 _mrk setMarkerType "mil_dot";
 _mrk setMarkerColor "ColorRed";

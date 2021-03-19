@@ -38,7 +38,7 @@ vehicleAttributes = [];
 
 #define VEH_ATTRS_TYPE   0
 #define VEH_ATTRS_CREW   1
-
+#define VEH_ATTRS_SIZE   2
 
 manPoolWest = [];
 manPoolEast = [];
@@ -88,9 +88,14 @@ if(count _vattrs == 0) then
  createVehicleCrew _veh;
  _crew = crew _veh;
 
+
+ private _size = _veh call getObjectSize;
+ private _vehSize = ((_size select 0) / 2) max ((_size select 1) / 2);
+
+
 diag_log format["--- Adding vehicle crew attrs %1 %2 %3 ---", _veh,_crew,_crew apply { typeof _x }];
 
-vehicleAttributes pushback [_type,_crew apply { typeof _x }];
+vehicleAttributes pushback [_type,_crew apply { typeof _x },_vehSize];
 
 {
  _veh deleteVehicleCrew _x;
