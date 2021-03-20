@@ -110,13 +110,13 @@ setGroupFacingNew =
 {
  params ["_angle"];
 
-_sel = curatorSelected # 1;
+private _sel = curatorSelected # 1;
 if(count _sel > 0) then
 {
 
 {
-_group = _x;
-_ldr = (leader _group);
+private _group = _x;
+private _ldr = (leader _group);
 
 if(alive _ldr) then
 {

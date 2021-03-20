@@ -82,11 +82,32 @@ if(_shift) then
 false
 }];
 
+ rightMouseButtonDown = false;
+facingArrow = objnull;
+
 _display displayAddEventHandler ["MouseButtonDown",
 {
  params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+ _handled = false;
+
 if(_button == 1) then
+{
+ rightMouseButtonDown = true;
+}; 
+
+ _handled
+}];
+
+_display displayAddEventHandler ["MouseMoving",
+{
+  _handled = false;
+
+ // Only this works in here
+ getMousePosition params ["_xPos", "_yPos"];
+
+
+if(rightMouseButtonDown && isnull facingArrow) then
 {
  systemchat "DOWN!";
 
@@ -94,7 +115,7 @@ _sel = curatorSelected # 1;
 if(count _sel > 0) then
 {
 
-   systemchat format["READ: %1,%2",_xPos,_yPos];
+ systemchat format["READ: %1,%2",_xPos,_yPos];
 
  rightMouseHoldPos = screenToWorld [_xPos,_yPos];
  //rightMouseHoldPos set [2,1];
@@ -108,15 +129,9 @@ if(count _sel > 0) then
 };
 };
 
-}];
-
-_display displayAddEventHandler ["MouseMoving",
-{
  //params ["_display", "_xPos", "_yPos"];
- if(!isnull facingArrow) then
+if(!isnull facingArrow) then
 {
- // Only this works in here
- getMousePosition params ["_xPos", "_yPos"];
 
  _cpos = screenToWorld [_xPos,_yPos];
  
@@ -124,7 +139,10 @@ _display displayAddEventHandler ["MouseMoving",
   facingArrow setdir _angle;
   facingArrow setObjectScale 5;
 
+ _handled = true;
 };
+
+_handled
 }];
 
 _display displayAddEventHandler ["MouseButtonUp",
@@ -136,6 +154,11 @@ _handled = false;
 if(_button == 1) then
 {
  systemchat "UP!";
+
+if(_button == 1) then
+{
+ rightMouseButtonDown = false;
+}; 
 
 
 _sel = curatorSelected # 1;
@@ -153,10 +176,13 @@ if(count _sel > 0) then
  _group = _x;
 // _group call deleteWaypoints;
 
- _wp = _group addwaypoint [rightMouseHoldPos,0];
- _wp setWaypointStatements ["true", format["hint 'test!'; %1 call setGroupFacingNew;",_angle]];
 
- [_group,false] call onNewMove;
+
+ _wp = _group addwaypoint [rightMouseHoldPos,0];
+ _wp setWaypointType "MOVE";
+ _wp setWaypointStatements ["true", format["%1 call setGroupFacingNew;",_angle]];
+
+  [_group,_wp#1] call moveBattleGroup;
 
 } foreach _sel;
 
@@ -367,9 +393,6 @@ deleteWaypoint _wp;
 default // Move
 {
 
- // man buildings
- [_group,false] call onNewMove;
-
  _wps = waypoints _group;
 
  // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
@@ -377,11 +400,7 @@ default // Move
 // Continue moving if first waypoints...
 if(count _wps <= 2) then
 {
- _ldr = (leader _group);
-
- _ldr doMove (waypointPosition [_group,_waypointID]);
-
- (units _group - [_ldr]) doFollow _ldr;
+ [_group,_waypointID] call moveBattleGroup;
 };
 
 };
@@ -389,6 +408,20 @@ if(count _wps <= 2) then
 
 
 }];
+
+moveBattleGroup =
+{
+ params ["_group","_waypointID"];
+
+ // man buildings
+ [_group,false] call onNewMove;
+
+ private _ldr = (leader _group);
+
+ _ldr doMove (waypointPosition [_group,_waypointID]);
+
+ (units _group - [_ldr]) doFollow _ldr;
+};
 
 
 /*
@@ -405,7 +438,7 @@ addMissionEventHandler ["GroupIconOverEnter", {
 
  [] spawn
 {
- sleep 1; 
+ sleep 0.5; 
  openCuratorInterface;
  [] spawn onZeusOpen;
 };
