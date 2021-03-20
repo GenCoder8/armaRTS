@@ -180,7 +180,7 @@ if(count _sel > 0) then
 
  _wp = _group addwaypoint [rightMouseHoldPos,0];
  _wp setWaypointType "MOVE";
- _wp setWaypointStatements ["true", format["%1 call setGroupFacingNew;",_angle]];
+ _wp setWaypointStatements ["true", format["[group this,%1] call setGroupFacingNew;",_angle]];
 
   [_group,_wp#1] call moveBattleGroup;
 
@@ -379,7 +379,8 @@ _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery
 
  };
 
- case shiftDown: // Group facing
+ /* old
+case shiftDown: // Group facing
  {
 
 _wp = [_group,_waypointID];
@@ -388,7 +389,7 @@ _wp = [_group,_waypointID];
 
 deleteWaypoint _wp;
 
- };
+ };*/
 
 default // Move
 {

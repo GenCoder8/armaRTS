@@ -108,14 +108,8 @@ else
 
 setGroupFacingNew =
 {
- params ["_angle"];
+ params ["_group","_angle"];
 
-private _sel = curatorSelected # 1;
-if(count _sel > 0) then
-{
-
-{
-private _group = _x;
 private _ldr = (leader _group);
 
 if(alive _ldr) then
@@ -135,10 +129,6 @@ dostop _ldr;
 else
 {
  systemchat "Ldr not alive";
-};
-
-} foreach _sel;
-
 };
 
 };
