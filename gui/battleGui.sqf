@@ -106,6 +106,43 @@ else
 
 };
 
+setGroupFacingNew =
+{
+ params ["_angle"];
+
+_sel = curatorSelected # 1;
+if(count _sel > 0) then
+{
+
+{
+_group = _x;
+_ldr = (leader _group);
+
+if(alive _ldr) then
+{
+
+_group setFormDir _angle;
+
+ systemchat format["ROTATE %1", _angle];
+
+dostop _ldr;
+(units _group - [_ldr]) doFollow _ldr;
+
+
+[_group,getpos _ldr] call groupLocationSet;
+
+}
+else
+{
+ systemchat "Ldr not alive";
+};
+
+} foreach _sel;
+
+};
+
+};
+
 // curatorToggleCreate
 // https://community.bistudio.com/wiki/inputAction/actions
 

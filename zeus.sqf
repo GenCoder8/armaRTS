@@ -1,3 +1,5 @@
+#include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
+#include "\a3\ui_f\hpp\definedikcodes.inc"
 
 // Radius
 #define DEPLOY_AREA_SIZE 75
@@ -80,7 +82,99 @@ if(_shift) then
 false
 }];
 
+_display displayAddEventHandler ["MouseButtonDown",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+if(_button == 1) then
+{
+ systemchat "DOWN!";
+
+_sel = curatorSelected # 1;
+if(count _sel > 0) then
+{
+
+   systemchat format["READ: %1,%2",_xPos,_yPos];
+
+ rightMouseHoldPos = screenToWorld [_xPos,_yPos];
+ //rightMouseHoldPos set [2,1];
+
+
+ facingArrow = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL  rightMouseHoldPos,false];
+ 
+ facingArrow setObjectScale 5;
+
+
+};
+};
+
+}];
+
+_display displayAddEventHandler ["MouseMoving",
+{
+ //params ["_display", "_xPos", "_yPos"];
+ if(!isnull facingArrow) then
+{
+ // Only this works in here
+ getMousePosition params ["_xPos", "_yPos"];
+
+ _cpos = screenToWorld [_xPos,_yPos];
+ 
+ _angle = [rightMouseHoldPos,_cpos] call getAngle;
+  facingArrow setdir _angle;
+  facingArrow setObjectScale 5;
+
+};
+}];
+
+_display displayAddEventHandler ["MouseButtonUp",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+_handled = false;
+
+if(_button == 1) then
+{
+ systemchat "UP!";
+
+
+_sel = curatorSelected # 1;
+if(count _sel > 0) then
+{
+ _rightMouseHoldPosNow = screenToWorld [_xPos,_yPos];
+
+ _angle = [rightMouseHoldPos,_rightMouseHoldPosNow] call getAngle;
+
+  systemchat format["ANGLE: %1",_angle];
+
+ // _angle call setGroupFacingNew;
+
+{
+ _group = _x;
+// _group call deleteWaypoints;
+
+ _wp = _group addwaypoint [rightMouseHoldPos,0];
+ _wp setWaypointStatements ["true", format["hint 'test!'; %1 call setGroupFacingNew;",_angle]];
+
+ [_group,false] call onNewMove;
+
+} foreach _sel;
+
+};
+
+// Always delete in here
+if(!isnull facingArrow) then
+{
+deletevehicle facingArrow;
+facingArrow = objNull;
+
+_handled = true;
+};
+
+};
+
+ _handled
+}];
 
  // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
 
@@ -311,7 +405,7 @@ addMissionEventHandler ["GroupIconOverEnter", {
 
  [] spawn
 {
- sleep 0.1; 
+ sleep 1; 
  openCuratorInterface;
  [] spawn onZeusOpen;
 };
