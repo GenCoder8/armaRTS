@@ -346,8 +346,8 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 //[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
 //[call getPlayerSide,"HeavyTeam",_deployAreaPos] call createBattleGroupFromPool;
 
-[call getPlayerSide,"MoratTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"MoratTeam",_deployAreaPos] call createBattleGroupFromPool;
+[call getPlayerSide,"LightMortarTeam"] call addBattleGroupToPool;
+[call getPlayerSide,"LightMortarTeam",_deployAreaPos] call createBattleGroupFromPool;
 
 
 
@@ -396,6 +396,7 @@ switch (true) do
  {
 
 _group call beginArtillery;
+
 
 _wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";

@@ -19,6 +19,14 @@ beginArtillery =
 {
  params ["_group"];
 
+
+private _gcfg = _group getVariable ["cfg",configNull];
+private _mortarType = getText(_gcfg >> "mortar");
+
+  // Has spawnable static weapon?
+if(_mortarType == "") exitWith {};
+
+
 private _pos = getposATL (leader _group);
 
 private _art = _group getVariable ["art", objnull];
@@ -31,7 +39,7 @@ systemchat "New arty...";
 //_sveh params ["_veh", "_crew", "_group"];
 //_art = _veh;
 
-_art = "B_Mortar_01_F" createVehicle _pos;
+_art = _mortarType createVehicle _pos;
 
 (leader _group) moveingunner _art;
 

@@ -95,11 +95,20 @@ class AntiTankTeam
  units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
 };
 
-class MoratTeam
+class LightMortarTeam
 {
- name = "Mortar tank team";
+ name = "Mortar team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
+ units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+ mortar = "uns_M2_60mm_mortar";
+};
+
+class HeavyMortarTeam
+{
+ name = "Mortar team";
+ ranks[] = TEAM_RANKS;
+ units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+ mortar = "uns_M1_81mm_mortar";
 };
 
 class Sniper
