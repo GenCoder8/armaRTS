@@ -81,8 +81,29 @@ if(_shift) then
 
 false
 }];
+/*
+finddisplay 46 displayAddEventHandler ["MouseButtonDown",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
- rightMouseButtonDown = false;
+ true
+}];
+
+finddisplay 46 displayAddEventHandler ["MouseMoving",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+ true
+}];
+
+finddisplay 46 displayAddEventHandler ["MouseButtonUp",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+ true
+}];
+*/
+rightMouseButtonDown = false;
 facingArrow = objnull;
 
 _display displayAddEventHandler ["MouseButtonDown",
@@ -109,22 +130,19 @@ _display displayAddEventHandler ["MouseMoving",
 
 if(rightMouseButtonDown && isnull facingArrow) then
 {
- systemchat "DOWN!";
+ //systemchat "DOWN!";
 
 _sel = curatorSelected # 1;
 if(count _sel > 0) then
 {
-
- systemchat format["READ: %1,%2",_xPos,_yPos];
+ //systemchat format["READ: %1,%2",_xPos,_yPos];
 
  rightMouseHoldPos = screenToWorld [_xPos,_yPos];
  //rightMouseHoldPos set [2,1];
 
-
  facingArrow = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL  rightMouseHoldPos,false];
  
  facingArrow setObjectScale 5;
-
 
 };
 };
@@ -153,14 +171,15 @@ _handled = false;
 
 if(_button == 1) then
 {
- systemchat "UP!";
+ //systemchat "UP!";
 
 if(_button == 1) then
 {
  rightMouseButtonDown = false;
 }; 
 
-
+if(!isnull facingArrow) then // Dragging for dir?
+{
 _sel = curatorSelected # 1;
 if(count _sel > 0) then
 {
@@ -177,7 +196,6 @@ if(count _sel > 0) then
 // _group call deleteWaypoints;
 
 
-
  _wp = _group addwaypoint [rightMouseHoldPos,0];
  _wp setWaypointType "MOVE";
  _wp setWaypointStatements ["true", format["[group this,%1] call setGroupFacingNew;",_angle]];
@@ -186,6 +204,7 @@ if(count _sel > 0) then
 
 } foreach _sel;
 
+};
 };
 
 // Always delete in here
@@ -324,8 +343,11 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,75];
 // ["testteam",call getPlayerSide,_deployAreaPos] call createBattleGroup;
 
 
-[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"HeavyTeam",_deployAreaPos] call createBattleGroupFromPool;
+//[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
+//[call getPlayerSide,"HeavyTeam",_deployAreaPos] call createBattleGroupFromPool;
+
+[call getPlayerSide,"MoratTeam"] call addBattleGroupToPool;
+[call getPlayerSide,"MoratTeam",_deployAreaPos] call createBattleGroupFromPool;
 
 
 
@@ -372,6 +394,8 @@ switch (true) do
 {
  case firemisDown: // Fire mission
  {
+
+_group call beginArtillery;
 
 _wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";

@@ -95,6 +95,12 @@ class AntiTankTeam
  units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
 };
 
+class MoratTeam
+{
+ name = "Mortar tank team";
+ ranks[] = TEAM_RANKS;
+ units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
+};
 
 class Sniper
 {
