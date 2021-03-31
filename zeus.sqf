@@ -40,6 +40,31 @@ waituntil { ctrlenabled _ctrl && (ctrlfade _pc) <= 0 };
 
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
 
+/*
+[] spawn
+{
+sleep 2;
+
+_display = finddisplay 312;
+{
+_ctrl = _display displayctrl _x;
+
+systemchat format["Hmm %1", _ctrl];
+
+_ctrl ctrlRemoveAllEventHandlers "MouseMoving";
+_ctrl ctrlRemoveAllEventHandlers "mouseholding";
+_ctrl ctrlRemoveAllEventHandlers "MouseButtonDown";
+} foreach [IDC_RSCDISPLAYCURATOR_MOUSEAREA,IDC_RSCDISPLAYCURATOR_MISSION];
+};
+*/
+
+/*
+_bg = _display ctrlCreate ["RscButton", -1];
+_bg ctrlSetText "Test";
+_bg ctrlSetPosition [0.5, 0.8, 0.3, 0.2];
+_bg ctrlCommit 0;
+_bg buttonSetAction "systemchat 'test!'"; 
+*/
 
 #define FIRE_MISSION_KEY DIK_V
 
@@ -140,7 +165,7 @@ if(count _sel > 0) then
  rightMouseHoldPos = screenToWorld [_xPos,_yPos];
  //rightMouseHoldPos set [2,1];
 
- facingArrow = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL  rightMouseHoldPos,false];
+ facingArrow = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL rightMouseHoldPos,false];
  
  facingArrow setObjectScale 5;
 
@@ -162,6 +187,41 @@ if(!isnull facingArrow) then
 
 _handled
 }];
+
+
+/*
+[] spawn
+{
+
+systemchat "done";
+while { true } do
+{
+
+{
+_disp = _x;
+
+_disp displayRemoveAllEventHandlers "MouseButtonUp";
+_disp displayRemoveAllEventHandlers "MouseButtonDown";
+_disp displayRemoveAllEventHandlers "MouseMoving";
+_disp displayRemoveAllEventHandlers "mouseholding";
+_disp displayRemoveAllEventHandlers "MouseButtonDown";
+
+_disp displayAddEventHandler ["mouseholding",
+{
+true
+}];
+
+_disp displayAddEventHandler ["MouseMoving",
+{
+true
+}];
+
+} foreach alldisplays; // [0,12,46,49,312,313];
+
+ sleep 0.5;
+};
+};*/
+
 
 _display displayAddEventHandler ["MouseButtonUp",
 {
@@ -464,8 +524,15 @@ addMissionEventHandler ["GroupIconOverEnter", {
 
  [] spawn
 {
- sleep 0.5; 
- openCuratorInterface;
+ //sleep 0.1; 
+ waituntil 
+{
+sleep 0.01;
+openCuratorInterface;
+
+!isnull (findDisplay 312) 
+};
+ 
  [] spawn onZeusOpen;
 };
 
