@@ -12,7 +12,7 @@ class Infantry
  units[] = {
  // West
  "uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT",
- "uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2","uns_men_USMC_68_SCT","uns_men_USMC_68_ENG","uns_men_USMC_68_RF1",
+ "uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2","uns_men_USMC_68_SCT","uns_men_USMC_68_ENG","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3",
 
  // East
  "uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", 
@@ -99,7 +99,7 @@ class LightMortarTeam
 {
  name = "Mortar team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+ units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
  mortar = "uns_M2_60mm_mortar";
 };
 
@@ -107,7 +107,7 @@ class HeavyMortarTeam
 {
  name = "Mortar team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+ units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
  mortar = "uns_M1_81mm_mortar";
 };
 

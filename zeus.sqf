@@ -13,7 +13,7 @@ onZeusOpen =
 
 waitUntil { !isNull findDisplay 312 };
 
-sleep 0.5;
+//sleep 0.5;
 
 
 _display = finddisplay 312;
@@ -23,6 +23,20 @@ if(isnil "zeusModded") then
 
 //waituntil { _sb = missionnamespace getvariable ["RscDisplayCurator_sidebarShow",[false,false]]; ((_sb # 0) && (_sb # 1)) };
 
+
+//waitUntil { ctrlShown (_display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR)  };
+
+/*
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBARTITLE;
+_ctrl2 = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
+
+_ctrlGroupIDC = IDC_RSCDISPLAYCURATOR_ADD;
+_ctrlGroup = _display displayctrl _ctrlGroupIDC;
+
+systemchat format [">> %1 %2 %3 %4 %5 %6",ctrlenabled _ctrl, ctrlenabled _ctrlGroup, ctrlshown _ctrl, ctrlshown _ctrlGroup ];
+*/
+
+sleep 0.1;
 
 {
 with (uinamespace) do
@@ -39,6 +53,39 @@ waituntil { ctrlenabled _ctrl && (ctrlfade _pc) <= 0 };
 };
 
 } foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
+
+/*
+waituntil { sleep 0.1;
+_sidebarShow = missionnamespace getvariable ["RscDisplayCurator_sidebarShow",123];  _sidebarShow isNotEqualTo 123 };
+
+systemchat "ttt";
+
+{
+with (uinamespace) do
+{
+_ctrl = _display displayctrl _x;
+ ['toggleTree',[_ctrl] + [false],''] call RscDisplayCurator_script;
+};
+
+} foreach [IDC_RSCDISPLAYCURATOR_ADDBARTITLE,IDC_RSCDISPLAYCURATOR_MISSIONBARTITLE];
+
+
+_sidebarShow = missionnamespace getvariable ["RscDisplayCurator_sidebarShow",123];
+
+systemchat format [">> (%1)", _sidebarShow];
+
+*/
+
+
+
+// Create button
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
+_ctrl ctrlShow false;
+
+// Edit button
+_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_MISSIONBAR;
+_ctrl ctrlShow false;
+
 
 /*
 [] spawn
@@ -295,15 +342,6 @@ _display displayAddEventHandler ["MouseZChanged",{
  zeusModded = true;
 };
 
-/*
-// Create button
-_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_ADDBAR;
-_ctrl ctrlShow false;
-
-// Edit button
-_ctrl = _display displayctrl IDC_RSCDISPLAYCURATOR_MISSIONBAR;
-_ctrl ctrlShow false;
-*/
 
  call interceptZeusKeys;
 
@@ -385,11 +423,20 @@ plrZeus addCuratorAddons ["a3_modules_f_curator_cas"];
 //_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"]; 
 //_zeus synchronizeObjectsAdd [_zmCamArea];
 
-_deployAreaPos = [_areaPos,120] call getBattleDeployPos;
+_daDir = 120;
+{
+ _side = _x;
+ _deployAreaPos = [_areaPos,_daDir] call getBattleDeployPos;
+
+ missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
+
+ _daDir = _daDir + 180;
+} foreach [west,east];
+
+_deployAreaPos = missionnamespace getVariable format["deployArea%1", west];
 
 
 _zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
-
 
 
 _zeus addCuratorEditingArea [0,_deployAreaPos,75];
@@ -522,7 +569,7 @@ addMissionEventHandler ["GroupIconOverEnter", {
 }];
 */
 
- [] spawn
+[] spawn
 {
  //sleep 0.1; 
  waituntil 
