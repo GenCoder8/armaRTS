@@ -10,8 +10,8 @@ openZeus =
 
 [] spawn
 {
- //sleep 0.1; 
- waituntil 
+
+waituntil 
 {
 sleep 0.01;
 openCuratorInterface;
@@ -232,6 +232,8 @@ if(count _sel > 0) then
  
  facingArrow setObjectScale 5;
 
+ camLastDir = vectorDir curatorCamera;
+
 };
 };
 
@@ -244,6 +246,7 @@ if(!isnull facingArrow) then
  _angle = [rightMouseHoldPos,_cpos] call getAngle;
   facingArrow setdir _angle;
   facingArrow setObjectScale 5;
+
 
  _handled = true;
 };
@@ -343,6 +346,30 @@ _handled = true;
 
  _handled
 }];
+
+
+camLastDir = vectorDir curatorCamera;
+
+addMissionEventHandler ["EachFrame",
+{
+
+if(!isnull facingArrow) then
+{
+
+ //curatorCamera camSetDir camLastDir;
+ //curatorCamera camCommit 0;
+
+ //curatorCamera setPos [position player select 0,position player select 1,30];
+ curatorCamera setVectorDirAndUp [camLastDir,[0,0,1]];
+
+ hintsilent format["TESTING %1 %2",curatorCamera, camLastDir ];
+
+};
+
+}];
+
+
+
 
  // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
 

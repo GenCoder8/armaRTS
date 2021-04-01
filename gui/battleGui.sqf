@@ -23,7 +23,7 @@ beginBattlePlacement =
 deployAreaMain = _areaMarker;
 
 _areaPos = markerPos _areaMarker;
-_areaSize = markerSize _areaMarker;
+_areaSize = markerSize _areaMarker; // TODO: BATTLE_AREA_SIZE
 
 
 
@@ -62,13 +62,13 @@ _mrk setMarkerDir _daDir;
  _daDir = _daDir + 180;
 } foreach [west,east];
 
-_deployAreaPos = missionnamespace getVariable format["deployArea%1", west];
+_deployAreaPos = missionnamespace getVariable format["deployArea%1", call getPlayerSide];
 
 
 _zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
 
 
-_zeus addCuratorEditingArea [0,_deployAreaPos,75];
+_zeus addCuratorEditingArea [0,_deployAreaPos,DEPLOY_AREA_SIZE];
 
 
 
@@ -93,8 +93,6 @@ _fposRet = _npos;
 
 [call getPlayerSide,"LightMortarTeam"] call addBattleGroupToPool;
 [call getPlayerSide,"LightMortarTeam",_npos] call createBattleGroupFromPool;
-
-
 
 };
 
