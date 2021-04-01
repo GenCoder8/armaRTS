@@ -362,7 +362,6 @@ if(!isnull facingArrow) then
  //curatorCamera setPos [position player select 0,position player select 1,30];
  curatorCamera setVectorDirAndUp [camLastDir,[0,0,1]];
 
- hintsilent format["TESTING %1 %2",curatorCamera, camLastDir ];
 
 };
 

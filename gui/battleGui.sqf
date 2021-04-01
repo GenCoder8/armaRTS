@@ -82,19 +82,21 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,DEPLOY_AREA_SIZE];
 //[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
 //[call getPlayerSide,"HeavyTeam",_deployAreaPos] call createBattleGroupFromPool;
 
-
+/*
 private _npos = [_deployAreaPos,1,DEPLOY_AREA_SIZE,[_deployAreaPos, DEPLOY_AREA_SIZE, DEPLOY_AREA_SIZE, 0, true]] call findSafePosVehicle;
 
 if(count _npos > 0) then // If ok
 {
 _npos set [2,0];
 _fposRet = _npos;
+*/
 
+_area = [_deployAreaPos,DEPLOY_AREA_SIZE];
 
 [call getPlayerSide,"LightMortarTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"LightMortarTeam",_npos] call createBattleGroupFromPool;
+[call getPlayerSide,"LightMortarTeam",_area] call createBattleGroupFromPool;
 
-};
+
 
 
 

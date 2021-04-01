@@ -260,9 +260,24 @@ retAllBattleGroupsToPool =
  
 };
 
+getBattleGroupDeployPos =
+{
+params ["_area","_size"];
+_area params ["_pos","_range"];
+
+private _npos = [_pos,_size,_range,[_pos, _range, _range, 0, true]] call findSafePosVehicle;
+
+if(count _npos > 0) then // If ok
+{
+_npos set [2,0];
+};
+
+_npos
+};
+
 createBattleGroupFromPool =
 {
- params ["_side","_bgname","_pos"];
+ params ["_side","_bgname","_area"];
 
  private _manPool = _side call getManPool;
 
@@ -285,6 +300,8 @@ _unit setSkill (_entry # MANP_SKILL);
 _unit setVariable ["orgSkill", skill _unit]; // Needed later
 };
 
+private _infPos = [];
+
  private _units = getArray(_ce >> "units");
  {
   private _ue = _x;
@@ -301,6 +318,10 @@ if(count _vattrs == 0) then
 {
  "error finding vehicle attributes" call errmsg;
 };
+
+private _pos = [_area, _vattrs # VEH_ATTRS_SIZE] call getBattleGroupDeployPos;
+
+if(count _pos == 0) exitWith { "No spawn pos found for vehicle" call errmsg; };
 
 
 _sveh = [_pos, 0, (_vehEntry # MANP_TYPE), _group] call BIS_fnc_spawnVehicle;
@@ -338,8 +359,17 @@ if(count _entry == 0) exitWith
  ["Failed to get infantry entry"] call errmsg;
 };
 
+// Get pos for infantry
+if(count _infPos == 0) then
+{
+ _infPos = [_area, 1] call getBattleGroupDeployPos;
+
+if(count _infPos == 0) then { "No spawn pos found for infantry" call errmsg; continue; };
+
+};
+
  // Set skills, etc
- _unit = _group createUnit [_entry # MANP_TYPE, _pos, [], 0, "FORM"];
+ _unit = _group createUnit [_entry # MANP_TYPE, _infPos, [], 0, "FORM"];
  _unit call _setupMan;
  _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
