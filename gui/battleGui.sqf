@@ -232,7 +232,17 @@ moveBattleGroup =
  (units _group - [_ldr]) doFollow _ldr;
 };
 
+conditionFireMission =
+{
+ // Must have selection (todo only mortars)
+_sel = curatorSelected # 1;
+(count _sel > 0) 
+};
 
+actionFireMission =
+{
+ firemisDown = true;
+};
 
 
 [] spawn
@@ -369,6 +379,8 @@ toRoundsText =
  format["%1",_ammoCount]
 };
 
+actionButtons = [];
+
 activateBattleGui =
 {
  _display = displayNull;
@@ -410,8 +422,9 @@ _bt = _display ctrlCreate ["RscImgButton", -1];
 _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlSetPosition [0.5 + (BUT_SIZE * _i), 0.8 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
-_bt buttonSetAction "systemchat 'test!'"; 
+_bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))]; 
 
+actionButtons pushback [_bt,_bd];
 
 };
 

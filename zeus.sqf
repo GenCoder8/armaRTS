@@ -148,11 +148,11 @@ _display displayAddEventHandler ["KeyDown",
 params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
 
 // systemchat format["DOWN 777 %1 %2", _key,_shift];
-
+/*
 if(_key == FIRE_MISSION_KEY) then
 {
  firemisDown = true;
-};
+};*/
 
 if(_shift) then
 {

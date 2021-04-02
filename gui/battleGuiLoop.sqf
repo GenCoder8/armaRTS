@@ -136,6 +136,25 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 
 } foreach _men;
 
+
+
+{
+ _x params ["_but","_bDef"];
+
+ if(call compile (getText (_bDef >> "condition"))) then
+ {
+   _but ctrlEnable true; 
+ }
+ else
+ {
+  _but ctrlEnable false; 
+ };
+
+} foreach actionButtons;
+
+
+
+
 lastViewUpdate = time;
 };
 
@@ -148,6 +167,7 @@ else
 };*/
 
  };
+
 
  sleep 0.1;
 };
