@@ -1,6 +1,14 @@
 
 
+isMortarGroup =
+{
+params ["_group"];
 
+private _gcfg = _group getVariable ["cfg",configNull];
+private _mortarType = getText(_gcfg >> "mortar");
+
+(_mortarType != "")
+};
 
 
 onArtilleryUsed = 

@@ -143,11 +143,13 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 
  if(call compile (getText (_bDef >> "condition"))) then
  {
-   _but ctrlEnable true; 
+  _but ctrlEnable true;
+  _but ctrlSetTextColor [1, 1, 1, 1];
  }
  else
  {
   _but ctrlEnable false; 
+  _but ctrlSetTextColor [1, 1, 1, 0.5];
  };
 
 } foreach actionButtons;

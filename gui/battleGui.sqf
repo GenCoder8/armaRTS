@@ -115,6 +115,17 @@ plrZeus addEventHandler ["CuratorWaypointSelectionChanged", {
 systemchat format["SEL! %1",time];
 }];
 
+
+
+
+plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
+	params ["_curator", "_group"];
+
+ true
+}];
+*/
+
+
 plrZeus addEventHandler ["CuratorObjectSelectionChanged", {
 	params ["_curator", "_entity"];
 
@@ -127,13 +138,6 @@ plrZeus addEventHandler ["CuratorGroupSelectionChanged", {
 newZeusSelect = true;
 }];
 
-
-plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
-	params ["_curator", "_group"];
-
- true
-}];
-*/
 
 plrZeus addeventhandler ["curatorWaypointPlaced",
 {
@@ -234,9 +238,10 @@ moveBattleGroup =
 
 conditionFireMission =
 {
- // Must have selection (todo only mortars)
-_sel = curatorSelected # 1;
-(count _sel > 0) 
+ // Must have selection
+private _sel = curatorSelected # 1;
+
+({ _x call isMortarGroup } count _sel) > 0
 };
 
 actionFireMission =
@@ -407,7 +412,7 @@ _bg ctrlCommit 0;
 
 
 
-
+actionButtons = [];
 
 _buttonDefs = missionConfigFile >> "RtsActionButtons";
 
@@ -420,9 +425,11 @@ _bd = _buttonDefs select _i;
 
 _bt = _display ctrlCreate ["RscImgButton", -1];
 _bt ctrlSetText (getText (_bd >> "icon"));
+_bt ctrlsetTooltip (getText (_bd >> "text"));
 _bt ctrlSetPosition [0.5 + (BUT_SIZE * _i), 0.8 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
 _bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))]; 
+
 
 actionButtons pushback [_bt,_bd];
 
