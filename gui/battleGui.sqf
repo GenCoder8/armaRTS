@@ -410,6 +410,18 @@ _bg ctrlSetPosition [_pos # 0, _pos # 1 - TITLE_HEIGHT, _pos # 2, _pos # 3 + TIT
 _bg ctrlCommit 0;
 */
 
+_cg = _display ctrlCreate ["RscControlsGroup", -1];
+_cg ctrlSetText "teeest";
+_cg ctrlsetTooltip "teeest";
+_cg ctrlSetPosition [0.5,0.5,0.4,0.4];
+_cg ctrlCommit 0;
+
+
+_img = _display ctrlCreate ["RscPicture", -1, _cg];
+_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
+_img ctrlSetPosition [0,0,0.4,0.4];
+_img ctrlCommit 0;
+
 
 
 actionButtons = [];
@@ -423,10 +435,10 @@ for "_i" from 0 to ( count _buttonDefs - 1) do
 {
 _bd = _buttonDefs select _i;
 
-_bt = _display ctrlCreate ["RscImgButton", -1];
+_bt = _display ctrlCreate ["RscImgButton", -1, _cg];
 _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
-_bt ctrlSetPosition [0.5 + (BUT_SIZE * _i), 0.8 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
+_bt ctrlSetPosition [0.0 + (BUT_SIZE * _i), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
 _bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))]; 
 
