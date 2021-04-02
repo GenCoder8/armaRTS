@@ -5,6 +5,7 @@
 #include "gui\gridDefines.h"
 #include "gui\parent.h"
 #include "gui\rtsCtrls.h"
+#include "gui\actions.h"
 
 
 class RscTitles

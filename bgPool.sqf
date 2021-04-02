@@ -321,7 +321,7 @@ if(count _vattrs == 0) then
 
 private _pos = [_area, _vattrs # VEH_ATTRS_SIZE] call getBattleGroupDeployPos;
 
-if(count _pos == 0) exitWith { "No spawn pos found for vehicle" call errmsg; };
+if(count _pos == 0) then { "No spawn pos found for vehicle" call errmsg; continue; };
 
 
 _sveh = [_pos, 0, (_vehEntry # MANP_TYPE), _group] call BIS_fnc_spawnVehicle;

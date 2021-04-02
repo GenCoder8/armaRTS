@@ -121,13 +121,6 @@ _ctrl ctrlRemoveAllEventHandlers "MouseButtonDown";
 };
 */
 
-/*
-_bg = _display ctrlCreate ["RscButton", -1];
-_bg ctrlSetText "Test";
-_bg ctrlSetPosition [0.5, 0.8, 0.3, 0.2];
-_bg ctrlCommit 0;
-_bg buttonSetAction "systemchat 'test!'"; 
-*/
 
 #define FIRE_MISSION_KEY DIK_V
 

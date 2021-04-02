@@ -371,10 +371,13 @@ toRoundsText =
 
 activateBattleGui =
 {
+ _display = displayNull;
+ waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
+
  cutRsc["ComOverlay","PLAIN",0];
 
 
- _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
+_overlay = uiNamespace getVariable ['ComOverlay', displayNull];
 
 _groupView = _overlay displayCtrl 1500;
 
@@ -389,6 +392,28 @@ _bg = _overlay ctrlCreate ["RscPicture", 7000];
 _bg ctrlSetPosition [_pos # 0, _pos # 1 - TITLE_HEIGHT, _pos # 2, _pos # 3 + TITLE_HEIGHT];
 _bg ctrlCommit 0;
 */
+
+
+
+
+
+_buttonDefs = missionConfigFile >> "RtsActionButtons";
+
+#define BUT_SIZE 0.1
+#define NUM_ROW 3
+
+for "_i" from 0 to ( count _buttonDefs - 1) do 
+{
+_bd = _buttonDefs select _i;
+
+_bt = _display ctrlCreate ["RscImgButton", -1];
+_bt ctrlSetText (getText (_bd >> "icon"));
+_bt ctrlSetPosition [0.5 + (BUT_SIZE * _i), 0.8 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
+_bt ctrlCommit 0;
+_bt buttonSetAction "systemchat 'test!'"; 
+
+
+};
 
 };
 
