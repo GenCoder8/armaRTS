@@ -143,6 +143,8 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
+private _wp = [_group,_waypointID];
+private _wpos = waypointPosition _wp;
 
 switch (true) do
 {
@@ -157,6 +159,12 @@ _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
  };
+
+case hoverOnHouse:
+{
+[_group,_wpos,15,formationDirection (leader _group),true,100,100] call manBuildings;
+
+};
 
  /* old
 case shiftDown: // Group facing
@@ -369,6 +377,35 @@ else
 };
 
 };
+
+
+darrow = createSimpleObject ["VR_3DSelector_01_default_F", [0,0,0], true];
+hoverOnHouse = false;
+
+addMissionEventHandler ["EachFrame",
+{
+ _bldg = call getOnHoverHouse;
+
+// systemchat format["_bldg %1", _bldg];
+
+if(!isnull _bldg) then
+{
+ _p = getposATL _bldg;
+ _p set [2, (_p # 2) + 8];
+ darrow setposATL _p;
+
+ hoverOnHouse = true;
+}
+else
+{
+ darrow setposATL [0,0,0];
+
+ hoverOnHouse = false;
+};
+
+}];
+
+
 
 // curatorToggleCreate
 // https://community.bistudio.com/wiki/inputAction/actions

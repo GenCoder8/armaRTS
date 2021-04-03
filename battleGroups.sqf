@@ -130,5 +130,5 @@ groupLocationSet =
 {
  params ["_group","_pos"];
  // Todo if leader not ok?
- [_group,_pos,15,formationDirection (leader _group),true,100,100] call manBuildings;
+ //[_group,_pos,15,formationDirection (leader _group),true,100,100] call manBuildings;
 };
