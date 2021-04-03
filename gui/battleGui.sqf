@@ -1,6 +1,23 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 #include "\a3\ui_f\hpp\definedikcodes.inc"
 
+#include "gridDefines.h"
+
+getGuiPos =
+{
+ params ["_x","_y","_w","_h",["_atGrid",true]];
+ private _gx = 0;
+ private _gy = 0;
+
+if(_atGrid) then
+{
+ _gx = UI_GRID_X;
+ _gy = UI_GRID_Y;
+};
+
+ [_x * UI_GRID_W + _gx, _y * UI_GRID_H + _gy, _w * UI_GRID_W, _h * UI_GRID_H]
+};
+
 // Todo disable:
 // _logic addeventhandler ["curatorObjectDoubleClicked",{(_this select 1) call bis_fnc_showCuratorAttributes;}];
 // etc
@@ -423,6 +440,8 @@ toRoundsText =
 
 actionButtons = [];
 
+
+
 activateBattleGui =
 {
  _display = displayNull;
@@ -447,16 +466,23 @@ _bg ctrlSetPosition [_pos # 0, _pos # 1 - TITLE_HEIGHT, _pos # 2, _pos # 3 + TIT
 _bg ctrlCommit 0;
 */
 
+/*
+	x = 47 * UI_GRID_W + UI_GRID_X;
+	y = 25.5 * UI_GRID_H + UI_GRID_Y;
+	w = 19 * UI_GRID_W;
+	h = 12.5 * UI_GRID_H;
+*/
+
 _cg = _display ctrlCreate ["RscControlsGroup", -1];
 _cg ctrlSetText "teeest";
 _cg ctrlsetTooltip "teeest";
-_cg ctrlSetPosition [0.5,0.5,0.4,0.4];
+_cg ctrlSetPosition ([15,30,19,5] call getGuiPos);
 _cg ctrlCommit 0;
 
 
 _img = _display ctrlCreate ["RscPicture", -1, _cg];
 _img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
-_img ctrlSetPosition [0,0,0.4,0.4];
+_img ctrlSetPosition ([0,0,15,5,false] call getGuiPos);
 _img ctrlCommit 0;
 
 
