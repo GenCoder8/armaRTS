@@ -175,6 +175,7 @@ _wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
+firemisDown = false;
  };
 
 case hoverOnHouse:
@@ -265,6 +266,8 @@ conditionFireMission =
 {
  // Must have selection
 private _sel = curatorSelected # 1;
+
+// todo doesMortarHaveMag
 
 ({ _x call isMortarGroup } count _sel) > 0
 };

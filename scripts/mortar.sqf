@@ -15,23 +15,44 @@ initMortarGroup =
 {
   params ["_group"];
 
- _group setVariable ["mortarMags", ["uns_8Rnd_60mmHE_M2","uns_8Rnd_60mmSMOKE_M2"] ];
+ private _gcfg = _group getVariable ["cfg",configNull];
+ if(isnull _gcfg) exitWith { "" };
+ private _ammoTypes = getArray (_gcfg >> "ammo");
+
+ private _mags = [];
+
+ {
+
+for "_i" from 0 to 2 do
+{
+  _mags pushback _x;
+};
+
+ } foreach _ammoTypes;
+
+ _group setVariable ["mortarMags", _mags ];
 };
 
 doesMortarHaveMag =
 {
- params ["_magType"];
- (_magType call getMortarMag) != "";
+ params ["_group","_magType"];
+ _mags = _group getVariable ["mortarMags",[]];
+
+ ([_group,_magType] call getMortarMag) in _mags
 };
 
 getMortarMag =
 {
- params ["_magType"];
+ params ["_group","_magType"];
 
-_useMag = "uns_8Rnd_60mmHE_M2";
+ private _gcfg = _group getVariable ["cfg",configNull];
+ if(isnull _gcfg) exitWith { "" };
+ private _ammoTypes = getArray (_gcfg >> "ammo");
+
+_useMag = _ammoTypes # 0;
 if(_magType == "SMOKE") then
 {
- _useMag = "uns_8Rnd_60mmSMOKE_M2";
+ _useMag = _ammoTypes # 1;
 };
 
 _useMag
@@ -47,7 +68,7 @@ setupMortar =
  } foreach (magazines _mor);
 
 
- _useMag = _magType call getMortarMag;
+ _useMag = [_group,_magType] call getMortarMag;
 
 
  _mags = _group getVariable ["mortarMags",[]];

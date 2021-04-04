@@ -101,6 +101,7 @@ class LightMortarTeam
  ranks[] = TEAM_RANKS;
  units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
  mortar = "uns_M2_60mm_mortar";
+ ammo[] = {"uns_8Rnd_60mmHE_M2","uns_8Rnd_60mmSMOKE_M2"};
 };
 
 class HeavyMortarTeam
