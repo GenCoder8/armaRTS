@@ -476,7 +476,7 @@ _bg ctrlCommit 0;
 _cg = _display ctrlCreate ["RscControlsGroup", -1];
 _cg ctrlSetText "teeest";
 _cg ctrlsetTooltip "teeest";
-_cg ctrlSetPosition ([15,30,19,5] call getGuiPos);
+_cg ctrlSetPosition ([15,33,19,5] call getGuiPos);
 _cg ctrlCommit 0;
 
 
