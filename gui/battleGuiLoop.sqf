@@ -1,8 +1,9 @@
 
 newZeusSelect = false;
 
-while { true } do
+addMissionEventHandler ["EachFrame",
 {
+
  _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
 
  if(!isnull _overlay) then
@@ -171,5 +172,4 @@ else
  };
 
 
- sleep 0.1;
-};
+}];

@@ -175,7 +175,6 @@ _wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
-firemisDown = false;
  };
 
 case hoverOnHouse:
@@ -212,6 +211,8 @@ if(count _wps <= 2) then
 };
 };
 
+ // Reset all
+firemisDown = false;
 
 }];
 
