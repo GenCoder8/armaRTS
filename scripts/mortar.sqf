@@ -22,10 +22,14 @@ initMortarGroup =
  private _mags = [];
 
  {
+  _mag = _x;
 
+if(_mag != "") then
+{
 for "_i" from 0 to 2 do
 {
-  _mags pushback _x;
+  _mags pushback _mag;
+};
 };
 
  } foreach _ammoTypes;
@@ -37,8 +41,11 @@ doesMortarHaveMag =
 {
  params ["_group","_magType"];
  _mags = _group getVariable ["mortarMags",[]];
+ _magName = ([_group,_magType] call getMortarMag);
 
- ([_group,_magType] call getMortarMag) in _mags
+ if(_magName == "") exitWith { false }; // If does not have _magType defined in config
+
+ _magName in _mags
 };
 
 getMortarMag =
@@ -92,12 +99,17 @@ onArtilleryUsed =
 {
  params ["_art",["_start",false]];
 
+  // Ned big delay for start (mag reloading)
  _art setVariable ["lastUsed", if(_start) then { time + 15 } else { time } ];
 
  systemchat format["Fired... %1", time];
 };
 
-
+isArtilleryFiring =
+{
+ params ["_group"];
+ !isnull (_group getVariable ["art", objNull])
+};
 
 
 beginArtillery =

@@ -168,7 +168,7 @@ switch (true) do
  case firemisDown: // Fire mission
  {
 
-[_group,"HE"] call beginArtillery;
+[_group,fireMisType] call beginArtillery;
 
 
 _wp = [_group,_waypointID];
@@ -265,17 +265,28 @@ moveBattleGroup =
 
 conditionFireMission =
 {
+ params ["_fireType"];
  // Must have selection
 private _sel = curatorSelected # 1;
 
-// todo doesMortarHaveMag
+private _ok = false;
 
-({ _x call isMortarGroup } count _sel) > 0
+if(({ _x call isMortarGroup && !(_x call isArtilleryFiring) } count _sel) > 0) then
+{
+if({ [_x,_fireType] call doesMortarHaveMag} count _sel > 0) then
+{
+ _ok = true;
+};
+};
+
+_ok
 };
 
 actionFireMission =
 {
+ params ["_fireType"];
  firemisDown = true;
+ fireMisType = _fireType;
 };
 
 
