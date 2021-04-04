@@ -168,7 +168,7 @@ switch (true) do
  case firemisDown: // Fire mission
  {
 
-_group call beginArtillery;
+[_group,"HE"] call beginArtillery;
 
 
 _wp = [_group,_waypointID];

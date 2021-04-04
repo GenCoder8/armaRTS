@@ -11,11 +11,67 @@ private _mortarType = getText(_gcfg >> "mortar");
 };
 
 
+initMortarGroup =
+{
+  params ["_group"];
+
+ _group setVariable ["mortarMags", ["uns_8Rnd_60mmHE_M2","uns_8Rnd_60mmSMOKE_M2"] ];
+};
+
+doesMortarHaveMag =
+{
+ params ["_magType"];
+ (_magType call getMortarMag) != "";
+};
+
+getMortarMag =
+{
+ params ["_magType"];
+
+_useMag = "uns_8Rnd_60mmHE_M2";
+if(_magType == "SMOKE") then
+{
+ _useMag = "uns_8Rnd_60mmSMOKE_M2";
+};
+
+_useMag
+};
+
+setupMortar =
+{
+ params ["_group","_mor","_magType"];
+
+ {
+  _mor removeMagazines _x;
+
+ } foreach (magazines _mor);
+
+
+ _useMag = _magType call getMortarMag;
+
+
+ _mags = _group getVariable ["mortarMags",[]];
+ _mags = _mags - [_useMag];
+
+ 
+ _mor addMagazine _useMag;
+ // sleep 1;
+// _b = _mor setWeaponReloadingTime [gunner _mor, currentMuzzle (gunner _mor), 0.1];
+
+// hint (str _b);
+
+// reload _mor;
+
+ _group setVariable ["mortarMags", _mags];
+
+};
+
+
 onArtilleryUsed = 
 {
- params ["_art"];
+ params ["_art",["_start",false]];
 
- _art setVariable ["lastUsed", time];
+ _art setVariable ["lastUsed", if(_start) then { time + 15 } else { time } ];
 
  systemchat format["Fired... %1", time];
 };
@@ -25,7 +81,7 @@ onArtilleryUsed =
 
 beginArtillery =
 {
- params ["_group"];
+ params ["_group","_magType"];
 
 
 private _gcfg = _group getVariable ["cfg",configNull];
@@ -59,6 +115,9 @@ _art setposATL _pos;
 _group setVariable ["art", _art];
 
 
+[_group,_art,_magType] call setupMortar;
+
+
 _art addEventHandler ["Fired", 
 {
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
@@ -66,7 +125,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 _unit call onArtilleryUsed;
 }];
 
-_art call onArtilleryUsed; // Need var to be ready
+[_art,true] call onArtilleryUsed; // Need var to be ready
 
 [_art] spawn
 {
@@ -107,6 +166,9 @@ _targ set [2,0];
 */
 
 };
+
+
+
 
 exitStaticWeapon =
 {

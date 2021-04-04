@@ -9,6 +9,12 @@ registerBattleGroup =
 
  _bgSide = side _group;
 
+if(_group call isMortarGroup) then
+{
+ _group call initMortarGroup;
+};
+
+
 /*
  _highlighted = [];
  {
