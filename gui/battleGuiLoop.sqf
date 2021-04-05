@@ -138,6 +138,8 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 } foreach _men;
 
 
+hintsilent format["%1 %2", _selGroup call getMortarAmmoLeft, time];
+
 
 {
  _x params ["_but","_bDef"];

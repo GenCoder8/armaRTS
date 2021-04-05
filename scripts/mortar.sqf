@@ -22,11 +22,11 @@ initMortarGroup =
  private _mags = [];
 
  {
-  _mag = _x;
+  private _mag = _x;
 
 if(_mag != "") then
 {
-for "_i" from 0 to 2 do
+for "_i" from 1 to 2 do
 {
   _mags pushback _mag;
 };
@@ -79,7 +79,11 @@ setupMortar =
 
 
  _mags = _group getVariable ["mortarMags",[]];
- _mags = _mags - [_useMag];
+
+
+ _magIndex = _mags find _useMag;
+ if(_magIndex < 0) exitWith { "Could not get mortar magazine" call errmsg; };
+ _mags deleteAt _magIndex;
 
  
  _mor addMagazine _useMag;
@@ -92,6 +96,41 @@ setupMortar =
 
  _group setVariable ["mortarMags", _mags];
 
+};
+
+getMortarAmmoLeft =
+{
+ params ["_group"];
+
+ private _mor = _group getVariable ["art", objnull];
+ if(isnull _mor) exitWith { 0 };
+
+
+ private _ammo = 0;
+
+ private _cmags = magazinesAmmo _mor;
+ if(count _cmags > 0) then
+ {
+ 
+ private _curMag = _cmags # 0; // currentMagazine ?
+  _ammo = _ammo + (_curMag # 1);
+
+
+ // Count only same mags as currently loaded one
+ private _mags = _group getVariable ["mortarMags",[]];
+
+
+ {
+  if(_x == (_curMag # 0)) then
+  {
+   _ammo = _ammo + (getNumber (configfile >> "cfgMagazines" >> (_curMag # 0) >> "count"));
+  };
+ } foreach _mags; 
+
+ };
+
+
+ _ammo
 };
 
 
