@@ -148,7 +148,7 @@ _text = getText(configfile >> "cfgVehicles" >> (getText (_gcfg >> "mortar")) >> 
 
 
 private _mor = _group getVariable ["art", objnull];
-if(!isnull _mor) then
+if(!isnull _mor && count (magazines _mor) > 0 ) then // Must have mag loaded for this
 {
 private _ammo = _group call getMortarAmmoLeft;
 _text = _text + format ["%1 %2 rounds",_ammo,  (getText (configfile >> "cfgMagazines" >> (currentMagazine _mor) >> "displayName"))  ];
@@ -158,6 +158,8 @@ else
 
  private _mags = _group getVariable ["mortarMags",[]];
  private _hash = createHashMap;
+
+  // Count mags
  {
 
   _mname = _x; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));

@@ -61,11 +61,13 @@ lnbClear _groupView;
 
 _mainVeh = objNull;
 _vehs = [_viewUnits] call getVehicles;
+_vehs = _vehs select { !(_x iskindof "staticWeapon") };
 _men = [];
 if(count _vehs > 0) then
 {
  _mainVeh = _vehs # 0;
  _men = crew _mainVeh;
+
 }
 else
 {
@@ -88,7 +90,6 @@ _men = _men select { alive _x && side _x in [east,west] };
 // systemchat format ["_vehName_vehName %1",  _vehName];
 
 } foreach _vehs;
-
 
 
 {
