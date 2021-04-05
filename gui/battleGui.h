@@ -1,11 +1,13 @@
-/* #Minisy
+/* #Vumizi
 $[
 	1.063,
 	["groupview",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
-	[1500,"",[2,"",["47 * UI_GRID_W + UI_GRID_X","27.5 * UI_GRID_H + UI_GRID_Y","19 * UI_GRID_W","10 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = GROUP_VIEW_COLS;"]],
-	[1000,"",[2,"Group info",["47.5 * UI_GRID_W + UI_GRID_X","26 * UI_GRID_H + UI_GRID_Y","17.5 * UI_GRID_W","1 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+	[1500,"",[2,"",["47 * UI_GRID_W + UI_GRID_X","27.5 * UI_GRID_H + UI_GRID_Y","19 * UI_GRID_W","8.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = GROUP_VIEW_COLS;"]],
+	[1000,"",[2,"Group info",["47.5 * UI_GRID_W + UI_GRID_X","26 * UI_GRID_H + UI_GRID_Y","17.5 * UI_GRID_W","1 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1001,"",[2,"Static gun info",["47 * UI_GRID_W + UI_GRID_X","36.5 * UI_GRID_H + UI_GRID_Y","19 * UI_GRID_W","1 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
+
 
 
 
@@ -94,7 +96,7 @@ class controls
 {
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Minisy)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Vumizi)
 ////////////////////////////////////////////////////////
 
 class RscListbox_1500: RscListbox
@@ -106,7 +108,7 @@ class RscListbox_1500: RscListbox
 	x = 47 * UI_GRID_W + UI_GRID_X;
 	y = 27.5 * UI_GRID_H + UI_GRID_Y;
 	w = 19 * UI_GRID_W;
-	h = 10 * UI_GRID_H;
+	h = 8.5 * UI_GRID_H;
 };
 class RscText_1000: RscText
 {
@@ -115,6 +117,15 @@ class RscText_1000: RscText
 	x = 47.5 * UI_GRID_W + UI_GRID_X;
 	y = 26 * UI_GRID_H + UI_GRID_Y;
 	w = 17.5 * UI_GRID_W;
+	h = 1 * UI_GRID_H;
+};
+class RscText_1001: RscText
+{
+	idc = 1001;
+	text = "Static gun info"; //--- ToDo: Localize;
+	x = 47 * UI_GRID_W + UI_GRID_X;
+	y = 36.5 * UI_GRID_H + UI_GRID_Y;
+	w = 19 * UI_GRID_W;
 	h = 1 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////

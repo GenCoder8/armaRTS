@@ -133,6 +133,52 @@ getMortarAmmoLeft =
  _ammo
 };
 
+getMortarAmmoInfo =
+{
+params ["_group"];
+
+if(!(_group call isMortarGroup)) exitWith { "" };
+
+private _text = "";
+
+ private _gcfg = _group getVariable ["cfg",configNull];
+ if(isnull _gcfg) exitWith { "" };
+
+_text = getText(configfile >> "cfgVehicles" >> (getText (_gcfg >> "mortar")) >> "displayName") + " - ";
+
+
+private _mor = _group getVariable ["art", objnull];
+if(!isnull _mor) then
+{
+private _ammo = _group call getMortarAmmoLeft;
+_text = _text + format ["%1 %2 rounds",_ammo,  (getText (configfile >> "cfgMagazines" >> (currentMagazine _mor) >> "displayName"))  ];
+}
+else
+{
+
+ private _mags = _group getVariable ["mortarMags",[]];
+ private _hash = createHashMap;
+ {
+
+  _mname = _x; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
+
+   _entry = _hash getOrDefault [_mname, 0];
+   
+   _hash set [_mname, _entry + 1 ];
+  
+ } foreach _mags; 
+
+ _text = _text + " Ammo: ";
+ {
+  _name = (getText (configfile >> "cfgMagazines" >> _x >> "displayName"));
+  _text = _text + format["%1 x %2 ",_name, _y];
+ } forEach _hash;
+
+ //_text = format ["%1", _list  ];
+};
+
+_text
+};
 
 onArtilleryUsed = 
 {

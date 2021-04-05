@@ -138,7 +138,13 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 } foreach _men;
 
 
-hintsilent format["%1 %2", _selGroup call getMortarAmmoLeft, time];
+
+_ataticGunInfo = _overlay displayCtrl 1001;
+
+_ataticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
+
+
+//hintsilent format["%1 %2", _selGroup call getMortarAmmoLeft, time];
 
 
 {
