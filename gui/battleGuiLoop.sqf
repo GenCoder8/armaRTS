@@ -61,13 +61,12 @@ lnbClear _groupView;
 
 _mainVeh = objNull;
 _vehs = [_viewUnits] call getVehicles;
-_vehs = _vehs select { !(_x iskindof "staticWeapon") };
+_vehs = _vehs select { !(_x iskindof "StaticWeapon") };
 _men = [];
 if(count _vehs > 0) then
 {
  _mainVeh = _vehs # 0;
  _men = crew _mainVeh;
-
 }
 else
 {
@@ -96,7 +95,7 @@ _men = _men select { alive _x && side _x in [east,west] };
 _man = _x;
 _row = (lnbSize _groupView) # 0;
 
- diag_log format[" %1 %2 ", _man, rankId _man];
+// diag_log format[" %1 %2 ", _man, rankId _man];
 
  _rankStr = ranksShort select (rankId _man);
 
@@ -114,6 +113,11 @@ _ammoCount = _ammoCount + (_x#1);
 
 _ammo = _ammoCount call toRoundsText;
 
+// Static weapons override
+if(vehicle _man != _man) then
+{
+ _mainVeh = vehicle _man;
+};
 
 if(!isnull _mainVeh && _man in _mainVeh) then
 {
@@ -125,6 +129,18 @@ if(!isnull _mainVeh && _man in _mainVeh) then
  _ammoCount = _mainVeh magazineTurretAmmo [_magazine, _tp];
 
  _ammo = _ammoCount call toRoundsText;
+
+// For mortars (static weapons) we override the ammo here
+if((_mainVeh iskindof "StaticWeapon")) then
+{
+ _ammo = "";
+ _ammoCount = (_selGroup call getMortarAmmoLeft);
+ if(_ammoCount > 0 ) then 
+{
+_ammo = _ammoCount call toRoundsText;
+};
+};
+
 };
 
 _wcfg = configfile >> "cfgWeapons" >> _mainWeapon;
