@@ -19,6 +19,8 @@ coverAreaSize = _areaSize;
 
 coverObjTypes = createHashMap;
 
+coverObjsIncluded = createHashMap;
+
 coverObjs = createHashMap;
 
 _objs = [] call getCoverObjects;
@@ -28,7 +30,7 @@ _objs = [] call getCoverObjects;
 
 
 _obj call registerCoverObj;
- _obj call createCoverPointsForObj;
+_obj call createCoverPointsForObj;
 
 /*
 if(DEBUG_COVERS) then
@@ -70,16 +72,29 @@ _cSize = coverAreaSize;
 };
 
 private _objs = nearestObjects [_cPos, [], _cSize, true];
-private _foundObjs = _objs select
+private _foundObjs = _objs select { (str _x) in coverObjsIncluded };
+
+/*
 {
 _b = (tolower (str _x)); 
 
 (((_x call getObjVisibilityAboveGround) > 0.5) && ( (_x iskindof "building") || ( (includeCover findIf { (tolower _x) in _b }) >= 0)) && (_x call isObjExcluded))
-};
+};*/
 
 _foundObjs
 };
 
+includeCheckCoverObject =
+{
+ params ["_obj"];
+ private _b = (tolower (str _obj));
+
+ if((((_x call getObjVisibilityAboveGround) > 0.5) && ( (_x iskindof "building") || ( (includeCover findIf { (tolower _x) in _b }) >= 0)) && (_x call isObjExcluded))) then
+ { 
+  coverObjsIncluded set [_b, _obj];
+ };
+
+};
 
 getObjectCenter =
 {
@@ -162,6 +177,8 @@ getCoverObjType =
 registerCoverObj =
 {
  params ["_obj"];
+
+_obj call includeCheckCoverObject; // Create include list also in here
 
 private _edges = coverObjTypes getOrDefault [_obj call getCoverObjType,[]];
 
