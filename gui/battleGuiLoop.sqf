@@ -114,7 +114,7 @@ _ammoCount = _ammoCount + (_x#1);
 _ammo = _ammoCount call toRoundsText;
 
 // Static weapons override
-if(vehicle _man != _man) then
+if(isnull _mainVeh && _man call inVehicle) then
 {
  _mainVeh = vehicle _man;
 };

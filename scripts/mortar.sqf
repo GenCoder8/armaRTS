@@ -67,7 +67,7 @@ _useMag
 
 setupMortar =
 {
- params ["_group","_mor","_magType"];
+ params ["_group","_mor","_magType","_targetPos"];
 
  {
   _mor removeMagazines _x;
@@ -85,10 +85,25 @@ setupMortar =
  if(_magIndex < 0) exitWith { "Could not get mortar magazine" call errmsg; };
  _mags deleteAt _magIndex;
 
- 
+
  _mor addMagazine _useMag;
+
+
+[_mor,_useMag] spawn
+{
+params ["_mor","_useMag"];
+sleep 0.1;
+_mor loadMagazine [[0], currentMuzzle (gunner _mor), _useMag];
+reload (gunner _mor);
+_b = _mor setWeaponReloadingTime [gunner _mor, currentMuzzle (gunner _mor), 0.01];
+};
+
+
+_isInRange = _targetPos inRangeOfArtillery [[_mor], _useMag];
+hint format ["in range: %1", _isInRange];
+
  // sleep 1;
-// _b = _mor setWeaponReloadingTime [gunner _mor, currentMuzzle (gunner _mor), 0.1];
+
 
 // hint (str _b);
 
@@ -162,17 +177,17 @@ else
   // Count mags
  {
 
-  _mname = _x; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
+  private _mname = _x; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
 
-   _entry = _hash getOrDefault [_mname, 0];
+  private _entry = _hash getOrDefault [_mname, 0];
    
    _hash set [_mname, _entry + 1 ];
   
- } foreach _mags; 
+ } foreach _mags;
 
  _text = _text + " Ammo: ";
  {
-  _name = (getText (configfile >> "cfgMagazines" >> _x >> "displayName"));
+  private _name = (getText (configfile >> "cfgMagazines" >> _x >> "displayName"));
   _text = _text + format["%1 x %2 ",_name, _y];
  } forEach _hash;
 
@@ -201,7 +216,7 @@ isArtilleryFiring =
 
 beginArtillery =
 {
- params ["_group","_magType"];
+ params ["_group","_magType","_targetPos"];
 
 
 private _gcfg = _group getVariable ["cfg",configNull];
@@ -235,7 +250,7 @@ _art setposATL _pos;
 _group setVariable ["art", _art];
 
 
-[_group,_art,_magType] call setupMortar;
+[_group,_art,_magType,_targetPos] call setupMortar;
 
 
 _art addEventHandler ["Fired", 

@@ -35,7 +35,14 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 
 beginBattlePlacement =
 {
- params ["_areaMarker","_attackDir"];
+
+bpArgs = _this;
+
+addMissionEventHandler ["EachFrame",
+{
+removeMissionEventHandler ["EachFrame",_thisEventHandler];
+
+ bpArgs params ["_areaMarker","_attackDir"];
 
 deployAreaMain = _areaMarker;
 
@@ -113,6 +120,8 @@ _area = [_deployAreaPos,DEPLOY_AREA_SIZE];
 [call getPlayerSide,"LightMortarTeam"] call addBattleGroupToPool;
 [call getPlayerSide,"LightMortarTeam",_area] call createBattleGroupFromPool;
 
+[call getPlayerSide,"HeavyMortarTeam"] call addBattleGroupToPool;
+[call getPlayerSide,"HeavyMortarTeam",_area] call createBattleGroupFromPool;
 
 
 
@@ -168,7 +177,7 @@ switch (true) do
  case firemisDown: // Fire mission
  {
 
-[_group,fireMisType] call beginArtillery;
+[_group,fireMisType,_wpos] call beginArtillery;
 
 
 _wp = [_group,_waypointID];
@@ -179,6 +188,8 @@ _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery
 
 case hoverOnHouse:
 {
+// Todo moveBattleGroup also here?
+
 [_group,_wpos,15,formationDirection (leader _group),true,100,100] call manBuildings;
 
 };
@@ -229,7 +240,12 @@ addMissionEventHandler ["GroupIconOverEnter", {
 }];
 */
 
+[_areaPos, _areaSize # 0] call initCoverSystem;
+
+
 call openZeus;
+
+}];
 
 };
 
@@ -434,6 +450,23 @@ else
 
  hoverOnHouse = false;
 };
+
+_p = (screenToWorld getMousePosition);
+
+_objs = [_p,5] call getCoverObjects;
+
+{
+ _obj = _x;
+
+ if((_obj distance2D coverAreaPos) < coverAreaSize) then
+ {
+  _obj call createCoverPointsForObj;
+ };
+
+} foreach _objs;
+
+
+hintSilent format["_objs %1", count _objs];
 
 }];
 

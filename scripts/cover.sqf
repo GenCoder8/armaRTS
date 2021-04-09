@@ -9,6 +9,43 @@
 excludeCover = ["light","powerline","lamp","FuelStation","fs_feed","fs_roof","gate","WaterTower","shed_small"];
 includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer"];
 
+initCoverSystem =
+{
+params ["_centerPos","_areaSize"];
+
+coverAreaPos = _centerPos;
+coverAreaSize = _areaSize;
+
+
+coverObjTypes = createHashMap;
+
+coverObjs = createHashMap;
+
+_objs = [] call getCoverObjects;
+
+{
+ _obj = _x;
+
+
+_obj call registerCoverObj;
+ _obj call createCoverPointsForObj;
+
+/*
+if(DEBUG_COVERS) then
+{
+_size = _obj call getObjectSize;
+_pos = getposASL _obj;
+
+_pos set [2, (_pos # 2) + ((_size # 2)/2) + 1.5 ];
+
+_arrow = createSimpleObject ["Sign_Arrow_F", _pos,false];
+};*/
+
+ //_obj hideObjectGlobal true;
+
+} foreach _objs;
+
+};
 
 isObjExcluded =
 {
@@ -24,8 +61,15 @@ isObjExcluded =
 
 getCoverObjects =
 {
+ params ["_cPos","_cSize"];
 
-private _objs = nearestObjects [player, [], 30, true];
+if(count _this == 0) then
+{
+_cPos = coverAreaPos;
+_cSize = coverAreaSize;
+};
+
+private _objs = nearestObjects [_cPos, [], _cSize, true];
 private _foundObjs = _objs select
 {
 _b = (tolower (str _x)); 
@@ -181,10 +225,19 @@ coverObjTypes set [_obj call getCoverObjType, _edges];
 
 createCoverPointsForObj =
 {
- params ["_obj"];
+ params ["_obj",["_checkExisting",false]];
 
  private _edges = coverObjTypes getOrDefault [_obj call getCoverObjType,[]];
- if(count _edges == 0) exitWith { systemchat format["ERROR no cover points"]; };
+ if(count _edges == 0) exitWith { }; // systemchat format["ERROR no cover points"]; 
+
+ private _prevEdges = [];
+ if(_checkExisting) then
+ {
+  _prevEdges = coverObjs getOrDefault [(str _obj),[]];
+ };
+ if(count _prevEdges > 0) exitWith {}; // Already created
+
+systemchat format["Creating rotated edges %1 -- %2",_obj, time];
 
   private _rotEdges = +_edges;
 
@@ -279,8 +332,8 @@ coverObjs set [str _obj, _rotEdges];
 isPositionBlocked =
 {
  params ["_checkPos","_exclude"];
- private _objs = call getCoverObjects;
- private _closest = _objs select { _x distance2D _checkPos < 20 && _x != _exclude };
+ private _objs = [_checkPos,10] call getCoverObjects;
+ private _closest = _objs select { _x != _exclude }; // _x distance2D _checkPos < 20 &&
  private _ret = false;
 
  private _spaceReq = SPACE_REQ_FOR_POINT / 2;
@@ -308,7 +361,7 @@ getCoverForPosition =
 {
  params ["_wpos"];
 
-private _objs = call getCoverObjects;
+private _objs = [] call getCoverObjects;
 
 private _closestDist = 5.5;
 private _closestEdge = [];
