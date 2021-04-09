@@ -23,7 +23,10 @@ coverObjsIncluded = createHashMap;
 
 coverObjs = createHashMap;
 
-_objs = [] call getCoverObjects;
+//_objs = [] call getCoverObjects;
+
+private _objs = nearestObjects [coverAreaPos, [], coverAreaSize, true];
+
 
 {
  _obj = _x;
