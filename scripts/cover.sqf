@@ -5,6 +5,9 @@
 #define COVER_HEIGHT_REQ  0.2
 #define HOUSE_HOVER_CONTACT_NUM 0.8
 
+// Optimizes
+#define COVER_COLLIDE_DIST 20
+
 
 excludeCover = ["light","powerline","lamp","FuelStation","fs_feed","fs_roof","gate","WaterTower","shed_small"];
 includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer"];
@@ -74,8 +77,20 @@ _cPos = coverAreaPos;
 _cSize = coverAreaSize;
 };
 
-private _objs = nearestObjects [_cPos, [], _cSize, true];
-private _foundObjs = _objs select { (str _x) in coverObjsIncluded };
+//private _objs = nearestObjects [_cPos, [], _cSize, true];
+//private _foundObjs = _objs select { (str _x) in coverObjsIncluded };
+
+private _foundObjs = [];
+
+{
+
+if(_y distance2D _cPos < _cSize) then
+{
+ _foundObjs pushback _y;
+};
+
+} foreach coverObjsIncluded;
+
 
 /*
 {
@@ -257,7 +272,7 @@ createCoverPointsForObj =
  };
  if(count _prevEdges > 0) exitWith {}; // Already created
 
-systemchat format["Creating rotated edges %1 -- %2",_obj, time];
+// systemchat format["Creating rotated edges %1 -- %2",_obj, time];
 
   private _rotEdges = +_edges;
 
@@ -352,7 +367,7 @@ coverObjs set [str _obj, _rotEdges];
 isPositionBlocked =
 {
  params ["_checkPos","_exclude"];
- private _objs = [_checkPos,10] call getCoverObjects;
+ private _objs = [_checkPos,COVER_COLLIDE_DIST] call getCoverObjects;
  private _closest = _objs select { _x != _exclude }; // _x distance2D _checkPos < 20 &&
  private _ret = false;
 

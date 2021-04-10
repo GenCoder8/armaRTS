@@ -451,6 +451,7 @@ else
  hoverOnHouse = false;
 };
 
+/*
 _p = (screenToWorld getMousePosition);
 
 _objs = [_p,5] call getCoverObjects;
@@ -467,6 +468,7 @@ _objs = [_p,5] call getCoverObjects;
 
 
 hintSilent format["_objs %1", count _objs];
+*/
 
 }];
 
