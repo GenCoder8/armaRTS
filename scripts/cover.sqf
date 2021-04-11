@@ -8,9 +8,14 @@
 // Optimizes
 #define COVER_COLLIDE_DIST 20
 
+/*
+stone_Xm are stone walls
+*/
 
 excludeCover = ["light","powerline","lamp","FuelStation","fs_feed","fs_roof","gate","WaterTower","shed_small"];
-includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer"];
+includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer","mound","stone_8m","stone_4m"];
+
+
 
 initCoverSystem =
 {
