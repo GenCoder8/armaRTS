@@ -10,6 +10,16 @@ private _mortarType = getText(_gcfg >> "mortar");
 (_mortarType != "")
 };
 
+isVehicleGroup =
+{
+params ["_group"];
+
+private _gcfg = _group getVariable ["cfg",configNull];
+private _units = getText(_gcfg >> "units");
+
+ (_units # 0) iskindOf "AllVehicles"
+};
+
 
 initMortarGroup =
 {

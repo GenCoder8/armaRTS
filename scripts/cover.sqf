@@ -4,6 +4,8 @@
 #define SPACE_BETWEEN_POINTS 0.25
 #define COVER_HEIGHT_REQ  0.2
 #define HOUSE_HOVER_CONTACT_NUM 0.8
+#define EDGE_NEAR_START_DIST 5.5
+#define GET_COVER_POS_AREA 40
 
 // Optimizes
 #define COVER_COLLIDE_DIST 20
@@ -401,13 +403,13 @@ getCoverForPosition =
 {
  params ["_wpos"];
 
-private _objs = [] call getCoverObjects;
+private _objs = [_wpos,GET_COVER_POS_AREA] call getCoverObjects;
 
-private _closestDist = 5.5;
+private _closestDist = EDGE_NEAR_START_DIST;
 private _closestEdge = [];
 
 {
- _obj = _x;
+ private _obj = _x;
 
  //_rotEdges = _obj getVariable ["coverRotated",[]];
 
@@ -424,7 +426,7 @@ private _closestEdge = [];
 
 if(count _point > 0) then
 {
-   private _dist = _point distance _wpos;
+ private _dist = _point distance _wpos;
 
 
 if(_dist < _closestDist) then

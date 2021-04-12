@@ -117,13 +117,10 @@ _fposRet = _npos;
 
 _area = [_deployAreaPos,DEPLOY_AREA_SIZE];
 
-[call getPlayerSide,"LightMortarTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"LightMortarTeam",_area] call createBattleGroupFromPool;
 
-[call getPlayerSide,"HeavyMortarTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"HeavyMortarTeam",_area] call createBattleGroupFromPool;
+["LightMortarTeam",_area] call placeTestGroup;
 
-
+["HeavyMortarTeam",_area] call placeTestGroup;
 
 
 
@@ -171,6 +168,8 @@ params ["_curator", "_group", "_waypointID"];
 
 private _wp = [_group,_waypointID];
 private _wpos = waypointPosition _wp;
+
+// TODO NOT for vehicles  -- isVehicleGroup
 
 switch (true) do
 {
@@ -250,6 +249,15 @@ call openZeus;
 };
 
 
+placeTestGroup =
+{
+ params ["_area","_groupName"];
+
+[call getPlayerSide,_groupName] call addBattleGroupToPool;
+[call getPlayerSide,_groupName,_area] call createBattleGroupFromPool;
+
+
+};
 
 getBattleDeployPos =
 {
