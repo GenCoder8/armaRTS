@@ -26,4 +26,16 @@ call activateBattleGui;
 
 ["marker_0",120] call beginBattlePlacement;
 
+waituntil { battleReady };
+
+_deployAreaPos = (call getPlayerSide) call getDeployArea;
+
+_area = [_deployAreaPos,deployAreaSize];
+
+
+["LightMortarTeam",_area] call placeTestGroup;
+
+["HeavyMortarTeam",_area] call placeTestGroup;
+
+
 call beginBattle;

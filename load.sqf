@@ -1,5 +1,6 @@
 
 debugMode = false;
+loadCovers = true;
 
 errmsg =
 {

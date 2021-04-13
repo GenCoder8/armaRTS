@@ -18,6 +18,9 @@ excludeCover = ["light","powerline","lamp","FuelStation","fs_feed","fs_roof","ga
 includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer","mound","stone_8m","stone_4m"];
 
 
+coverObjTypes = [];
+coverObjsIncluded = [];
+coverObjs = [];
 
 initCoverSystem =
 {
@@ -402,6 +405,8 @@ if(_checkPos inArea [getposATL _obj, (_size # 0) / 2 + _spaceReq, (_size # 1) / 
 getCoverForPosition =
 {
  params ["_wpos"];
+
+if(!loadCovers) exitWith { [] };
 
 private _objs = [_wpos,GET_COVER_POS_AREA] call getCoverObjects;
 

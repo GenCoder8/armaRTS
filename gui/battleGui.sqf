@@ -38,6 +38,8 @@ beginBattlePlacement =
 
 bpArgs = _this;
 
+battleReady = false;
+
 addMissionEventHandler ["EachFrame",
 {
 removeMissionEventHandler ["EachFrame",_thisEventHandler];
@@ -86,7 +88,7 @@ _mrk setMarkerDir _daDir;
  _daDir = _daDir + 180;
 } foreach [west,east];
 
-_deployAreaPos = missionnamespace getVariable format["deployArea%1", call getPlayerSide];
+_deployAreaPos = (call getPlayerSide) call getDeployArea;
 
 
 _zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
@@ -94,6 +96,8 @@ _zeus addCuratorCameraArea [0,_areaPos,_areaSize # 0];
 
 _zeus addCuratorEditingArea [0,_deployAreaPos,DEPLOY_AREA_SIZE];
 
+
+deployAreaSize = DEPLOY_AREA_SIZE;
 
 
 //_zeus setCuratorEditingAreaType true;
@@ -115,12 +119,6 @@ _npos set [2,0];
 _fposRet = _npos;
 */
 
-_area = [_deployAreaPos,DEPLOY_AREA_SIZE];
-
-
-["LightMortarTeam",_area] call placeTestGroup;
-
-["HeavyMortarTeam",_area] call placeTestGroup;
 
 
 
@@ -239,15 +237,25 @@ addMissionEventHandler ["GroupIconOverEnter", {
 }];
 */
 
+if(loadCovers) then
+{
 [_areaPos, _areaSize # 0] call initCoverSystem;
-
+};
 
 call openZeus;
 
+
+battleReady = true;
 }];
 
 };
 
+getDeployArea =
+{
+ params ["_side"];
+
+ missionnamespace getVariable format["deployArea%1", _side]
+};
 
 placeTestGroup =
 {
