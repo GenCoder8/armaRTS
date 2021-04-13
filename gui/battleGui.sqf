@@ -259,7 +259,7 @@ getDeployArea =
 
 placeTestGroup =
 {
- params ["_area","_groupName"];
+ params ["_groupName","_area"];
 
 [call getPlayerSide,_groupName] call addBattleGroupToPool;
 [call getPlayerSide,_groupName,_area] call createBattleGroupFromPool;
@@ -506,21 +506,21 @@ toRoundsText =
 
 actionButtons = [];
 
+beginBattle =
+{
 
+ removeAllCuratorEditingAreas  plrZeus;
+
+ //plrZeus removeCuratorEditableObjects [allunits, false];
+
+ "battle" call setBattleGuiButtons;
+};
 
 activateBattleGui =
 {
- _display = displayNull;
- waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
 
  cutRsc["ComOverlay","PLAIN",0];
 
-
-_overlay = uiNamespace getVariable ['ComOverlay', displayNull];
-
-_groupView = _overlay displayCtrl 1500;
-
-_pos = ctrlposition _groupView;
 /*
 _bg = _overlay ctrlCreate ["RscPicture", 7000];
 
@@ -539,18 +539,52 @@ _bg ctrlCommit 0;
 	h = 12.5 * UI_GRID_H;
 */
 
+
+};
+
+setBattleGuiButtons =
+{
+ params ["_guiName"];
+/*
+_overlay = uiNamespace getVariable ['ComOverlay', displayNull];
+
+_groupView = _overlay displayCtrl 1500;
+
+_pos = ctrlposition _groupView;
+*/
+
+ _display = displayNull;
+ waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
+
+
 _cg = _display ctrlCreate ["RscControlsGroup", -1];
 _cg ctrlSetText "teeest";
 _cg ctrlsetTooltip "teeest";
 _cg ctrlSetPosition ([15,33,19,5] call getGuiPos);
 _cg ctrlCommit 0;
 
+switch(_guiName) do
+{
+
+case "placement":
+{
+
+_bt = _display ctrlCreate ["RscButton", -1, _cg];
+_bt ctrlSetText "Begin battle";
+_bt ctrlSetPosition [0.0,0.0, 0.2,0.1];
+_bt ctrlCommit 0;
+_bt buttonSetAction format["[] spawn beginBattle"]; 
+
+
+};
+
+case "battle":
+{
 
 _img = _display ctrlCreate ["RscPicture", -1, _cg];
 _img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,15,5,false] call getGuiPos);
 _img ctrlCommit 0;
-
 
 
 actionButtons = [];
@@ -578,3 +612,6 @@ actionButtons pushback [_bt,_bd];
 
 };
 
+};
+
+};

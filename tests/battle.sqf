@@ -6,19 +6,10 @@ waituntil { scriptdone _w };
 
 debugMode = true;
 
+loadCovers = false;
+
 // setGroupIconsSelectable true;
 
-
-beginBattle =
-{
-
-
-//plrZeus allowCuratorLogicIgnoreAreas true;
- 
-//plrZeus removeCuratorEditingArea 0;
-
-call activateBattleGui;
-};
 
 
 
@@ -38,4 +29,9 @@ _area = [_deployAreaPos,deployAreaSize];
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
 
-call beginBattle;
+call activateBattleGui;
+
+"placement" call setBattleGuiButtons;
+
+
+// call beginBattle;
