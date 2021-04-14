@@ -17,5 +17,5 @@ class RscTitles
 
 
 #include "gui\bgpool.h"
-
+#include "gui\customBattle.h"
 

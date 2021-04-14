@@ -374,8 +374,10 @@ _display displayAddEventHandler ["MouseZChanged",{
  systemchat "TEST123";
 }];*/
 
- zeusModded = true;
-};
+
+
+["object",["Curator","UnitPos"]] call setZeusFeatures;
+["group",["Curator","SpeedMode","Formation"]] call setZeusFeatures;
 
 
  call interceptZeusKeys;
@@ -383,8 +385,18 @@ _display displayAddEventHandler ["MouseZChanged",{
 
 
 
+ zeusModded = true;
 };
 
+
+
+};
+
+setZeusFeatures =
+{
+ params ["_type","_features"];
+ plrZeus setvariable ["BIS_fnc_curatorAttributes" + _type, _features ];
+};
 
 interceptZeusKeys =
 {

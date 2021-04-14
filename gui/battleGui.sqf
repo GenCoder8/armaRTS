@@ -542,8 +542,14 @@ _bg ctrlCommit 0;
 
 };
 
+with (uinamespace) do
+{
+battleButtonGroup = controlNull;
+};
+
 setBattleGuiButtons =
 {
+
  params ["_guiName"];
 /*
 _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
@@ -553,15 +559,28 @@ _groupView = _overlay displayCtrl 1500;
 _pos = ctrlposition _groupView;
 */
 
- _display = displayNull;
- waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
+_display = displayNull;
+waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
+
+with (uinamespace) do
+{
+if(!isnull battleButtonGroup) then
+{
+ ctrlDelete battleButtonGroup;
+};
+};
+
+actionButtons = []; // Always reset
 
 
 _cg = _display ctrlCreate ["RscControlsGroup", -1];
-_cg ctrlSetText "teeest";
-_cg ctrlsetTooltip "teeest";
 _cg ctrlSetPosition ([15,33,19,5] call getGuiPos);
 _cg ctrlCommit 0;
+
+with (uinamespace) do
+{
+battleButtonGroup = _cg;
+};
 
 switch(_guiName) do
 {
@@ -586,8 +605,6 @@ _img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,15,5,false] call getGuiPos);
 _img ctrlCommit 0;
 
-
-actionButtons = [];
 
 _buttonDefs = missionConfigFile >> "RtsActionButtons";
 
