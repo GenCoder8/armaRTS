@@ -3,6 +3,8 @@
 
 openCustomBattleDlg =
 {
+call initGlobalMap; // Maybe reloc
+
 createDialog "CustomBattleDlg";
 
 _display = findDisplay CUSTOMBATTLEDLGID;
@@ -23,8 +25,7 @@ _maps lbAdd _locName;
  battleLocList pushback _marker;
 } foreach _blocs;
 
-
-_maps lbSetCurSel 0; // Must be before selchanged EH
+cbMapSpeed = 0;
 
 _maps ctrlAddEventHandler ["LBSelChanged",
 {
@@ -36,11 +37,14 @@ _marker = battleLocList # _selectedIndex;
 
 _display = findDisplay CUSTOMBATTLEDLGID;
 _map = _display displayCtrl 1200;
-_map ctrlMapAnimAdd [1, 0.1, getMarkerPos _marker];
+_map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
 }];
 
+_maps lbSetCurSel 0;
+
+cbMapSpeed = 1;
 
 };
 
