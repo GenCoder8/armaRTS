@@ -73,6 +73,17 @@ class RscButton_1600: RscButton
 ////////////////////////////////////////////////////////
 
 
+class ba : RscMapControl
+{
+	idc = 1200;
+	text = "#(argb,8,8,3)color(1,1,1,1)";
+	x = 25.5 * UI_GRID_W + UI_GRID_X;
+	y = 13.5 * UI_GRID_H + UI_GRID_Y;
+	w = 19 * UI_GRID_W;
+	h = 13 * UI_GRID_H;
+};
+
+
 
 };
 

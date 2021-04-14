@@ -24,13 +24,21 @@ _maps lbAdd _locName;
 } foreach _blocs;
 
 
-_maps lbSetCurSel 0;
+_maps lbSetCurSel 0; // Must be before selchanged EH
 
 _maps ctrlAddEventHandler ["LBSelChanged",
 {
 params ["_control", "_selectedIndex"];
 
 hintSilent str _this;
+
+_marker = battleLocList # _selectedIndex;
+
+_display = findDisplay CUSTOMBATTLEDLGID;
+_map = _display displayCtrl 1200;
+_map ctrlMapAnimAdd [1, 0.1, getMarkerPos _marker];
+ctrlMapAnimCommit _map;
+
 }];
 
 
