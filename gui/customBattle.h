@@ -1,13 +1,16 @@
 
 
-/* #Cutazi
+/* #Zeqyte
 $[
 	1.063,
 	["cusbattle",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
 	[2100,"",[2,"",["23 * UI_GRID_W + UI_GRID_X","9 * UI_GRID_H + UI_GRID_Y","22 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1600,"",[2,"Start",["29 * UI_GRID_W + UI_GRID_X","26.5 * UI_GRID_H + UI_GRID_Y","9.5 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+	[1600,"",[2,"Start",["29 * UI_GRID_W + UI_GRID_X","28.5 * UI_GRID_H + UI_GRID_Y","9.5 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call customBattleDone|;"]],
+	[1200,"cbLocMap : RscMapControl",[2,"#(argb,8,8,3)color(1,1,1,1)",["27 * UI_GRID_W + UI_GRID_X","14 * UI_GRID_H + UI_GRID_Y","14 * UI_GRID_W","9.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2101,"",[2,"",["25.5 * UI_GRID_W + UI_GRID_X","25 * UI_GRID_H + UI_GRID_Y","17 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
+
 
 
 
@@ -48,7 +51,7 @@ class controls
 {
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Cutazi)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Zeqyte)
 ////////////////////////////////////////////////////////
 
 class RscCombo_2100: RscCombo
@@ -61,27 +64,36 @@ class RscCombo_2100: RscCombo
 };
 class RscButton_1600: RscButton
 {
+	action = "call customBattleDone";
+
 	idc = 1600;
 	text = "Start"; //--- ToDo: Localize;
 	x = 29 * UI_GRID_W + UI_GRID_X;
-	y = 26.5 * UI_GRID_H + UI_GRID_Y;
+	y = 28.5 * UI_GRID_H + UI_GRID_Y;
 	w = 9.5 * UI_GRID_W;
+	h = 2.5 * UI_GRID_H;
+};
+class cbLocMap : RscMapControl
+{
+	idc = 1200;
+	text = "#(argb,8,8,3)color(1,1,1,1)";
+	x = 27 * UI_GRID_W + UI_GRID_X;
+	y = 14 * UI_GRID_H + UI_GRID_Y;
+	w = 14 * UI_GRID_W;
+	h = 9.5 * UI_GRID_H;
+};
+class RscCombo_2101: RscCombo
+{
+	idc = 2101;
+	x = 25.5 * UI_GRID_W + UI_GRID_X;
+	y = 25 * UI_GRID_H + UI_GRID_Y;
+	w = 17 * UI_GRID_W;
 	h = 2.5 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////
 
-
-class ba : RscMapControl
-{
-	idc = 1200;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
-	x = 25.5 * UI_GRID_W + UI_GRID_X;
-	y = 13.5 * UI_GRID_H + UI_GRID_Y;
-	w = 19 * UI_GRID_W;
-	h = 13 * UI_GRID_H;
-};
 
 
 

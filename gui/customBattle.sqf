@@ -46,6 +46,38 @@ _maps lbSetCurSel 0;
 
 cbMapSpeed = 1;
 
+
+
+_forces = _display displayCtrl 2101;
+
+_rosters = missionConfigFile >> "ForceRosters" >> (call getPlrSideStr);
+
+for "_i" from 0 to (count _rosters - 1) do
+{
+_force = _rosters select _i;
+
+_forces lbAdd format ["%1", configName _force];
+
 };
 
+_forces lbSetCurSel 0;
 
+};
+
+customBattleDone =
+{
+_display = findDisplay CUSTOMBATTLEDLGID;
+
+_rosters = missionConfigFile >> "ForceRosters" >> (call getPlrSideStr);
+
+_forces = _display displayCtrl 2101;
+
+_rosIndex = lbcurSel _forces;
+
+_rosClass = _rosters select _rosIndex;
+
+[call getPlayerSide,_rosClass] call addForceToPool;
+
+call openPoolDlg;
+
+};

@@ -1,5 +1,6 @@
 
 #include "battleGroups.h"
+#include "forceRosters.h"
 
 
 #include "gui\gridDefines.h"

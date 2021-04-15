@@ -275,6 +275,28 @@ _npos set [2,0];
 _npos
 };
 
+addForceToPool =
+{
+ params ["_side","_forceClass"];
+
+ private _forceList = getArray(_forceClass >> "battleGroups");
+
+diag_log "Adding roster to pool";
+
+for "_i" from 0 to (count _forceList - 2) step 2 do
+{
+private _name = _forceList select _i;
+private _count = _forceList select (_i + 1);
+
+for "_n" from 0 to (_count - 1) do
+{
+[_side, _name] call addBattleGroupToPool;
+};
+
+};
+
+};
+
 createBattleGroupFromPool =
 {
  params ["_side","_bgname","_area"];

@@ -7,6 +7,16 @@ selectedBattleGroups = [];
 
 #define BGPOOLID 2301
 
+openPoolDlg =
+{
+
+createDialog "UnitPoolDlg";
+
+
+call createBgPoolPanels;
+
+};
+
 createBGPanel =
 {
  params ["_bgcfg","_ctrlgId","_px","_py",["_active",true]];
