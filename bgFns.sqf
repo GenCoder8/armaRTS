@@ -188,6 +188,13 @@ getPlrSideStr =
  str (call getPlayerSide)
 };
 
+getEnemySide =
+{
+ if((call getPlayerSide) == west) exitWith { east };
+
+ west
+};
+
 getGroupAverageSkill =
 {
  params ["_group"];

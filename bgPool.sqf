@@ -195,7 +195,7 @@ getBattleGroupCfg =
 
  if(isnull _ce) then
  {
-  ["Invalid BG name '%1'", _bgname] call errmsg;
+  ["Invalid BG name '%1' - %2", _bgname, _side] call errmsg;
  };
 
  _ce
@@ -206,7 +206,12 @@ addBattleGroupToPool =
 {
  params ["_side","_bgname"];
 
+ diag_log format["AAAA %1 -- %2", _side, _bgname];
+
+ if(_side == (call getPlayerSide)) then
+ {
  selectableBgs pushbackUnique _bgname;
+ };
 
  private _manPool = _side call getManPool;
 
@@ -224,6 +229,7 @@ addBattleGroupToPool =
   if(_skill < 0.1) then { _skill = 0.1; };
  } foreach _units;
 
+ diag_log format["OUT %1 -- %2", _side, _bgname];
 };
 
 retBattleGroupToPool =
@@ -280,8 +286,6 @@ addForceToPool =
  params ["_side","_forceClass"];
 
  private _forceList = getArray(_forceClass >> "battleGroups");
-
-diag_log "Adding roster to pool";
 
 for "_i" from 0 to (count _forceList - 2) step 2 do
 {

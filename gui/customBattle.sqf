@@ -31,7 +31,6 @@ _maps ctrlAddEventHandler ["LBSelChanged",
 {
 params ["_control", "_selectedIndex"];
 
-hintSilent str _this;
 
 _marker = battleLocList # _selectedIndex;
 
@@ -47,16 +46,19 @@ _maps lbSetCurSel 0;
 cbMapSpeed = 1;
 
 
+_fillRosterLists =
+{
+params ["_side","_ctrlId"];
 
-_forces = _display displayCtrl 2101;
+_forces = _display displayCtrl _ctrlId;
 
-_rosters = missionConfigFile >> "ForceRosters" >> (call getPlrSideStr);
+_rosters = missionConfigFile >> "ForceRosters" >> (str _side);
 
 for "_i" from 0 to (count _rosters - 1) do
 {
 _force = _rosters select _i;
 
-_forces lbAdd format ["%1", configName _force];
+_forces lbAdd format ["%1", getText (_force >> "name")];
 
 };
 
@@ -64,19 +66,37 @@ _forces lbSetCurSel 0;
 
 };
 
+
+[(call getPlayerSide),2101] call _fillRosterLists;
+[(call getEnemySide),2102] call _fillRosterLists;
+
+
+};
+
 customBattleDone =
 {
 _display = findDisplay CUSTOMBATTLEDLGID;
 
-_rosters = missionConfigFile >> "ForceRosters" >> (call getPlrSideStr);
+_preparePool =
+{
+params ["_side","_ctrlId"];
 
-_forces = _display displayCtrl 2101;
+diag_log format["Preparing battle pool %1", _side];
+
+_rosters = missionConfigFile >> "ForceRosters" >> (str _side);
+
+_forces = _display displayCtrl _ctrlId;
 
 _rosIndex = lbcurSel _forces;
 
 _rosClass = _rosters select _rosIndex;
 
-[call getPlayerSide,_rosClass] call addForceToPool;
+[_side,_rosClass] call addForceToPool;
+};
+
+[(call getPlayerSide),2101] call _preparePool;
+[(call getEnemySide),2102] call _preparePool;
+
 
 call openPoolDlg;
 

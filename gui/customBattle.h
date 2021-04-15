@@ -1,13 +1,15 @@
 
 
-/* #Zeqyte
+/* #Bulywi
 $[
 	1.063,
 	["cusbattle",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
 	[2100,"",[2,"",["23 * UI_GRID_W + UI_GRID_X","9 * UI_GRID_H + UI_GRID_Y","22 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1600,"",[2,"Start",["29 * UI_GRID_W + UI_GRID_X","28.5 * UI_GRID_H + UI_GRID_Y","9.5 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call customBattleDone|;"]],
 	[1200,"cbLocMap : RscMapControl",[2,"#(argb,8,8,3)color(1,1,1,1)",["27 * UI_GRID_W + UI_GRID_X","14 * UI_GRID_H + UI_GRID_Y","14 * UI_GRID_W","9.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[2101,"",[2,"",["25.5 * UI_GRID_W + UI_GRID_X","25 * UI_GRID_H + UI_GRID_Y","17 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+	[2101,"",[2,"",["16.5 * UI_GRID_W + UI_GRID_X","25 * UI_GRID_H + UI_GRID_Y","16.5 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2102,"",[2,"",["35 * UI_GRID_W + UI_GRID_X","25 * UI_GRID_H + UI_GRID_Y","15.5 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1000,"",[2,"VS",["33.25 * UI_GRID_W + UI_GRID_X","25.3 * UI_GRID_H + UI_GRID_Y","1.5 * UI_GRID_W","1.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
 
@@ -51,7 +53,7 @@ class controls
 {
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Zeqyte)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Bulywi)
 ////////////////////////////////////////////////////////
 
 class RscCombo_2100: RscCombo
@@ -85,10 +87,27 @@ class cbLocMap : RscMapControl
 class RscCombo_2101: RscCombo
 {
 	idc = 2101;
-	x = 25.5 * UI_GRID_W + UI_GRID_X;
+	x = 16.5 * UI_GRID_W + UI_GRID_X;
 	y = 25 * UI_GRID_H + UI_GRID_Y;
-	w = 17 * UI_GRID_W;
+	w = 16.5 * UI_GRID_W;
 	h = 2.5 * UI_GRID_H;
+};
+class RscCombo_2102: RscCombo
+{
+	idc = 2102;
+	x = 35 * UI_GRID_W + UI_GRID_X;
+	y = 25 * UI_GRID_H + UI_GRID_Y;
+	w = 15.5 * UI_GRID_W;
+	h = 2.5 * UI_GRID_H;
+};
+class RscText_1000: RscText
+{
+	idc = 1000;
+	text = "VS"; //--- ToDo: Localize;
+	x = 33.25 * UI_GRID_W + UI_GRID_X;
+	y = 25.3 * UI_GRID_H + UI_GRID_Y;
+	w = 1.5 * UI_GRID_W;
+	h = 1.5 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
