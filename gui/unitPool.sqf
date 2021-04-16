@@ -199,6 +199,19 @@ break;
 } foreach _units;
 
 
+// Some bgroups have max select at a time
+ _numSelected = { _x == _bgCfg } count selectedBattleGroups;
+
+ _haveMax = getNumber (_bgCfg >> "max");
+ if(_haveMax > 0) then // Is value set?
+ {
+  if(_numSelected >= _haveMax) then
+  {
+   _notEnough = true;
+  };
+ };
+
+
  [_bgCfg,2301,0,numPoolPanels,!_notEnough] call createBGPanel;
 
  numPoolPanels = numPoolPanels + 1;
