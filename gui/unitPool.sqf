@@ -118,24 +118,26 @@ private _usedPoolTypes = createHashMap;
 
 for "_i" from 0 to (count _selectedBgs - 1) do
 {
- private _bgCfg = _selectedBgs select _i;
+ private _obgCfg = _selectedBgs select _i;
 
- private _cn = (configname _bgCfg) call countBgPoolNeed;
+ private _cn = (configname _obgCfg) call countBgPoolNeed;
  _neededMen = [_neededMen,_cn] call addList;
 
-private _units = getArray(_bgCfg >> "units");
+private _units = getArray(_obgCfg >> "units");
 {
 [_usedPoolTypes,_x] call addTypeToList;
 } foreach _units;
 
 };
 
-_mpool = (call getPlayerSide) call getManPool;
-_poolCounts = [_mpool] call countListTypeNumbers;
+private _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
 
-_poolTypes = [_mpool] call getPoolUnitTypeCounts;
+private _mpool = (call getPlayerSide) call getManPool;
+private _poolCounts = [_mpool] call countListTypeNumbers;
 
-_poolLeftTypes = [_poolCounts,_neededMen] call subList;
+private _poolTypes = [_mpool] call getPoolUnitTypeCounts;
+
+private _poolLeftTypes = [_poolCounts,_neededMen] call subList;
 
  systemchat format[">> %1", _poolLeftTypes];
 
@@ -155,10 +157,10 @@ if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 // Check that there is enough vehicles in the pool
 private _units = getArray(_bgCfg >> "units");
 {
- _utype = _x;
+ private _utype = _x;
 if(_utype iskindof "AllVehicles") then // Type requirement - only for vehicles
 {
- _leftInPool = (_poolTypes get _utype) - (_usedPoolTypes getOrDefault [_utype,0]);
+ private _leftInPool = (_poolTypes get _utype) - (_usedPoolTypes getOrDefault [_utype,0]);
 
 // diag_log format["%1 -- %2 - %3",_utype, (_poolTypes get _utype) , (_usedPoolTypes getOrDefault [_utype,0])];
 
@@ -173,9 +175,9 @@ break;
 
 
 // Some bgroups have max select at a time
- _numSelected = { _x == _bgCfg } count selectedBattleGroups;
+ private _numSelected = { _x == _bgCfg } count selectedBattleGroups;
 
- _haveMax = getNumber (_bgCfg >> "max");
+ private _haveMax = getNumber (_bgCfg >> "max");
  if(_haveMax > 0) then // Is value set?
  {
   if(_numSelected >= _haveMax) then
@@ -200,7 +202,6 @@ call poolDeselectBG;
 createdBgPanels = [];
 
 
-
 // Create selected battle groups
 numPoolPanels = 0;
 for "_i" from 0 to (count selectedBattleGroups - 1) do
@@ -212,7 +213,6 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
  numPoolPanels = numPoolPanels + 1;
 
 };
-
 
 
 _availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
@@ -369,4 +369,26 @@ selectedReserveBG = configNull;
 
 };
 
+fillWithRandomBgs =
+{
+ params ["_rosClass"];
 
+private _bgsList = getArray (_rosClass >> "battleGroups");
+
+_leftToPlace = 15;
+for "_i" from 0 to 1000 do
+{
+ private _bgName = selectRandomWeighted _bgsList;
+ 
+if([_bgName,selectedBattleGroups] call canBgBeSelected) then
+{
+ private _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
+ selectedBattleGroups pushback _bgCfg;
+ _leftToPlace = _leftToPlace - 1;
+ if(_leftToPlace == 0) then { break; };
+};
+
+};
+
+ //call createBgPoolPanels;
+};
