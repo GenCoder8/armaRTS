@@ -109,36 +109,18 @@ _text3 ctrlCommit 0;
 
 };
 
-
-createBgPoolPanels =
+canBgBeSelected =
 {
- params ["_init"];
+ params ["_bgName","_selectedBgs"];
 
-call poolDeselectBG;
+private _neededMen = [0,0,0];
+private _usedPoolTypes = createHashMap;
 
+for "_i" from 0 to (count _selectedBgs - 1) do
 {
- ctrlDelete _x;
-} foreach createdBgPanels;
-createdBgPanels = [];
-
-_neededMen = [0,0,0];
-
-_usedPoolTypes = createHashMap;
-
-
-// Create selected battle groups
-numPoolPanels = 0;
-for "_i" from 0 to (count selectedBattleGroups - 1) do
-{
- _bgCfg = selectedBattleGroups select _i;
-
- [_bgCfg,2300,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
-
- numPoolPanels = numPoolPanels + 1;
+ private _bgCfg = _selectedBgs select _i;
 
  private _cn = (configname _bgCfg) call countBgPoolNeed;
-
-
  _neededMen = [_neededMen,_cn] call addList;
 
 private _units = getArray(_bgCfg >> "units");
@@ -147,7 +129,6 @@ private _units = getArray(_bgCfg >> "units");
 } foreach _units;
 
 };
-
 
 _mpool = (call getPlayerSide) call getManPool;
 _poolCounts = [_mpool] call countListTypeNumbers;
@@ -159,25 +140,17 @@ _poolLeftTypes = [_poolCounts,_neededMen] call subList;
  systemchat format[">> %1", _poolLeftTypes];
 
 
-_availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
-
-// Create battle groups pool
-numPoolPanels = 0;
-for "_i" from 0 to (count _availBgs - 1) do
-{
- _bgName = _availBgs select _i;
- _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
-
  private _cn = _bgName call countBgPoolNeed;
  private _left = [+_poolLeftTypes,_cn] call subList;
  
-_notEnough = false;
+private _notEnough = false;
 if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 {
  _notEnough = true;
 
  systemchat format["not enough: %1 %2",_bgName,_left];
 };
+
 
 // Check that there is enough vehicles in the pool
 private _units = getArray(_bgCfg >> "units");
@@ -212,7 +185,53 @@ break;
  };
 
 
- [_bgCfg,2301,0,numPoolPanels,!_notEnough] call createBGPanel;
+ !_notEnough
+};
+
+createBgPoolPanels =
+{
+ params ["_init"];
+
+call poolDeselectBG;
+
+{
+ ctrlDelete _x;
+} foreach createdBgPanels;
+createdBgPanels = [];
+
+
+
+// Create selected battle groups
+numPoolPanels = 0;
+for "_i" from 0 to (count selectedBattleGroups - 1) do
+{
+ _bgCfg = selectedBattleGroups select _i;
+
+ [_bgCfg,2300,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
+
+ numPoolPanels = numPoolPanels + 1;
+
+};
+
+
+
+_availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
+
+// Create battle groups pool
+numPoolPanels = 0;
+for "_i" from 0 to (count _availBgs - 1) do
+{
+ _bgName = _availBgs select _i;
+ _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
+
+private _canSel = false;
+
+if([_bgName,selectedBattleGroups] call canBgBeSelected) then
+{
+ _canSel = true;
+};
+
+ [_bgCfg,2301,0,numPoolPanels,_canSel] call createBGPanel;
 
  numPoolPanels = numPoolPanels + 1;
 };

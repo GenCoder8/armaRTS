@@ -400,6 +400,11 @@ if(count _infPos == 0) then { "No spawn pos found for infantry" call errmsg; con
  _unit call _setupMan;
  _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
+if((typeof _unit) call isSniper) then
+{
+_unit setSkill 1;
+};
+
  };
 
  } foreach _units;

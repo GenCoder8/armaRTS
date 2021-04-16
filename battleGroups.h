@@ -53,6 +53,14 @@ class Sheridan
  units[] = {"uns_m551"};
 };
 
+class PlatoonHQ
+{
+ name = "Platoon HQ";
+ ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
+ units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RTO","uns_men_USMC_68_RF4"};
+ max = 1;
+};
+
 class HeavyTeam
 {
  name = "Heavy weapons squad";
@@ -72,14 +80,6 @@ class ReconTeam
  name = "Recon team";
  ranks[] = SQUAD_RANKS;
  units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF1","uns_men_USMC_68_RF2","uns_men_USMC_68_RF3","uns_men_USMC_68_AT"};
-};
-
-class PlatoonHQ
-{
- name = "Platoon HQ";
- ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RTO","uns_men_USMC_68_RF4"};
- max = 1;
 };
 
 class MachineGunTeam
