@@ -78,7 +78,7 @@ class PlatoonHQ
 {
  name = "Platoon HQ";
  ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_RTO","uns_men_USMC_68_RF4","uns_men_USMC_68_SL","uns_men_USMC_68_PL"};
+ units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RTO","uns_men_USMC_68_RF4"};
 };
 
 class MachineGunTeam

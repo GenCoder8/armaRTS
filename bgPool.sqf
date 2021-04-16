@@ -201,12 +201,14 @@ getBattleGroupCfg =
  _ce
 };
 
+resetPool =
+{
+ selectableBgs = [];
+};
 
 addBattleGroupToPool =
 {
  params ["_side","_bgname"];
-
- diag_log format["AAAA %1 -- %2", _side, _bgname];
 
  if(_side == (call getPlayerSide)) then
  {
@@ -229,7 +231,6 @@ addBattleGroupToPool =
   if(_skill < 0.1) then { _skill = 0.1; };
  } foreach _units;
 
- diag_log format["OUT %1 -- %2", _side, _bgname];
 };
 
 retBattleGroupToPool =
@@ -484,4 +485,32 @@ subList =
 
  _counts1
 };
+
+addTypeToList =
+{
+params ["_list","_type"];
+
+private _num = _list getOrDefault [_type,0];
+
+_list set [_type, _num + 1];
+};
+
+getPoolUnitTypeCounts =
+{
+ params ["_pool"];
+
+ private _list = createHashMap;
+
+{
+
+_type = _x # MANP_TYPE;
+
+[_list,_type] call addTypeToList;
+
+} foreach _pool;
+
+ _list
+};
+
+
 

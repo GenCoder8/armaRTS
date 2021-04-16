@@ -11,8 +11,8 @@ class Roster1
 
 battleGroups[] = 
 {
-"Patton",5,
-"Sheridan",3,
+"Patton",1,
+"Sheridan",1,
 
 "PlatoonHQ",1,
 "HeavyTeam",3,

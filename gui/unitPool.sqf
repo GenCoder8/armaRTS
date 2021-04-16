@@ -123,6 +123,9 @@ createdBgPanels = [];
 
 _neededMen = [0,0,0];
 
+_usedPoolTypes = createHashMap;
+
+
 // Create selected battle groups
 numPoolPanels = 0;
 for "_i" from 0 to (count selectedBattleGroups - 1) do
@@ -137,11 +140,19 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 
 
  _neededMen = [_neededMen,_cn] call addList;
+
+private _units = getArray(_bgCfg >> "units");
+{
+[_usedPoolTypes,_x] call addTypeToList;
+} foreach _units;
+
 };
- 
+
 
 _mpool = (call getPlayerSide) call getManPool;
 _poolCounts = [_mpool] call countListTypeNumbers;
+
+_poolTypes = [_mpool] call getPoolUnitTypeCounts;
 
 _poolLeftTypes = [_poolCounts,_neededMen] call subList;
 
@@ -167,6 +178,26 @@ if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 
  systemchat format["not enough: %1 %2",_bgName,_left];
 };
+
+// Check that there is enough vehicles in the pool
+private _units = getArray(_bgCfg >> "units");
+{
+ _utype = _x;
+if(_utype iskindof "AllVehicles") then // Type requirement - only for vehicles
+{
+ _leftInPool = (_poolTypes get _utype) - (_usedPoolTypes getOrDefault [_utype,0]);
+
+// diag_log format["%1 -- %2 - %3",_utype, (_poolTypes get _utype) , (_usedPoolTypes getOrDefault [_utype,0])];
+
+if(_leftInPool <= 0) then
+{
+_notEnough = true;
+break;
+};
+};
+
+} foreach _units;
+
 
  [_bgCfg,2301,0,numPoolPanels,!_notEnough] call createBGPanel;
 
