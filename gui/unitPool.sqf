@@ -9,6 +9,7 @@ selectedBattleGroups = [];
 
 openPoolDlg =
 {
+selectedBattleGroups = [];
 
 createDialog "UnitPoolDlg";
 
@@ -391,5 +392,5 @@ if([_bgName,selectedBattleGroups] call canBgBeSelected) then
 
 };
 
- //call createBgPoolPanels;
+ call createBgPoolPanels;
 };

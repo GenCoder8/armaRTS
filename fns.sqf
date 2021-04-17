@@ -19,3 +19,8 @@ getObjectSize =
  // Width, Length, Height
  [abs ((_p2 select 0) - (_p1 select 0)), abs ((_p2 select 1) - (_p1 select 1)), abs ((_p2 select 2) - (_p1 select 2))]
 };
+
+isUserMarker =
+{
+(_this find "_USER_DEFINED") >= 0
+};

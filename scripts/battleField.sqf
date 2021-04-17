@@ -18,7 +18,7 @@ _marker setMarkerColor "ColorWhite";
 for "_i" from 0 to 3 do
 {
 
-_vec = [_i * 90, + _asize] call getVector;
+_vec = [_i * 90, _asize] call getVector;
 _mloc = [_apos,_vec] call addvector;
 
 [_mloc,_i] call _createVicLocMarker;
@@ -29,10 +29,15 @@ _mloc = [_apos,_vec] call addvector;
 
 };
 
+getVicLocMarkers =
+{
+ private _mrks = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE }
+ _mrks select { !(_x call isUserMarker) }
+};
 
 clearBattleField =
 {
  // Todo call this
-_vicmarkers = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
+_vicmarkers = call getVicLocMarkers;
 { deleteMarker _x; } foreach _vicmarkers;
 };

@@ -77,6 +77,8 @@ customBattleDone =
 {
 _display = findDisplay CUSTOMBATTLEDLGID;
 
+plrClass = configNull;
+
 _preparePool =
 {
 params ["_side","_ctrlId"];
@@ -95,7 +97,7 @@ _rosClass = _rosters select _rosIndex;
 
 if(_side == (call getPlayerSide)) then
 {
-_rosClass call fillWithRandomBgs;
+ plrClass = _rosClass;
 };
 
 };
@@ -105,5 +107,7 @@ _rosClass call fillWithRandomBgs;
 
 
 call openPoolDlg;
+
+plrClass call fillWithRandomBgs;
 
 };

@@ -23,7 +23,7 @@ aiNumAttackLocations = 2;
 setupBattleLocation =
 {
 
-_vicmarkers = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
+_vicmarkers = call getVicLocMarkers;
 
 {
 _marker = _x;

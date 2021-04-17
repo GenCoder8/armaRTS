@@ -1,3 +1,4 @@
+#include "..\main.h"
 
 initGlobalMap =
 {
@@ -9,8 +10,8 @@ initGlobalMap =
 
 getBattleLocations =
 {
+// Todo no user markers
+_battleLocations = allMapMarkers select { markerColor _x == BATTLE_LOC_COLOR };
 
-_battleLocations = allMapMarkers select { markerColor _x == "ColorOrange" }; // TODO
-
-_battleLocations
+_battleLocations select { !(_x call isUserMarker) }
 };
