@@ -100,6 +100,9 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,DEPLOY_AREA_SIZE];
 deployAreaSize = DEPLOY_AREA_SIZE;
 
 
+[_areaPos,_areaSize # 0] call initBattleField;
+
+
 //_zeus setCuratorEditingAreaType true;
 
 //_tg = [_deployAreaPos, side player, (configFile >> "CfgGroups" >> "West" >> "BLU_F" >> "Infantry" >> "BUS_InfAssault")] call BIS_fnc_spawnGroup;
@@ -237,6 +240,10 @@ addMissionEventHandler ["GroupIconOverEnter", {
 }];
 */
 
+
+
+
+
 if(loadCovers) then
 {
 [_areaPos, _areaSize # 0] call initCoverSystem;
@@ -278,7 +285,6 @@ getBattleDeployPos =
 
  _pos
 };
-
 
 
 moveBattleGroup =

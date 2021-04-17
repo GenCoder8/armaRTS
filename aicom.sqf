@@ -1,7 +1,7 @@
 
 // _nearLocs = nearestLocations [[worldsize/2,worldsize/2], ["Airport","NameCityCapital","nameCity","NameVillage","NameLocal"], 2000];
 
-#define VICLOC_MARKER_TYPE "mil_flag"
+#include "main.h"
 
 victoryLocations = [];
 

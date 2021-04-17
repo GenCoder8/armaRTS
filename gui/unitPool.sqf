@@ -109,6 +109,7 @@ _text3 ctrlCommit 0;
 
 };
 
+// Todo pool
 canBgBeSelected =
 {
  params ["_bgName","_selectedBgs"];
