@@ -39,6 +39,8 @@ _map = _display displayCtrl 1200;
 _map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
+customBattleMap = _marker;
+
 }];
 
 _maps lbSetCurSel 0;

@@ -162,6 +162,19 @@ if(_shift) then
 
 false
 }];
+
+
+_display displayAddEventHandler ["MouseButtonUp",
+{
+ params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+ systemchat format["TEEEST! %1",time];
+
+ [[_xPos,_yPos]] call doMouseClickAction;
+
+ true
+}];
+
 /*
 finddisplay 46 displayAddEventHandler ["MouseButtonDown",
 {

@@ -153,11 +153,15 @@ plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
 plrZeus addEventHandler ["CuratorObjectSelectionChanged", {
 	params ["_curator", "_entity"];
 
+call cancelMouseClickAction;
+
 newZeusSelect = true;
 }];
 
 plrZeus addEventHandler ["CuratorGroupSelectionChanged", {
 	params ["_curator", "_group"];
+
+call cancelMouseClickAction;
 
 newZeusSelect = true;
 }];
@@ -327,6 +331,32 @@ actionFireMission =
  fireMisType = _fireType;
 };
 
+curMouseClickAction = -1;
+
+beginMouseClickAction =
+{
+ curMouseClickAction = 1;
+};
+
+doMouseClickAction =
+{
+ if(!call isMouseClickAction) exitWith {};
+
+systemchat "Mouse click action!";
+
+ curMouseClickAction = -1;
+};
+
+isMouseClickAction =
+{
+ curMouseClickAction >= 0
+};
+
+cancelMouseClickAction =
+{
+ systemchat "Action cancelled";
+ curMouseClickAction = -1;
+};
 
 [] spawn
 {

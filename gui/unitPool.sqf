@@ -1,6 +1,8 @@
 
 #include "ctrlIds.h"
 
+#include "..\main.h"
+
 createdBgPanels = [];
 
 selectedBattleGroups = [];
@@ -377,7 +379,7 @@ fillWithRandomBgs =
 
 private _bgsList = getArray (_rosClass >> "battleGroups");
 
-_leftToPlace = 15;
+_leftToPlace = MAX_SELECTED_BGS;
 for "_i" from 0 to 1000 do
 {
  private _bgName = selectRandomWeighted _bgsList;
@@ -390,6 +392,11 @@ if([_bgName,selectedBattleGroups] call canBgBeSelected) then
  if(_leftToPlace == 0) then { break; };
 };
 
+};
+
+if(_leftToPlace != 0) then
+{
+ "Failed to fill list with bgs" call errmsg;
 };
 
  call createBgPoolPanels;

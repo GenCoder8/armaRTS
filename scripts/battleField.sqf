@@ -31,7 +31,7 @@ _mloc = [_apos,_vec] call addvector;
 
 getVicLocMarkers =
 {
- private _mrks = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE }
+ private _mrks = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
  _mrks select { !(_x call isUserMarker) }
 };
 
