@@ -331,11 +331,48 @@ actionFireMission =
  fireMisType = _fireType;
 };
 
-curMouseClickAction = -1;
+anythingSelected =
+{
+ private _ret = false;
+
+ { 
+  if(count _x > 0) then { _ret = true; break; };  
+ } foreach curatorSelected;
+
+ _ret
+};
+
+curMouseClickAction = "";
+
+plrSupports = createHashMapFromArray [['cas',2]];
+
+playerHasSupport =
+{
+ params ["_supName"];
+
+ (plrSupports get _supName) > 0
+};
+
+playerUseSupport =
+{
+ params ["_supName"];
+
+ systemchat "Sup used";
+
+ plrSupports set [_supName, (plrSupports get _supName) - 1];
+};
+
+
+canDoMouseClickAction =
+{
+ (!call anythingSelected) && (!call isMouseClickAction)
+};
 
 beginMouseClickAction =
 {
- curMouseClickAction = 1;
+ params ["_type"];
+
+ curMouseClickAction = _type;
 };
 
 doMouseClickAction =
@@ -344,18 +381,20 @@ doMouseClickAction =
 
 systemchat "Mouse click action!";
 
- curMouseClickAction = -1;
+ curMouseClickAction call playerUseSupport;
+
+ curMouseClickAction = "";
 };
 
 isMouseClickAction =
 {
- curMouseClickAction >= 0
+ curMouseClickAction != ""
 };
 
 cancelMouseClickAction =
 {
  systemchat "Action cancelled";
- curMouseClickAction = -1;
+ curMouseClickAction = "";
 };
 
 [] spawn

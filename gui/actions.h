@@ -21,4 +21,15 @@ class MortarSmoke : MortarHE
  action = "'Smoke' call actionFireMission";
 };
 
+class CasSupport
+{
+  icon = "a3\ui_f\data\gui\cfg\communicationmenu\cas_ca.paa";
+// "a3\modules_f_curator\data\portraitcasgun_ca.paa"
+// "a3\modules_f_curator\data\portraitcasbomb_ca.paa"
+// "a3\modules_f_curator\data\portraitcasmissile_ca.paa"
+ text = "Call cas";
+ condition = "'cas' call playerHasSupport && call canDoMouseClickAction";
+ action = "'cas' call beginMouseClickAction";
+};
+
 };
