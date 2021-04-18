@@ -4,12 +4,12 @@ getGroupInfantry =
  
  private _men = (units _group) select
  {
-  (_x call isInfantry) && (alive _x) && !(captive _x) && ((typeof _x) != "Logic")
+  (_x call isCurrentlyInfantry) && (alive _x) && !(captive _x) && ((typeof _x) != "Logic")
  };
  _men
 };
 
-isInfantry =
+isCurrentlyInfantry =
 {
  params ["_unit"];
  

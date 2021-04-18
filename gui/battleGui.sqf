@@ -33,7 +33,7 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 #define BATTLE_AREA_SIZE 255
 
 
-beginBattlePlacement =
+startBattleFieldZeus =
 {
 
 bpArgs = _this;

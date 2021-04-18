@@ -39,7 +39,7 @@ _map = _display displayCtrl 1200;
 _map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
-customBattleMap = _marker;
+nextBattleMap = _marker;
 
 }];
 
@@ -107,9 +107,13 @@ if(_side == (call getPlayerSide)) then
 [(call getPlayerSide),2101] call _preparePool;
 [(call getEnemySide),2102] call _preparePool;
 
+closeDialog 0;
 
 call openPoolDlg;
 
 plrClass call fillWithRandomBgs;
 
 };
+
+
+

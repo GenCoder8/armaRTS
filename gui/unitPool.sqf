@@ -401,3 +401,36 @@ if(_leftToPlace != 0) then
 
  call createBgPoolPanels;
 };
+
+
+
+beginBattlePlacement =
+{
+if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
+
+closeDialog 0;
+
+[nextBattleMap,120] call startBattleFieldZeus;
+
+waituntil { battleReady };
+
+_deployAreaPos = (call getPlayerSide) call getDeployArea;
+
+_area = [_deployAreaPos,deployAreaSize];
+
+diag_log format["---------- POOL 123 %1 -----------", _area];
+
+[(call getPlayerSide) call getManPool] call printArray;
+
+{
+
+ [call getPlayerSide,configname _x,_area] call createBattleGroupFromPool;
+
+} foreach selectedBattleGroups;
+
+
+call activateBattleGui;
+
+"placement" call setBattleGuiButtons;
+
+};

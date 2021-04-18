@@ -15,7 +15,7 @@ loadCovers = false;
 
 
 
-["marker_0",120] call beginBattlePlacement;
+["marker_0",120] call startBattleFieldZeus;
 
 waituntil { battleReady };
 

@@ -1,16 +1,18 @@
 #include "ctrlIds.h"
 
-
-/* #Loqomi
+/* #Wuhole
 $[
 	1.063,
 	["bgpool",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
 	[2300,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","24.5 * UI_GRID_W","16 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1500,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","22.5 * UI_GRID_H + UI_GRID_Y","24 * UI_GRID_W","10 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = BG_VIEW_COLS;"]],
 	[2301,"",[2,"",["2 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","13 * UI_GRID_W","27 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1600,"",[2,"Add",["16.5 * UI_GRID_W + UI_GRID_X","15 * UI_GRID_H + UI_GRID_Y","3.57 * UI_GRID_W","2.735 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call poolAddReserveBG|;"]]
+	[1600,"",[2,"Add",["16.5 * UI_GRID_W + UI_GRID_X","15 * UI_GRID_H + UI_GRID_Y","3.57 * UI_GRID_W","2.735 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call poolAddReserveBG|;"]],
+	[1601,"",[2,"Begin",["30.5 * UI_GRID_W + UI_GRID_X","34 * UI_GRID_H + UI_GRID_Y","7 * UI_GRID_W","2 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call beginBattlePlacement|;"]]
 ]
 */
+
+
 
 
 
@@ -57,7 +59,7 @@ class controls
 
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Loqomi)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Wuhole)
 ////////////////////////////////////////////////////////
 
 class RscControlsGroup_2300: RscControlsGroup
@@ -103,6 +105,17 @@ class RscButton_1600: RscButton
 	y = 15 * UI_GRID_H + UI_GRID_Y;
 	w = 3.57 * UI_GRID_W;
 	h = 2.735 * UI_GRID_H;
+};
+class RscButton_1601: RscButton
+{
+	action = "call beginBattlePlacement";
+
+	idc = 1601;
+	text = "Begin"; //--- ToDo: Localize;
+	x = 30.5 * UI_GRID_W + UI_GRID_X;
+	y = 34 * UI_GRID_H + UI_GRID_Y;
+	w = 7 * UI_GRID_W;
+	h = 2 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END

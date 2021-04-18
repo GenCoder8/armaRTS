@@ -168,9 +168,13 @@ _display displayAddEventHandler ["MouseButtonUp",
 {
  params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+
+if(_button == 0) then
+{
  systemchat format["TEEEST! %1",time];
 
  [[_xPos,_yPos]] call doMouseClickAction;
+};
 
  true
 }];

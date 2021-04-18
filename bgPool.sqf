@@ -63,7 +63,7 @@ addUnitEntryToPool =
 {
  params ["_manPool","_type","_rank","_skill"];
 
-diag_log format ["Adding man to pool: %1 - %2 - %3", _type, _rank, _skill ];
+diag_log format ["Adding unit to pool: %1 - %2 - %3", _type, _rank, _skill ];
 
 _pushToPool =
 {
@@ -125,13 +125,23 @@ else
 
 };
 
+printArray =
+{
+ params ["_arr"];
+ diag_log "--- DUMPING ARRAY ---";
+
+ { diag_log (str _x); } foreach _arr;
+
+  diag_log "--- DUMPING ARRAY DONE ---";
+};
+
 getUnitEntryFromPool =
 {
  params ["_manPool","_type","_kindFn"];
  private _entry = [];
  {
   //if(_type == (_x # MANP_TYPE)) then
-  if([_type,(_x # MANP_TYPE)] call _kindFn) then
+  if([(_x # MANP_TYPE),_type] call _kindFn) then
   {
    _entry = _manPool deleteAt _foreachIndex;
    break;
@@ -140,7 +150,8 @@ getUnitEntryFromPool =
 
 if(count _entry == 0) then
 {
- ["getUnitEntryFromPool failed %1 %2",_type,_manPool] call errmsg;
+ ["getUnitEntryFromPool failed %1 %2",_type] call errmsg;
+ [_manPool] call printArray;
 };
 
  _entry
@@ -295,6 +306,7 @@ private _count = _forceList select (_i + 1);
 
 for "_n" from 0 to (_count - 1) do
 {
+diag_log format["Adding to pool '%1'", _name];
 [_side, _name] call addBattleGroupToPool;
 };
 
@@ -337,6 +349,7 @@ private _infPos = [];
  if(!(_ue iskindOf "man")) then
  {
   // Get vehicle
+
  private _vehEntry = [_manPool,_ue,isUnitType] call getUnitEntryFromPool;
 
  private _vattrs = (_vehEntry # MANP_TYPE) call getVehicleAttrs;
@@ -348,7 +361,7 @@ if(count _vattrs == 0) then
 
 private _pos = [_area, _vattrs # VEH_ATTRS_SIZE] call getBattleGroupDeployPos;
 
-if(count _pos == 0) then { "No spawn pos found for vehicle" call errmsg; continue; };
+if(count _pos == 0) then { ["No spawn pos found for vehicle (%1)",_vattrs] call errmsg; continue; };
 
 
 _sveh = [_pos, 0, (_vehEntry # MANP_TYPE), _group] call BIS_fnc_spawnVehicle;
@@ -379,7 +392,13 @@ if(count _crewList != count _crew) then
  {
   // Create infantry
 
-  private _entry = [_manPool,_ue,isInfantry] call getUnitEntryFromPool;
+  private _typeFn = isInfantry;
+  if(_ue call isSniper) then // Sniper is special case
+  {
+   _typeFn = isSniper;
+  };
+
+  private _entry = [_manPool,_ue,_typeFn] call getUnitEntryFromPool;
 
 if(count _entry == 0) exitWith 
 {
