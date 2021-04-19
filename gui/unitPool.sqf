@@ -112,10 +112,10 @@ _text3 ctrlCommit 0;
 
 };
 
-// Todo pool
+
 canBgBeSelected =
 {
- params ["_bgName","_selectedBgs"];
+ params ["_side","_bgName","_selectedBgs"];
 
 private _neededMen = [0,0,0];
 private _usedPoolTypes = createHashMap;
@@ -136,7 +136,7 @@ private _units = getArray(_obgCfg >> "units");
 
 private _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
 
-private _mpool = (call getPlayerSide) call getManPool;
+private _mpool = _side call getManPool;
 private _poolCounts = [_mpool] call countListTypeNumbers;
 
 private _poolTypes = [_mpool] call getPoolUnitTypeCounts;
@@ -164,7 +164,7 @@ private _units = getArray(_bgCfg >> "units");
  private _utype = _x;
 if(_utype iskindof "AllVehicles") then // Type requirement - only for vehicles
 {
- private _leftInPool = (_poolTypes get _utype) - (_usedPoolTypes getOrDefault [_utype,0]);
+ private _leftInPool = (_poolTypes getOrDefault [_utype,0]) - (_usedPoolTypes getOrDefault [_utype,0]);
 
 // diag_log format["%1 -- %2 - %3",_utype, (_poolTypes get _utype) , (_usedPoolTypes getOrDefault [_utype,0])];
 
@@ -230,7 +230,7 @@ for "_i" from 0 to (count _availBgs - 1) do
 
 private _canSel = false;
 
-if([_bgName,selectedBattleGroups] call canBgBeSelected) then
+if([(call getPlayerSide),_bgName,selectedBattleGroups] call canBgBeSelected) then
 {
  _canSel = true;
 };
@@ -377,17 +377,28 @@ fillWithRandomBgs =
 {
  params ["_rosClass"];
 
+ selectedBattleGroups = [(call getPlayerSide),_rosClass] call getBgSelectedList;
+
+ call createBgPoolPanels;
+};
+
+getBgSelectedList =
+{
+ params ["_side","_rosClass"];
+
 private _bgsList = getArray (_rosClass >> "battleGroups");
+
+private _list = [];
 
 _leftToPlace = MAX_SELECTED_BGS;
 for "_i" from 0 to 1000 do
 {
  private _bgName = selectRandomWeighted _bgsList;
  
-if([_bgName,selectedBattleGroups] call canBgBeSelected) then
+if([_side,_bgName,_list] call canBgBeSelected) then
 {
- private _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
- selectedBattleGroups pushback _bgCfg;
+ private _bgCfg = missionconfigfile >> "BattleGroups" >> (_side call getSideStr) >> _bgName;
+ _list pushback _bgCfg;
  _leftToPlace = _leftToPlace - 1;
  if(_leftToPlace == 0) then { break; };
 };
@@ -399,10 +410,8 @@ if(_leftToPlace != 0) then
  "Failed to fill list with bgs" call errmsg;
 };
 
- call createBgPoolPanels;
+ _list
 };
-
-
 
 beginBattlePlacement =
 {
@@ -414,20 +423,25 @@ closeDialog 0;
 
 waituntil { battleReady };
 
-_deployAreaPos = (call getPlayerSide) call getDeployArea;
 
-_area = [_deployAreaPos,deployAreaSize];
 
-diag_log format["---------- POOL 123 %1 -----------", _area];
+diag_log format["---------- POOL -----------"];
 
 [(call getPlayerSide) call getManPool] call printArray;
 
+// Place all troops
+{
+ _x params ["_side","_selList"];
+
+_deployAreaPos = _side call getDeployArea;
+_area = [_deployAreaPos,deployAreaSize];
+
 {
 
- [call getPlayerSide,configname _x,_area] call createBattleGroupFromPool;
+ [_side,configname _x,_area] call createBattleGroupFromPool;
 
-} foreach selectedBattleGroups;
-
+} foreach _selList;
+} foreach [[call getPlayerSide,selectedBattleGroups],[call getEnemySide,enemySelectedBgs]];
 
 call activateBattleGui;
 

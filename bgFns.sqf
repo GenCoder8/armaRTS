@@ -195,6 +195,11 @@ getEnemySide =
  west
 };
 
+getSideStr =
+{
+ str _this
+};
+
 getGroupAverageSkill =
 {
  params ["_group"];

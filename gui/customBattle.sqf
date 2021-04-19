@@ -87,7 +87,7 @@ params ["_side","_ctrlId"];
 
 diag_log format["Preparing battle pool %1", _side];
 
-_rosters = missionConfigFile >> "ForceRosters" >> (str _side);
+_rosters = missionConfigFile >> "ForceRosters" >> (_side call getSideStr);
 
 _forces = _display displayCtrl _ctrlId;
 
@@ -100,6 +100,11 @@ _rosClass = _rosters select _rosIndex;
 if(_side == (call getPlayerSide)) then
 {
  plrClass = _rosClass;
+}
+else
+{
+ // Get enemy troops rightaway
+ enemySelectedBgs = [_side,_rosClass] call getBgSelectedList;
 };
 
 };
