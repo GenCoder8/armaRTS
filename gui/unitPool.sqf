@@ -124,7 +124,7 @@ for "_i" from 0 to (count _selectedBgs - 1) do
 {
  private _obgCfg = _selectedBgs select _i;
 
- private _cn = (configname _obgCfg) call countBgPoolNeed;
+ private _cn = [_side,(configname _obgCfg)] call countBgPoolNeed;
  _neededMen = [_neededMen,_cn] call addList;
 
 private _units = getArray(_obgCfg >> "units");
@@ -134,7 +134,7 @@ private _units = getArray(_obgCfg >> "units");
 
 };
 
-private _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
+private _bgCfg = missionconfigfile >> "BattleGroups" >> (_side call getSideStr) >> _bgName;
 
 private _mpool = _side call getManPool;
 private _poolCounts = [_mpool] call countListTypeNumbers;
@@ -146,7 +146,7 @@ private _poolLeftTypes = [_poolCounts,_neededMen] call subList;
  systemchat format[">> %1", _poolLeftTypes];
 
 
- private _cn = _bgName call countBgPoolNeed;
+ private _cn = [_side,_bgName] call countBgPoolNeed;
  private _left = [+_poolLeftTypes,_cn] call subList;
  
 private _notEnough = false;
@@ -179,7 +179,7 @@ break;
 
 
 // Some bgroups have max select at a time
- private _numSelected = { _x == _bgCfg } count selectedBattleGroups;
+ private _numSelected = { _x == _bgCfg } count _selectedBgs;
 
  private _haveMax = getNumber (_bgCfg >> "max");
  if(_haveMax > 0) then // Is value set?
@@ -428,6 +428,10 @@ waituntil { battleReady };
 diag_log format["---------- POOL -----------"];
 
 [(call getPlayerSide) call getManPool] call printArray;
+
+diag_log "--- East ---";
+
+[(call getEnemySide) call getManPool] call printArray;
 
 // Place all troops
 {

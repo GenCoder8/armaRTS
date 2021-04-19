@@ -478,9 +478,7 @@ countListTypeNumbers =
 
 countBgPoolNeed =
 {
- params ["_bgname"];
-
- _side = (call getPlayerSide);
+ params ["_side","_bgname"];
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
