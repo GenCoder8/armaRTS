@@ -131,9 +131,22 @@ findSafePosVehicle =
  
  if(_notOnRoad && isOnRoad _cpos) then { breakto "lookpos"; };
  
+  // Get's houses too
   _eobjs = _cpos nearObjects 50;
+ //_eobjs = nearestObjects [_cpos, [], 50, true];
+
+  _eobjs = _eobjs select { _x call isValidCollider };
+
   //_eobjs = _nspos nearEntities SPACE;
   _c = { !(_x isKindOf "Man") && [_cpos,_x,_vehSize] call checkBoundingCollide } count _eobjs;
+  
+{
+
+//diag_log format[">>>111>>> '%1' %2 %3 (%4 %5)",_x, typeof _x,side _x, _x iskindof "building", _x iskindof "house"];
+
+} foreach _eobjs;
+
+//diag_log format["TEEEEEST %1",{(str _x) find "NOID" == -1 } count _eobjs];
   
   if(_c > 0) then { breakto "lookpos"; };
   
@@ -147,12 +160,22 @@ findSafePosVehicle =
   
   if(_toCol > 0) then { breakto "lookpos"; };
   
-  _houses = nearestObjects [_cpos, ["building","house"], 50];
+  /*
+  _houses = nearestObjects [_cpos, ["house"], 50, true]; // "building",
+
+ _houses = _houses select { _x call isValidCollider };
+{
+
+diag_log format[">>>222>>> '%1' %2 %3 (%4 %5)",_x, typeof _x,side _x, _x iskindof "building", _x iskindof "house"];
+
+} foreach _houses;
+
   
   {
    if([_cpos,_x,_vehSize] call checkBoundingCollide) then { breakto "lookpos"; };
    
   } foreach _houses;
+*/
 
   // Valid pos found
   _nspos = _cpos;
@@ -174,6 +197,16 @@ findSafePosVehicle =
  };
  
  _nspos
+};
+
+isValidCollider =
+{
+ params ["_obj"];
+ private _os = tolower (str _obj);
+
+ side _obj != sideLogic && _os find "powerline_01_wire" == -1 && _os find "noid" == -1
+ && !(_obj iskindof "insect") // can be too if plr on ground
+ && _os find "highvoltagecolumnwire" == -1 && _os find "light" == -1  
 };
 
 
