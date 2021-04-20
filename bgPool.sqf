@@ -1,13 +1,10 @@
 
-/*
-getPoolSide =
-{
- private _ret = east;
+#include "main.h"
 
- if(_this == manPoolWest) then { _ret = west; };
+forcePools = createHashMap;
+curPlrForcePool = [];
+curEnemyForcePool = [];
 
- _ret
-};*/
 
 
 #define UTYPE_NUMBER_INFANTRY 0
@@ -15,9 +12,20 @@ getPoolSide =
 #define UTYPE_NUMBER_CREW     2
 
 
-getSideText =
+getCurForcePool =
 {
- str _this
+ params ["_side"];
+ private _pool = [];
+ if(_side == (call getPlayerSide)) then
+ {
+  _pool = curPlrForcePool;
+ }
+ else
+ {
+  _pool = curEnemyForcePool;
+ };
+
+ _pool
 };
 
 getManPool =
@@ -26,8 +34,9 @@ getManPool =
 
 private _pool = switch(_side) do
 {
- case east: { manPoolEast };
- case west: { manPoolWest };
+ // Todo plr side
+ case east: { if(count curEnemyForcePool == 0) then { "East force pool not set" call errmsg; }; curEnemyForcePool # FORCE_POOL };
+ case west: { if(count curPlrForcePool == 0) then { "West force pool not set" call errmsg; }; curPlrForcePool # FORCE_POOL };
  default { "invalid side for man pool" call errmsg; };
 };
 
@@ -40,8 +49,6 @@ vehicleAttributes = [];
 #define VEH_ATTRS_CREW   1
 #define VEH_ATTRS_SIZE   2
 
-manPoolWest = [];
-manPoolEast = [];
 
 // Keeps all the bgs that can be used
 selectableBgs = [];
@@ -221,10 +228,12 @@ addBattleGroupToPool =
 {
  params ["_side","_bgname"];
 
- if(_side == (call getPlayerSide)) then
- {
- selectableBgs pushbackUnique _bgname;
- };
+ private _fpool = _side call getCurForcePool;
+ _fpt = (_fpool # FORCE_BG_TYPES);
+ _fpt pushbackUnique _bgname;
+
+//diag_log format["------> %1 %2 %3", _side, _bgname, _fpool];
+ 
 
  private _manPool = _side call getManPool;
 
@@ -283,7 +292,7 @@ getBattleGroupDeployPos =
 params ["_area","_size"];
 _area params ["_pos","_range"];
 
-private _npos = [_pos,_size,_range,[_pos, _range, _range, 0, true]] call findSafePosVehicle;
+private _npos = [_pos,_size,_range,[_pos, _range, _range, 0, false]] call findSafePosVehicle;
 
 if(count _npos > 0) then // If ok
 {
@@ -293,9 +302,25 @@ _npos set [2,0];
 _npos
 };
 
-addForceToPool =
+
+
+createForcePool =
 {
  params ["_side","_forceClass"];
+
+ forcePools set [configname _forceClass,[[],[]]];
+ private _fpool = forcePools get (configname _forceClass);
+
+//diag_log format["POOL123 %1", _fpool];
+
+ if(_side == (call getPlayerSide)) then
+ {
+  curPlrForcePool = _fpool
+ }
+ else
+ {
+  curEnemyForcePool = _fpool;
+ };
 
  private _forceList = getArray(_forceClass >> "battleGroups");
 
@@ -408,7 +433,7 @@ if(count _entry == 0) exitWith
 // Get pos for infantry
 if(count _infPos == 0) then
 {
- _infPos = [_area, 1] call getBattleGroupDeployPos;
+ _infPos = [_area, 0.5] call getBattleGroupDeployPos;
 
 if(count _infPos == 0) then { "No spawn pos found for infantry" call errmsg; continue; };
 

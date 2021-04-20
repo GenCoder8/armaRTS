@@ -95,7 +95,7 @@ _rosIndex = lbcurSel _forces;
 
 _rosClass = _rosters select _rosIndex;
 
-[_side,_rosClass] call addForceToPool;
+[_side,_rosClass] call createForcePool;
 
 if(_side == (call getPlayerSide)) then
 {

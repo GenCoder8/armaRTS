@@ -15,6 +15,10 @@ selectedBattleGroups = [];
 
 createDialog "UnitPoolDlg";
 
+diag_log format["12345 %1", (curPlrForcePool # FORCE_BG_TYPES)];
+
+selectableBgs = (curPlrForcePool # FORCE_BG_TYPES);
+
 
 call createBgPoolPanels;
 
@@ -143,7 +147,9 @@ private _poolTypes = [_mpool] call getPoolUnitTypeCounts;
 
 private _poolLeftTypes = [_poolCounts,_neededMen] call subList;
 
- systemchat format[">> %1", _poolLeftTypes];
+// diag_log format[">>>>>>> %1 %2 %3",_side, _mpool,  _poolTypes ];
+
+// systemchat format[">> %1", _poolLeftTypes];
 
 
  private _cn = [_side,_bgName] call countBgPoolNeed;
@@ -391,7 +397,7 @@ private _bgsList = getArray (_rosClass >> "battleGroups");
 private _list = [];
 
 _leftToPlace = MAX_SELECTED_BGS;
-for "_i" from 0 to 1000 do
+for "_i" from 0 to 100 do
 {
  private _bgName = selectRandomWeighted _bgsList;
  
@@ -407,7 +413,7 @@ if([_side,_bgName,_list] call canBgBeSelected) then
 
 if(_leftToPlace != 0) then
 {
- "Failed to fill list with bgs" call errmsg;
+ ["Failed to fill list with bgs %1 %2",_side,_leftToPlace] call errmsg; // Not error if force pool small
 };
 
  _list

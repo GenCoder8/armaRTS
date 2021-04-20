@@ -54,7 +54,7 @@ getObjectSize =
  private _veh = _this;
  private ["_bbr","_p1","_p2"]; 
  
- _bbr = boundingBoxReal _veh;
+ _bbr = 0 boundingBoxReal _veh;
  _p1 = _bbr select 0;
  _p2 = _bbr select 1;
 
