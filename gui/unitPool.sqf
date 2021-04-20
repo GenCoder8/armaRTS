@@ -15,9 +15,8 @@ selectedBattleGroups = [];
 
 createDialog "UnitPoolDlg";
 
-diag_log format["12345 %1", (curPlrForcePool # FORCE_BG_TYPES)];
 
-selectableBgs = (curPlrForcePool # FORCE_BG_TYPES);
+selectableBgs = ([curPlrForcePool] call getForceBgTypes);
 
 
 call createBgPoolPanels;
@@ -120,6 +119,8 @@ _text3 ctrlCommit 0;
 canBgBeSelected =
 {
  params ["_side","_bgName","_selectedBgs"];
+
+if((count _selectedBgs) >= MAX_SELECTED_BGS) exitwith { false };
 
 private _neededMen = [0,0,0];
 private _usedPoolTypes = createHashMap;

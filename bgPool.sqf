@@ -1,6 +1,11 @@
 
 #include "main.h"
 
+
+#define FORCE_BG_TYPES  0
+#define FORCE_MAN_POOL  1
+
+
 forcePools = createHashMap;
 curPlrForcePool = [];
 curEnemyForcePool = [];
@@ -35,12 +40,18 @@ getManPool =
 private _pool = switch(_side) do
 {
  // Todo plr side
- case east: { if(count curEnemyForcePool == 0) then { "East force pool not set" call errmsg; }; curEnemyForcePool # FORCE_POOL };
- case west: { if(count curPlrForcePool == 0) then { "West force pool not set" call errmsg; }; curPlrForcePool # FORCE_POOL };
+ case east: { if(count curEnemyForcePool == 0) then { "East force pool not set" call errmsg; }; curEnemyForcePool # FORCE_MAN_POOL };
+ case west: { if(count curPlrForcePool == 0) then { "West force pool not set" call errmsg; }; curPlrForcePool # FORCE_MAN_POOL };
  default { "invalid side for man pool" call errmsg; };
 };
 
  _pool
+};
+
+getForceBgTypes =
+{
+ params ["_fpool"];
+ _fpool # FORCE_BG_TYPES
 };
 
 vehicleAttributes = [];
