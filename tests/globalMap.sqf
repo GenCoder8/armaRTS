@@ -34,11 +34,14 @@ _mrk setMarkerColor "ColorRed";
 
 sleep 0.1;
 
-_battleLocations = allMapMarkers select { markerColor _x == "ColorOrange" }; // TODO
+_battleLocations = call getBattleLocations;
 
 systemchat format ["found %1 locations", count _battleLocations];
 
+battlelocConnections = createHashMap;
+
 {
+ _mrkName = _x;
  _bl = getmarkerpos _x;
  _other = _battleLocations - [_x];
 
@@ -60,6 +63,8 @@ _connections pushback _otherX;
   if(count _connections >= 4) exitWith {};
   
  } foreach _other;
+
+battlelocConnections set [_mrkName,_connections];
 
 systemchat format ["Connections: %1", count _connections];
 
@@ -245,20 +250,38 @@ else
 _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
 {
+
+_force = allforces get selectedForce;
+
+_curLoc = _force # FORCE_POSMARKER;
+
+_cons = battlelocConnections get _bf;
+
+if(_cons find _curLoc >= 0) then
+{
+
 [selectedForce,_bf] call moveForceToBattlefield;
 selectedForce = "";
 hint "Moved to battlefield";
+
+}
+else
+{
+ hint "No connection";
 };
+
 
 };
 
 };
 
+};
+/*
 if(_button == 1) then
 {
  selectedForce = "";
  hint "Deselect";
-};
+};*/
 
 };
 
