@@ -34,6 +34,8 @@ _mrk setMarkerColor "ColorRed";
 
 sleep 0.1;
 
+call initGlobalMap;
+
 _battleLocations = call getBattleLocations;
 
 systemchat format ["found %1 locations", count _battleLocations];
@@ -131,10 +133,8 @@ pos = getpos player;
 
 pos set [1, (pos # 1) + 100];
 
-#define FORCE_ICON_SIZE 128
 
-#define FORCE_ICON 0
-#define FORCE_POSMARKER  1
+
 
 #define TEST_ICON_SIZE 10
 
@@ -153,52 +153,21 @@ findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", {
 		"right"
 	];
 
-{
-	_this select 0 drawIcon [
-		_y # FORCE_ICON,
-		[1,1,1,1],
-		markerpos (_y # FORCE_POSMARKER),
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
-		0,
-		"",
-		1,
-		0.03,
-		"TahomaB",
-		"right"
-	];
-} foreach allforces;
+ call renderForces;
 
 }];
 
 
-allforces = createHashMap;
+[west,"testers", "uns_M113parts\army\11acr_co.paa", "marker_17"  ] call createNewForce;
 
-createNewForce =
-{
-params ["_name","_icon","_posmrk"];
-
-allforces set [_name, [_icon,_posmrk ] ];
-};
-
-moveForceToBattlefield =
-{
- params ["_forceName","_destMarker"];
- private _force = allforces get _forceName;
-
- _force set [FORCE_POSMARKER, _destMarker ];
-};
-
-["testers", "uns_M113parts\army\11acr_co.paa", "marker_17"  ] call createNewForce;
-
-["testers2", "uns_M113parts\army\1acav_co.paa", "marker_18"  ] call createNewForce;
+[east,"testers2", "uns_M113parts\army\1acav_co.paa", "marker_18"  ] call createNewForce;
 
 
 _defaultMainMapCtrl = (findDisplay 12 displayCtrl 51);
-_defaultMainMapCtrl ctrlAddEventHandler ["MouseMoving","_this call mouseMoveUpdate; "];
-_defaultMainMapCtrl ctrlAddEventHandler ["MouseButtonUp","_this call mouseButtonUp; "];
+_defaultMainMapCtrl ctrlAddEventHandler ["MouseMoving"," _this call mouseMoveUpdate; "];
+_defaultMainMapCtrl ctrlAddEventHandler ["MouseButtonUp"," _this call mouseButtonUp; "];
 
- 
+
 
 mouseMoveUpdate =
 {
@@ -216,7 +185,7 @@ else
 {
  hint "away";
 
-if(([_pos] call isMouseOverForce) != "") then
+if(([_pos] call getForceAtPos) != "") then
 {
  hintSilent "Over force";
 };
@@ -237,7 +206,7 @@ if(_button == 0) then
 
 if(selectedForce == "") then
 {
-_overForce = ([_pos] call isMouseOverForce);
+_overForce = ([_pos] call getForceAtPos);
 if(_overForce != "") then
 {
 selectedForce = _overForce;
@@ -251,16 +220,19 @@ _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
 {
 
-_force = allforces get selectedForce;
+_forcesHere = _bf call getForcesAtBattleLoc;
 
-_curLoc = _force # FORCE_POSMARKER;
+if([selectedForce,_forcesHere] call countForceFriendlies == 0) then
+{
+
+_curLoc = selectedForce call getForcePosMarker;
 
 _cons = battlelocConnections get _bf;
 
 if(_cons find _curLoc >= 0) then
 {
 
-[selectedForce,_bf] call moveForceToBattlefield;
+[selectedForce,_bf] call moveForceToBattleloc;
 selectedForce = "";
 hint "Moved to battlefield";
 
@@ -268,6 +240,12 @@ hint "Moved to battlefield";
 else
 {
  hint "No connection";
+};
+
+}
+else
+{
+ hint "loc occupied";
 };
 
 
@@ -287,22 +265,6 @@ if(_button == 1) then
 
 selectedForce = "";
 
-isMouseOverForce =
-{
- params ["_pos"];
- private _ret = "";
-
-{
-
-if(_pos distance2D (markerpos (_y # FORCE_POSMARKER)) < ((FORCE_ICON_SIZE * 2 * 10) * ( (1 call scaleToMap))) ) then
-{
- _ret = _x;
-};
-
-} foreach allforces;
-
- _ret
-};
 
 isMouseOverBattlefield =
 {

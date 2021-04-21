@@ -62,6 +62,8 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "bgPool.sqf" call execFile;
 
+"forces.sqf" call execFile;
+
 "zeus.sqf" call execFile;
 
 "aicom.sqf" call execFile;
