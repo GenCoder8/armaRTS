@@ -14,6 +14,14 @@ params ["_side","_name","_icon","_posmrk"];
 allforces set [_name, [_side,_icon,_posmrk ] ];
 };
 
+isFriendlyForce =
+{
+ params ["_forceName"];
+ private _force = allforces get _forceName;
+
+ (_force # FORCE_SIDE) == (call getPlayerSide)
+};
+
 getForcePosMarker =
 { 
  params ["_forceName"];
