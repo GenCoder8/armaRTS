@@ -222,14 +222,13 @@ onForceDeselect =
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow false;
 };
 
-onForceSelectd =
+onForceSelect =
 {
+ (uiNamespace getVariable "forceImg") ctrlSetText (selectRandom solImgs);
 
-(uiNamespace getVariable "forceImg") ctrlSetText (selectRandom solImgs);
+ (uiNamespace getVariable "forceInfoCtrl") ctrlSetText (selectedForce call getForceInfo);
 
-(uiNamespace getVariable "forceInfoCtrl") ctrlSetText (selectedForce call getForceInfo);
-
-  (uiNamespace getVariable "forceCtrlGroup") ctrlShow true;
+ (uiNamespace getVariable "forceCtrlGroup") ctrlShow true;
 };
 
 mouseMoveUpdate =
@@ -275,7 +274,7 @@ if(_overForce != "") then
 selectedForce = _overForce;
 hint "Force selected!";
 
-selectedForce call onForceSelectd;
+selectedForce call onForceSelect;
 
 
 };
