@@ -96,6 +96,12 @@ if(_pos distance2D ( (_x call getForceRenderPos)) < ((FORCE_ICON_SIZE * 2 * 10) 
  _ret
 };
 
+getForceInfo =
+{
+ params ["_forceName"];
+
+ _forceName
+};
 
 renderForces =
 {
