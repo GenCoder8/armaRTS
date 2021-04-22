@@ -99,7 +99,7 @@ _rosClass = _rosters select _rosIndex;
 
 if(_side == (call getPlayerSide)) then
 {
- plrClass = _rosClass;
+ plrClass = _rosClass; // Read in later
 }
 else
 {

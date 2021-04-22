@@ -2,6 +2,7 @@
 #define FORCE_SIDE       0
 #define FORCE_ICON       1
 #define FORCE_POSMARKER  2
+#define FORCE_NUM_MOVES  3
 
 #define FORCE_ICON_SIZE 128
 
@@ -11,7 +12,7 @@ createNewForce =
 {
 params ["_side","_name","_icon","_posmrk"];
 
-allforces set [_name, [_side,_icon,_posmrk ] ];
+allforces set [_name, [_side,_icon,_posmrk, 1 ] ];
 };
 
 isFriendlyForce =
@@ -31,12 +32,22 @@ getForcePosMarker =
  _force # FORCE_POSMARKER;
 };
 
+numForceMoves =
+{
+ params ["_forceName"];
+
+ private _force = allforces get _forceName;
+
+ _force # FORCE_NUM_MOVES;
+};
+
 moveForceToBattleloc =
 {
  params ["_forceName","_destMarker"];
  private _force = allforces get _forceName;
 
  _force set [FORCE_POSMARKER, _destMarker ];
+ _force set [FORCE_NUM_MOVES, (_force # FORCE_NUM_MOVES) - 1];
 };
 
 getForcesAtBattleLoc =
@@ -57,6 +68,32 @@ if((_y # FORCE_POSMARKER) == _loc) then
 
 
  _list
+};
+
+getGlobalBattles =
+{
+ private _battles = [];
+
+ private _westForces = [];
+ { if((_y # FORCE_SIDE) == west) then { _westForces pushback _y; }; } foreach allforces; // from west perspective
+
+
+ {
+  private _force = _x;
+  private _opp = [];
+  
+  { if((_y # FORCE_SIDE) != (_force # FORCE_SIDE)) then { _opp pushback _y; }; } foreach allforces;
+  
+  {
+   if((_force # FORCE_POSMARKER) == (_x # FORCE_POSMARKER)) then
+   {
+    _battles pushback [(_force # FORCE_POSMARKER), _force, _x];
+   };
+  } foreach _opp;
+
+ } foreach _westForces;
+
+ _battles
 };
 
 countForceFriendlies =

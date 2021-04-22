@@ -183,6 +183,9 @@ _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
 {
 
+if(selectedForce call numForceMoves > 0) then
+{
+
 _forcesHere = _bf call getForcesAtBattleLoc;
 
 if([selectedForce,_forcesHere] call countForceFriendlies == 0) then
@@ -212,6 +215,12 @@ else
  hint "loc occupied";
 };
 
+
+}
+else
+{
+ hint "No more turns left";
+};
 
 };
 

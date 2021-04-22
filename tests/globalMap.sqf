@@ -38,6 +38,5 @@ call initGlobalMap;
 
 
 
-
-
+openMap [true, false];
 
