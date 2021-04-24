@@ -75,14 +75,12 @@ getGlobalBattles =
  private _battles = [];
 
  private _westForces = [];
- { if((_y # FORCE_SIDE) == west) then { _westForces pushback _y; }; } foreach allforces; // from west perspective
 
+ _westForces = [allforces,{ ((_x # FORCE_SIDE) == west) }] call hashmapSelect; // from west perspective
 
  {
   private _force = _x;
-  private _opp = [];
-  
-  { if((_y # FORCE_SIDE) != (_force # FORCE_SIDE)) then { _opp pushback _y; }; } foreach allforces;
+  private _opp = [allforces, { ((_x # FORCE_SIDE) != (_force # FORCE_SIDE)) } ] call hashmapSelect;
   
   {
    if((_force # FORCE_POSMARKER) == (_x # FORCE_POSMARKER)) then
@@ -94,6 +92,21 @@ getGlobalBattles =
  } foreach _westForces;
 
  _battles
+};
+
+hashmapSelect =
+{
+ params ["_map","_code"];
+ private _ret = [];
+
+ {
+  private _x = _y;
+  if(call _code) then
+  {
+   _ret pushback _y;
+  };
+ } foreach _map;
+ _ret
 };
 
 countForceFriendlies =

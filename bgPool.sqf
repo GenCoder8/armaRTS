@@ -315,7 +315,7 @@ _npos
 
 
 
-createForcePool =
+createForceManPool =
 {
  params ["_side","_forceClass"];
 
