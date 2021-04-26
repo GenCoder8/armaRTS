@@ -9,4 +9,4 @@ debugMode = true;
 loadCovers = false;
 
 
-call openCustomBattleDlg;
+["customBattle"] call openGameScreen;

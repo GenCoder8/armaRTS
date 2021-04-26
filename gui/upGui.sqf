@@ -424,8 +424,6 @@ beginBattlePlacement =
 {
 if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 
-closeDialog 0;
-
 [nextBattleMap,120] call startBattleFieldZeus;
 
 waituntil { battleReady };
@@ -454,9 +452,7 @@ _area = [_deployAreaPos,deployAreaSize];
 } foreach _selList;
 } foreach [[call getPlayerSide,[selectedBattleGroups] call sortBgs],[call getEnemySide,[enemySelectedBgs] call sortBgs]];
 
-call activateBattleGui;
-
-"placement" call setBattleGuiButtons;
+["placement"] call openGameScreen;
 
 };
 

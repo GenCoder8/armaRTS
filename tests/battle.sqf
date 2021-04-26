@@ -29,9 +29,7 @@ _area = [_deployAreaPos,deployAreaSize];
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
 
-call activateBattleGui;
-
-"placement" call setBattleGuiButtons;
+["placement"] call openGameScreen;
 
 
 // call beginBattle;

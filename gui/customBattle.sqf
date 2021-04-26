@@ -112,7 +112,6 @@ else
 [(call getPlayerSide),2101] call _preparePool;
 [(call getEnemySide),2102] call _preparePool;
 
-closeDialog 0;
 
 ["poolSelect"] call openGameScreen;
 
