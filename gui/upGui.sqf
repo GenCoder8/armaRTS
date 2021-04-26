@@ -452,10 +452,38 @@ _area = [_deployAreaPos,deployAreaSize];
  [_side,configname _x,_area] call createBattleGroupFromPool;
 
 } foreach _selList;
-} foreach [[call getPlayerSide,selectedBattleGroups],[call getEnemySide,enemySelectedBgs]];
+} foreach [[call getPlayerSide,[selectedBattleGroups] call sortBgs],[call getEnemySide,[enemySelectedBgs] call sortBgs]];
 
 call activateBattleGui;
 
 "placement" call setBattleGuiButtons;
+
+};
+
+sortBgs =
+{
+params ["_bgList"];
+
+private _ret = [_bgList, [], 
+{
+private _bgCfg = _x;
+
+private _hiRank = getArray (_bgCfg >> "ranks") # 0;
+
+(_hiRank call rankToNumber)
+
+}, "DESCEND"] call BIS_fnc_sortBy;
+
+_ret
+};
+
+
+tt =
+{
+ _r = [selectedBattleGroups] call sortBgs;
+
+{
+ diag_log format["%1 <-> %2", configname _x, configname(_r # _foreachIndex) ];
+} foreach selectedBattleGroups;
 
 };
