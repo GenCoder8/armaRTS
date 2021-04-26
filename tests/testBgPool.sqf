@@ -17,7 +17,5 @@ debugMode = true;
 
 
 sleep 0.1;
-createDialog "UnitPoolDlg";
 
-
-call createBgPoolPanels;
+["poolSelect"] call openGameScreen;

@@ -12,7 +12,7 @@ switch (curScreen) do
 {
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
-case "battle": 
+case "battle";
 case "placement": 
 {
  cutRsc["","PLAIN",0]; // Todo works?
