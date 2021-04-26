@@ -155,16 +155,26 @@ printArray =
 
 getUnitEntryFromPool =
 {
- params ["_manPool","_type","_kindFn"];
+ params ["_manPool","_type","_kindFn",["_reqRank",-1]];
  private _entry = [];
+ private _highestRank = -1;
+ private _selEntryIndex = -1;
+
  {
-  //if(_type == (_x # MANP_TYPE)) then
-  if([(_x # MANP_TYPE),_type] call _kindFn) then
+  private _rankId = _x # MANP_RANK;
+  if([(_x # MANP_TYPE),_type] call _kindFn && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank)) ) then
   {
-   _entry = _manPool deleteAt _foreachIndex;
-   break;
+   _highestRank = _rankId;
+   _selEntryIndex = _foreachIndex;
+
+   //break;
   };
  } foreach _manPool;
+
+if(_selEntryIndex >= 0) then
+{
+ _entry = _manPool deleteAt _selEntryIndex;
+};
 
 if(count _entry == 0) then
 {
@@ -375,9 +385,25 @@ _unit setSkill (_entry # MANP_SKILL);
 _unit setVariable ["orgSkill", skill _unit]; // Needed later
 };
 
+private _highestRank = 0;
+_useRank =
+{
+ private _retRank = -1;
+
+if(_highestRank < (count _ranks)) then
+{
+ _retRank = (_ranks # _highestRank) call rankToNumber;
+ _highestRank = _highestRank + 1;
+};
+
+ _retRank
+};
+
 private _infPos = [];
 
  private _units = getArray(_ce >> "units");
+ private _ranks = getArray(_ce >> "ranks");
+
  {
   private _ue = _x;
 
@@ -415,7 +441,7 @@ if(count _crewList != count _crew) then
  // Take from pool and set skills, etc.
  {
  private _ce = _x;
- private _entry = [_manPool,_ce,isTankCrew] call getUnitEntryFromPool;
+ private _entry = [_manPool,_ce,isTankCrew, call _useRank] call getUnitEntryFromPool;
 
  _cm = _crew # _foreachIndex;
  _cm call _setupMan;
@@ -434,7 +460,7 @@ if(count _crewList != count _crew) then
    _typeFn = isSniper;
   };
 
-  private _entry = [_manPool,_ue,_typeFn] call getUnitEntryFromPool;
+  private _entry = [_manPool,_ue,_typeFn,call _useRank] call getUnitEntryFromPool;
 
 if(count _entry == 0) exitWith 
 {
