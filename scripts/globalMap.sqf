@@ -4,7 +4,7 @@ initGlobalMap =
 {
  _blocs = call getBattleLocations;
  {
-  _x setMarkerAlpha 0.3;
+  _x setMarkerAlpha BATTLE_LOC_ALPHA;
   _x setMarkerShape "ELLIPSE";
  } foreach _blocs;
 

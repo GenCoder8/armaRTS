@@ -1,4 +1,4 @@
-
+#include "..\main.h"
 
 _display = controlNull;
 
@@ -119,6 +119,8 @@ onForceSelect =
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow true;
 };
 
+lastHighlight = "";
+
 mouseMoveUpdate =
 {
 params ["_control", "_xPos", "_yPos", "_mouseOver"];
@@ -141,21 +143,38 @@ if(([_pos] call getForceAtPos) != "") then
 };
 
 };
- 
+
+if(lastHighlight != "") then
+{
+lastHighlight setmarkeralpha BATTLE_LOC_ALPHA;
 };
 
-mouseButtonUp =
+if(selectedForce != "") then
 {
-params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+_bf = [_pos] call hoverOnBattlefield;
 
-private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
-
-
-if(_button == 0) then
+if(_bf != "") then
 {
+ //_curMrk = selectedForce call getForcePosMarker;
+ //_cons = battlelocConnections get _curMrk;
 
-if(selectedForce == "") then
+_bf setmarkeralpha 1;
+
+lastHighlight = _bf;
+
+
+};
+
+};
+
+};
+
+hoverOnForce =
 {
+params ["_pos"];
+
+private _retForce = "";
+
 _overForce = ([_pos] call getForceAtPos);
 if(_overForce != "") then
 {
@@ -163,10 +182,7 @@ if(_overForce != "") then
 if(_overForce call isFriendlyForce) then
 {
 
-selectedForce = _overForce;
-hint "Force selected!";
-
-selectedForce call onForceSelect;
+_retForce = _overForce;
 
 }
 else
@@ -175,9 +191,14 @@ else
 };
 
 };
-}
-else
+ _retForce
+};
+
+hoverOnBattlefield =
 {
+params ["_pos"];
+
+private _retBf = "";
 
 _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
@@ -198,10 +219,7 @@ _cons = battlelocConnections get _bf;
 if(_cons find _curLoc >= 0) then
 {
 
-[selectedForce,_bf] call moveForceToBattleloc;
-
-call onForceDeselect;
-hint "Moved to battlefield";
+_retBf = _bf;
 
 }
 else
@@ -222,6 +240,42 @@ else
  hint "No more turns left";
 };
 
+};
+
+ _retBf
+};
+
+mouseButtonUp =
+{
+params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
+
+
+if(_button == 0) then
+{
+
+if(selectedForce == "") then
+{
+ _force = [_pos] call hoverOnForce;
+ if(_force != "") then
+ {
+ selectedForce = _force;
+ hint "Force selected!";
+ _force call onForceSelect;
+ };
+}
+else
+{
+
+_bf = [_pos] call hoverOnBattlefield;
+
+if(_bf != "") then
+{
+[selectedForce,_bf] call moveForceToBattleloc;
+
+call onForceDeselect;
+hint "Moved to battlefield";
 };
 
 };

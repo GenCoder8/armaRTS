@@ -13,7 +13,7 @@ switch (curScreen) do
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
 case "battle";
-case "placement": 
+case "placement":
 {
  cutRsc["","PLAIN",0]; // Todo works?
 };
@@ -27,14 +27,14 @@ case "placement":
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };
   case "placement": 
-  { 
-   call activateBattleGui; 
+  {
+   call activateBattleGui;
    "placement" call setBattleGuiButtons;
   };
   case "battle": 
-  { 
-   call activateBattleGui;  
-   "battle" call setBattleGuiButtons; 
+  {
+   call activateBattleGui;
+   "battle" call setBattleGuiButtons;
   };
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };
