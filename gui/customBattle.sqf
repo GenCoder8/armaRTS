@@ -114,7 +114,7 @@ else
 
 closeDialog 0;
 
-call openPoolDlg;
+["poolSelect"] call openGameScreen;
 
 plrClass call fillWithRandomBgs;
 

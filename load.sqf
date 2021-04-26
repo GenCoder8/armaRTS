@@ -81,6 +81,7 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 "scripts\globalMap.sqf" call execFile;
 
 
+"gui\gfns.sqf" call execFile;
 
 "gui\battleGui.sqf" call execFile;
 
