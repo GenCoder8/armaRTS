@@ -31,6 +31,11 @@ case "placement":
    call activateBattleGui; 
    "placement" call setBattleGuiButtons;
   };
+  case "battle": 
+  { 
+   call activateBattleGui;  
+   "battle" call setBattleGuiButtons; 
+  };
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };
 

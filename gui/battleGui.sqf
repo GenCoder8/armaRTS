@@ -522,7 +522,7 @@ beginBattle =
 
  //plrZeus removeCuratorEditableObjects [allunits, false];
 
- "battle" call setBattleGuiButtons;
+ ["battle"] call openGameScreen;
 };
 
 activateBattleGui =
