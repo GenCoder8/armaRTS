@@ -176,6 +176,20 @@ private _wpos = waypointPosition _wp;
 
 // TODO NOT for vehicles  -- isVehicleGroup
 
+hoverOnCover = false;
+_closestEdge = [];
+if(!(_group call isVehicleGroup)) then
+{
+_closestEdge = [_wpos] call getCoverForPosition;
+
+systemchat format[">>> %1 %2", _wpos, count _closestEdge ];
+
+if(count _closestEdge > 0) then
+{
+ hoverOnCover = true;
+};
+};
+
 switch (true) do
 {
  case firemisDown: // Fire mission
@@ -194,7 +208,40 @@ case hoverOnHouse:
 {
 // Todo moveBattleGroup also here?
 
+if(!(_group call isVehicleGroup)) then // Todo maybe dont show arrow
+{
 [_group,_wpos,15,formationDirection (leader _group),true,100,100] call manBuildings;
+};
+
+};
+
+case hoverOnCover:
+{
+hint "Taking cover!";
+
+_units = units _group;
+{
+private _covPos = _x;
+if(count _covPos > 0) then
+{
+_covPosF = +_covPos;
+_covPosF set [2,0];
+
+if(_forEachIndex < (count _units)) then
+{
+
+private _u = _units # _forEachIndex;
+// _u doMove _covPosF;
+
+_u setposATL _covPosF;
+
+[_u,_covPosF] call applyStopSCript;
+
+systemchat format["Moving one! %1 %2 %3", _u, _forEachIndex, _covPosF];
+
+};
+};
+} foreach _closestEdge;
 
 };
 
@@ -250,7 +297,18 @@ addMissionEventHandler ["GroupIconOverEnter", {
 
 if(loadCovers) then
 {
+
+_tpos = markerpos "covtestarea";
+
+if(_tpos isEqualTo [0,0,0]) then
+{
 [_areaPos, _areaSize # 0] call initCoverSystem;
+}
+else
+{
+[_tpos, 50] call initCoverSystem;
+};
+
 };
 
 call openZeus;
@@ -457,6 +515,10 @@ hoverOnHouse = false;
 
 addMissionEventHandler ["EachFrame",
 {
+
+{ deleteVehicle _x; } foreach carrows;
+carrows = [];
+
  _bldg = call getOnHoverHouse;
 
 // systemchat format["_bldg %1", _bldg];
@@ -474,6 +536,30 @@ else
  darrow setposATL [0,0,0];
 
  hoverOnHouse = false;
+
+
+
+_wpos = screenToWorld getMousePosition;
+
+_closestEdge = [_wpos] call getCoverForPosition;
+
+if(count _closestEdge > 0) then
+{
+{
+ _p = _x;
+if(count _p > 0) then
+{
+ _p set [2,1];
+
+  _arrow = createSimpleObject ["Sign_Arrow_Blue_F", AglToASL _p,true];
+  carrows pushback _arrow;
+
+};
+} foreach _closestEdge;
+};
+
+
+
 };
 
 /*

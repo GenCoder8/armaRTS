@@ -6,7 +6,7 @@ waituntil { scriptdone _w };
 
 debugMode = true;
 
-loadCovers = false;
+loadCovers = true;
 
 // setGroupIconsSelectable true;
 

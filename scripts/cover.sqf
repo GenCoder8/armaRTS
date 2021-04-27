@@ -1,7 +1,7 @@
 
 #define SPACE_REQ_FOR_POINT 0.25
-#define EXTRA_DIST_FROM_WALL 0.3
-#define SPACE_BETWEEN_POINTS 0.25
+#define EXTRA_DIST_FROM_WALL 1.0
+#define SPACE_BETWEEN_POINTS 0.7
 #define COVER_HEIGHT_REQ  0.2
 #define HOUSE_HOVER_CONTACT_NUM 0.8
 #define EDGE_NEAR_START_DIST 5.5
@@ -15,7 +15,7 @@ stone_Xm are stone walls
 */
 
 excludeCover = ["light","powerline","lamp","FuelStation","fs_feed","fs_roof","gate","WaterTower","shed_small"];
-includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer","mound","stone_8m","stone_4m"];
+includeCover = ["wall","city","watertank","tankrust","garbageContainer","fieldToilet","cargo","dp_transformer","mound","stone_8m","stone_4m","pipes_large"];
 
 
 coverObjTypes = [];

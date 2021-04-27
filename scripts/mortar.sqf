@@ -15,9 +15,9 @@ isVehicleGroup =
 params ["_group"];
 
 private _gcfg = _group getVariable ["cfg",configNull];
-private _units = getText(_gcfg >> "units");
+private _units = getArray(_gcfg >> "units");
 
- (_units # 0) iskindOf "AllVehicles"
+ !((_units # 0) iskindOf "Man")
 };
 
 
