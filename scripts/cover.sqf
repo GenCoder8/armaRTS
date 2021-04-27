@@ -132,7 +132,7 @@ private _bbr = 0 boundingBoxReal _bldg;
 private _p1 = _bbr select 0;
 private _p2 = _bbr select 1;
 
-private _cen = [(_p2 select 0) + (_p1 select 0), (_p2 select 1) + (_p1 select 1), 0 ];
+private _cen = [(_p2 select 0) + (_p1 select 0), (_p2 select 1) + (_p1 select 1), (_p2 select 2) + (_p1 select 2) ];
 
 private _wpos = _bldg modelToWorld _cen;
 
@@ -145,7 +145,7 @@ getObjVisibilityAboveGround =
 {
  params ["_obj"];
 
- private _wpos = _obj modelToWorld [0,0,0];
+ private _wpos = _obj call getObjectCenter;
 
  private _bbr = boundingBoxReal _obj;
  private _elevation = _wpos # 2; 
