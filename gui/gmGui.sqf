@@ -200,6 +200,8 @@ params ["_pos"];
 
 private _retBf = "";
 
+if(selectedForce == "") exitWith { "" };
+
 _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
 {

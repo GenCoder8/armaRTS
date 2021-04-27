@@ -24,6 +24,8 @@ _deployAreaPos = (call getPlayerSide) call getDeployArea;
 _area = [_deployAreaPos,deployAreaSize];
 
 
+[west,"testForce"] call createForce;
+
 ["LightMortarTeam",_area] call placeTestGroup;
 
 ["HeavyMortarTeam",_area] call placeTestGroup;

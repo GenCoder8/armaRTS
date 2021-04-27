@@ -161,7 +161,7 @@ getUnitEntryFromPool =
  private _selEntryIndex = -1;
 
  {
-  private _rankId = _x # MANP_RANK;
+  private _rankId = (_x # MANP_RANK) call rankToNumber;
   if([(_x # MANP_TYPE),_type] call _kindFn && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank)) ) then
   {
    _highestRank = _rankId;
@@ -323,14 +323,12 @@ _npos set [2,0];
 _npos
 };
 
-
-
-createForceManPool =
+createForce =
 {
- params ["_side","_forceClass"];
+params ["_side","_name"];
 
- forcePools set [configname _forceClass,[[],[]]];
- private _fpool = forcePools get (configname _forceClass);
+ forcePools set [_name,[[],[]]];
+ private _fpool = forcePools get _name;
 
 //diag_log format["POOL123 %1", _fpool];
 
@@ -342,6 +340,14 @@ createForceManPool =
  {
   curEnemyForcePool = _fpool;
  };
+
+};
+
+createForceManPool =
+{
+ params ["_side","_forceClass"];
+
+ [_side,(configname _forceClass)] call createForce;
 
  private _forceList = getArray(_forceClass >> "battleGroups");
 

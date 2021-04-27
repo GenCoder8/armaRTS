@@ -15,7 +15,7 @@ case "poolSelect": { closeDialog 0; };
 case "battle";
 case "placement":
 {
- cutRsc["","PLAIN",0]; // Todo works?
+ cutRsc["default","PLAIN",0]; // Todo works?
 };
 };
 
