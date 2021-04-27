@@ -180,7 +180,9 @@ hoverOnCover = false;
 _closestEdge = [];
 if(!(_group call isVehicleGroup)) then
 {
-_closestEdge = [_wpos] call getCoverForPosition;
+
+_cwpos = screenToWorld getMousePosition; // Same as in arrow displaying
+_closestEdge = [_cwpos] call getCoverForPosition;
 
 systemchat format[">>> %1 %2", _wpos, count _closestEdge ];
 
@@ -220,6 +222,8 @@ case hoverOnCover:
 hint "Taking cover!";
 
 _units = units _group;
+private _uIndex = 0;
+
 {
 private _covPos = _x;
 if(count _covPos > 0) then
@@ -227,17 +231,20 @@ if(count _covPos > 0) then
 _covPosF = +_covPos;
 _covPosF set [2,0];
 
-if(_forEachIndex < (count _units)) then
+if(_uIndex < (count _units)) then
 {
 
-private _u = _units # _forEachIndex;
-// _u doMove _covPosF;
+private _u = _units # _uIndex;
 
-_u setposATL _covPosF;
+_u doMove _covPosF;
+
+// _u setposATL _covPosF;
 
 [_u,_covPosF] call applyStopSCript;
 
-systemchat format["Moving one! %1 %2 %3", _u, _forEachIndex, _covPosF];
+systemchat format["Moving one! %1 %2 %3", _u, _uIndex, _covPosF];
+
+_uIndex = _uIndex + 1;
 
 };
 };
@@ -259,6 +266,8 @@ deleteWaypoint _wp;
 
 default // Move
 {
+
+systemchat "Default move";
 
  _wps = waypoints _group;
 
