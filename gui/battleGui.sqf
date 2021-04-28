@@ -187,6 +187,8 @@ _movePoints = [];
 if(!(_group call isVehicleGroup)) then
 {
 
+if(count movePoints == 0) then // Dont get this more than once
+{
 _cwpos = screenToWorld getMousePosition; // Same as in arrow displaying
 _movePoints = [_cwpos] call getCoverMovePoints;
 
@@ -196,6 +198,7 @@ if(count _movePoints > 0) then
 {
  specialMove = "cover";
  movePoints = _movePoints;
+};
 };
 };
 
@@ -225,7 +228,7 @@ _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery
 case "": // Move
 {
 
-systemchat "Default move";
+//systemchat "Default move";
 
  _wps = waypoints _group;
 
@@ -248,12 +251,16 @@ spesMoveHandle = [] spawn onSpecialMove;
 
 }];
 
+movePoints = [];
 
- specialMove = "";
- spesMoveHandle = scriptNull;
+specialMove = "";
+spesMoveHandle = scriptNull;
+
 
 onSpecialMove =
 {
+
+sleep 0.01; // Wait that all curatorWaypointPlaced has fired
 
 curatorSelected params ["_units","_groups"];
 
@@ -311,6 +318,8 @@ _uIndex = _uIndex + 1;
 
  };
 };
+
+ movePoints = [];
 
  spesMoveHandle = scriptNull;
  specialMove = "";
