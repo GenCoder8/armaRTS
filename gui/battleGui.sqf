@@ -177,16 +177,16 @@ private _wpos = waypointPosition _wp;
 // TODO NOT for vehicles  -- isVehicleGroup
 
 hoverOnCover = false;
-_closestEdge = [];
+_movePoints = [];
 if(!(_group call isVehicleGroup)) then
 {
 
 _cwpos = screenToWorld getMousePosition; // Same as in arrow displaying
-_closestEdge = [_cwpos] call getCoverForPosition;
+_movePoints = [_cwpos] call getCoverMovePoints;
 
-systemchat format[">>> %1 %2", _wpos, count _closestEdge ];
+systemchat format[">>> %1 %2", _wpos, count _movePoints ];
 
-if(count _closestEdge > 0) then
+if(count _movePoints > 0) then
 {
  hoverOnCover = true;
 };
@@ -248,7 +248,7 @@ _uIndex = _uIndex + 1;
 
 };
 };
-} foreach _closestEdge;
+} foreach _movePoints;
 
 };
 
@@ -461,7 +461,6 @@ if(alive _ldr) then
 {
 
 
-
 _wpos = [_xPos,_yPos]; // screenToWorld
 
 systemchat format["_wpos %1", _wpos];
@@ -522,6 +521,31 @@ else
 darrow = createSimpleObject ["VR_3DSelector_01_default_F", [0,0,0], true];
 hoverOnHouse = false;
 
+getUsedCoverPoints = 
+{
+ params ["_edgePoints","_cursorPos","_max"];
+
+
+private _newList = [_edgePoints,[], { _x distance2D _cursorPos }, "ASCEND" ] call BIS_fnc_sortBy;
+
+
+_newList select [0,_max]
+};
+
+getCoverMovePoints =
+{
+params ["_wpos"];
+
+private _closestEdge = [_wpos] call getCoverForPosition;
+
+if(count _closestEdge == 0) exitWith { [] };
+
+private _sel = curatorSelected;
+private _nearPoints = [_closestEdge,_wpos,count (_sel # 0)] call getUsedCoverPoints;
+
+_nearPoints
+};
+
 addMissionEventHandler ["EachFrame",
 {
 
@@ -547,25 +571,31 @@ else
  hoverOnHouse = false;
 
 
-
 _wpos = screenToWorld getMousePosition;
 
+_movePoints = [_wpos] call getCoverMovePoints;
+
+/*
 _closestEdge = [_wpos] call getCoverForPosition;
 
 if(count _closestEdge > 0) then
 {
+
+_sel = curatorSelected;
+_nearPoints = [_closestEdge,_wpos,count (_sel # 0)] call getUsedCoverPoints;
+*/
 {
- _p = _x;
-if(count _p > 0) then
-{
- _p set [2,1];
+  _p = _x;
+//if(count _p > 0) then
+//{
+// _p set [2,1];
 
   _arrow = createSimpleObject ["Sign_Arrow_Blue_F", AglToASL _p,true];
   carrows pushback _arrow;
 
-};
-} foreach _closestEdge;
-};
+//};
+} foreach _movePoints;
+//};
 
 
 

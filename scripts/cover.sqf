@@ -297,6 +297,9 @@ createCoverPointsForObj =
  {
   
   private _edgePoints = _x;
+  private _rotEdgIndex = _forEachIndex;
+  private _validPoints = [];
+
   {
    private _rotPoint = [_x,[0,0],_rotateAngle] call rotate;
    _rotPoint = [_rotPoint, _pos] call addVector;
@@ -353,15 +356,23 @@ if([_rotPoint,_obj] call isPositionBlocked) then
 
 };
 
-
+/*
 if(!_okPos) then
 {
  _rotPoint = [];
 };
 
-
    _edgePoints set [_forEachIndex, _rotPoint];
+*/
+
+if(_okPos) then
+{
+ _validPoints pushback _rotPoint;
+};
+
   } foreach _edgePoints;
+
+ _rotEdges set [_rotEdgIndex, _validPoints ];
 
   _edgeAngle = _edgeAngle + 90;
  } foreach _rotEdges;

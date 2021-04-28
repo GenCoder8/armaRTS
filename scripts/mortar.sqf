@@ -98,7 +98,9 @@ setupMortar =
 
  _mor addMagazine _useMag;
 
+ _mor setVariable ["startingAmmo", _mor ammo currentMuzzle (gunner _mor)]; // To check if fired at all
 
+/*
 [_mor,_useMag] spawn
 {
 params ["_mor","_useMag"];
@@ -111,7 +113,7 @@ _b = _mor setWeaponReloadingTime [gunner _mor, currentMuzzle (gunner _mor), 0.01
 
 _isInRange = _targetPos inRangeOfArtillery [[_mor], _useMag];
 hint format ["in range: %1", _isInRange];
-
+*/
  // sleep 1;
 
 
@@ -277,7 +279,7 @@ _unit call onArtilleryUsed;
  params ["_art"];
 
  waituntil 
- { 
+ {
   sleep 2; 
   if(isnull _art) exitWith { true };
 
@@ -287,6 +289,13 @@ _unit call onArtilleryUsed;
 if(!isnull _art) then
 {
  systemchat "Cleaning up artillery";
+
+ _ammo = _art getVariable ["startingAmmo", 0];
+
+ if(_ammo == (_art ammo currentMuzzle (gunner _art))) then
+{
+ hint "Mortar failed to fire"; // Todo msg
+};
 
  _art call exitStaticWeapon;
  };
