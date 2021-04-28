@@ -171,30 +171,46 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
+systemchat format["WAYPOINT"];
+
 private _wp = [_group,_waypointID];
 private _wpos = waypointPosition _wp;
 
 // TODO NOT for vehicles  -- isVehicleGroup
 
-hoverOnCover = false;
+
+// Todo relocate...
 _movePoints = [];
+
+// Todo Check all groups not veh
+
 if(!(_group call isVehicleGroup)) then
 {
 
 _cwpos = screenToWorld getMousePosition; // Same as in arrow displaying
 _movePoints = [_cwpos] call getCoverMovePoints;
 
-systemchat format[">>> %1 %2", _wpos, count _movePoints ];
+// systemchat format[">>> %1 %2", _wpos, count _movePoints ];
 
 if(count _movePoints > 0) then
 {
- hoverOnCover = true;
+ specialMove = "cover";
+ movePoints = _movePoints;
 };
 };
 
-switch (true) do
+
+_bldg = call getOnHoverHouse;
+
+if(!isnull _bldg) then
 {
- case firemisDown: // Fire mission
+ specialMove = "manHouse";
+};
+
+
+switch(specialMove) do
+{
+ case "fireMission": 
  {
 
 [_group,fireMisType,_wpos] call beginArtillery;
@@ -206,22 +222,65 @@ _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery
 
  };
 
-case hoverOnHouse:
+case "": // Move
 {
+
+systemchat "Default move";
+
+ _wps = waypoints _group;
+
+ // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
+
+// Continue moving if first waypoints...
+if(count _wps <= 2) then
+{
+ [_group,_waypointID] call moveBattleGroup;
+};
+
+};
+};
+
+
+if(isnull spesMoveHandle) then
+{
+spesMoveHandle = [] spawn onSpecialMove;
+};
+
+}];
+
+
+ specialMove = "";
+ spesMoveHandle = scriptNull;
+
+onSpecialMove =
+{
+
+curatorSelected params ["_units","_groups"];
+
+
+switch(specialMove) do
+{
+ case "fireMission": 
+ {
+  
+ };
+ case "manHouse":
+ {
+
 // Todo moveBattleGroup also here?
+
+_group = _groups # 0; // Todo man by _units not by group
 
 if(!(_group call isVehicleGroup)) then // Todo maybe dont show arrow
 {
 [_group,_wpos,15,formationDirection (leader _group),true,100,100] call manBuildings;
 };
 
-};
+ };
+ case "cover":
+ {
 
-case hoverOnCover:
-{
-hint "Taking cover!";
-
-_units = units _group;
+  
 private _uIndex = 0;
 
 {
@@ -242,50 +301,20 @@ _u doMove _covPosF;
 
 [_u,_covPosF] call applyStopSCript;
 
-systemchat format["Moving one! %1 %2 %3", _u, _uIndex, _covPosF];
+// systemchat format["Moving one! %1 %2 %3", _u, _uIndex, _covPosF];
 
 _uIndex = _uIndex + 1;
 
 };
 };
-} foreach _movePoints;
+} foreach movePoints;
 
+ };
 };
 
- /* old
-case shiftDown: // Group facing
- {
-
-_wp = [_group,_waypointID];
-
-(waypointPosition _wp) call setGroupFacing;
-
-deleteWaypoint _wp;
-
- };*/
-
-default // Move
-{
-
-systemchat "Default move";
-
- _wps = waypoints _group;
-
- // hint format["MOVING %1 %2 %3", (leader _group), stopped (leader _group),count _wps];
-
-// Continue moving if first waypoints...
-if(count _wps <= 2) then
-{
- [_group,_waypointID] call moveBattleGroup;
+ spesMoveHandle = scriptNull;
+ specialMove = "";
 };
-
-};
-};
-
- // Reset all
-firemisDown = false;
-
-}];
 
 
 /*
@@ -394,7 +423,7 @@ _ok
 actionFireMission =
 {
  params ["_fireType"];
- firemisDown = true;
+ specialMove = "fireMission";
  fireMisType = _fireType;
 };
 
@@ -546,6 +575,8 @@ private _nearPoints = [_closestEdge,_wpos,count (_sel # 0)] call getUsedCoverPoi
 _nearPoints
 };
 
+carrows = [];
+
 addMissionEventHandler ["EachFrame",
 {
 
@@ -562,13 +593,11 @@ if(!isnull _bldg) then
  _p set [2, (_p # 2) + 8];
  darrow setposATL _p;
 
- hoverOnHouse = true;
 }
 else
 {
  darrow setposATL [0,0,0];
 
- hoverOnHouse = false;
 
 
 _wpos = screenToWorld getMousePosition;
