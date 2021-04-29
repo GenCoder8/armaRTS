@@ -234,7 +234,7 @@ case "manHouse";
 case "cover":
 {
  // Always move, at first
- call _moveGroup;
+ [_group,_waypointID] call moveBattleGroup;
 };
 
 case "": // Move

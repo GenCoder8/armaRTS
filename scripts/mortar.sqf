@@ -84,21 +84,22 @@ setupMortar =
 
  } foreach (magazines _mor);
 
+_weap = currentweapon _mor;
+
+_mor removeWeapon _weap;
 
  _useMag = [_group,_magType] call getMortarMag;
 
 
- _mags = _group getVariable ["mortarMags",[]];
-
-
- _magIndex = _mags find _useMag;
- if(_magIndex < 0) exitWith { "Could not get mortar magazine" call errmsg; };
- _mags deleteAt _magIndex;
-
 
  _mor addMagazine _useMag;
 
+ _mor addweapon _weap;
+
+
  _mor setVariable ["startingAmmo", _mor ammo currentMuzzle (gunner _mor)]; // To check if fired at all
+
+ _mor setVariable ["fireSucceed",false];
 
 /*
 [_mor,_useMag] spawn
@@ -121,7 +122,7 @@ hint format ["in range: %1", _isInRange];
 
 // reload _mor;
 
- _group setVariable ["mortarMags", _mags];
+
 
 };
 
@@ -214,9 +215,9 @@ onArtilleryUsed =
  params ["_art",["_start",false]];
 
   // Ned big delay for start (mag reloading)
- _art setVariable ["lastUsed", if(_start) then { time + 15 } else { time } ];
+ _art setVariable ["lastUsed", if(_start) then { time + 10 } else { time + 5 } ];
 
- systemchat format["Fired... %1", time];
+ //systemchat format["Fired... %1", time];
 };
 
 isArtilleryFiring =
@@ -244,7 +245,7 @@ private _art = _group getVariable ["art", objnull];
 
 if(isnull _art) then
 {
-systemchat "New arty...";
+//systemchat "New arty...";
 
 //_sveh = [_pos, 0, "B_Mortar_01_F", _group] call BIS_fnc_spawnVehicle;
 //_sveh params ["_veh", "_crew", "_group"];
@@ -269,6 +270,26 @@ _art addEventHandler ["Fired",
 {
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
+_mor = _unit;
+
+if(!(_mor getVariable ["fireSucceed",false])) then
+{
+// Remove one mag
+_group = group _gunner;
+ _mags = _group getVariable ["mortarMags",[]];
+
+_useMag = (magazines _mor) # 0;
+
+ _magIndex = _mags find _useMag;
+ if(_magIndex < 0) exitWith { "Could not get mortar magazine" call errmsg; };
+ _mags deleteAt _magIndex;
+ _group setVariable ["mortarMags", _mags];
+
+// systemchat format["MAG REMOVE %1 %2 %3", _group,  _magIndex, _useMag];
+};
+
+_mor setVariable ["fireSucceed",true];
+
 _unit call onArtilleryUsed;
 }];
 
@@ -283,16 +304,19 @@ _unit call onArtilleryUsed;
   sleep 2; 
   if(isnull _art) exitWith { true };
 
-  (time - (_art getVariable "lastUsed")) > 5 
+  (time - (_art getVariable "lastUsed")) > 0 
  };
 
 if(!isnull _art) then
 {
- systemchat "Cleaning up artillery";
 
- _ammo = _art getVariable ["startingAmmo", 0];
+// _ammo = _art getVariable ["startingAmmo", 0];
 
- if(_ammo == (_art ammo currentMuzzle (gunner _art))) then
+
+ systemchat format["Cleaning up artillery "];
+
+
+if( !(_art getVariable ["fireSucceed",false]) ) then
 {
  hint "Mortar failed to fire"; // Todo msg
 };
