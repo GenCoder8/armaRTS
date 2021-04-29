@@ -14,6 +14,11 @@ if(_group call isMortarGroup) then
  _group call initMortarGroup;
 };
 
+// Player controls the behavior
+if(_bgSide == (call getPlayerSide)) then
+{
+_group enableAttack false;
+};
 
 /*
  _highlighted = [];

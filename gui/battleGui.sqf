@@ -176,15 +176,18 @@ systemchat format["WAYPOINT"];
 private _wp = [_group,_waypointID];
 private _wpos = waypointPosition _wp;
 
-// TODO NOT for vehicles  -- isVehicleGroup
 
-
-// Todo relocate...
-_movePoints = [];
-
-// Todo Check all groups not veh
 
 if(!(_group call isVehicleGroup)) then
+{
+
+_bldg = call getOnHoverHouse;
+
+if(!isnull _bldg) then
+{
+ "manHouse" call setSpecialMove;
+}
+else // If not bldg then maybe cover
 {
 
 if(count movePoints == 0) then // Dont get this more than once
@@ -196,19 +199,17 @@ _movePoints = [_cwpos] call getCoverMovePoints;
 
 if(count _movePoints > 0) then
 {
- specialMove = "cover";
+ "cover" call setSpecialMove;
  movePoints = _movePoints;
 };
 };
+
+};
+
 };
 
 
-_bldg = call getOnHoverHouse;
 
-if(!isnull _bldg) then
-{
- specialMove = "manHouse";
-};
 
 
 switch(specialMove) do
@@ -256,6 +257,22 @@ movePoints = [];
 specialMove = "";
 spesMoveHandle = scriptNull;
 
+isInfantrySelected =
+{
+ private _groups = curatorSelected # 1;
+ if(count _groups == 0) exitWith { false };
+
+ ({!(_x call isVehicleGroup)} count _groups) > 0
+};
+
+setSpecialMove =
+{
+ params ["_moveName",["_override",false]];
+ if(specialMove == "" || _override) then
+ {
+ specialMove = _moveName;
+ };
+};
 
 onSpecialMove =
 {
@@ -264,6 +281,11 @@ sleep 0.01; // Wait that all curatorWaypointPlaced has fired
 
 curatorSelected params ["_units","_groups"];
 
+if(call isInfantrySelected) then
+{
+
+// Get only infatry
+private _inf = _units select { !(_x call inVehicle) };
 
 switch(specialMove) do
 {
@@ -274,7 +296,7 @@ switch(specialMove) do
  case "manHouse":
  {
 
-// Todo moveBattleGroup also here?
+// Todo moveBattleGroup also here? And enableAttack
 
 _group = _groups # 0; // Todo man by _units not by group
 
@@ -292,15 +314,15 @@ private _uIndex = 0;
 
 {
 private _covPos = _x;
-if(count _covPos > 0) then
-{
+//if(count _covPos > 0) then
+//{
 _covPosF = +_covPos;
-_covPosF set [2,0];
+//_covPosF set [2,0];
 
-if(_uIndex < (count _units)) then
+if(_uIndex < (count _inf)) then
 {
 
-private _u = _units # _uIndex;
+private _u = _inf # _uIndex;
 
 _u doMove _covPosF;
 
@@ -313,10 +335,12 @@ _u doMove _covPosF;
 _uIndex = _uIndex + 1;
 
 };
-};
+//};
 } foreach movePoints;
 
  };
+};
+
 };
 
  movePoints = [];
@@ -432,7 +456,7 @@ _ok
 actionFireMission =
 {
  params ["_fireType"];
- specialMove = "fireMission";
+ "fireMission" call setSpecialMove;
  fireMisType = _fireType;
 };
 
@@ -592,6 +616,10 @@ addMissionEventHandler ["EachFrame",
 { deleteVehicle _x; } foreach carrows;
 carrows = [];
 
+
+if(call isInfantrySelected) then // Only for inf
+{
+
  _bldg = call getOnHoverHouse;
 
 // systemchat format["_bldg %1", _bldg];
@@ -636,6 +664,8 @@ _nearPoints = [_closestEdge,_wpos,count (_sel # 0)] call getUsedCoverPoints;
 //};
 
 
+
+};
 
 };
 

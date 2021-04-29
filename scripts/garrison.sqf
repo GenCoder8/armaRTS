@@ -285,8 +285,6 @@ if(_numPositions > 0) then
 //["_numMenPlaced: %1", _numMenPlaced] call dbgmsg;
 
 
-_group enableAttack false; // <------------------------------------ 
-
 
 _selectPosFirst = {
 params ["_bpos","_bposDir"];
