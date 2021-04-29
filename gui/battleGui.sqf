@@ -208,7 +208,12 @@ if(count _movePoints > 0) then
 };
 
 
-
+_moveGroup = 
+{
+{
+[_x,_waypointID] call moveBattleGroup;
+} foreach _groups;
+};
 
 
 switch(specialMove) do
@@ -224,6 +229,13 @@ _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
  };
+
+case "manHouse";
+case "cover":
+{
+ // Always move, at first
+ call _moveGroup;
+};
 
 case "": // Move
 {
@@ -246,7 +258,7 @@ if(count _wps <= 2) then
 
 if(isnull spesMoveHandle) then
 {
-spesMoveHandle = [_wpos,_waypointID] spawn onSpecialMove;
+spesMoveHandle = [_wpos] spawn onSpecialMove;
 };
 
 }];
@@ -280,7 +292,7 @@ setSpecialMove =
 
 onSpecialMove =
 {
-params ["_wpos","_waypointID"];
+params ["_wpos"];
 
 sleep 0.01; // Wait that all curatorWaypointPlaced has fired
 
@@ -288,13 +300,6 @@ curatorSelected params ["_units","_groups"];
 
 if(call isInfantrySelected) then
 {
-
-_moveGroup = 
-{
-{
-[_x,_waypointID] call moveBattleGroup;
-} foreach _groups;
-};
 
 // Get only infatry
 private _inf = _units select { !(_x call inVehicle) };
@@ -307,7 +312,6 @@ switch(specialMove) do
  };
  case "manHouse":
  {
-call _moveGroup;
 
 private _dir = formationDirection (leader (_groups # 0)); // Todo much better
 
@@ -316,7 +320,6 @@ private _dir = formationDirection (leader (_groups # 0)); // Todo much better
  };
  case "cover":
  {
-call _moveGroup;
   
 private _uIndex = 0;
 
