@@ -171,7 +171,6 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
-systemchat format["WAYPOINT"];
 
 private _wp = [_group,_waypointID];
 private _wpos = waypointPosition _wp;
@@ -247,15 +246,19 @@ if(count _wps <= 2) then
 
 if(isnull spesMoveHandle) then
 {
-spesMoveHandle = [] spawn onSpecialMove;
+spesMoveHandle = [_wpos,_waypointID] spawn onSpecialMove;
 };
 
 }];
+
+
 
 movePoints = [];
 
 specialMove = "";
 spesMoveHandle = scriptNull;
+
+
 
 isInfantrySelected =
 {
@@ -274,8 +277,10 @@ setSpecialMove =
  };
 };
 
+
 onSpecialMove =
 {
+params ["_wpos","_waypointID"];
 
 sleep 0.01; // Wait that all curatorWaypointPlaced has fired
 
@@ -283,6 +288,13 @@ curatorSelected params ["_units","_groups"];
 
 if(call isInfantrySelected) then
 {
+
+_moveGroup = 
+{
+{
+[_x,_waypointID] call moveBattleGroup;
+} foreach _groups;
+};
 
 // Get only infatry
 private _inf = _units select { !(_x call inVehicle) };
@@ -295,20 +307,16 @@ switch(specialMove) do
  };
  case "manHouse":
  {
+call _moveGroup;
 
-// Todo moveBattleGroup also here? And enableAttack
+private _dir = formationDirection (leader (_groups # 0)); // Todo much better
 
-_group = _groups # 0; // Todo man by _units not by group
-
-if(!(_group call isVehicleGroup)) then // Todo maybe dont show arrow
-{
-[_group,_wpos,15,formationDirection (leader _group),true,100,100] call manBuildings;
-};
+[_inf,_wpos,15,_dir,true,100,100] call manBuildings;
 
  };
  case "cover":
  {
-
+call _moveGroup;
   
 private _uIndex = 0;
 

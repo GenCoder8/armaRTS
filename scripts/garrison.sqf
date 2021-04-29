@@ -157,9 +157,8 @@ _clear
 
 manBuildings =
 {
- params ["_group","_aroundPos","_distance","_useAngleFirst","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
+ params ["_units","_aroundPos","_distance","_useAngleFirst","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
  
- private _side = side _group;
  
 /// _group enableAttack false;
 //private _units = (_group call getGroupInfantry) select { !(_x call isOnGuard) }; // (units _group) select { _x == (vehicle _x) && alive _x };
@@ -310,7 +309,7 @@ if(count _sortedPositions == 0) exitWith { };
 
 
 _curPosition = 0;
-_units = units _group;
+
 {
 
 private _u = _x;
