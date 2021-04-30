@@ -278,7 +278,7 @@ if(!(_mor getVariable ["fireSucceed",false])) then
 _group = group _gunner;
  _mags = _group getVariable ["mortarMags",[]];
 
-_useMag = (magazines _mor) # 0;
+_useMag = (magazines _mor) # 0; // Get the type of one and only mag
 
  _magIndex = _mags find _useMag;
  if(_magIndex < 0) exitWith { "Could not get mortar magazine" call errmsg; };
