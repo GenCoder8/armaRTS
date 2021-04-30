@@ -614,7 +614,7 @@ private _closestEdge = [_wpos] call getCoverForPosition;
 if(count _closestEdge == 0) exitWith { [] };
 
 private _sel = curatorSelected;
-private _nearPoints = [_closestEdge,_wpos,count (_sel # 0)] call getUsedCoverPoints;
+private _nearPoints = [_closestEdge,_wpos,{ !(_x call inVehicle) } count (_sel # 0)] call getUsedCoverPoints;
 
 _nearPoints
 };
