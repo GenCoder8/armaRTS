@@ -139,12 +139,12 @@ getForceRenderPos =
 
 getForceAtPos =
 {
- params ["_pos"];
+ params ["_pos","_selSide"];
  private _ret = "";
 
 {
 
-if(_pos distance2D ( (_x call getForceRenderPos)) < ((FORCE_ICON_SIZE * 2 * 10) * ( (1 call scaleToMap))) ) then
+if( _selSide == (_y # FORCE_SIDE) && _pos distance2D ( (_x call getForceRenderPos)) < ((FORCE_ICON_SIZE * 2 * 10) * ( (1 call scaleToMap))) ) then
 {
  _ret = _x;
 };

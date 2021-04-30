@@ -24,6 +24,7 @@ case "placement":
 
  switch (_screen) do
  {
+  case "globalmap": { call initGlobalMap;  openMap [true, false]; };
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };
   case "placement": 

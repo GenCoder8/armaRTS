@@ -47,8 +47,9 @@ findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", {
 
 
 [west,"testers", "uns_M113parts\army\11acr_co.paa", "marker_17"  ] call createNewForce;
+[west,"testers2", "uns_M113parts\army\11acr_co.paa", "marker_31"  ] call createNewForce;
 
-[east,"testers2", "uns_M113parts\army\1acav_co.paa", "marker_18"  ] call createNewForce;
+[east,"testersE", "uns_M113parts\army\1acav_co.paa", "marker_18"  ] call createNewForce;
 
 
 _defaultMainMapCtrl = (findDisplay 12 displayCtrl 51);
@@ -137,7 +138,7 @@ else
 {
  hint "away";
 
-if(([_pos] call getForceAtPos) != "") then
+if(([_pos, call getPlayerSide] call getForceAtPos) != "") then
 {
  hintSilent "Over force";
 };
@@ -148,6 +149,8 @@ if(lastHighlight != "") then
 {
 lastHighlight setmarkeralpha BATTLE_LOC_ALPHA;
 };
+
+_highlightingSelection = false;
 
 if(selectedForce != "") then
 {
@@ -165,6 +168,29 @@ lastHighlight = _bf;
 
 };
 
+}
+else
+{
+ _hforce = [_pos] call hoverOnForce;
+ if(_hforce != "") then
+ {
+ // if(_hforce call numForceMoves > 0) then
+  //{
+  _mrk = _hforce call getForcePosMarker;
+  _mrk setmarkeralpha 1;
+  lastForceHighlight = _mrk;
+   _highlightingSelection = true;
+ // };
+ }
+ else
+ {
+  
+ };
+};
+
+if(selectedForce != "" || !_highlightingSelection) then
+{
+ lastForceHighlight setmarkeralpha BATTLE_LOC_ALPHA;
 };
 
 };
@@ -175,7 +201,7 @@ params ["_pos"];
 
 private _retForce = "";
 
-_overForce = ([_pos] call getForceAtPos);
+_overForce = ([_pos, call getPlayerSide] call getForceAtPos);
 if(_overForce != "") then
 {
 
@@ -204,6 +230,11 @@ if(selectedForce == "") exitWith { "" };
 
 _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
+{
+ private _floc = (selectedForce call getForcePosMarker);
+
+// If more than one then it's engagement
+if(count (_floc call getForcesAtBattleLoc) == 1) then
 {
 
 if(selectedForce call numForceMoves > 0) then
@@ -240,6 +271,12 @@ else
 else
 {
  hint "No more turns left";
+};
+
+}
+else
+{
+ hint "Cant leave engagement";
 };
 
 };

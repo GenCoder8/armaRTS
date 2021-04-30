@@ -34,9 +34,10 @@ _mrk setMarkerColor "ColorRed";
 
 sleep 0.1;
 
-call initGlobalMap;
 
 
 
-openMap [true, false];
+
+"globalmap" call openGameScreen;
+
 
