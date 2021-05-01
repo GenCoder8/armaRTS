@@ -327,7 +327,19 @@ createForce =
 {
 params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
-private _icon = "uns_M113parts\army\11acr_co.paa";
+private _icon = "uns_M113parts\army\1id_co.paa";
+
+private _rosterCfg = configNull;
+
+if(_rosterName != "") then
+{
+
+ _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> _rosterName;
+
+ if(isnull _rosterCfg) exitWith { ["invalid roster name %1 '%2'",_side, _rosterName] call errmsg; };
+
+ _icon = getText (_rosterCfg >> "icon");
+};
 
 // forcePools set [_name,[[],[]]];
 // private _fpool = forcePools get _name;
@@ -348,12 +360,8 @@ _force = allforces get _name;
 
 
 
-if(_rosterName != "") then
+if(!isnull _rosterCfg) then
 {
-
- private _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> _rosterName;
-
- if(isnull _rosterCfg) exitWith { ["invalid roster name %1", _rosterName] call errmsg; };
 
  [_side,_rosterCfg] call createForceManPool;
 
