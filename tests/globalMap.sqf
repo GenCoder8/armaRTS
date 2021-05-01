@@ -40,4 +40,6 @@ sleep 0.1;
 
 "globalmap" call openGameScreen;
 
+call beginGmMovePhase;
+
 

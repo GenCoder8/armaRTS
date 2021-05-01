@@ -2,14 +2,14 @@
 
 initGlobalMap =
 {
- _blocs = call getBattleLocations;
+ _blocs = gmBattleLocations;
  {
   _x setMarkerAlpha BATTLE_LOC_ALPHA;
   _x setMarkerShape "ELLIPSE";
  } foreach _blocs;
 
 
-_battleLocations = call getBattleLocations;
+_battleLocations = gmBattleLocations;
 
 systemchat format ["found %1 locations", count _battleLocations];
 
@@ -99,7 +99,7 @@ private _scale = 1;//ctrlMapScale _map;
 private _defaultMainMapCtrl = (findDisplay 12) displayCtrl 51;
 _scale = ctrlMapScale _defaultMainMapCtrl;
 
-systemchat format["scale is %1", _scale];
+// systemchat format["scale is %1", _scale];
  
 private _r = (_dist * _scale);
  

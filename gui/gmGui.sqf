@@ -4,18 +4,92 @@ _display = controlNull;
 
 waituntil { _display = findDisplay 12; !isnull _display };
 
-/*
+
+
+
+//hint format["action! %1", _bt ];
+
+gmPhase = "move";
+
+beginGmMovePhase =
+{
+gmPhase = "move";
+
+_display = findDisplay 12;
+
 _bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
 //_bt ctrlSetText format["unit.jpg"];
-_bt ctrlSetText format["click"];
-_bt ctrlsetTooltip "teeeeest";
-_bt ctrlSetPosition [0.3, 0.3, 0.1, 0.1];
+_bt ctrlSetText format["Next"];
+//_bt ctrlsetTooltip "";
+_bt ctrlSetPosition ([23,35,5,3] call getGuiPos);
 _bt ctrlCommit 0;
 
-_bt buttonSetAction "hint 'test!'; ";
+_bt buttonSetAction " call beginGmBattlePhase ";
 
-hint format["action! %1", _bt ];
-*/
+with uinamespace do
+{
+gmMoveGui = _bt;
+};
+
+
+};
+
+beginGmBattlePhase =
+{
+with uinamespace do
+{
+ ctrlDelete gmMoveGui;
+};
+
+ gmPhase = "battles";
+
+ gmBattles = call getGlobalBattles;
+ gmCurBattleIndex = -1;
+
+
+_display = findDisplay 12;
+
+_bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
+//_bt ctrlSetText format["unit.jpg"];
+_bt ctrlSetText format["Begin battle"];
+//_bt ctrlsetTooltip "";
+_bt ctrlSetPosition ([23,35,5,3] call getGuiPos);
+_bt ctrlCommit 0;
+
+_bt buttonSetAction " call gmBeginBattle ";
+
+with uinamespace do
+{
+};
+
+call gmSelectNextBattle;
+};
+
+gmSelectNextBattle =
+{
+ gmCurBattleIndex = gmCurBattleIndex + 1;
+
+ if(gmCurBattleIndex < (count gmBattles)) then
+ {
+  private _battle = gmBattles # gmCurBattleIndex;
+  _battle params ["_loc","_force1","_force2"];
+
+ private _map =  findDisplay 12 displayCtrl 51;
+ _map ctrlMapAnimAdd [1, 0.05, getMarkerPos _loc];
+ ctrlMapAnimCommit _map;
+
+ }
+ else
+ {
+ hint "End of battles";
+ };
+
+};
+
+gmBeginBattle =
+{
+ call gmSelectNextBattle;
+};
 
 pos = getpos player;
 
@@ -126,10 +200,12 @@ mouseMoveUpdate =
 {
 params ["_control", "_xPos", "_yPos", "_mouseOver"];
 
+if(gmPhase != "move") exitWith {};
+
 private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
 
 // ( (FORCE_ICON_SIZE/2) * (1 - (1 call scaleToMap))  )
-
+/*
 if(_pos distance2D pos < (TEST_ICON_SIZE * 250 * ( (1 call scaleToMap))) ) then
 {
  hint "Over!";
@@ -137,17 +213,18 @@ if(_pos distance2D pos < (TEST_ICON_SIZE * 250 * ( (1 call scaleToMap))) ) then
 else
 {
  hint "away";
-
+*/
 if(([_pos, call getPlayerSide] call getForceAtPos) != "") then
 {
  hintSilent "Over force";
 };
 
-};
+//};
 
 if(lastHighlight != "") then
 {
 lastHighlight setmarkeralpha BATTLE_LOC_ALPHA;
+lastHighlight setMarkerColor BATTLE_LOC_COLOR;
 };
 
 _highlightingSelection = false;
@@ -160,6 +237,14 @@ if(_bf != "") then
 {
  //_curMrk = selectedForce call getForcePosMarker;
  //_cons = battlelocConnections get _curMrk;
+
+_numEnemies = [call getEnemySide,_bf] call countSideForcesAtBattleLoc;
+
+
+if(_numEnemies > 0) then
+{
+ _bf setMarkerColor "ColorRed";
+};
 
 _bf setmarkeralpha 1;
 
@@ -228,7 +313,7 @@ private _retBf = "";
 
 if(selectedForce == "") exitWith { "" };
 
-_bf = [_pos] call isMouseOverBattlefield;
+private _bf = [_pos] call isMouseOverBattlefield;
 if(_bf != "") then
 {
  private _floc = (selectedForce call getForcePosMarker);
@@ -242,12 +327,17 @@ if(selectedForce call numForceMoves > 0) then
 
 _forcesHere = _bf call getForcesAtBattleLoc;
 
+//systemchat format[">> %1 - %2",selectedForce, [selectedForce,_forcesHere] call countForceFriendlies];
+
 if([selectedForce,_forcesHere] call countForceFriendlies == 0) then
 {
+//systemchat "HERE";
 
 _curLoc = selectedForce call getForcePosMarker;
 
 _cons = battlelocConnections get _bf;
+
+
 
 if(_cons find _curLoc >= 0) then
 {
@@ -288,6 +378,8 @@ mouseButtonUp =
 {
 params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+if(gmPhase != "move") exitWith {};
+
 private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
 
 
@@ -308,6 +400,7 @@ else
 {
 
 _bf = [_pos] call hoverOnBattlefield;
+
 
 if(_bf != "") then
 {
@@ -337,7 +430,7 @@ isMouseOverBattlefield =
  params ["_pos"];
  private _ret = "";
 
-_locs = call getBattleLocations;
+_locs = gmBattleLocations;
 
 {
 

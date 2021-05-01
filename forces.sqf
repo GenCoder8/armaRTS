@@ -70,6 +70,15 @@ if((_y # FORCE_POSMARKER) == _loc) then
  _list
 };
 
+countSideForcesAtBattleLoc =
+{
+ params ["_side","_loc"];
+
+ private _forces = _loc call getForcesAtBattleLoc;
+
+ { (_x # FORCE_SIDE) == _side } count _forces
+};
+
 getGlobalBattles =
 {
  private _battles = [];

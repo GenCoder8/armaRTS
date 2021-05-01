@@ -11,7 +11,7 @@ _display = findDisplay CUSTOMBATTLEDLGID;
 
 _maps = _display displayCtrl 2100;
 
-_blocs = call getBattleLocations;
+_blocs = gmBattleLocations;
 
 battleLocList = [];
 
