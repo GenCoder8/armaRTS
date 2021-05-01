@@ -85,6 +85,56 @@ with uinamespace do
 gmControls = [];
 };
 
+
+
+
+solImgs = [
+"uns_men_c\portrait\usarmy\port_soldier8.paa",
+"uns_men_c\portrait\usarmy\port_soldier11.paa",
+"uns_men_c\portrait\usarmy\port_army_1.paa",
+"uns_men_c\portrait\usarmy\port_officer3.paa",
+"uns_men_c\portrait\usarmy\port_officer5.paa",
+"uns_men_c\portrait\usarmy\port_rto1.paa",
+"uns_men_c\portrait\usarmy\port_soldier1.paa",
+"uns_men_c\portrait\usarmy\port_soldier3.paa",
+"uns_men_c\portrait\usarmy\port_soldier10.paa",
+"uns_men_c\portrait\usarmy\port_soldier9.paa",
+"uns_men_c\portrait\usarmy\port_soldier6.paa",
+"uns_men_c\portrait\usarmy\port_rto2.paa"
+];
+
+
+// Create global map controls
+_ctrlg = _display ctrlCreate ["RscControlsGroup", -1, controlNull];
+_ctrlg ctrlSetPosition ([36,23,15,15,false] call getGuiPos);
+_ctrlg ctrlCommit 0;
+_ctrlg ctrlShow false;
+
+uiNamespace setVariable ["forceCtrlGroup", _ctrlg];
+
+
+_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
+_img ctrlSetText "#(argb,8,8,3)color(0,1,0,1)﻿";
+_img ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
+_img ctrlCommit 0;
+
+_txt = _display ctrlCreate ["RscTextMulti", -1, _ctrlg];
+_txt ctrlSetText "";
+_txt ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
+_txt ctrlCommit 0;
+
+uiNamespace setVariable ["forceInfoCtrl", _txt];
+
+
+_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
+_img ctrlSetText "uns_men_c\portrait\usarmy\port_soldier1.paa";
+_img ctrlSetPosition ([7,0,5,5,false] call getGuiPos);
+_img ctrlCommit 0;
+
+uiNamespace setVariable ["forceImg", _img];
+
+
+
 };
 
 closeGlobalMap =
@@ -95,6 +145,14 @@ with uinamespace do
  { ctrlDelete _x; } foreach gmControls;
  gmControls = [];
 };
+
+ // Delete connection markers
+ { deletemarker _x; }  foreach battlelocConnections;
+
+ // Clear map gui
+ ctrlDelete (uiNamespace getVariable "forceImg");
+ ctrlDelete (uiNamespace getVariable "forceInfoCtrl");
+ ctrlDelete (uiNamespace getVariable "forceCtrlGroup");
 
 };
 

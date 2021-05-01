@@ -103,7 +103,11 @@ pos set [1, (pos # 1) + 100];
 
 #define TEST_ICON_SIZE 10
 
-findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", {
+findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
+{
+
+if(curScreen != "globalmap") exitWith {};
+
 	_this select 0 drawIcon [
 		getMissionPath "unit.jpg", // Custom images can also be used: getMissionPath "\myFolder\myIcon.paa"
 		[1,1,1,1],
@@ -134,52 +138,6 @@ _defaultMainMapCtrl ctrlAddEventHandler ["MouseMoving"," _this call mouseMoveUpd
 _defaultMainMapCtrl ctrlAddEventHandler ["MouseButtonUp"," _this call mouseButtonUp; "];
 
 
-
-solImgs = [
-"uns_men_c\portrait\usarmy\port_soldier8.paa",
-"uns_men_c\portrait\usarmy\port_soldier11.paa",
-"uns_men_c\portrait\usarmy\port_army_1.paa",
-"uns_men_c\portrait\usarmy\port_officer3.paa",
-"uns_men_c\portrait\usarmy\port_officer5.paa",
-"uns_men_c\portrait\usarmy\port_rto1.paa",
-"uns_men_c\portrait\usarmy\port_soldier1.paa",
-"uns_men_c\portrait\usarmy\port_soldier3.paa",
-"uns_men_c\portrait\usarmy\port_soldier10.paa",
-"uns_men_c\portrait\usarmy\port_soldier9.paa",
-"uns_men_c\portrait\usarmy\port_soldier6.paa",
-"uns_men_c\portrait\usarmy\port_rto2.paa"
-];
-
-
-
-_ctrlg = _display ctrlCreate ["RscControlsGroup", -1, controlNull];
-_ctrlg ctrlSetPosition ([36,23,15,15,false] call getGuiPos);
-_ctrlg ctrlCommit 0;
-_ctrlg ctrlShow false;
-
-uiNamespace setVariable ["forceCtrlGroup", _ctrlg];
-
-
-_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
-_img ctrlSetText "#(argb,8,8,3)color(0,1,0,1)﻿";
-_img ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
-_img ctrlCommit 0;
-
-_txt = _display ctrlCreate ["RscTextMulti", -1, _ctrlg];
-_txt ctrlSetText "";
-_txt ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
-_txt ctrlCommit 0;
-
-uiNamespace setVariable ["forceInfoCtrl", _txt];
-
-
-_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
-_img ctrlSetText "uns_men_c\portrait\usarmy\port_soldier1.paa";
-_img ctrlSetPosition ([7,0,5,5,false] call getGuiPos);
-_img ctrlCommit 0;
-
-uiNamespace setVariable ["forceImg", _img];
-
 onForceDeselect =
 {
  selectedForce = "";
@@ -203,6 +161,7 @@ mouseMoveUpdate =
 {
 params ["_control", "_xPos", "_yPos", "_mouseOver"];
 
+if(curScreen != "globalmap") exitWith {};
 if(gmPhase != "move") exitWith {};
 
 private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
@@ -381,6 +340,7 @@ mouseButtonUp =
 {
 params ["_control", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+if(curScreen != "globalmap") exitWith {};
 if(gmPhase != "move") exitWith {};
 
 private _pos = _control ctrlMapScreenToWorld [_xPos,_yPos];
