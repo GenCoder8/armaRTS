@@ -104,6 +104,8 @@ solImgs = [
 ];
 
 
+_display = findDisplay 12;
+
 // Create global map controls
 _ctrlg = _display ctrlCreate ["RscControlsGroup", -1, controlNull];
 _ctrlg ctrlSetPosition ([36,23,15,15,false] call getGuiPos);

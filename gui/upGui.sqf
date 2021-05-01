@@ -16,7 +16,7 @@ selectedBattleGroups = [];
 createDialog "UnitPoolDlg";
 
 
-selectableBgs = ([curPlrForcePool] call getForceBgTypes);
+selectableBgs = ([curPlrForce] call getForceBgTypes);
 
 
 call createBgPoolPanels;

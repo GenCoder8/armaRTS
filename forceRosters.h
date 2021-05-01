@@ -8,6 +8,7 @@ class ForceRosters
 class Roster1
 {
  name = "The Avengers";
+ icon = "uns_M113parts\army\11acr_co.paa";
 
 battleGroups[] = 
 {
@@ -37,6 +38,7 @@ class east
 class Roster2
 {
  name = "VC";
+ icon = "uns_M113parts\army\1acav_co.paa";
 
 battleGroups[] = 
 {

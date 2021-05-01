@@ -6,9 +6,7 @@ waituntil { scriptdone _w };
 
 debugMode = true;
 
-[call getPlayerSide,"HeavyTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"LightTeam"] call addBattleGroupToPool;
-[call getPlayerSide,"Patton"] call addBattleGroupToPool;
+[west,"Tester1","Roster1", "" ] call createForce;
 
 
 //[manPoolWest,"testteam"] call createBattleGroupFromPool;

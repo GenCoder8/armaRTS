@@ -127,10 +127,6 @@ if(curScreen != "globalmap") exitWith {};
 }];
 
 
-[west,"testers", "uns_M113parts\army\11acr_co.paa", "marker_17"  ] call createNewForce;
-[west,"testers2", "uns_M113parts\army\11acr_co.paa", "marker_31"  ] call createNewForce;
-
-[east,"testersE", "uns_M113parts\army\1acav_co.paa", "marker_18"  ] call createNewForce;
 
 
 _defaultMainMapCtrl = (findDisplay 12 displayCtrl 51);

@@ -8,11 +8,11 @@
 
 allforces = createHashMap;
 
-createNewForce =
+registerNewForce =
 {
 params ["_side","_name","_icon","_posmrk"];
 
-allforces set [_name, [_side,_icon,_posmrk, 1 ] ];
+allforces set [_name, [_side,_icon,_posmrk, 1, [], [] ] ];
 };
 
 isFriendlyForce =

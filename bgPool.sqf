@@ -2,13 +2,13 @@
 #include "main.h"
 
 
-#define FORCE_BG_TYPES  0
-#define FORCE_MAN_POOL  1
+#define FORCE_BG_TYPES  4
+#define FORCE_MAN_POOL  5
 
 
-forcePools = createHashMap;
-curPlrForcePool = [];
-curEnemyForcePool = [];
+//forcePools = createHashMap;
+curPlrForce = [];
+curEnemyForce = [];
 
 
 
@@ -17,17 +17,17 @@ curEnemyForcePool = [];
 #define UTYPE_NUMBER_CREW     2
 
 
-getCurForcePool =
+getCurForce =
 {
  params ["_side"];
  private _pool = [];
  if(_side == (call getPlayerSide)) then
  {
-  _pool = curPlrForcePool;
+  _pool = curPlrForce;
  }
  else
  {
-  _pool = curEnemyForcePool;
+  _pool = curEnemyForce;
  };
 
  _pool
@@ -40,8 +40,8 @@ getManPool =
 private _pool = switch(_side) do
 {
  // Todo plr side
- case east: { if(count curEnemyForcePool == 0) then { "East force pool not set" call errmsg; }; curEnemyForcePool # FORCE_MAN_POOL };
- case west: { if(count curPlrForcePool == 0) then { "West force pool not set" call errmsg; }; curPlrForcePool # FORCE_MAN_POOL };
+ case east: { if(count curEnemyForce == 0) then { "East force pool not set" call errmsg; }; curEnemyForce # FORCE_MAN_POOL };
+ case west: { if(count curPlrForce == 0) then { "West force pool not set" call errmsg; }; curPlrForce # FORCE_MAN_POOL };
  default { "invalid side for man pool" call errmsg; };
 };
 
@@ -50,8 +50,8 @@ private _pool = switch(_side) do
 
 getForceBgTypes =
 {
- params ["_fpool"];
- _fpool # FORCE_BG_TYPES
+ params ["_force"];
+ _force # FORCE_BG_TYPES
 };
 
 vehicleAttributes = [];
@@ -249,7 +249,7 @@ addBattleGroupToPool =
 {
  params ["_side","_bgname"];
 
- private _fpool = _side call getCurForcePool;
+ private _fpool = _side call getCurForce;
  _fpt = (_fpool # FORCE_BG_TYPES);
  _fpt pushbackUnique _bgname;
 
@@ -325,21 +325,41 @@ _npos
 
 createForce =
 {
-params ["_side","_name"];
+params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
- forcePools set [_name,[[],[]]];
- private _fpool = forcePools get _name;
+private _icon = "uns_M113parts\army\11acr_co.paa";
+
+// forcePools set [_name,[[],[]]];
+// private _fpool = forcePools get _name;
+
+[_side,_name,_icon,_posMrk] call registerNewForce;
+_force = allforces get _name;
 
 //diag_log format["POOL123 %1", _fpool];
 
  if(_side == (call getPlayerSide)) then
  {
-  curPlrForcePool = _fpool
+  curPlrForce = _force
  }
  else
  {
-  curEnemyForcePool = _fpool;
+  curEnemyForce = _force;
  };
+
+
+
+if(_rosterName != "") then
+{
+
+ private _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> _rosterName;
+
+ if(isnull _rosterCfg) exitWith { ["invalid roster name %1", _rosterName] call errmsg; };
+
+ [_side,_rosterCfg] call createForceManPool;
+
+};
+
+
 
 };
 
