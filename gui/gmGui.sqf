@@ -11,6 +11,8 @@ waituntil { _display = findDisplay 12; !isnull _display };
 
 gmPhase = "move";
 
+gmControls = [];
+
 beginGmMovePhase =
 {
 gmPhase = "move";
@@ -28,7 +30,7 @@ _bt buttonSetAction " call beginGmBattlePhase ";
 
 with uinamespace do
 {
-gmMoveGui = _bt;
+gmControls pushback _bt;
 };
 
 
@@ -60,6 +62,7 @@ _bt buttonSetAction " call gmBeginBattle ";
 
 with uinamespace do
 {
+gmControls pushback _bt;
 };
 
 call gmSelectNextBattle;

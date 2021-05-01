@@ -80,6 +80,22 @@ _mrk setMarkerDir _x;
 } foreach _battleLocations;
 
 
+with uinamespace do
+{
+gmControls = [];
+};
+
+};
+
+closeGlobalMap =
+{
+
+with uinamespace do
+{
+ { ctrlDelete _x; } foreach gmControls;
+ gmControls = [];
+};
+
 };
 
 getBattleLocations =

@@ -10,6 +10,7 @@ openGameScreen =
 // Cleanup first
 switch (curScreen) do
 {
+case "globalmap": { call closeGlobalMap };
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
 case "battle";
