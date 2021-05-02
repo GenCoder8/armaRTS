@@ -79,7 +79,9 @@ vehicleAttributes select _idx
 
 addUnitEntryToPool =
 {
- params ["_manPool","_type","_rank","_skill"];
+ params ["_manPool","_type","_rank","_skill","_cfg"];
+
+ private _ranks = getArray(_cfg >> "ranks");
 
 diag_log format ["Adding unit to pool: %1 - %2 - %3", _type, _rank, _skill ];
 
@@ -125,7 +127,10 @@ deleteVehicle _veh;
 // Add crew to pool
 _vattrs = _type call getVehicleAttrs;
 {
-[_x,"PRIVATE",_skill] call _pushToPool; // Same skill, todo rank
+private _rank = "PRIVATE";
+if(_foreachIndex < (count _ranks)) then { _rank = _ranks # _foreachIndex; };
+
+[_x,_rank,_skill] call _pushToPool;
 } foreach (_vattrs # VEH_ATTRS_CREW);
 
 }
@@ -162,7 +167,8 @@ getUnitEntryFromPool =
 
  {
   private _rankId = (_x # MANP_RANK) call rankToNumber;
-  if([(_x # MANP_TYPE),_type] call _kindFn && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank)) ) then
+
+ if([(_x # MANP_TYPE),_type] call _kindFn  ) then  // && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank))
   {
    _highestRank = _rankId;
    _selEntryIndex = _foreachIndex;
@@ -178,7 +184,9 @@ if(_selEntryIndex >= 0) then
 
 if(count _entry == 0) then
 {
- ["getUnitEntryFromPool failed %1 %2",_type] call errmsg;
+ ["getUnitEntryFromPool failed %1 -- %2 <> %3",_type,_reqRank,_highestRank] call errmsg;
+ //["%1", _kindFn ] call errmsg;
+
  [_manPool] call printArray;
 };
 
@@ -266,7 +274,7 @@ addBattleGroupToPool =
  {
   _rank = [_ce,_foreachIndex] call getRankFromCfg;
 
-  [_manPool,_x,_rank,random [0.1,_skill, 0.8]] call addUnitEntryToPool;
+  [_manPool,_x,_rank,random [0.1,_skill, 0.8],_ce] call addUnitEntryToPool;
 
   _skill = _skill - 0.1;
   if(_skill < 0.1) then { _skill = 0.1; };
@@ -285,7 +293,7 @@ retBattleGroupToPool =
  {
   private _man = _x;
 
-  [_manPool,_man,rank _man,skill _man] call addUnitEntryToPool;
+  [_manPool,_man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
 
  } foreach (units _group);
 };
@@ -452,7 +460,7 @@ private _infPos = [];
  
 if(count _vattrs == 0) then
 {
- "error finding vehicle attributes" call errmsg;
+ ["error finding vehicle attributes '%1' '%2'", _ue, (_vehEntry # MANP_TYPE)] call errmsg;
 };
 
 private _pos = [_area, _vattrs # VEH_ATTRS_SIZE] call getBattleGroupDeployPos;
@@ -532,7 +540,7 @@ _unit setSkill 1;
 
 getUnitTypeNumbers =
 {
-params ["_ue"];
+params ["_ue","_isFromPool"];
 
 private _counts = [0,0,0];
 
@@ -541,16 +549,26 @@ if(!(_ue iskindOf "man")) then
 {
  _counts set [UTYPE_NUMBER_VEHICLE, (_counts # UTYPE_NUMBER_VEHICLE) + 1];
 
+if(!_isFromPool) then // Only if counting from battlegroup config
+{
 private _vattrs = _ue call getVehicleAttrs;
 
 private _crewList = _vattrs # VEH_ATTRS_CREW;
 
  _counts set [UTYPE_NUMBER_CREW, (_counts # UTYPE_NUMBER_CREW) + count _crewList];
+};
 
 }
 else // infantry
 {
+ if(_ue call isTankCrew) then // Tank crew is special case
+ {
+  _counts set [UTYPE_NUMBER_CREW, (_counts # UTYPE_NUMBER_CREW) + 1];
+ }
+ else
+ {
  _counts set [UTYPE_NUMBER_INFANTRY, (_counts # UTYPE_NUMBER_INFANTRY) + 1];
+ };
 };
 
 _counts
@@ -558,13 +576,19 @@ _counts
 
 countListTypeNumbers =
 {
- params ["_units"];
+ params ["_units","_isFromPool"];
 
  private _counts = [0,0,0];
 
 {
   private _ue = _x;
- _cn = _ue call getUnitTypeNumbers;
+
+ if(_isFromPool) then
+ {
+  _ue = _ue # MANP_TYPE;
+ };
+
+ _cn = [_ue,_isFromPool] call getUnitTypeNumbers;
   _counts = [_counts,_cn] call addList;
 
 } foreach _units;
@@ -581,7 +605,7 @@ countBgPoolNeed =
 private _counts = [0,0,0];
 
  private _units = getArray(_ce >> "units");
- _counts = [_units] call countListTypeNumbers;
+ _counts = [_units,false] call countListTypeNumbers;
 
  _counts
 };

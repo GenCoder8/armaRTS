@@ -29,14 +29,13 @@ with uinamespace do
 
 if(isnil "gmNextButtton") then
 {
-hint "here";
 
 _display = findDisplay 12;
 
 _bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
 //_bt ctrlSetText format["unit.jpg"];
 _bt ctrlSetText format[""];
-_bt buttonSetAction " call beginGmBattlePhase ";
+_bt buttonSetAction "";
 //_bt ctrlsetTooltip "";
 _bt ctrlSetPosition _gpos;
 _bt ctrlCommit 0;
@@ -59,14 +58,13 @@ beginGmBattlePhase =
  gmPhase = "battles";
 
  gmBattles = call getGlobalBattles;
- gmCurBattleIndex = -1;
+ gmCurBattleIndex = 0;
 
  call gmCheckRoundEnd;
 };
 
 gmSelectNextBattle =
 {
- gmCurBattleIndex = gmCurBattleIndex + 1;
 
  if(gmCurBattleIndex < (count gmBattles)) then
  {
@@ -98,6 +96,10 @@ gmBeginBattle =
 
 onBattleEnded =
 {
+ gmCurBattleIndex = gmCurBattleIndex + 1;
+
+ systemchat format["gmCurBattleIndex %1", gmCurBattleIndex];
+
  call gmCheckRoundEnd;
 
 };
@@ -128,7 +130,7 @@ pos set [1, (pos # 1) + 100];
 
 findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
 {
-
+/*
 if(curScreen != "globalmap") exitWith {};
 
 	_this select 0 drawIcon [
@@ -144,7 +146,7 @@ if(curScreen != "globalmap") exitWith {};
 		"TahomaB",
 		"right"
 	];
-
+*/
  call renderForces;
 
 }];

@@ -95,7 +95,7 @@ _rosIndex = lbcurSel _forces;
 
 _rosClass = _rosters select _rosIndex;
 
-[_side,configname _rosClass,_rosClass] call createForce; // Todo clean this up after battle
+[_side,configname _rosClass,configname _rosClass] call createForce; // Todo clean this up after battle
 
 if(_side == (call getPlayerSide)) then
 {

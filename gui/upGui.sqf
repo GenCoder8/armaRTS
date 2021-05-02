@@ -142,7 +142,7 @@ private _units = getArray(_obgCfg >> "units");
 private _bgCfg = missionconfigfile >> "BattleGroups" >> (_side call getSideStr) >> _bgName;
 
 private _mpool = _side call getManPool;
-private _poolCounts = [_mpool] call countListTypeNumbers;
+private _poolCounts = [_mpool,true] call countListTypeNumbers;
 
 private _poolTypes = [_mpool] call getPoolUnitTypeCounts;
 
@@ -161,7 +161,7 @@ if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 {
  _notEnough = true;
 
- systemchat format["not enough: %1 %2",_bgName,_left];
+ systemchat format["not enough: %1 - %2 - %3",_bgName,_poolLeftTypes,_left];
 };
 
 
@@ -429,6 +429,10 @@ if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 waituntil { battleReady };
 
 
+addMissionEventHandler ["EachFrame",
+{
+removeMissionEventHandler ["EachFrame",_thisEventHandler];
+
 
 diag_log format["---------- POOL -----------"];
 
@@ -445,12 +449,22 @@ diag_log "--- East ---";
 _deployAreaPos = _side call getDeployArea;
 _area = [_deployAreaPos,deployAreaSize];
 
+diag_log format["--------- Begin Creating %1 forces --------- ",_side];
+
 {
+ diag_log format["----- Creating bg: %1", configname _x];
 
  [_side,configname _x,_area] call createBattleGroupFromPool;
 
 } foreach _selList;
+
+diag_log format["---------  Done Creating %1 forces --------- ",_side];
+
 } foreach [[call getPlayerSide,[selectedBattleGroups] call sortBgs],[call getEnemySide,[enemySelectedBgs] call sortBgs]];
+
+
+
+}];
 
 ["placement"] call openGameScreen;
 
