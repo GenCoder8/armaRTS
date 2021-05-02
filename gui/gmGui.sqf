@@ -13,59 +13,55 @@ gmPhase = "move";
 
 gmControls = [];
 
+with uinamespace do
+{
+gmNextButtton = nil;
+};
+
 beginGmMovePhase =
 {
 gmPhase = "move";
+
+_gpos = ([23,35,5,3] call getGuiPos);
+
+with uinamespace do
+{
+
+if(isnil "gmNextButtton") then
+{
+hint "here";
 
 _display = findDisplay 12;
 
 _bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
 //_bt ctrlSetText format["unit.jpg"];
-_bt ctrlSetText format["Next"];
+_bt ctrlSetText format[""];
+_bt buttonSetAction " call beginGmBattlePhase ";
 //_bt ctrlsetTooltip "";
-_bt ctrlSetPosition ([23,35,5,3] call getGuiPos);
+_bt ctrlSetPosition _gpos;
 _bt ctrlCommit 0;
 
-_bt buttonSetAction " call beginGmBattlePhase ";
 
-with uinamespace do
-{
-gmControls pushback _bt;
+ gmNextButtton = _bt;
 };
 
+
+gmControls pushback gmNextButtton;
+};
+
+ (uinamespace getVariable "gmNextButtton") ctrlSetText "End round";
+ (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmBattlePhase ";
 
 };
 
 beginGmBattlePhase =
 {
-with uinamespace do
-{
- ctrlDelete gmMoveGui;
-};
-
  gmPhase = "battles";
 
  gmBattles = call getGlobalBattles;
  gmCurBattleIndex = -1;
 
-
-_display = findDisplay 12;
-
-_bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
-//_bt ctrlSetText format["unit.jpg"];
-_bt ctrlSetText format["Begin battle"];
-//_bt ctrlsetTooltip "";
-_bt ctrlSetPosition ([23,35,5,3] call getGuiPos);
-_bt ctrlCommit 0;
-
-_bt buttonSetAction " call gmBeginBattle ";
-
-with uinamespace do
-{
-gmControls pushback _bt;
-};
-
-call gmSelectNextBattle;
+ call gmCheckRoundEnd;
 };
 
 gmSelectNextBattle =
@@ -81,17 +77,44 @@ gmSelectNextBattle =
  _map ctrlMapAnimAdd [1, 0.05, getMarkerPos _loc];
  ctrlMapAnimCommit _map;
 
+ (uinamespace getVariable "gmNextButtton") ctrlSetText "To battle";
+ (uinamespace getVariable "gmNextButtton") buttonSetAction " call gmBeginBattle ";
+
  }
  else
  {
  hint "End of battles";
+
  };
 
 };
 
 gmBeginBattle =
 {
+ _nextBattle = gmBattles # gmCurBattleIndex;
+
+ hint format["Next battle %1", _nextBattle];
+};
+
+onBattleEnded =
+{
+ call gmCheckRoundEnd;
+
+};
+
+gmCheckRoundEnd =
+{
+
+if(gmCurBattleIndex >= (count gmBattles) || (count gmBattles) == 0) then
+{
+ (uinamespace getVariable "gmNextButtton") ctrlSetText "Next round";
+ (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmMovePhase ";
+}
+else
+{
  call gmSelectNextBattle;
+};
+
 };
 
 pos = getpos player;
