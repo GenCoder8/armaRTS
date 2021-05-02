@@ -398,7 +398,7 @@ private _bgsList = getArray (_rosClass >> "battleGroups");
 private _list = [];
 
 _leftToPlace = MAX_SELECTED_BGS;
-for "_i" from 0 to 100 do
+for "_i" from 0 to 50 do // Todo maybe reconsider the attemb count
 {
  private _bgName = selectRandomWeighted _bgsList;
  
@@ -414,7 +414,7 @@ if([_side,_bgName,_list] call canBgBeSelected) then
 
 if(_leftToPlace != 0) then
 {
- ["Failed to fill list with bgs %1 %2",_side,_leftToPlace] call errmsg; // Not error if force pool small
+ ["Unable to fill list with bgs %1 %2",_side,_leftToPlace] call dbgmsg; // Not error if force pool small
 };
 
  _list

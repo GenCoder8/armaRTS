@@ -16,7 +16,7 @@ class Infantry
 
  // East
  "uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", 
- "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP", "uns_men_NVA_65_MRK", "uns_men_NVA_65_HMG"
+ "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP", "uns_men_NVA_65_HMG"
 
 };
 };

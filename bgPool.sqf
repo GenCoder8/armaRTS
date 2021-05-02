@@ -168,7 +168,7 @@ getUnitEntryFromPool =
  {
   private _rankId = (_x # MANP_RANK) call rankToNumber;
 
- if([(_x # MANP_TYPE),_type] call _kindFn  ) then  // && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank))
+ if([(_x # MANP_TYPE),_type] call _kindFn && (_reqRank == -1 || (_rankId > _highestRank && _rankId <= _reqRank)) ) then
   {
    _highestRank = _rankId;
    _selEntryIndex = _foreachIndex;
@@ -321,7 +321,17 @@ getBattleGroupDeployPos =
 params ["_area","_size"];
 _area params ["_pos","_range"];
 
-private _npos = [_pos,_size,_range,[_pos, _range, _range, 0, false]] call findSafePosVehicle;
+private _npos = [];
+for "_t" from 1 to 5 do
+{
+private _checkPos = [_pos,_size,_range,[_pos, _range, _range, 0, false]] call findSafePosVehicle;
+if(count _checkPos > 0) then
+{
+ _npos = _checkPos;
+ if(_t > 1) then { ["Deploy pos took %1 attembs", _t] call dbgmsg; };
+ break;
+};
+};
 
 if(count _npos > 0) then // If ok
 {
@@ -514,7 +524,13 @@ if(count _infPos == 0) then
 {
  _infPos = [_area, 0.5] call getBattleGroupDeployPos;
 
-if(count _infPos == 0) then { "No spawn pos found for infantry" call errmsg; continue; };
+if(count _infPos == 0) then 
+{
+ _area params ["_pos","_range"];
+ _infPos = _pos; // its ok for infantry to spawn at middle
+ "No spawn pos found for infantry" call errmsg; 
+ // continue; 
+};
 
 };
 
