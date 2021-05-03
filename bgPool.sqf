@@ -522,14 +522,14 @@ if(count _entry == 0) exitWith
 // Get pos for infantry
 if(count _infPos == 0) then
 {
- _infPos = [_area, 0.5] call getBattleGroupDeployPos;
+ _infPos = [_area, 0.4] call getBattleGroupDeployPos;
 
 if(count _infPos == 0) then 
 {
- _area params ["_pos","_range"];
- _infPos = _pos; // its ok for infantry to spawn at middle
+ //_area params ["_pos","_range"];
+ //_infPos = _pos;
  "No spawn pos found for infantry" call errmsg; 
- // continue; 
+ continue; 
 };
 
 };
