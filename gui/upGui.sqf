@@ -52,6 +52,7 @@ _bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
 _bgr ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
 _bgr ctrlCommit 0;
 
+
 _selButtonWidth = LINEWIDTH;
 
 if(_ctrlgId != BGPOOLID) then
@@ -79,9 +80,16 @@ _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanel
 
 
 
+_bgr = _display ctrlCreate ["RscPicture", -1, _cont];
+_bgr ctrlSetText (_bgcfg call getBattlegroupIcon);
+_bgr ctrlSetPosition [EPADD, EPADD + LINEHEIGHT, LINEHEIGHT*2, LINEHEIGHT *2];
+_bgr ctrlCommit 0;
+
+
+
 _text = _display ctrlCreate ["RscText", -1, _cont];
 _text ctrlSetText format["%1", gettext (_bgcfg >> "name")];
-_text ctrlSetPosition [EPADD, EPADD + LINEHEIGHT, LINEWIDTH, LINEHEIGHT];
+_text ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 3, LINEWIDTH, LINEHEIGHT];
 _text ctrlCommit 0;
 
 _units = getArray(_bgCfg >> "units");
@@ -103,7 +111,7 @@ else
 
 _text2 = _display ctrlCreate ["RscText", -1, _cont];
 _text2 ctrlSetText format["%1", _typeText];
-_text2 ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 2, LINEWIDTH, LINEHEIGHT];
+_text2 ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 4, LINEWIDTH, LINEHEIGHT];
 _text2 ctrlCommit 0;
 
 /*
@@ -219,7 +227,7 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 {
  _bgCfg = selectedBattleGroups select _i;
 
- [_bgCfg,2300,numPoolPanels % 3,floor(numPoolPanels / 3)] call createBGPanel;
+ [_bgCfg,2300,numPoolPanels % 4,floor(numPoolPanels / 4)] call createBGPanel;
 
  numPoolPanels = numPoolPanels + 1;
 
@@ -486,6 +494,49 @@ private _hiRank = getArray (_bgCfg >> "ranks") # 0;
 
 _ret
 };
+
+getBattlegroupIcon =
+{
+ params ["_bgcfg"];
+
+private _units = getArray(_bgCfg >> "units");
+private _leadUnit = _units select 0;
+
+ private _isMan = (_leadUnit iskindof "man");
+
+ private _icon = switch (true) do
+ {
+  case _isMan: { "a3\ui_f\data\map\markers\nato\b_inf.paa" };
+  case ( _leadUnit iskindof "tank"): { "a3\ui_f\data\map\markers\nato\b_armor.paa" };
+  case ( _leadUnit iskindof "truck_f"): { "a3\ui_f\data\map\markers\nato\b_motor_inf.paa" };
+  case ( [_leadUnit,"APC"] call checkForvehType ): { "a3\ui_f\data\map\markers\nato\b_mech_inf.paa" };
+  default { ["Unknown bg type '%1'", configname _bgcfg ] call errmsg; "a3\ui_f\data\map\markers\nato\b_unknown" };
+ };
+
+  _icon
+};
+
+checkForvehType =
+{
+params ["_vehType","_find"];
+private _base = (configFile >> "CfgVehicles" >> _vehType);
+private _ret = false;
+
+while { !isnull _base } do
+{
+
+ if((toupper (configname _base)) find _find >= 0) exitwith { _ret = true; };
+
+_base = inheritsFrom _base;
+
+ //systemchat format[">> %1", configname _base ];
+};
+
+_ret
+};
+
+
+
 
 
 tt =

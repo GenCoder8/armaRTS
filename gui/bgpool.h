@@ -1,16 +1,20 @@
 #include "ctrlIds.h"
 
-/* #Wuhole
+/* #Vopasy
 $[
 	1.063,
 	["bgpool",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
-	[2300,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","24.5 * UI_GRID_W","16 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2300,"",[2,"",["17.5 * UI_GRID_W + UI_GRID_X","6.5 * UI_GRID_H + UI_GRID_Y","33.5 * UI_GRID_W","15.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1500,"",[2,"",["22 * UI_GRID_W + UI_GRID_X","22.5 * UI_GRID_H + UI_GRID_Y","24 * UI_GRID_W","10 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = BG_VIEW_COLS;"]],
-	[2301,"",[2,"",["2 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","13 * UI_GRID_W","27 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1600,"",[2,"Add",["16.5 * UI_GRID_W + UI_GRID_X","15 * UI_GRID_H + UI_GRID_Y","3.57 * UI_GRID_W","2.735 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call poolAddReserveBG|;"]],
+	[2301,"",[2,"",["1.5 * UI_GRID_W + UI_GRID_X","6 * UI_GRID_H + UI_GRID_Y","9 * UI_GRID_W","27 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"",[2,"Add",["11.5 * UI_GRID_W + UI_GRID_X","15.5 * UI_GRID_H + UI_GRID_Y","3.57 * UI_GRID_W","2.735 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call poolAddReserveBG|;"]],
 	[1601,"",[2,"Begin",["30.5 * UI_GRID_W + UI_GRID_X","34 * UI_GRID_H + UI_GRID_Y","7 * UI_GRID_W","2 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call beginBattlePlacement|;"]]
 ]
 */
+
+
+
+
 
 
 
@@ -59,16 +63,16 @@ class controls
 
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Wuhole)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Vopasy)
 ////////////////////////////////////////////////////////
 
 class RscControlsGroup_2300: RscControlsGroup
 {
 	idc = 2300;
-	x = 22 * UI_GRID_W + UI_GRID_X;
-	y = 6 * UI_GRID_H + UI_GRID_Y;
-	w = 24.5 * UI_GRID_W;
-	h = 16 * UI_GRID_H;
+	x = 17.5 * UI_GRID_W + UI_GRID_X;
+	y = 6.5 * UI_GRID_H + UI_GRID_Y;
+	w = 33.5 * UI_GRID_W;
+	h = 15.5 * UI_GRID_H;
 	class Controls
 	{
 	};
@@ -87,9 +91,9 @@ class RscListbox_1500: RscListbox
 class RscControlsGroup_2301: RscControlsGroup
 {
 	idc = 2301;
-	x = 2 * UI_GRID_W + UI_GRID_X;
+	x = 1.5 * UI_GRID_W + UI_GRID_X;
 	y = 6 * UI_GRID_H + UI_GRID_Y;
-	w = 13 * UI_GRID_W;
+	w = 9 * UI_GRID_W;
 	h = 27 * UI_GRID_H;
 	class Controls
 	{
@@ -101,8 +105,8 @@ class RscButton_1600: RscButton
 
 	idc = 1600;
 	text = "Add"; //--- ToDo: Localize;
-	x = 16.5 * UI_GRID_W + UI_GRID_X;
-	y = 15 * UI_GRID_H + UI_GRID_Y;
+	x = 11.5 * UI_GRID_W + UI_GRID_X;
+	y = 15.5 * UI_GRID_H + UI_GRID_Y;
 	w = 3.57 * UI_GRID_W;
 	h = 2.735 * UI_GRID_H;
 };
@@ -120,7 +124,6 @@ class RscButton_1601: RscButton
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END
 ////////////////////////////////////////////////////////
-
 
 
 
