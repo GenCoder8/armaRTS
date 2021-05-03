@@ -132,6 +132,8 @@ pos set [1, (pos # 1) + 100];
 
 findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
 {
+if(curScreen != "globalmap") exitWith {};
+
 /*
 if(curScreen != "globalmap") exitWith {};
 
