@@ -506,6 +506,8 @@ private _leadUnit = _units select 0;
 
  private _icon = switch (true) do
  {
+  case ( !isnull(_bgCfg >> "mortar")  ): { "a3\ui_f\data\map\markers\nato\b_mortar" };
+  case (_isMan && count _units <= 3): { "a3\ui_f\data\map\markers\nato\b_support.paa" }; // Antitank, MG, sniper
   case _isMan: { "a3\ui_f\data\map\markers\nato\b_inf.paa" };
   case ( _leadUnit iskindof "tank"): { "a3\ui_f\data\map\markers\nato\b_armor.paa" };
   case ( _leadUnit iskindof "truck_f"): { "a3\ui_f\data\map\markers\nato\b_motor_inf.paa" };
