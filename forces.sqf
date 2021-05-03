@@ -166,8 +166,11 @@ if( _selSide == (_y # FORCE_SIDE) && _pos distance2D ( (_x call getForceRenderPo
 getForceInfo =
 {
  params ["_forceName"];
+ private _force = allforces get _forceName;
 
- _forceName
+ private _info = format["%1\nMoves:%2",_forceName,_force # FORCE_NUM_MOVES];
+
+ _info
 };
 
 renderForces =
@@ -187,6 +190,15 @@ renderForces =
 		"TahomaB",
 		"right"
 	];
+} foreach allforces;
+
+};
+
+resetForcesTurn =
+{
+
+{
+ _y set [FORCE_NUM_MOVES,1];
 } foreach allforces;
 
 };

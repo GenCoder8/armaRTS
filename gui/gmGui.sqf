@@ -22,6 +22,8 @@ beginGmMovePhase =
 {
 gmPhase = "move";
 
+call resetForcesTurn;
+
 _gpos = ([23,35,5,3] call getGuiPos);
 
 with uinamespace do
