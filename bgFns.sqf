@@ -130,7 +130,7 @@ applyStopSCript =
 private _us = [_man,_stopPos] spawn
 {
  params ["_man","_stopPos"];
- waituntil { sleep 0.5; _man distance _stopPos < 1 };
+ waituntil { sleep 0.25; _man distance _stopPos < 1 };
  dostop _man;
 };
 
