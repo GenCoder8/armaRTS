@@ -8,7 +8,7 @@ isUsingActionButton =
 
 canSetFormationDir =
 {
- (!call isUsingActionButton) && (call anythingSelected)
+ (call anythingSelected)
 };
 
 beginNewFormationDir =

@@ -167,7 +167,7 @@ _ataticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
 {
  _x params ["_but","_bDef"];
 
- if(call compile (getText (_bDef >> "condition"))) then
+ if(!call isUsingActionButton && call compile (getText (_bDef >> "condition"))) then
  {
   _but ctrlEnable true;
   _but ctrlSetTextColor [1, 1, 1, 1];
