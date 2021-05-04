@@ -226,7 +226,7 @@ _display displayAddEventHandler ["MouseMoving",
  getMousePosition params ["_xPos", "_yPos"];
 
 
-if(rightMouseButtonDown && isnull facingArrow) then
+if((rightMouseButtonDown || (specialMove == "setFormDir")) && isnull facingArrow) then
 {
  //systemchat "DOWN!";
 
@@ -237,6 +237,11 @@ if(count _sel > 0) then
 
  rightMouseHoldPos = screenToWorld [_xPos,_yPos];
  //rightMouseHoldPos set [2,1];
+
+ if(specialMove == "setFormDir") then
+ {
+  rightMouseHoldPos = getpos leader (_sel # 0); // Todo better
+ };
 
  facingArrow = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL rightMouseHoldPos,false];
  

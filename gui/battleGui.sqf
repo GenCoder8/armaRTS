@@ -218,13 +218,17 @@ _moveGroup =
 
 switch(specialMove) do
 {
+ case "setFormDir":
+ {
+  _wpos call setGroupFacing;
+  deleteWaypoint _wp;
+ };
  case "fireMission": 
  {
 
 [_group,fireMisType,_wpos] call beginArtillery;
 
 
-_wp = [_group,_waypointID];
 _wp setwaypointtype "SCRIPTED";
 _wp setwaypointscript getText(configfile >> "cfgWaypoints" >> "A3" >> "Artillery" >> "file");
 
@@ -445,31 +449,6 @@ moveBattleGroup =
  (units _group - [_ldr]) doFollow _ldr;
 };
 
-conditionFireMission =
-{
- params ["_fireType"];
- // Must have selection
-private _sel = curatorSelected # 1;
-
-private _ok = false;
-
-if(({ _x call isMortarGroup && !(_x call isArtilleryFiring) } count _sel) > 0) then
-{
-if({ [_x,_fireType] call doesMortarHaveMag} count _sel > 0) then
-{
- _ok = true;
-};
-};
-
-_ok
-};
-
-actionFireMission =
-{
- params ["_fireType"];
- "fireMission" call setSpecialMove;
- fireMisType = _fireType;
-};
 
 [] spawn
 {
@@ -831,7 +810,7 @@ _bd = _buttonDefs select _i;
 _bt = _display ctrlCreate ["RscImgButton", -1, _cg];
 _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
-_bt ctrlSetPosition [0.0 + (BUT_SIZE * _i), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
+_bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
 _bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))]; 
 

@@ -32,4 +32,13 @@ class CasSupport
  action = "'cas' call beginMouseClickAction";
 };
 
+class SetFormationDir
+{
+ icon = "a3\ui_f_curator\data\cfgwrapperui\cursors\curatorrotate_ca.paa";
+ test = "Set formation direction";
+ condition = "call canSetFormationDir";
+ action = "call beginNewFormationDir";
+ help = "Right click position to face to";
+};
+
 };

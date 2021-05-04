@@ -37,7 +37,7 @@ playerUseSupport =
 
 canDoMouseClickAction =
 {
- (!call anythingSelected) && (!call isMouseClickAction)
+ (!call anythingSelected) && (!call isUsingActionButton)
 };
 
 beginMouseClickAction =
@@ -68,3 +68,35 @@ cancelMouseClickAction =
  systemchat "Action cancelled";
  curMouseClickAction = "";
 };
+
+
+
+
+
+
+conditionFireMission =
+{
+ params ["_fireType"];
+ // Must have selection
+private _sel = curatorSelected # 1;
+
+private _ok = false;
+
+if(({ _x call isMortarGroup && !(_x call isArtilleryFiring) } count _sel) > 0) then
+{
+if({ [_x,_fireType] call doesMortarHaveMag} count _sel > 0) then
+{
+ _ok = true;
+};
+};
+
+_ok
+};
+
+actionFireMission =
+{
+ params ["_fireType"];
+ "fireMission" call setSpecialMove;
+ fireMisType = _fireType;
+};
+
