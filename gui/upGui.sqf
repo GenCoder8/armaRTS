@@ -55,13 +55,15 @@ _bgr ctrlCommit 0;
 
 _selButtonWidth = LINEWIDTH;
 
+_contHeight = EPADD;
+
 if(_ctrlgId != BGPOOLID) then
 {
  _selButtonWidth = _selButtonWidth - DEL_BUTTON_WIDTH;
 
 _delBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _delBut ctrlSetText format["%1", "X"];
-_delBut ctrlSetPosition [EPADD + _selButtonWidth, EPADD, DEL_BUTTON_WIDTH, LINEHEIGHT];
+_delBut ctrlSetPosition [EPADD + _selButtonWidth, _contHeight, DEL_BUTTON_WIDTH, LINEHEIGHT];
 _delBut ctrlCommit 0;
 
 _delBut buttonSetAction format["[%1,%2] call poolDeleteSelectedBG",_ctrlgId,numPoolPanels];
@@ -72,25 +74,29 @@ if(_active) then
 {
 _selBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
-_selBut ctrlSetPosition [EPADD, EPADD, _selButtonWidth, LINEHEIGHT];
+_selBut ctrlSetPosition [EPADD, _contHeight, _selButtonWidth, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
 _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
 };
 
-
+_contHeight = _contHeight + LINEHEIGHT;
 
 _bgr = _display ctrlCreate ["RscPicture", -1, _cont];
 _bgr ctrlSetText (_bgcfg call getBattlegroupIcon);
-_bgr ctrlSetPosition [EPADD, EPADD + LINEHEIGHT, LINEHEIGHT*2, LINEHEIGHT *2];
+_bgr ctrlSetPosition [EPADD, _contHeight, LINEHEIGHT*2, LINEHEIGHT *2];
 _bgr ctrlCommit 0;
 
-
+_contHeight = _contHeight + LINEHEIGHT * 1.75;
 
 _text = _display ctrlCreate ["RscText", -1, _cont];
 _text ctrlSetText format["%1", gettext (_bgcfg >> "name")];
-_text ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 3, LINEWIDTH, LINEHEIGHT];
+_h = ctrlTextHeight _text;
+_text ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
 _text ctrlCommit 0;
+
+
+_contHeight = _contHeight + _h;
 
 _units = getArray(_bgCfg >> "units");
 _leadUnit = _units select 0;
@@ -111,7 +117,8 @@ else
 
 _text2 = _display ctrlCreate ["RscText", -1, _cont];
 _text2 ctrlSetText format["%1", _typeText];
-_text2 ctrlSetPosition [EPADD, EPADD + LINEHEIGHT * 4, LINEWIDTH, LINEHEIGHT];
+_h = ctrlTextHeight _text;
+_text2 ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
 _text2 ctrlCommit 0;
 
 /*
