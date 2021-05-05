@@ -38,11 +38,13 @@ if(_mag != "") then
 {
 for "_i" from 1 to 2 do
 {
-  _mags pushback _mag;
+  _mags pushback [_mag,getNumber(configfile >> "CfgMagazines" >> _mag >> "count")];
 };
 };
 
  } foreach _ammoTypes;
+
+ diag_log format["MAGS: %1", _mags];
 
  _group setVariable ["mortarMags", _mags ];
 };
@@ -51,14 +53,14 @@ doesMortarHaveMag =
 {
  params ["_group","_magType"];
  _mags = _group getVariable ["mortarMags",[]];
- _magName = ([_group,_magType] call getMortarMag);
+ _magName = ([_group,_magType] call getMortarMagType);
 
  if(_magName == "") exitWith { false }; // If does not have _magType defined in config
 
- _magName in _mags
+ _mags findif { (_x # 0) == _magName } >= 0
 };
 
-getMortarMag =
+getMortarMagType =
 {
  params ["_group","_magType"];
 
@@ -75,6 +77,29 @@ if(_magType == "SMOKE") then
 _useMag
 };
 
+getNextMagIndex = 
+{
+ params ["_group","_fireType"];
+ private _magName = [_group,_fireType] call getMortarMagType;
+
+ private _mags = _group getVariable "mortarMags";
+ private _index = _mags findif { (_x # 0) == _magName };
+
+ _index
+};
+
+getNextUsedMag =
+{
+ params ["_group","_fireType"];
+ private _index = [_group,_fireType] call getNextMagIndex;
+
+ if(_index < 0) exitWith { [] };
+
+  private _mags = _group getVariable "mortarMags";
+
+ _mags # _index
+};
+
 setupMortar =
 {
  params ["_group","_mor","_magType","_targetPos"];
@@ -88,11 +113,13 @@ _weap = currentweapon _mor;
 
 _mor removeWeapon _weap;
 
- _useMag = [_group,_magType] call getMortarMag;
+ //_useMag = [_group,_magType] call getMortarMagType;
 
+ _mor setVariable ["firingType", _magType];
 
+ _nextMag = [_group,_magType] call getNextUsedMag;
 
- _mor addMagazine _useMag;
+ _mor addMagazine [_nextMag # 0, _nextMag # 1];
 
  _mor addweapon _weap;
 
@@ -135,27 +162,30 @@ getMortarAmmoLeft =
 
 
  private _ammo = 0;
-
+/*
  private _cmags = magazinesAmmo _mor;
  if(count _cmags > 0) then
  {
  
  private _curMag = _cmags # 0; // currentMagazine ?
   _ammo = _ammo + (_curMag # 1);
-
+*/
 
  // Count only same mags as currently loaded one
  private _mags = _group getVariable ["mortarMags",[]];
+ private _fireType = _mor getVariable "firingType";
+
+private _magType = [_group,_fireType] call getMortarMagType;
 
 
  {
-  if(_x == (_curMag # 0)) then
+  if((_x # 0) == _magType) then
   {
-   _ammo = _ammo + (getNumber (configfile >> "cfgMagazines" >> (_curMag # 0) >> "count"));
+   _ammo = _ammo + (_x # 1);
   };
  } foreach _mags; 
 
- };
+// };
 
 
  _ammo
@@ -190,7 +220,7 @@ else
   // Count mags
  {
 
-  private _mname = _x; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
+  private _mname = _x # 0; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
 
   private _entry = _hash getOrDefault [_mname, 0];
    
@@ -272,6 +302,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 
 _mor = _unit;
 
+/*
 if(!(_mor getVariable ["fireSucceed",false])) then
 {
 // Remove one mag
@@ -286,6 +317,18 @@ _useMag = (magazines _mor) # 0; // Get the type of one and only mag
  _group setVariable ["mortarMags", _mags];
 
 // systemchat format["MAG REMOVE %1 %2 %3", _group,  _magIndex, _useMag];
+};*/
+
+_group = group _gunner;
+_fireType = _mor getVariable "firingType";
+_nextMag = [_group,_fireType] call getNextUsedMag;
+// Sub one
+_nextMag set [1,(_nextMag # 1) - 1];
+if((_nextMag # 1) <= 0) then
+{
+ private _index = [_group,_fireType] call getNextMagIndex;
+ private _mags = _group getVariable ["mortarMags",[]];
+ _mags deleteAt _index;
 };
 
 _mor setVariable ["fireSucceed",true];
