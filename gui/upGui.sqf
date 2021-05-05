@@ -82,41 +82,52 @@ _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanel
 
 _contHeight = _contHeight + LINEHEIGHT;
 
+_typeInfo = _bgcfg call getBattlegroupIcon;
+
+_units = getArray(_bgCfg >> "units");
+_leadUnit = _units select 0;
+_leadCfg = configfile >> "cfgVehicles" >> _leadUnit;
+
+_typeText = "";
+_vehText = "";
+if(_leadUnit iskindof "man") then
+{
+ _typeText = gettext (_bgcfg >> "name");
+ _vehText = format ["%1 soldiers", count _units];
+}
+else
+{
+ _typeText = _typeInfo # 0;
+ _vehText = format ["%1", getText(_leadCfg >> "displayname") ];
+};
+
+
 _bgr = _display ctrlCreate ["RscPicture", -1, _cont];
-_bgr ctrlSetText (_bgcfg call getBattlegroupIcon);
+_bgr ctrlSetText (_typeInfo # 1);
 _bgr ctrlSetPosition [EPADD, _contHeight, LINEHEIGHT*2, LINEHEIGHT *2];
 _bgr ctrlCommit 0;
 
 _contHeight = _contHeight + LINEHEIGHT * 1.75;
 
 _text = _display ctrlCreate ["RscText", -1, _cont];
-_text ctrlSetText format["%1", gettext (_bgcfg >> "name")];
+_text ctrlSetText format["%1", _typeText];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
 _text ctrlCommit 0;
 
+// _text ctrlSetTooltip gettext (_bgcfg >> "name");
+
 
 _contHeight = _contHeight + _h;
 
-_units = getArray(_bgCfg >> "units");
-_leadUnit = _units select 0;
-_leadCfg = configfile >> "cfgVehicles" >> _leadUnit;
+
 
 // systemchat format[">> %1 ", _leadCfg];
 
-_typeText = "";
-if(_leadUnit iskindof "man") then
-{
- _typeText = format ["%1 soldiers", count _units];
-}
-else
-{
- _typeText = format ["%1", getText(_leadCfg >> "displayname") ];
-};
 
 
 _text2 = _display ctrlCreate ["RscText", -1, _cont];
-_text2 ctrlSetText format["%1", _typeText];
+_text2 ctrlSetText format["%1", _vehText];
 _h = ctrlTextHeight _text;
 _text2 ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
 _text2 ctrlCommit 0;
@@ -513,13 +524,13 @@ private _leadUnit = _units select 0;
 
  private _icon = switch (true) do
  {
-  case ( !isnull(_bgCfg >> "mortar")  ): { "a3\ui_f\data\map\markers\nato\b_mortar" };
-  case (_isMan && count _units <= 3): { "a3\ui_f\data\map\markers\nato\b_support.paa" }; // Antitank, MG, sniper
-  case _isMan: { "a3\ui_f\data\map\markers\nato\b_inf.paa" };
-  case ( _leadUnit iskindof "tank"): { "a3\ui_f\data\map\markers\nato\b_armor.paa" };
-  case ( _leadUnit iskindof "truck_f"): { "a3\ui_f\data\map\markers\nato\b_motor_inf.paa" };
-  case ( [_leadUnit,"APC"] call checkForvehType ): { "a3\ui_f\data\map\markers\nato\b_mech_inf.paa" };
-  default { ["Unknown bg type '%1'", configname _bgcfg ] call errmsg; "a3\ui_f\data\map\markers\nato\b_unknown" };
+  case ( !isnull(_bgCfg >> "mortar")  ): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
+  case (_isMan && count _units <= 3): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; // Antitank, MG, sniper
+  case _isMan: { ["Infantry","a3\ui_f\data\map\markers\nato\b_inf.paa"] };
+  case ( _leadUnit iskindof "tank"): { ["Armor","a3\ui_f\data\map\markers\nato\b_armor.paa"] };
+  case ( _leadUnit iskindof "truck_f"): { ["Truck","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
+  case ( [_leadUnit,"APC"] call checkForvehType ): { ["APC","a3\ui_f\data\map\markers\nato\b_mech_inf.paa"] };
+  default { ["Unknown bg type '%1'", configname _bgcfg ] call errmsg; ["","a3\ui_f\data\map\markers\nato\b_unknown"] };
  };
 
   _icon
