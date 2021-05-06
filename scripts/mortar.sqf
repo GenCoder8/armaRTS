@@ -51,25 +51,27 @@ for "_i" from 1 to 2 do
 
 doesMortarHaveMag =
 {
- params ["_group","_magType"];
+ params ["_group","_fireType"];
  _mags = _group getVariable ["mortarMags",[]];
- _magName = ([_group,_magType] call getMortarMagType);
+ _magName = ([_group,_fireType] call getMortarMagType);
 
- if(_magName == "") exitWith { false }; // If does not have _magType defined in config
+ if(_magName == "") exitWith { false }; // If does not have _fireType defined in config
 
- _mags findif { (_x # 0) == _magName } >= 0
+ private _index = [_group,_fireType] call getNextMagIndex;
+
+ _index >= 0
 };
 
 getMortarMagType =
 {
- params ["_group","_magType"];
+ params ["_group","_fireType"];
 
  private _gcfg = _group getVariable ["cfg",configNull];
  if(isnull _gcfg) exitWith { "" };
  private _ammoTypes = getArray (_gcfg >> "ammo");
 
 _useMag = _ammoTypes # 0;
-if(_magType == "SMOKE") then
+if(_fireType == "SMOKE") then
 {
  _useMag = _ammoTypes # 1;
 };
