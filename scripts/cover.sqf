@@ -38,11 +38,14 @@ coverObjs = createHashMap;
 
 //_objs = [] call getCoverObjects;
 
+
 private _objs = nearestObjects [coverAreaPos, [], coverAreaSize, true];
 
 
 {
  _obj = _x;
+
+[_forEachIndex / (count _objs)] call nextLoadBar;
 
 
 _obj call registerCoverObj;
@@ -62,6 +65,8 @@ _arrow = createSimpleObject ["Sign_Arrow_F", _pos,false];
  //_obj hideObjectGlobal true;
 
 } foreach _objs;
+
+
 
 };
 

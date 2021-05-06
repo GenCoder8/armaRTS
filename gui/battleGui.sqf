@@ -36,9 +36,14 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 startBattleFieldZeus =
 {
 
+if(!canSuspend) exitwith { _this spawn startBattleFieldZeus; };
+
 bpArgs = _this;
 
 battleReady = false;
+
+"Loading battle field" call startLoadScreen;
+sleep 0.1;
 
 addMissionEventHandler ["EachFrame",
 {
@@ -402,6 +407,10 @@ call openZeus;
 
 battleReady = true;
 }];
+
+
+ waituntil { battleReady };
+ call endLoadScreen;
 
 };
 

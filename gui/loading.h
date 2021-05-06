@@ -1,0 +1,56 @@
+
+
+
+
+class RtsLoadingScreen
+{
+ idd = 123888;
+
+class controlsBackground
+	{
+	
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Raqivi)
+////////////////////////////////////////////////////////
+
+class RscPicture_1200: RscPicture
+{
+	idc = 1200;
+	text = "#(argb,8,8,3)color(1,1,1,1)";
+	x = 25.5 * UI_GRID_W + UI_GRID_X;
+	y = 17 * UI_GRID_H + UI_GRID_Y;
+	w = 18 * UI_GRID_W;
+	h = 5 * UI_GRID_H;
+};
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT END
+////////////////////////////////////////////////////////
+
+	
+	};
+
+
+class controls
+	{
+
+
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Pifaky)
+////////////////////////////////////////////////////////
+
+class RscText_1000: RscText
+{
+	idc = 1000;
+	text = "Loading..."; //--- ToDo: Localize;
+	x = 28 * UI_GRID_W + UI_GRID_X;
+	y = 18 * UI_GRID_H + UI_GRID_Y;
+	w = 14.5 * UI_GRID_W;
+	h = 3 * UI_GRID_H;
+};
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT END
+////////////////////////////////////////////////////////
+
+
+};
+};

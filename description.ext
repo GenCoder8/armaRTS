@@ -19,4 +19,62 @@ class RscTitles
 
 #include "gui\bgpool.h"
 #include "gui\customBattle.h"
+#include "gui\loading.h"
 
+
+
+class TestloadingScreen
+{
+ idd = 1234567;
+
+class controlsBackground
+	{
+	
+		class loadbg : RscPicture
+		{
+		idc = 4451;
+		style = 48 + 0x800; // ST_PICTURE + ST_KEEP_ASPECT_RATIO
+		x = safezoneX;
+		y = safezoneY - 0.0;
+		w = safezoneW;
+		h = safezoneH;
+		text = "#(argb,8,8,3)color(0,0,0,1)";
+		};
+	
+	};
+
+
+class controls
+	{
+
+
+class LoadText: RscText
+{
+	idc = 101;
+	sizeEx = 0.05;
+	colorText[] = {0.543,0.5742,0.4102,1.0};
+
+	text = "loading..."; //--- ToDo: Localize;
+	x = 0.0057495 * safezoneW + safezoneX;
+	y = 0.00991017 * safezoneH + safezoneY;
+	w = 0.283467 * safezoneW;
+	h = 0.0560103 * safezoneH;
+};
+
+class RscPicture_1200: RscPicture
+{
+	colorFrame[] = {0,0,0,0};
+	idc = 104;
+	type = CT_PROGRESS;
+	style = ST_SINGLE;
+	texture = "#(argb,8,8,3)color(1,1,1,1)";
+	colorBar[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};	 
+
+	text = "#(argb,8,8,3)color(1,1,1,1)";
+	x = 0.383706 * safezoneW + safezoneX;
+	y = 0.822059 * safezoneH + safezoneY;
+	w = 0.218052 * safezoneW;
+	h = 0.0280051 * safezoneH;
+};
+};
+};

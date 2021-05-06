@@ -43,3 +43,40 @@ case "placement":
 
  curScreen = _screen;
 };
+
+loadScreenStarted = false;
+startLoadScreen =
+{
+ params ["_text"];
+ if(loadScreenStarted) exitWith {};
+
+ //startLoadingScreen ["Loading..........","TestloadingScreen"];
+
+ createDialog "RtsLoadingScreen";
+_display = findDisplay RTSLOADINGSCREENID;
+_textCtrl = _display displayCtrl 1000;
+_textCtrl ctrlSetText format ["%1...", _text]; 
+
+ loadScreenStarted = true;
+};
+
+nextLoadBar =
+{
+ params ["_progress"];
+
+ //progressLoadingScreen _progress;
+
+};
+
+endLoadScreen =
+{
+
+ if(loadScreenStarted) then 
+ {
+// endLoadingScreen;
+ };
+
+ closeDialog 0;
+
+ loadScreenStarted = false;
+};
