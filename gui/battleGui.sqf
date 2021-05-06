@@ -43,7 +43,7 @@ bpArgs = _this;
 battleReady = false;
 
 "Loading battle field" call startLoadScreen;
-sleep 0.1;
+
 
 addMissionEventHandler ["EachFrame",
 {

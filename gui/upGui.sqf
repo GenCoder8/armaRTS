@@ -454,6 +454,10 @@ if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 
 waituntil { battleReady };
 
+"Deploying troops" call startLoadScreen;
+
+
+deployDone = false;
 
 addMissionEventHandler ["EachFrame",
 {
@@ -489,8 +493,11 @@ diag_log format["---------  Done Creating %1 forces --------- ",_side];
 } foreach [[call getPlayerSide,[selectedBattleGroups] call sortBgs],[call getEnemySide,[enemySelectedBgs] call sortBgs]];
 
 
-
+deployDone = true;
 }];
+
+waituntil { deployDone };
+endLoadScreen;
 
 ["placement"] call openGameScreen;
 

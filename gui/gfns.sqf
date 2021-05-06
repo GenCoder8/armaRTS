@@ -58,6 +58,8 @@ _textCtrl = _display displayCtrl 1000;
 _textCtrl ctrlSetText format ["%1...", _text]; 
 
  loadScreenStarted = true;
+
+ sleep 0.1; // Give time to start
 };
 
 nextLoadBar =
