@@ -30,15 +30,17 @@ initMortarGroup =
  private _ammoTypes = getArray (_gcfg >> "ammo");
 
  private _mags = [];
+ private _maxAmmo = 0;
 
  {
   private _mag = _x;
+  _maxAmmo = getNumber(configfile >> "CfgMagazines" >> _mag >> "count"); // Assumes all mags are same size
 
 if(_mag != "") then
 {
 for "_i" from 1 to 2 do
 {
-  _mags pushback [_mag,getNumber(configfile >> "CfgMagazines" >> _mag >> "count")];
+  _mags pushback [_mag,_maxAmmo];
 };
 };
 
@@ -47,6 +49,7 @@ for "_i" from 1 to 2 do
  diag_log format["MAGS: %1", _mags];
 
  _group setVariable ["mortarMags", _mags ];
+ _group setVariable ["mortarMaxAmmo", _maxAmmo ];
 };
 
 doesMortarHaveMag =
@@ -340,9 +343,9 @@ _unit call onArtilleryUsed;
 
 [_art,true] call onArtilleryUsed; // Need var to be ready
 
-[_art] spawn
+[_art,_group] spawn
 {
- params ["_art"];
+ params ["_art","_group"];
 
  waituntil 
  {
@@ -354,6 +357,13 @@ _unit call onArtilleryUsed;
 
 if(!isnull _art) then
 {
+
+// Repack mags
+private _mags = _group getVariable ["mortarMags",[]];
+_mags = [_mags,  _group getVariable "mortarMaxAmmo" ] call packMags;
+_group setVariable ["mortarMags",_mags];
+
+ diag_log format["exit MAGS: %1", _mags];
 
 // _ammo = _art getVariable ["startingAmmo", 0];
 
@@ -418,3 +428,44 @@ groupExitStaticWeapons =
 
  } forEach _vehs;
 };
+
+
+
+packMags =
+{
+params ["_magArray","_max"];
+private _totalAmmo = createHashmap;
+
+{
+ _x params ["_name","_count"];
+
+ _c = _totalAmmo getorDefault [_name,0];
+
+ _totalAmmo set [_name, _c + _count ];
+
+} foreach _magArray;
+
+//systemchat format ["%1",_totalAmmo];
+
+private _ret = [];
+{
+_name = _x;
+_count = _y;
+
+while { _count > 0 } do
+{
+ _give = _max;
+ if(_count < _give) then { _give = _count; };
+ _ret pushback [_name,_give];
+
+ _count = _count - _give;
+};
+
+} foreach _totalAmmo;
+
+//systemchat format ["%1",_ret];
+
+_ret
+};
+
+
