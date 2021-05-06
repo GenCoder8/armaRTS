@@ -199,8 +199,10 @@ finddisplay 46 displayAddEventHandler ["MouseButtonUp",
  true
 }];
 */
+
 rightMouseButtonDown = false;
 facingArrow = objnull;
+facingExtraArrows = [];
 
 _display displayAddEventHandler ["MouseButtonDown",
 {
@@ -247,6 +249,12 @@ if(count _sel > 0) then
 
  camLastDir = vectorDir curatorCamera;
 
+ for "_i" from 0 to 5 do
+ {
+  _arr = createSimpleObject ["Sign_Arrow_Direction_Blue_F", AGLToASL rightMouseHoldPos,false];
+  facingExtraArrows pushback _arr;
+ };
+
 };
 };
 
@@ -259,6 +267,24 @@ if(!isnull facingArrow) then
  _angle = [rightMouseHoldPos,_cpos] call getAngle;
   facingArrow setdir _angle;
   facingArrow setObjectScale 5;
+
+ _cen = 1;
+ _dir = 1;
+ {
+  _arr = _x;
+  _v = [_angle - 90 * _dir,_cen * 5] call getVector;
+  _p = [rightMouseHoldPos,_v] call addVector;
+  _p set [2,0];
+
+  _arr setposATL _p;
+  _arr setdir _angle;
+  _arr setObjectScale 3;
+
+   _dir = _dir * -1;
+
+   if(_dir == 1) then { _cen = _cen + 1;};
+
+ } foreach facingExtraArrows;
 
 
  _handled = true;
@@ -351,6 +377,9 @@ if(!isnull facingArrow) then
 {
 deletevehicle facingArrow;
 facingArrow = objNull;
+
+{ deletevehicle _x } foreach facingExtraArrows;
+facingExtraArrows = [];
 
 _handled = true;
 };

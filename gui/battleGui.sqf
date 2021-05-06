@@ -616,7 +616,7 @@ addMissionEventHandler ["EachFrame",
 carrows = [];
 
 
-if(call isInfantrySelected) then // Only for inf
+if(call isInfantrySelected && specialMove == "" && !rightMouseButtonDown) then // Only for inf
 {
 
  _bldg = call getOnHoverHouse;
