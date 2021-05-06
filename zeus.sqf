@@ -171,8 +171,6 @@ _display displayAddEventHandler ["MouseButtonUp",
 
 if(_button == 0) then
 {
- systemchat format["TEEEST! %1",time];
-
  [[_xPos,_yPos]] call doMouseClickAction;
 };
 
