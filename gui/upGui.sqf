@@ -6,6 +6,7 @@
 createdBgPanels = [];
 
 selectedBattleGroups = [];
+enemySelectedBgs = [];
 
 #define BGPOOLID 2301
 
@@ -463,14 +464,25 @@ addMissionEventHandler ["EachFrame",
 {
 removeMissionEventHandler ["EachFrame",_thisEventHandler];
 
+_sideArr = [];
 
-diag_log format["---------- POOL -----------"];
+if(count curPlrForce > 0 && count selectedBattleGroups > 0) then
+{
+ _sideArr pushback [call getPlayerSide,[selectedBattleGroups] call sortBgs];
+};
 
-[(call getPlayerSide) call getManPool] call printArray;
+if(count curEnemyForce > 0 && count enemySelectedBgs > 0) then
+{
+ _sideArr pushback [call getEnemySide,[enemySelectedBgs] call sortBgs];
+};
+
+//diag_log format["---------- POOL -----------"];
+
+//[(call getPlayerSide) call getManPool] call printArray;
 
 diag_log "--- East ---";
 
-[(call getEnemySide) call getManPool] call printArray;
+//[(call getEnemySide) call getManPool] call printArray;
 
 // Place all troops
 {
@@ -490,7 +502,7 @@ diag_log format["--------- Begin Creating %1 forces --------- ",_side];
 
 diag_log format["---------  Done Creating %1 forces --------- ",_side];
 
-} foreach [[call getPlayerSide,[selectedBattleGroups] call sortBgs],[call getEnemySide,[enemySelectedBgs] call sortBgs]];
+} foreach _sideArr;
 
 
 deployDone = true;
@@ -499,7 +511,7 @@ deployDone = true;
 waituntil { deployDone };
 endLoadScreen;
 
-["placement"] call openGameScreen;
+
 
 };
 

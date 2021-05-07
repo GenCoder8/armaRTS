@@ -16,7 +16,8 @@ case "poolSelect": { closeDialog 0; };
 case "battle";
 case "placement":
 {
- cutRsc["default","PLAIN",0]; // Todo works?
+ call closeBattlefieldZeus;
+ cutRsc["default","PLAIN",0];
 };
 };
 
@@ -30,6 +31,7 @@ case "placement":
   case "poolSelect": { call openPoolDlg; };
   case "placement": 
   {
+   call beginBattlePlacement;
    call activateBattleGui;
    "placement" call setBattleGuiButtons;
   };
@@ -78,7 +80,10 @@ endLoadScreen =
 // endLoadingScreen;
  };
 
+ if(loadScreenStarted) then
+ {
  closeDialog 0;
+ };
 
  loadScreenStarted = false;
 };

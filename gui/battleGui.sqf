@@ -414,6 +414,12 @@ battleReady = true;
 
 };
 
+closeBattlefieldZeus =
+{
+ deleteVehicle plrZeus;
+ call clearBattleField;
+};
+
 getDeployArea =
 {
  params ["_side"];

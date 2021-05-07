@@ -15,7 +15,15 @@ loadCovers = true;
 
 
 
-["marker_0",120] call startBattleFieldZeus;
+//["marker_0",120] call startBattleFieldZeus;
+
+
+
+[west,"testForce"] call createForce;
+
+nextBattleMap = "marker_0";
+
+["placement"] call openGameScreen;
 
 waituntil { battleReady };
 
@@ -24,14 +32,10 @@ _deployAreaPos = (call getPlayerSide) call getDeployArea;
 _area = [_deployAreaPos,deployAreaSize];
 
 
-[west,"testForce"] call createForce;
 
 ["LightMortarTeam",_area] call placeTestGroup;
 
 ["HeavyMortarTeam",_area] call placeTestGroup;
-
-
-["placement"] call openGameScreen;
 
 
 // call beginBattle;
