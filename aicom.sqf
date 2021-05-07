@@ -61,8 +61,8 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 } foreach _vicmarkers;
 
 
-// Capture vic loc logic 
 
+// Capture vic loc logic 
 
 [] spawn
 {
@@ -71,7 +71,7 @@ while { true } do
 {
 
 
-_side = west;
+_side = west; // TODO
 _ownGroups = _side call getOwnGroups;
 
 hint format["num own groups: %1", count _ownGroups ];
