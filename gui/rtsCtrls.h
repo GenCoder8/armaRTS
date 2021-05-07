@@ -63,3 +63,7 @@ class RtsControlsGroupNoScrollBars: RscControlsGroup
 	
 };
 
+class RtsPoolFont : RscText
+{
+ SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+};
