@@ -42,7 +42,7 @@ bpArgs = _this;
 
 battleReady = false;
 
-"Loading battle field" call startLoadScreen;
+"Loading battle field" call startRtsLoadScreen;
 
 
 addMissionEventHandler ["EachFrame",
@@ -410,7 +410,7 @@ battleReady = true;
 
 
  waituntil { battleReady };
- call endLoadScreen;
+ call endRtsLoadScreen;
 
 };
 

@@ -451,11 +451,13 @@ beginBattlePlacement =
 {
 if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 
+
 [nextBattleMap,120] call startBattleFieldZeus;
 
-waituntil { battleReady };
+waituntil { battleReady && !loadScreenStarted };
 
-"Deploying troops" call startLoadScreen;
+
+"Deploying troops" call startRtsLoadScreen;
 
 
 deployDone = false;
@@ -508,9 +510,10 @@ diag_log format["---------  Done Creating %1 forces --------- ",_side];
 deployDone = true;
 }];
 
-waituntil { deployDone };
-endLoadScreen;
 
+waituntil { deployDone };
+
+call endRtsLoadScreen;
 
 
 };

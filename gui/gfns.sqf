@@ -47,7 +47,7 @@ case "placement":
 };
 
 loadScreenStarted = false;
-startLoadScreen =
+startRtsLoadScreen =
 {
  params ["_text"];
  if(loadScreenStarted) exitWith {};
@@ -72,17 +72,14 @@ nextLoadBar =
 
 };
 
-endLoadScreen =
+endRtsLoadScreen =
 {
 
- if(loadScreenStarted) then 
- {
-// endLoadingScreen;
- };
 
  if(loadScreenStarted) then
  {
- closeDialog 0;
+
+  closeDialog 0;
  };
 
  loadScreenStarted = false;
