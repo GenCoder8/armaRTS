@@ -85,7 +85,7 @@ if(_x # VICLOC_OWNER != _side) then
 
 {
 _group = _x;
-_near = [(_group call getGroupPos)] call getNearVictoryLoc;
+_near = [(_group call getGroupPos)] call getNearestVictoryLoc;
 
 if(count _near > 0) then
 {
@@ -181,21 +181,43 @@ if(_pos distance2D (_place # VICLOC_POS) < VICINITY_DIST) exitwith
  _ret
 };
 
-getNearVictoryLoc =
+getNearestVictoryLoc =
 {
  params ["_pos",["_maxDist",VICINITY_DIST],["_getSide",[]]];
 
  private _ret = [];
  private _shortest = 1000000;
 
+ private _locs = [_pos,_maxDist,_getSide] call getNearVictoryLocs;
+
  {
   private _place = _x;
   private _dist = _pos distance2D (_place # VICLOC_POS);
 
-if( _dist < _maxDist && _dist < _shortest && (count _getSide == 0 || (_place # VICLOC_OWNER) in _getSide)) then 
+if( _dist < _maxDist && _dist < _shortest) then 
 {
  _ret = _place;
  _shortest = _dist;
+};
+
+ } foreach _locs;
+
+_ret
+};
+
+getNearVictoryLocs =
+{
+ params ["_pos",["_maxDist",VICINITY_DIST],["_getSide",[]]];
+
+ private _ret = [];
+
+ {
+  private _place = _x;
+  private _dist = _pos distance2D (_place # VICLOC_POS);
+
+if( _dist < _maxDist && (count _getSide == 0 || (_place # VICLOC_OWNER) in _getSide)) then 
+{
+ _ret = _place;
 };
 
  } foreach victoryLocations;
@@ -324,10 +346,11 @@ diag_log format ["--- Looping attackers --- %1 - %2 -- %3", count _freeGroups, c
 if(count _useGroups > 0) then
 {
 
+ // Create list of currently attacked locations
 {
  _group = _x;
 
- _near = [(_group call getGroupTargetLoc),VICINITY_DIST,_validAttSides] call getNearVictoryLoc;
+ _near = [(_group call getGroupTargetLoc),VICINITY_DIST,_validAttSides] call getNearestVictoryLoc;
 
 diag_log format["near: %1 -- %2 ", _group, count _near];
 
@@ -379,6 +402,7 @@ if(aiNumAttackLocations > _numPlacesToAttack) then
 // Already attacking somewhere?
 if(count _attackLocs >= aiNumAttackLocations) then
 {
+ // Join the currently ongoing attacks
  _attackNowLoc = selectRandom _attackLocs # 1; // Get one place
  diag_log format["Attacking 1: %1", _attackNowLoc];
 }
@@ -400,7 +424,15 @@ _center set[0, _center#0 / (count _useGroups) ];
 _center set[1, _center#1 / (count _useGroups) ];
 
 
-_attackNowLoc = [_center,5000,_validAttSides] call getNearVictoryLoc; // Todo dist
+private _nearestLoc = [_center,5000,_validAttSides] call getNearestVictoryLoc; // Todo dist
+
+_nearestDist = (_nearestLoc # VICLOC_POS) distance2D _center;
+
+private _atlocs = [_center,_nearestDist + 500,_validAttSides] call getNearVictoryLocs;
+
+diag_log format["NUM ATTACK LOCS FOUND %1 <%2> ", _nearestDist, count _atlocs ];
+
+_attackNowLoc = selectRandom _atlocs;
 
 diag_log format["Attacking 2: %1", _attackNowLoc];
 
