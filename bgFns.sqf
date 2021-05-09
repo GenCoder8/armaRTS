@@ -130,7 +130,17 @@ applyStopSCript =
 private _us = [_man,_stopPos] spawn
 {
  params ["_man","_stopPos"];
- waituntil { sleep 0.25; _man distance _stopPos < 1 };
+
+//_arrow = createSimpleObject ["Sign_Arrow_Blue_F", getposASL _man,true];
+
+ waituntil {
+
+//_arrow setposATL (_stopPos);
+
+sleep 0.25; _man distance _stopPos < 1 };
+
+// deleteVehicle _arrow;
+
  dostop _man;
 };
 
