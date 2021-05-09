@@ -34,11 +34,23 @@ class CasSupport
 
 class SetFormationDir
 {
- icon = "a3\ui_f_curator\data\cfgwrapperui\cursors\curatorrotate_ca.paa";
+ icon = "a3\ui_f\data\gui\cfg\cursors\rotate_gs.paa";
  test = "Set formation direction";
  condition = "call canSetFormationDir";
  action = "call beginNewFormationDir";
  help = "Right click position to face to";
 };
 
+class SetGroupStance
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
+ test = "Set group stance";
+ condition = "call canSetGroupStance";
+ action = "call setGroupStance";
+// help = "";
 };
+
+};
+
+
+// 
