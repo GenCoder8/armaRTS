@@ -176,6 +176,7 @@ plrZeus addeventhandler ["curatorWaypointPlaced",
 {
 params ["_curator", "_group", "_waypointID"];
 
+if(curScreen != "battle") exitWith {};
 
 private _wp = [_group,_waypointID];
 private _wpos = waypointPosition _wp;
@@ -621,6 +622,7 @@ addMissionEventHandler ["EachFrame",
 { deleteVehicle _x; } foreach carrows;
 carrows = [];
 
+if(curScreen != "battle") exitWith {};
 
 if(call isInfantrySelected && specialMove == "" && !rightMouseButtonDown) then // Only for inf
 {
