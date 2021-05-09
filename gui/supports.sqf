@@ -65,7 +65,7 @@ isMouseClickAction =
 
 cancelMouseClickAction =
 {
- systemchat "Action cancelled";
+ // systemchat "Action cancelled";
  curMouseClickAction = "";
 };
 

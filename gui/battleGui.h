@@ -21,7 +21,7 @@ $[
 
 
 
-#define  GROUP_VIEW_COLS {0,0.07, 0.45, 0.8, 0.9}
+#define  GROUP_VIEW_COLS {0,0.07, 0.45, 0.65, 0.88}
 
 
 class ComOverlay
