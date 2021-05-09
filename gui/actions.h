@@ -41,13 +41,21 @@ class SetFormationDir
  help = "Right click position to face to";
 };
 
-class SetGroupStance
+
+class SetGroupStanceDown
 {
  icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
- test = "Set group stance";
+ test = "Change group stance down";
  condition = "call canSetGroupStance";
- action = "call setGroupStance";
+ action = "-1 call changeGroupStance";
 // help = "";
+};
+
+class SetGroupStanceUp : SetGroupStanceDown
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
+ test = "Change group stance up";
+ action = "1 call changeGroupStance";
 };
 
 };

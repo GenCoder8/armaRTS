@@ -21,8 +21,10 @@ canSetGroupStance =
  (call anythingSelected)
 };
 
-setGroupStance =
+changeGroupStance =
 {
+params ["_dir"];
+
 private _groups = curatorSelected # 1;
 
 _group = _groups # 0;
@@ -35,8 +37,11 @@ _stances = ["DOWN","MIDDLE","UP"];
 _index = _stances find _curStance; // -1 if auto
 
 
-_index = _index + 1;
-if(_index >= (count _stances)) then { _index = 0; };
+_index = _index + _dir;
+
+if(_index < 0) exitWith {};
+if(_index >= (count _stances)) exitWith {};
+
 
 _newStance = _stances # _index;
 
@@ -44,11 +49,13 @@ _newStance = _stances # _index;
 
 {
 
-if(!(_x call inVehicle)) then
-{
 _x setUnitPos _newStance;
+
+} foreach (call getSelectedInfantry);
+
 };
 
-} foreach (curatorSelected # 0);
-
+getSelectedInfantry =
+{
+ (curatorSelected # 0) select { !(_x call inVehicle) }
 };
