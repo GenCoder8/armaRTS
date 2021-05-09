@@ -426,7 +426,7 @@ _display displayAddEventHandler ["MouseZChanged",{
 
 
 ["object",["Curator","UnitPos"]] call setZeusFeatures;
-["group",["Curator","SpeedMode","Formation"]] call setZeusFeatures;
+["group",["Curator","SpeedMode","Formation","UnitPos"]] call setZeusFeatures;
 
 
  call interceptZeusKeys;
