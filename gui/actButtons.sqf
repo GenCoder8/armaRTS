@@ -36,9 +36,9 @@ _stances = ["DOWN","MIDDLE","UP"];
 
 _index = _stances find _curStance; // -1 if auto
 
-if(_index == -1) then 
-{ 
-_index = 2; 
+if(_index == -1) then
+{
+_index = 2;
 if(_dir > 0) then { _index = 1; }; // Fix for auto and up dir
 };
 
