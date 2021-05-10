@@ -217,7 +217,7 @@ getNearVictoryLocs =
 
 if( _dist < _maxDist && (count _getSide == 0 || (_place # VICLOC_OWNER) in _getSide)) then 
 {
- _ret = _place;
+ _ret pushback _place;
 };
 
  } foreach victoryLocations;
@@ -424,19 +424,41 @@ _center set[0, _center#0 / (count _useGroups) ];
 _center set[1, _center#1 / (count _useGroups) ];
 
 
-private _nearestLoc = [_center,5000,_validAttSides] call getNearestVictoryLoc; // Todo dist
+//private _nearestLoc = [_center,5000,_validAttSides] call getNearestVictoryLoc; // Todo dist
 
-_nearestDist = (_nearestLoc # VICLOC_POS) distance2D _center;
+//_nearestDist = (_nearestLoc # VICLOC_POS) distance2D _center;
 
-private _atlocs = [_center,_nearestDist + 500,_validAttSides] call getNearVictoryLocs;
+private _atlocs = [_center,10000,_validAttSides] call getNearVictoryLocs;
 
-diag_log format["NUM ATTACK LOCS FOUND %1 <%2> ", _nearestDist, count _atlocs ];
+private _locsOrdered = [_atlocs,[],{ (_x # VICLOC_POS) distance2D _center }, "ASCEND"] call BIS_fnc_sortBy;
+
+
+diag_log format["NUM ATTACK LOCS FOUND %1 <%2> ", count _atlocs ];
+
+// Attack to closest 2
+private _closestLocs = _locsOrdered select [0,2];
+
+/*
+{
+
+ _marker = createmarker [format["test%1", random 123], _x # VICLOC_POS];
+_marker setMarkerShape "ICON";
+_marker setMarkerType "hd_destroy";
+_marker setMarkerColor "ColorRed";
+
+} foreach _closestLocs;
+*/
+
+if(count _atlocs > 0) then
+{
 
 _attackNowLoc = selectRandom _atlocs;
 
 diag_log format["Attacking 2: %1", _attackNowLoc];
 
 diag_log format["attack center: %1 %2 %3",_center,_validAttSides,_attackNowLoc];
+
+};
 
 // systemchat format["_center %1 %2",_center,_attackNowLoc];
 
