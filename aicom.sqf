@@ -435,8 +435,8 @@ private _locsOrdered = [_atlocs,[],{ (_x # VICLOC_POS) distance2D _center }, "AS
 
 diag_log format["NUM ATTACK LOCS FOUND %1 <%2> ", count _atlocs ];
 
-// Attack to closest 2
-private _closestLocs = _locsOrdered select [0,2];
+// Attack to closest
+private _closestLocs = _locsOrdered select [0,3];
 
 /*
 {
