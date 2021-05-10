@@ -80,6 +80,7 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "scripts\globalMap.sqf" call execFile;
 
+"scripts\misc.sqf" call execFile;
 
 "gui\gfns.sqf" call execFile;
 

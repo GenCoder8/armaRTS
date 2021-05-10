@@ -268,13 +268,13 @@ addBattleGroupToPool =
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
- _skill = 0.8;
+ _skill = 0.3;
 
  private _units = getArray(_ce >> "units");
  {
   _rank = [_ce,_foreachIndex] call getRankFromCfg;
 
-  [_manPool,_x,_rank,random [0.1,_skill, 0.8],_ce] call addUnitEntryToPool;
+  [_manPool,_x,_rank,random [0.1,_skill, 0.5],_ce] call addUnitEntryToPool;
 
   _skill = _skill - 0.1;
   if(_skill < 0.1) then { _skill = 0.1; };
@@ -482,6 +482,8 @@ _sveh = [_pos, 0, (_vehEntry # MANP_TYPE), _group] call BIS_fnc_spawnVehicle;
 _sveh params ["_veh", "_crew", "_group"];
 
 _veh setVariable ["utypeNumber", UTYPE_NUMBER_VEHICLE]; // Not really needed
+
+_veh call noVeg; // No unsung vegetation
 
 private _crewList = _vattrs # VEH_ATTRS_CREW;
 
