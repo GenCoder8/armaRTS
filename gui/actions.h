@@ -44,7 +44,7 @@ class SetFormationDir
 
 class SetGroupStanceDown
 {
- icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_prone_down_ca.paa";//"a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
  test = "Change group stance down";
  condition = "call canSetGroupStance";
  action = "-1 call changeGroupStance";
@@ -53,7 +53,7 @@ class SetGroupStanceDown
 
 class SetGroupStanceUp : SetGroupStanceDown
 {
- icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_stand_up_ca.paa";
  test = "Change group stance up";
  action = "1 call changeGroupStance";
 };
