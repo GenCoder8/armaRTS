@@ -372,7 +372,21 @@ if(count _sel > 0) then
 };
 };
 
-// Always delete in here
+
+_handled = true;
+};
+
+// Always delete in here because zeus doesn't regognize group deselecting
+call deleteDirArrows;
+
+ _handled
+}];
+
+
+deleteDirArrows =
+{
+
+
 if(!isnull facingArrow) then
 {
 deletevehicle facingArrow;
@@ -381,13 +395,9 @@ facingArrow = objNull;
 { deletevehicle _x } foreach facingExtraArrows;
 facingExtraArrows = [];
 
-_handled = true;
 };
 
 };
-
- _handled
-}];
 
 
 camLastDir = vectorDir curatorCamera;

@@ -67,6 +67,10 @@ cancelMouseClickAction =
 {
  // systemchat "Action cancelled";
  curMouseClickAction = "";
+
+ ["",true] call setSpecialMove;
+
+ call deleteDirArrows;
 };
 
 
