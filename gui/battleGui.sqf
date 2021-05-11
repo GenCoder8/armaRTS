@@ -72,9 +72,9 @@ diag_log format[">> %1", _x];
 */
 removeAllCuratorAddons plrZeus;
 plrZeus addCuratorAddons ["a3_modules_f_curator_cas"];
- 
 
-//_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"]; 
+
+//_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"];
 //_zeus synchronizeObjectsAdd [_zmCamArea];
 
 _daDir = 120;
@@ -88,7 +88,7 @@ _mrk = createmarker [format["deploySide%1",_side], _deployAreaPos];
 _mrk setMarkerShape "RECTANGLE";
 _mrk setMarkerColor "ColorGreen";
 _mrk setMarkerSize [DEPLOY_AREA_SIZE,DEPLOY_AREA_SIZE];
-_mrk setMarkerDir _daDir; 
+_mrk setMarkerDir _daDir;
 
  _daDir = _daDir + 180;
 } foreach [west,east];
@@ -214,7 +214,7 @@ if(count _movePoints > 0) then
 };
 
 
-_moveGroup = 
+_moveGroup =
 {
 {
 [_x,_waypointID] call moveBattleGroup;
@@ -229,7 +229,7 @@ switch(specialMove) do
   _wpos call setGroupFacing;
   deleteWaypoint _wp;
  };
- case "fireMission": 
+ case "fireMission":
  {
 
 [_group,fireMisType,_wpos] call beginArtillery;
@@ -308,9 +308,9 @@ private _inf = _units select { !(_x call inVehicle) };
 
 switch(specialMove) do
 {
- case "fireMission": 
+ case "fireMission":
  {
-  
+
  };
  case "manHouse":
  {
@@ -322,7 +322,7 @@ private _dir = formationDirection (leader (_groups # 0)); // Todo much better
  };
  case "cover":
  {
-  
+
 private _uIndex = 0;
 
 {
@@ -481,7 +481,7 @@ private _handled = false;
 if(inputAction "CuratorInterface" > 0) then
 {
 // Allow open but not close
-if(isnull (findDisplay 312)) then 
+if(isnull (findDisplay 312)) then
 {
  systemchat format["zeus open... %1 %2 %3",_key, time, inputAction "CuratorInterface"];
 
@@ -489,7 +489,7 @@ if(isnull (findDisplay 312)) then
 }
 else
 {
- // _handled = true; 
+ // _handled = true;
 };
 
 };
@@ -581,7 +581,7 @@ else
 darrow = createSimpleObject ["VR_3DSelector_01_default_F", [0,0,0], true];
 hoverOnHouse = false;
 
-getUsedCoverPoints = 
+getUsedCoverPoints =
 {
  params ["_edgePoints","_cursorPos","_max"];
 
@@ -806,7 +806,7 @@ _bt = _display ctrlCreate ["RscButton", -1, _cg];
 _bt ctrlSetText "Begin battle";
 _bt ctrlSetPosition [0.0,0.0, 0.2,0.1];
 _bt ctrlCommit 0;
-_bt buttonSetAction format["[] spawn beginBattle"]; 
+_bt buttonSetAction format["[] spawn beginBattle"];
 
 
 };
@@ -814,13 +814,13 @@ _bt buttonSetAction format["[] spawn beginBattle"];
 case "battle":
 {
 
-_img = _display ctrlCreate ["RscPicture", -1, _cg];
-_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
+_img = _display ctrlCreate ["RtsPicture", -1, _cg];
+//_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
-_img = _display ctrlCreate ["RscPicture", -1, _ab];
-_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
+_img = _display ctrlCreate ["RtsPicture", -1, _ab];
+//_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
@@ -830,7 +830,7 @@ selectCfgArray =
 {
 params ["_cfg","_cond"];
 private _ret = [];
-for "_i" from 0 to ( count _cfg - 1) do 
+for "_i" from 0 to ( count _cfg - 1) do
 {
  private _cfg = _cfg select _i;
  if(_cfg call _cond) then
@@ -850,9 +850,8 @@ _createActButtons =
  params ["_contGroup","_buttonDefs"];
 
 
-for "_i" from 0 to ( count _buttonDefs - 1) do 
+for "_i" from 0 to ( count _buttonDefs - 1) do
 {
-// _bd = _buttonDefs select _i;
 
 _bd = (_buttonDefs select _i);
 
@@ -861,7 +860,7 @@ _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
 _bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
-_bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))]; 
+_bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))];
 
 
 actionButtons pushback [_bt,_bd];
@@ -870,7 +869,6 @@ actionButtons pushback [_bt,_bd];
 
 };
 
-// !(getNumber(missionConfigFile >> "RtsActionButtons" >> _x >> "isIndependedAction"))
 
 _groupActs = [_buttonDefs,{ getNumber(_this >> "isIndependedAction")==0 } ] call selectCfgArray;
 [_cg, _groupActs ] call _createActButtons;
