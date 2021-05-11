@@ -110,7 +110,7 @@ _bgr ctrlCommit 0;
 
 _contHeight = _contHeight + LINEHEIGHT * 1.75;
 
-_text = _display ctrlCreate ["RtsPoolFont", -1, _cont];
+_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
 _text ctrlSetText format["%1", _typeText];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
@@ -127,7 +127,7 @@ _contHeight = _contHeight + _h;
 
 
 
-_text2 = _display ctrlCreate ["RtsPoolFont", -1, _cont];
+_text2 = _display ctrlCreate ["RtsPoolText", -1, _cont];
 _text2 ctrlSetText format["%1", _vehText];
 _h = ctrlTextHeight _text;
 _text2 ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
@@ -452,7 +452,7 @@ beginBattlePlacement =
 if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 
 
-[nextBattleMap,120] call startBattleFieldZeus;
+[nextBattleMap,nextBattleDir] call startBattleFieldZeus;
 
 waituntil { battleReady && !loadScreenStarted };
 
