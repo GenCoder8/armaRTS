@@ -1651,7 +1651,6 @@ action = "";
 tooltip = "";
 
 
-
 color[] = {1,1,1,1};
 	colorActive[] = 
 	{
