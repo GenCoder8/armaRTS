@@ -24,6 +24,11 @@ class RtsButton : RscButton
 	};
 };
 
+class RtsPicture : RscPicture
+{
+ text = "#(argb,8,8,3)color(0,0.75,0,1)";
+};
+
 class RtsControlsGroupNoScrollBars: RscControlsGroup
 {
 	idc = 2300;
@@ -63,7 +68,7 @@ class RtsControlsGroupNoScrollBars: RscControlsGroup
 	
 };
 
-class RtsPoolFont : RscText
+class RtsPoolText : RscText
 {
  SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 };
