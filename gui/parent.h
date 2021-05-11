@@ -1643,29 +1643,39 @@ class RscProgress
 	h = 0.03;
 };
 
-class RscImgButton: RscButton
+import ctrlButtonPictureKeepAspect;
+
+class RscImgButton: ctrlButtonPictureKeepAspect // RscButton
 {
-type = CT_ACTIVETEXT;
-style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
+//type = CT_ACTIVETEXT;
+//style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
 action = "";
 tooltip = "";
 
+ colorBackground[] = {0,0,0,0};
+ colorBackgroundDisabled[] = {0,0,0,0};
+
+/*
+offsetPressedY = "pixelH";
+offsetPressedX = "pixelW";
 
 color[] = {1,1,1,1};
-	colorActive[] = 
-	{
-		1,
-		1,
-		1,
-		1
-	};
-	colorDisabled[] = 
-	{
-		1,
-		1,
-		1,
-		0.25
-	};
+
+colorActive[] = 
+{
+	1,
+	1,
+	1,
+	1
+};
+colorDisabled[] = 
+{
+	1,
+	1,
+	1,
+	0.25
+};*/
+
 };
 
 
