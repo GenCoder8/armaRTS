@@ -39,7 +39,7 @@ _map = _display displayCtrl 1200;
 _map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
-nextBattleMap = _marker;
+[_marker,floor (random 360)] call setNextBattleArgs;
 
 }];
 
@@ -119,5 +119,11 @@ plrClass call fillWithRandomBgs;
 
 };
 
+setNextBattleArgs =
+{
+ params ["_locmarker","_attackDir"];
 
+ nextBattleMap = _marker;
+ nextBattleDir = _attackDir;
+};
 
