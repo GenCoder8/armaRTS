@@ -21,16 +21,6 @@ class MortarSmoke : MortarHE
  action = "'Smoke' call actionFireMission";
 };
 
-class CasSupport
-{
- icon = "a3\ui_f\data\gui\cfg\communicationmenu\cas_ca.paa";
-// "a3\modules_f_curator\data\portraitcasgun_ca.paa"
-// "a3\modules_f_curator\data\portraitcasbomb_ca.paa"
-// "a3\modules_f_curator\data\portraitcasmissile_ca.paa"
- text = "Call close air support";
- condition = "'cas' call playerHasSupport && call canDoMouseClickAction";
- action = "'cas' call beginMouseClickAction";
-};
 
 class SetFormationDir
 {
@@ -57,6 +47,22 @@ class SetGroupStanceUp : SetGroupStanceDown
  test = "Change group stance up";
  action = "1 call changeGroupStance";
 };
+
+
+
+class CasSupport
+{
+ icon = "a3\ui_f\data\gui\cfg\communicationmenu\cas_ca.paa";
+// "a3\modules_f_curator\data\portraitcasgun_ca.paa"
+// "a3\modules_f_curator\data\portraitcasbomb_ca.paa"
+// "a3\modules_f_curator\data\portraitcasmissile_ca.paa"
+ text = "Call close air support";
+ condition = "'cas' call playerHasSupport && call canDoMouseClickAction";
+ action = "'cas' call beginMouseClickAction";
+
+ isIndependedAction = true;
+};
+
 
 };
 

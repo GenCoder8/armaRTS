@@ -282,14 +282,6 @@ spesMoveHandle = scriptNull;
 
 
 
-isInfantrySelected =
-{
- private _groups = curatorSelected # 1;
- if(count _groups == 0) exitWith { false };
-
- ({!(_x call isVehicleGroup)} count _groups) > 0
-};
-
 setSpecialMove =
 {
  params ["_moveName",["_override",false]];
@@ -754,6 +746,7 @@ _bg ctrlCommit 0;
 with (uinamespace) do
 {
 battleButtonGroup = controlNull;
+actionButtons = controlNull;
 };
 
 setBattleGuiButtons =
@@ -776,6 +769,7 @@ with (uinamespace) do
 if(!isnull battleButtonGroup) then
 {
  ctrlDelete battleButtonGroup;
+ ctrlDelete actionButtons;
 };
 };
 
@@ -791,6 +785,16 @@ with (uinamespace) do
 {
 battleButtonGroup = _cg;
 };
+
+_ab = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
+_ab ctrlSetPosition ([0,33,19,ACTB_SIZE_Y] call getGuiPos);
+_ab ctrlCommit 0;
+
+with (uinamespace) do
+{
+actionButtons = _ab;
+};
+
 
 switch(_guiName) do
 {
@@ -815,17 +819,44 @@ _img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
+_img = _display ctrlCreate ["RscPicture", -1, _ab];
+_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
+_img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
+_img ctrlCommit 0;
 
-_buttonDefs = missionConfigFile >> "RtsActionButtons";
+_buttonDefs = (missionConfigFile >> "RtsActionButtons");
+
+selectCfgArray =
+{
+params ["_cfg","_cond"];
+private _ret = [];
+for "_i" from 0 to ( count _cfg - 1) do 
+{
+ private _cfg = _cfg select _i;
+ if(_cfg call _cond) then
+ {
+  _ret pushback _cfg;
+ };
+};
+ _ret
+};
 
 #define BUT_SIZE 0.1
 #define NUM_ROW 3
 
+
+_createActButtons =
+{
+ params ["_contGroup","_buttonDefs"];
+
+
 for "_i" from 0 to ( count _buttonDefs - 1) do 
 {
-_bd = _buttonDefs select _i;
+// _bd = _buttonDefs select _i;
 
-_bt = _display ctrlCreate ["RscImgButton", -1, _cg];
+_bd = (_buttonDefs select _i);
+
+_bt = _display ctrlCreate ["RscImgButton", -1, _contGroup];
 _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
 _bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
@@ -836,6 +867,18 @@ _bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_
 actionButtons pushback [_bt,_bd];
 
 };
+
+};
+
+// !(getNumber(missionConfigFile >> "RtsActionButtons" >> _x >> "isIndependedAction"))
+
+_groupActs = [_buttonDefs,{ getNumber(_this >> "isIndependedAction")==0 } ] call selectCfgArray;
+[_cg, _groupActs ] call _createActButtons;
+
+// hint format[" _buttonDefs %1 ", _arr];
+
+_indpActs = [_buttonDefs,{ getNumber(_this >> "isIndependedAction")==1 } ] call selectCfgArray;
+[_ab, _indpActs ] call _createActButtons;
 
 };
 
