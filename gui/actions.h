@@ -59,6 +59,7 @@ class CasSupport
  text = "Call close air support";
  condition = "'cas' call playerHasSupport && call canDoMouseClickAction";
  action = "'cas' call beginMouseClickAction";
+ help = "Left click position to call support";
 
  isIndependedAction = true;
 };
