@@ -155,16 +155,18 @@ plrZeus addEventHandler ["CuratorGroupDoubleClicked", {
 */
 
 
-plrZeus addEventHandler ["CuratorObjectSelectionChanged", {
-	params ["_curator", "_entity"];
+plrZeus addEventHandler ["CuratorObjectSelectionChanged", 
+{
+params ["_curator", "_entity"];
 
 call cancelMouseClickAction;
 
 newZeusSelect = true;
 }];
 
-plrZeus addEventHandler ["CuratorGroupSelectionChanged", {
-	params ["_curator", "_group"];
+plrZeus addEventHandler ["CuratorGroupSelectionChanged", 
+{
+params ["_curator", "_group"];
 
 call cancelMouseClickAction;
 

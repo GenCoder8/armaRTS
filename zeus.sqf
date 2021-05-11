@@ -177,28 +177,6 @@ if(_button == 0) then
  true
 }];
 
-/*
-finddisplay 46 displayAddEventHandler ["MouseButtonDown",
-{
- params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
-
- true
-}];
-
-finddisplay 46 displayAddEventHandler ["MouseMoving",
-{
- params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
-
- true
-}];
-
-finddisplay 46 displayAddEventHandler ["MouseButtonUp",
-{
- params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
-
- true
-}];
-*/
 
 rightMouseButtonDown = false;
 facingArrow = objnull;
@@ -293,39 +271,6 @@ if(!isnull facingArrow) then
 _handled
 }];
 
-
-/*
-[] spawn
-{
-
-systemchat "done";
-while { true } do
-{
-
-{
-_disp = _x;
-
-_disp displayRemoveAllEventHandlers "MouseButtonUp";
-_disp displayRemoveAllEventHandlers "MouseButtonDown";
-_disp displayRemoveAllEventHandlers "MouseMoving";
-_disp displayRemoveAllEventHandlers "mouseholding";
-_disp displayRemoveAllEventHandlers "MouseButtonDown";
-
-_disp displayAddEventHandler ["mouseholding",
-{
-true
-}];
-
-_disp displayAddEventHandler ["MouseMoving",
-{
-true
-}];
-
-} foreach alldisplays; // [0,12,46,49,312,313];
-
- sleep 0.5;
-};
-};*/
 
 
 _display displayAddEventHandler ["MouseButtonUp",
@@ -422,7 +367,7 @@ if(!isnull facingArrow) then
 
 
 
- // finddisplay 12 displayAddEventHandler ["MouseButtonUp", { true }];
+
 
 // _display displayaddeventhandler ["mouseholding",{ systemchat format["TEST %1",time]; }];
 
