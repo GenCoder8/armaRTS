@@ -21,7 +21,7 @@ loadCovers = true;
 
 [west,"testForce"] call createForce;
 
-nextBattleMap = "marker_0";
+["marker_0",110] call setNextBattleArgs;
 
 ["placement"] call openGameScreen;
 

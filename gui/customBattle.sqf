@@ -123,7 +123,7 @@ setNextBattleArgs =
 {
  params ["_locmarker","_attackDir"];
 
- nextBattleMap = _marker;
+ nextBattleMap = _locmarker;
  nextBattleDir = _attackDir;
 };
 

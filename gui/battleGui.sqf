@@ -860,7 +860,11 @@ _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
 _bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
-_bt buttonSetAction format["hint '%1'; %2", getText (_bd >> "help"), (getText (_bd >> "action"))];
+
+_h = getText (_bd >> "help");
+if(_h != "") then { _h = format["hint '%1';",_h];  };
+
+_bt buttonSetAction format["%1 %2",_h , (getText (_bd >> "action"))];
 
 
 actionButtons pushback [_bt,_bd];
