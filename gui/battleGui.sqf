@@ -778,9 +778,10 @@ if(!isnull battleButtonGroup) then
 actionButtons = []; // Always reset
 
 #define ACTB_SIZE_Y 6
+#define ACT_CGROUP_WIDTH 15
 
 _cg = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
-_cg ctrlSetPosition ([15,33,19,ACTB_SIZE_Y] call getGuiPos);
+_cg ctrlSetPosition ([15,33,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
 _cg ctrlCommit 0;
 
 with (uinamespace) do
@@ -789,7 +790,7 @@ battleButtonGroup = _cg;
 };
 
 _ab = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
-_ab ctrlSetPosition ([0,33,19,ACTB_SIZE_Y] call getGuiPos);
+_ab ctrlSetPosition ([0,33,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
 _ab ctrlCommit 0;
 
 with (uinamespace) do
@@ -818,12 +819,12 @@ case "battle":
 
 _img = _display ctrlCreate ["RtsPicture", -1, _cg];
 //_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
-_img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
+_img ctrlSetPosition ([0,0,ACT_CGROUP_WIDTH,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
 _img = _display ctrlCreate ["RtsPicture", -1, _ab];
 //_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
-_img ctrlSetPosition ([0,0,15,ACTB_SIZE_Y,false] call getGuiPos);
+_img ctrlSetPosition ([0,0,ACT_CGROUP_WIDTH,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
 _buttonDefs = (missionConfigFile >> "RtsActionButtons");
