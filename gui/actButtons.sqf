@@ -64,3 +64,11 @@ getSelectedInfantry =
 {
  (curatorSelected # 0) select { !(_x call inVehicle) }
 };
+
+isInfantrySelected =
+{
+ private _groups = curatorSelected # 1;
+ if(count _groups == 0) exitWith { false };
+
+ ({!(_x call isVehicleGroup)} count _groups) > 0
+};
