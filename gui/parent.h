@@ -1650,6 +1650,8 @@ style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
 action = "";
 tooltip = "";
 
+
+
 color[] = {1,1,1,1};
 	colorActive[] = 
 	{
