@@ -169,7 +169,8 @@ _ctrlPos = ctrlPosition _bg;
 
 _gvSize = lnbSize _groupView;
 
-_gvHeight = (_gvSize # 0) * 0.05 + 0.01;
+
+_gvHeight = (_gvSize # 0) * (ctrlFontHeight _groupView) + 0.02;
 
 _panelHeight = _gvHeight + 0.15;
 
