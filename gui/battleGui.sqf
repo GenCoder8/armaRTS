@@ -858,7 +858,7 @@ for "_i" from 0 to ( count _buttonDefs - 1) do
 
 _bd = (_buttonDefs select _i);
 
-_bt = _display ctrlCreate ["RscImgButton", -1, _contGroup];
+_bt = _display ctrlCreate ["RtsImgButton", -1, _contGroup];
 _bt ctrlSetText (getText (_bd >> "icon"));
 _bt ctrlsetTooltip (getText (_bd >> "text"));
 _bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];

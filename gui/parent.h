@@ -1645,7 +1645,7 @@ class RscProgress
 
 import ctrlButtonPictureKeepAspect;
 
-class RscImgButton: ctrlButtonPictureKeepAspect // RscButton
+class RtsImgButton: ctrlButtonPictureKeepAspect
 {
 //type = CT_ACTIVETEXT;
 //style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
