@@ -755,13 +755,6 @@ setBattleGuiButtons =
 {
 
  params ["_guiName"];
-/*
-_overlay = uiNamespace getVariable ['ComOverlay', displayNull];
-
-_groupView = _overlay displayCtrl 1500;
-
-_pos = ctrlposition _groupView;
-*/
 
 _display = displayNull;
 waituntil { sleep 0.01; _display = finddisplay 312; !isnull _display };
