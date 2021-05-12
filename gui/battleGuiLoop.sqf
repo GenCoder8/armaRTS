@@ -191,9 +191,11 @@ _gvPos = ctrlPosition _groupView;
 _groupView ctrlSetPosition [_gvPos # 0,_ginfoPannelStartY + _listCurHeight,_gvPos # 2, _gvHeight];
 _groupView ctrlcommit 0;
 
+_listCurHeight = _listCurHeight + _gvHeight;
 
 _sgiPos = ctrlPosition _staticGunInfo;
-_sgiPos set [1, (_ctrlPos # 1) + _panelHeight - 0.05 ];
+//_sgiPos set [1, (_ctrlPos # 1) + _panelHeight - 0.05 ];
+_sgiPos set [1, _ginfoPannelStartY + _listCurHeight ];
 _staticGunInfo ctrlSetPosition _sgiPos;
 _staticGunInfo ctrlcommit 0;
 
