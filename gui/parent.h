@@ -1652,8 +1652,8 @@ class RtsImgButton: ctrlButtonPictureKeepAspect
 action = "";
 tooltip = "";
 
- colorBackground[] = {0,0,0,0};
- colorBackgroundDisabled[] = {0,0,0,0};
+colorBackground[] = {0,0,0,0};
+colorBackgroundDisabled[] = {0,0,0,0};
 colorBackgroundActive[] = {0,0,0,0};
 	
 //colorFocused[] = {0,0,0,0};
