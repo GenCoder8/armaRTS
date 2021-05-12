@@ -172,30 +172,32 @@ _gvSize = lnbSize _groupView;
 
 _gvHeight = (_gvSize # 0) * (ctrlFontHeight _groupView) + 0.02;
 
-_panelHeight = _gvHeight + 0.15;
+_panelHeight = _gvHeight + 0.125;
 
-_ginfoPannelStartY = safeZoneH + safeZoneY - _panelHeight;
+_panelStartY = safeZoneH + safeZoneY - _panelHeight;
 
-_bg ctrlSetPosition [_ctrlPos # 0,_ginfoPannelStartY,_ctrlPos # 2, _panelHeight];
+_bg ctrlSetPosition [_ctrlPos # 0,_panelStartY,_ctrlPos # 2, _panelHeight];
 _bg ctrlcommit 0;
 
 _listCurHeight = 0;
 
+#define PTEXT_HEIGHT 0.07
+
 _giPos = ctrlPosition _groupInfo;
-_groupInfo ctrlSetPosition [_giPos # 0,_ginfoPannelStartY,_giPos # 2, 0.1];
+_groupInfo ctrlSetPosition [_giPos # 0,_panelStartY,_giPos # 2, PTEXT_HEIGHT];
 _groupInfo ctrlcommit 0;
 
-_listCurHeight = _listCurHeight + 0.1;
+_listCurHeight = _listCurHeight + PTEXT_HEIGHT;
 
 _gvPos = ctrlPosition _groupView;
-_groupView ctrlSetPosition [_gvPos # 0,_ginfoPannelStartY + _listCurHeight,_gvPos # 2, _gvHeight];
+_groupView ctrlSetPosition [_gvPos # 0,_panelStartY + _listCurHeight,_gvPos # 2, _gvHeight];
 _groupView ctrlcommit 0;
 
 _listCurHeight = _listCurHeight + _gvHeight;
 
 _sgiPos = ctrlPosition _staticGunInfo;
 //_sgiPos set [1, (_ctrlPos # 1) + _panelHeight - 0.05 ];
-_sgiPos set [1, _ginfoPannelStartY + _listCurHeight ];
+_sgiPos set [1, _panelStartY + _listCurHeight ];
 _staticGunInfo ctrlSetPosition _sgiPos;
 _staticGunInfo ctrlcommit 0;
 
