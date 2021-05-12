@@ -46,6 +46,7 @@ if(!isnull _bgcfg) then
 {
 _groupInfo ctrlSetText format ["%1 (%2)", getText (_bgcfg >> "name"), _selGroup getVariable "expStr" ];
  _bg ctrlShow true;
+
 _groupView ctrlShow true;
 }
 else
@@ -156,10 +157,44 @@ _groupView lnbSetPicture [[_row, 3], _weapPic];
 
 
 
-_ataticGunInfo = _overlay displayCtrl 1001;
+_staticGunInfo = _overlay displayCtrl 1001;
 
-_ataticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
+_staticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
 
+
+
+
+//_groupView ctrlSetPosition [0,0,0.1,0.3];
+_ctrlPos = ctrlPosition _bg;
+
+_gvSize = lnbSize _groupView;
+
+_gvHeight = (_gvSize # 0) * 0.05 + 0.01;
+
+_panelHeight = _gvHeight + 0.15;
+
+_ginfoPannelStartY = safeZoneH + safeZoneY - _panelHeight;
+
+_bg ctrlSetPosition [_ctrlPos # 0,_ginfoPannelStartY,_ctrlPos # 2, _panelHeight];
+_bg ctrlcommit 0;
+
+_listCurHeight = 0;
+
+_giPos = ctrlPosition _groupInfo;
+_groupInfo ctrlSetPosition [_giPos # 0,_ginfoPannelStartY,_giPos # 2, 0.1];
+_groupInfo ctrlcommit 0;
+
+_listCurHeight = _listCurHeight + 0.1;
+
+_gvPos = ctrlPosition _groupView;
+_groupView ctrlSetPosition [_gvPos # 0,_ginfoPannelStartY + _listCurHeight,_gvPos # 2, _gvHeight];
+_groupView ctrlcommit 0;
+
+
+_sgiPos = ctrlPosition _staticGunInfo;
+_sgiPos set [1, (_ctrlPos # 1) + _panelHeight - 0.05 ];
+_staticGunInfo ctrlSetPosition _sgiPos;
+_staticGunInfo ctrlcommit 0;
 
 //hintsilent format["%1 %2", _selGroup call getMortarAmmoLeft, time];
 
