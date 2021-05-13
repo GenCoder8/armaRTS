@@ -231,6 +231,11 @@ switch(specialMove) do
   _wpos call setGroupFacing;
   deleteWaypoint _wp;
  };
+ case "throwSmoke":
+ {
+  [_wpos] call anyoneThrowSmoke;
+  deleteWaypoint _wp;
+ };
  case "fireMission":
  {
 

@@ -72,3 +72,43 @@ isInfantrySelected =
 
  ({!(_x call isVehicleGroup)} count _groups) > 0
 };
+
+
+conditionThrowSmoke =
+{
+ private _inf = call getSelectedInfantry;
+ if(count _inf == 0) exitWith { false };
+
+ 
+(_inf # 0) addMagazine "uns_m18red";
+
+ private _th = [_inf] call getSmokeThrower;
+ !isnull _th
+};
+
+actionThrowSmoke =
+{
+ "throwSmoke" call setSpecialMove;
+};
+
+anyoneThrowSmoke =
+{
+ params ["_targetPos"];
+ private _inf = call getSelectedInfantry;
+
+
+ private _th = [_inf] call getSmokeThrower;
+
+ #define MAX_GRENADE_THROW_DIST 50
+
+ _dist = _targetPos distance2D _th;
+ if(_dist > MAX_GRENADE_THROW_DIST) then { _dist = MAX_GRENADE_THROW_DIST; };
+
+ private _a = [getpos _th, _targetPos] call getAngle;
+ private _vec = [_a,_dist] call getVector;
+
+ private _tpos = [getpos _th,_vec] call addvector;
+ _tpos set [2,0];
+
+ [_th, _tpos ] spawn throwSmoke;
+};

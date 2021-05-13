@@ -22,6 +22,14 @@ class MortarSmoke : MortarHE
 };
 
 
+class ThrowSmoke : MortarHE
+{
+ text = "Throw smoke";
+ condition = "call conditionThrowSmoke";
+ action = "call actionThrowSmoke";
+};
+
+
 class SetFormationDir
 {
  icon = "a3\ui_f\data\gui\cfg\cursors\rotate_gs.paa";
