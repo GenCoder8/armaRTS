@@ -28,6 +28,7 @@ class ThrowSmoke
  text = "Throw smoke";
  condition = "call conditionThrowSmoke";
  action = "call actionThrowSmoke";
+ help = "Right click position to throw some at";
 };
 
 

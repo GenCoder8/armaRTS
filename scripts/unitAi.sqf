@@ -58,7 +58,7 @@ diag_log format[">>>>>>>>>>>>>>>>> %1 %2", _man,_nades];
 _nmag = _nades # 0;
 
 _muzzle = _nmag call getGrenadeMuzzle;
-if(_muzzle == "") exitWith { ["Error finding grenade muzzle %1", _nmag] call errmsg; };
+if(_muzzle == "") exitWith { ["Error finding grenade muzzle '%1'", _nmag] call errmsg; };
 
 
 _man setVariable ["throwingGrenade", _nmag ];
@@ -76,7 +76,8 @@ _man removeEventHandler ["Fired", _thisEventHandler];
 {
 params ["_projectile","_targetPos"];
 _projectile setposATL [0,0,100000];
-sleep 1;
+//sleep 1;
+_targetPos set [2,20]; // Fall so dont go inside buildings
 _projectile setposATL _targetPos;
 };
 
