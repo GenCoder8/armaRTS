@@ -22,8 +22,9 @@ class MortarSmoke : MortarHE
 };
 
 
-class ThrowSmoke : MortarHE
+class ThrowSmoke
 {
+ icon = "a3\modules_f_curator\data\portraitirgrenade_ca.paa"
  text = "Throw smoke";
  condition = "call conditionThrowSmoke";
  action = "call actionThrowSmoke";
