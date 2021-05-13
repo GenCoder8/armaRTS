@@ -164,7 +164,7 @@ _staticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
 
 
 
-//_groupView ctrlSetPosition [0,0,0.1,0.3];
+// Set the Y and height of all group panel ctrls
 _ctrlPos = ctrlPosition _bg;
 
 _gvSize = lnbSize _groupView;
