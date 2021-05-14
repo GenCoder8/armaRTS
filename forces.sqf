@@ -1,3 +1,4 @@
+#include "main.h"
 
 #define FORCE_SIDE       0
 #define FORCE_ICON       1
@@ -168,7 +169,19 @@ getForceInfo =
  params ["_forceName"];
  private _force = allforces get _forceName;
 
- private _info = format["%1\nMoves:%2",_forceName,_force # FORCE_NUM_MOVES];
+ //private _types = [[_force] call getForcePool] call getPoolUnitTypeCounts;
+
+private _mpool = [_force] call getForcePool;
+private _poolCounts = [_mpool,true] call countListTypeNumbers;
+
+ //hint (str _mpool);
+
+ private _info = _forceName;
+
+ _info = _info + format["\n%1 men\n%2 armor", _poolCounts # UTYPE_NUMBER_INFANTRY,_poolCounts # UTYPE_NUMBER_VEHICLE ];
+
+ _info = _info + format["\nMoves:%1",_force # FORCE_NUM_MOVES];
+ 
 
  _info
 };

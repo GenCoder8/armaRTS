@@ -36,7 +36,7 @@ sleep 0.1;
 
 
 [west,"Tester1","Roster1", "marker_17" ] call createForce;
-[west,"testers2","", "marker_31" ] call createForce;
+[west,"testers2","Roster1", "marker_31" ] call createForce;
 
 [east,"testersE","", "marker_18" ] call createForce;
 

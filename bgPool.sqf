@@ -10,11 +10,7 @@
 curPlrForce = [];
 curEnemyForce = [];
 
-
-
-#define UTYPE_NUMBER_INFANTRY 0
-#define UTYPE_NUMBER_VEHICLE  1
-#define UTYPE_NUMBER_CREW     2
+#include "main.h"
 
 
 getCurForce =
@@ -52,6 +48,12 @@ getForceBgTypes =
 {
  params ["_force"];
  _force # FORCE_BG_TYPES
+};
+
+getForcePool =
+{
+ params ["_force"];
+ _force # FORCE_MAN_POOL
 };
 
 vehicleAttributes = [];
@@ -381,6 +383,8 @@ _force = allforces get _name;
 if(!isnull _rosterCfg) then
 {
 
+ diag_log "CREATING FORCE POOL";
+
  [_side,_rosterCfg] call createForceManPool;
 
 };
@@ -392,8 +396,6 @@ if(!isnull _rosterCfg) then
 createForceManPool =
 {
  params ["_side","_forceClass"];
-
- [_side,(configname _forceClass)] call createForce;
 
  private _forceList = getArray(_forceClass >> "battleGroups");
 
