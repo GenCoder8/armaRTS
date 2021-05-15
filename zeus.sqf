@@ -171,7 +171,7 @@ _display displayAddEventHandler ["MouseButtonUp",
 
 if(_button == 0) then
 {
- [[_xPos,_yPos]] call doMouseClickAction;
+ [(screenToWorld [_xPos,_yPos])] call doMouseClickAction;
 };
 
  true

@@ -27,11 +27,19 @@ playerHasSupport =
 
 playerUseSupport =
 {
- params ["_supName"];
+ params ["_supName","_spos"];
 
- systemchat "Sup used";
 
  plrSupports set [_supName, (plrSupports get _supName) - 1];
+
+
+ _sfn = missionNameSpace getvariable format["activateSupport%1",_supName];
+
+ [_spos] call _sfn;
+
+  systemchat format["Sup used %1 %2",_supName, _spos];
+
+ hint "Support on the way";
 };
 
 getSupportLeftText =
@@ -54,11 +62,13 @@ beginMouseClickAction =
 
 doMouseClickAction =
 {
+ params ["_spos"];
+
  if(!call isMouseClickAction) exitWith {};
 
 systemchat "Mouse click action!";
 
- curMouseClickAction call playerUseSupport;
+ [curMouseClickAction,_spos] call playerUseSupport;
 
  curMouseClickAction = "";
 };
