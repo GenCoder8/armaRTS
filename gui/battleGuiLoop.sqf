@@ -218,6 +218,12 @@ _staticGunInfo ctrlcommit 0;
   _but ctrlSetTextColor [1, 1, 1, 0.5];
  };
 
+ _text = (getText (_bDef >> "text"));
+ _textAdd = (getText (_bDef >> "textAdd"));
+ if(_textAdd != "") then { _text = _text + ". " + (call compile _textAdd); };
+
+ _but ctrlsetTooltip _text;
+
 } foreach actionButtons;
 
 

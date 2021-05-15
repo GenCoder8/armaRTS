@@ -67,6 +67,7 @@ class CasSupport
 // "a3\modules_f_curator\data\portraitcasbomb_ca.paa"
 // "a3\modules_f_curator\data\portraitcasmissile_ca.paa"
  text = "Call close air support";
+ textAdd = "'cas' call getSupportLeftText";
  condition = "'cas' call playerHasSupport && call canDoMouseClickAction";
  action = "'cas' call beginMouseClickAction";
  help = "Left click position to call support";

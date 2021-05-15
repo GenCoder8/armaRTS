@@ -34,6 +34,11 @@ playerUseSupport =
  plrSupports set [_supName, (plrSupports get _supName) - 1];
 };
 
+getSupportLeftText =
+{
+ params ["_supName"];
+ format ["%1 left", (plrSupports get _supName)]
+};
 
 canDoMouseClickAction =
 {
