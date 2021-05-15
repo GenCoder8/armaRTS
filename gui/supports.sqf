@@ -1,7 +1,7 @@
 
 curMouseClickAction = "";
 
-plrSupports = createHashMapFromArray [['cas',2]];
+plrSupports = createHashMapFromArray [['cas',2],['artillery',2]];
 
 
 

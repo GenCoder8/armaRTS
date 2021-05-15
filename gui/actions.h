@@ -75,6 +75,14 @@ class CasSupport
  isIndependedAction = true;
 };
 
+class ArtillerySupport : CasSupport
+{
+ icon = "a3\ui_f\data\gui\cfg\communicationmenu\artillery_ca.paa";
+ text = "Call artillery support";
+ textAdd = "'artillery' call getSupportLeftText";
+ condition = "'artillery' call playerHasSupport && call canDoMouseClickAction";
+ action = "'artillery' call beginMouseClickAction";
+};
 
 };
 

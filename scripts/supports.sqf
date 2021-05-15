@@ -95,7 +95,7 @@ deleteVehicle _art;
 */
 };
 
-activateSupportCas =
+activateSupportArtillery =
 {
  params ["_spos"];
 
