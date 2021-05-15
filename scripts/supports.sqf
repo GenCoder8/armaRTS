@@ -8,7 +8,7 @@ callArtilleryBarrage =
 
 _p = _deployPos;
 
-_p = _p getpos [2000,_dirFromTarget];
+_p = _p getpos [3000,_dirFromTarget];
 
 _marker = createMarker [format["teeeeeeeeeeest%1",_p],_p];
 _marker setMarkerShape "ICON";
@@ -32,7 +32,7 @@ _dir = _art getDir _targetPos;
 
 _art setdir _dir;
 
-//_art hideObject true;
+_art hideObject true;
 
 _arty pushback _art;
 

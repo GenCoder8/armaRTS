@@ -33,7 +33,7 @@ playerUseSupport =
  plrSupports set [_supName, (plrSupports get _supName) - 1];
 
 
- _sfn = missionNameSpace getvariable format["activateSupport%1",_supName];
+ _sfn = missionNameSpace getvariable [format["activateSupport%1",_supName],{ "sup fn not found" call errmsg; }];
 
  [_spos] call _sfn;
 
