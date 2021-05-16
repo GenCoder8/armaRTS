@@ -37,7 +37,7 @@ playerUseSupport =
 
  [_spos] call _sfn;
 
-  systemchat format["Sup used %1 %2",_supName, _spos];
+ // systemchat format["Sup used %1 %2",_supName, _spos];
 
  hint "Support on the way";
 };
@@ -66,7 +66,7 @@ doMouseClickAction =
 
  if(!call isMouseClickAction) exitWith {};
 
-systemchat "Mouse click action!";
+// systemchat "Mouse click action!";
 
  [curMouseClickAction,_spos] call playerUseSupport;
 
