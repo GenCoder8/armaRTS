@@ -834,6 +834,7 @@ private _ret = [];
 for "_i" from 0 to ( count _cfg - 1) do
 {
  private _cfg = _cfg select _i;
+ private _x = _cfg;
  if(_cfg call _cond) then
  {
   _ret pushback _cfg;
@@ -875,12 +876,12 @@ actionButtons pushback [_bt,_bd];
 };
 
 
-_groupActs = [_buttonDefs,{ getNumber(_this >> "isIndependedAction")==0 } ] call selectCfgArray;
+_groupActs = [_buttonDefs,{ getNumber(_x >> "isIndependedAction")==0 } ] call selectCfgArray;
 [_cg, _groupActs ] call _createActButtons;
 
 // hint format[" _buttonDefs %1 ", _arr];
 
-_indpActs = [_buttonDefs,{ getNumber(_this >> "isIndependedAction")==1 } ] call selectCfgArray;
+_indpActs = [_buttonDefs,{ getNumber(_x >> "isIndependedAction")==1 } ] call selectCfgArray;
 [_ab, _indpActs ] call _createActButtons;
 
 };
