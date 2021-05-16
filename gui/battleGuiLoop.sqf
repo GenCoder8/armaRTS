@@ -85,7 +85,7 @@ _men = _men select { alive _x && side _x in [east,west] };
  _curweapName = gettext (configfile >> "cfgweapons" >> _cwp >> "displayName");
  _ammo = format["%1 rounds",_veh ammo _cwp];
 
- _groupView lnbAddRow ["", _vehName, _curweapName,"",_ammo];
+ //_groupView lnbAddRow ["", _vehName, "","",""];
 
 // systemchat format ["_vehName_vehName %1",  _vehName];
 
@@ -104,7 +104,7 @@ _mainWeapon = currentWeapon _man;
 
 _allMags = magazinesAmmoFull _man;
 _ammoCount = 0;
-{ 
+{
 if(_x#0 == (currentMagazine _man)) then
 {
 _ammoCount = _ammoCount + (_x#1);
@@ -129,7 +129,11 @@ if(!isnull _mainVeh && _man in _mainVeh) then
  _mags = _mainVeh magazinesTurret _tp;
  _ammoCount = _mainVeh magazineTurretAmmo [_magazine, _tp];
 
+_ammo = "";
+if(_ammoCount > 0) then
+{
  _ammo = _ammoCount call toRoundsText;
+};
 
 // For mortars (static weapons) we override the ammo here
 if((_mainVeh iskindof "StaticWeapon")) then

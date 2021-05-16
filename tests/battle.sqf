@@ -37,5 +37,9 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
+["Patton",_area] call placeTestGroup;
+
+
+
 
 // call beginBattle;
