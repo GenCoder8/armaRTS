@@ -83,7 +83,7 @@ _men = _men select { alive _x && side _x in [east,west] };
  
  _cwp = currentWeapon _veh;
  _curweapName = gettext (configfile >> "cfgweapons" >> _cwp >> "displayName");
- _ammo = format["%1 rounds",_veh ammo _cwp];
+ _ammo = (_veh ammo _cwp) call toRoundsText;
 
  //_groupView lnbAddRow ["", _vehName, "","",""];
 
