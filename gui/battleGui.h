@@ -31,7 +31,7 @@ class ComOverlay
  titles[] = {};
  idd = 1357800;
  movingEnable = 0;
- duration = 99999999;   
+ duration = 1e10;   
  name = "ComOverlay";
   
 
