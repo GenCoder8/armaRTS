@@ -130,7 +130,7 @@ if(!isnull _mainVeh && _man in _mainVeh) then
  _ammoCount = _mainVeh magazineTurretAmmo [_magazine, _tp];
 
 _ammo = "";
-if(_ammoCount > 0) then
+if(_mainWeapon != "") then // If any weapon at all
 {
  _ammo = _ammoCount call toRoundsText;
 };
