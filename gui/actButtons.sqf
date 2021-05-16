@@ -1,5 +1,5 @@
 
-
+// Checks also special moves
 isUsingActionButton =
 {
  (call isMouseClickAction) || specialMove != ""
