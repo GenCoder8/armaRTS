@@ -101,3 +101,23 @@ activateSupportArtillery =
 
  [call getPlayerSide,_spos,markerpos nextBattleMap,nextBattleDir] spawn callArtilleryBarrage;
 };
+
+activateSupportCas =
+{
+
+_planeType = selectRandom ["uns_F4J_AGM","uns_A7N_AGM"];
+
+private _moduleGroup = createGroup [sideLogic,true];   
+private _unit = "uns_ModuleCAS" createUnit [
+ _spos,   
+ _moduleGroup,   
+ format["  
+this setVariable ['vehicle','%1'];    
+this setVariable ['type', 4];   
+this setVariable ['BIS_fnc_initModules_disableAutoActivation', false, true];",_planeType]   
+];
+
+};
+
+
+
