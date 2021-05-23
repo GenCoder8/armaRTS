@@ -8,5 +8,6 @@ debugMode = true;
 
 loadCovers = false;
 
+//testCfgs = true;
 
 ["customBattle"] call openGameScreen;

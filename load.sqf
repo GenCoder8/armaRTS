@@ -1,6 +1,7 @@
 
 debugMode = false;
 loadCovers = true;
+testCfgs = false;
 
 errmsg =
 {

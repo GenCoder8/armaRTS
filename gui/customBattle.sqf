@@ -60,7 +60,10 @@ for "_i" from 0 to (count _rosters - 1) do
 {
 _force = _rosters select _i;
 
+ if(!testCfgs || (getNumber (_force >> "testOnly") == 1)) then
+ {
 _forces lbAdd format ["%1", getText (_force >> "name")];
+ };
 
 };
 

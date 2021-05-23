@@ -84,15 +84,15 @@ _unit setVariable ["lastFired", time];
 }];
 
 waituntil { sleep 1; (time - (_art getVariable "lastFired")) > 10 };
-/*
-hint "Deleting...";
+
+//hint "Deleting...";
 
 {
 _art = _x;
 {_art deleteVehicleCrew _x} forEach crew _art;
 deleteVehicle _art;
 } foreach _arty;
-*/
+
 };
 
 activateSupportArtillery =
