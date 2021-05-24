@@ -188,13 +188,13 @@ getNearestVictoryLoc =
  private _ret = [];
  private _shortest = 1000000;
 
- private _locs = [_pos,_maxDist,_getSide] call getNearVictoryLocs;
+ private _locs = [_pos,100000,_getSide] call getNearVictoryLocs;
 
  {
   private _place = _x;
   private _dist = _pos distance2D (_place # VICLOC_POS);
 
-if( _dist < _maxDist && _dist < _shortest) then 
+if(_dist < _maxDist && _dist < _shortest) then 
 {
  _ret = _place;
  _shortest = _dist;
@@ -259,7 +259,7 @@ _side = west;
 _enemySide = east;
 
 _ownGroups = _side call getOwnGroups;
-{ _x setVariable ["isFree",false]; } foreach _ownGroups;
+{ _x setVariable ["isFree",false]; } foreach _ownGroups; // First all are defenders and not free
 
 _freeGroups = [];
 
@@ -395,13 +395,14 @@ if(aiNumAttackLocations > _numPlacesToAttack) then
  {
   aiNumAttackLocations = 1;
  };
- diag_log format["AI NOW ATTACKING %1 LOCATIONS", aiNumAttackLocations ];
+ diag_log format["AI NOW ATTACKING %1 LOCATIONS (%2)", aiNumAttackLocations, (count _enemyPlaces) ];
 };
 
 
 // Already attacking somewhere?
 if(count _attackLocs >= aiNumAttackLocations) then
 {
+
  // Join the currently ongoing attacks
  _attackNowLoc = selectRandom _attackLocs # 1; // Get one place
  diag_log format["Attacking 1: %1", _attackNowLoc];
@@ -411,6 +412,7 @@ else
 
 // New attack loc, near the center of free friendly forces
 
+diag_log format["MAKING NEW ATTACK %1 / %2",count _attackLocs,aiNumAttackLocations];
 
 _center = [0,0];
 {
@@ -468,15 +470,27 @@ diag_log format["attack center: %1 %2 %3",_center,_validAttSides,_attackNowLoc];
 
 // systemchat format["ATTACKING AT %1 (%2)" ];
 
+_maxAttForThis = count _useGroups;
+
+if(aiNumAttackLocations > 1) then // Dont send all to one place 
+{
+ _maxAttForThis = ceil(_maxAttForThis / aiNumAttackLocations);
+};
 
 if(count _attackNowLoc > 0) then
 {
 {
+
+if(_forEachIndex >= _maxAttForThis) exitwith {};
+
 _group = _x;
 
  diag_log format["SENDING ONE TO ATTACK %1 %2 -- %3 %4", _group, side _group, _attackNowLoc # VICLOC_ID, _attackNowLoc];
 
+ _group setVariable ["isFree",false];
+
  [_group,_attackNowLoc # VICLOC_POS] call moveGroup;
+
 } foreach _useGroups;
 };
 
