@@ -304,7 +304,7 @@ if(count _defenders > 1) then
 {
 systemchat format ["EXES DEFENDERS"];
 
-// Free the extra defenders
+// Free the extra defenders so that they can go attack
 for "_i" from 1 to (count _defenders - 1) do
 {
 
