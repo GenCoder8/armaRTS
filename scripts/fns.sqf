@@ -4,7 +4,7 @@ if(typename _this == "ARRAY") then
 {
 _this = format _this;
 };
- systemchat format["dbg: %1",_this];
+ systemchat format["DBG: %1",_this];
 };
 
 getObjectSize =
