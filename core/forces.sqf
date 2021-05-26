@@ -1,4 +1,4 @@
-#include "main.h"
+#include "..\main.h"
 
 #define FORCE_SIDE       0
 #define FORCE_ICON       1

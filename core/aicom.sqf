@@ -1,7 +1,7 @@
 
 // _nearLocs = nearestLocations [[worldsize/2,worldsize/2], ["Airport","NameCityCapital","nameCity","NameVillage","NameLocal"], 2000];
 
-#include "main.h"
+#include "..\main.h"
 
 victoryLocations = [];
 

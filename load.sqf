@@ -55,19 +55,19 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
  make360 = RTSmainPath+"scripts\math\make360Fn.sqf" call compileFile;
 
 
-"fns.sqf" call execFile;
+"scripts\fns.sqf" call execFile;
 
-"bgFns.sqf" call execFile;
+"scripts\bgFns.sqf" call execFile;
 
-"battleGroups.sqf" call execFile;
+"core\battleGroups.sqf" call execFile;
 
-"bgPool.sqf" call execFile;
+"core\bgPool.sqf" call execFile;
 
-"forces.sqf" call execFile;
+"core\forces.sqf" call execFile;
 
-"zeus.sqf" call execFile;
+"core\zeus.sqf" call execFile;
 
-"aicom.sqf" call execFile;
+"core\aicom.sqf" call execFile;
 
 "scripts\garrison.sqf" call execFile;
 
