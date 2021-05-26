@@ -10,8 +10,6 @@
 curPlrForce = [];
 curEnemyForce = [];
 
-#include "main.h"
-
 
 getCurForce =
 {

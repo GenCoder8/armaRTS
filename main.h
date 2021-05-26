@@ -12,3 +12,4 @@
 #define UTYPE_NUMBER_VEHICLE  1
 #define UTYPE_NUMBER_CREW     2
 
+#define DBGL_AICOM 2

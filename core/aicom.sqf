@@ -18,6 +18,8 @@ startPosEast = -1;
 
 aiNumAttackLocations = 2;
 
+["TESTING LOG!!!",DBGL_AICOM] call dbgmsgl;
+
 // Start the com
 
 setupBattleLocation =
