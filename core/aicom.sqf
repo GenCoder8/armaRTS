@@ -94,7 +94,7 @@ if(count _near > 0) then
 // Capture
 if([_near,_place] call isSameLoc) then
 {
-systemchat format["PLACE CAPTURED '%1'", _place # VICLOC_NAME];
+[["PLACE CAPTURED '%1'", _place # VICLOC_NAME],DBGL_AICOM] call dbgmsgl;
 
 _place set[VICLOC_OWNER, _side];
 
@@ -275,7 +275,8 @@ call _getFreeGroups;
 _ownPlaces = victoryLocations select { _x # VICLOC_OWNER == _side };
 _enemyPlaces = victoryLocations select { _x # VICLOC_OWNER != _side };
 
-systemchat format ["NUM GROUPS total: %1 free: %2", count _ownGroups, count _freeGroups];
+
+[["NUM GROUPS total: %1 free: %2", count _ownGroups, count _freeGroups],DBGL_AICOM] call dbgmsgl;
 
 // Defending //
 
@@ -295,7 +296,7 @@ if(count _freeGroups > 0 ) then
  _group = selectRandom _freeGroups;
  [_group,(_place # VICLOC_POS)] call moveGroup;
 
- systemchat format ["ASSIGN ONE TO DEFEND %1",_group];
+ [["ASSIGN ONE TO DEFEND %1",_group],DBGL_AICOM] call dbgmsgl;
 
 };
 }
@@ -304,7 +305,7 @@ else
 
 if(count _defenders > 1) then
 {
-systemchat format ["EXES DEFENDERS"];
+ [["EXES DEFENDERS"],DBGL_AICOM] call dbgmsgl;
 
 // Free the extra defenders so that they can go attack
 for "_i" from 1 to (count _defenders - 1) do
@@ -313,7 +314,7 @@ for "_i" from 1 to (count _defenders - 1) do
  _group = _defenders # _i; // Todo random groups
  _group setVariable ["isFree",true];
 
- systemchat format ["FREEING ONE DEFENDER %1",_group];
+ [["FREEING ONE DEFENDER %1",_group],DBGL_AICOM] call dbgmsgl;
 };
 };
 
