@@ -3,6 +3,8 @@ debugMode = false;
 loadCovers = true;
 testCfgs = false;
 
+rtsDebugMode = profileNamespace getvariable ["rtsDebugMode",false];
+
 errmsg =
 {
 private "_print";
