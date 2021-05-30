@@ -17,7 +17,7 @@ if(rtsDebugMode) then
 }
 else
 {
- 0 call setDebugFlags;
+ DBGL_NONE call setDebugFlags;
 };
 
 // [flagset, flag] call BIS_fnc_bitflagsUnset
