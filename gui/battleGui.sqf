@@ -758,6 +758,7 @@ actionButtons = controlNull;
 
 setBattleGuiButtons =
 {
+ if(!canSuspend) exitWith { _this spawn setBattleGuiButtons; };
 
  params ["_guiName"];
 

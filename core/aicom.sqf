@@ -251,7 +251,7 @@ isSameLoc =
 startAiCom =
 {
 
-[] spawn
+aiComProcess = [] spawn
 {
 
 while { true } do
@@ -327,7 +327,7 @@ for "_i" from 1 to (count _defenders - 1) do
 
 // Attacking //
 
-_stuck = 20;
+_stuck = 200;
 
 while { _stuck > 0 } do
 {
@@ -513,5 +513,10 @@ if(_stuck <= 0) then
 
 };
 
+aiComProcess = scriptnull;
 
+stopAiCom =
+{
+ terminate aiComProcess;
+};
 

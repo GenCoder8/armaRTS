@@ -18,6 +18,11 @@ case "placement":
 {
  call closeBattlefieldZeus;
  cutRsc["default","PLAIN",0];
+
+ if(curScreen == "battle") then
+ {
+  call stopAiCom;
+ };
 };
 };
 
@@ -39,6 +44,7 @@ case "placement":
   {
    call activateBattleGui;
    "battle" call setBattleGuiButtons;
+   call startAiCom;
   };
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };
