@@ -35,6 +35,20 @@ battleGroups[] =
 class east
 {
 
+class NVA1
+{
+ name = "NVA";
+ icon = "uns_M113parts\army\1acav_co.paa";
+
+battleGroups[] = 
+{
+ "TO55", 5,
+ "HeavyTeam", 10,
+ "LightTeam", 10
+};
+
+};
+
 class Roster2
 {
  name = "VC";
