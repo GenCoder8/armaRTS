@@ -44,7 +44,7 @@ case "placement":
   {
    call activateBattleGui;
    "battle" call setBattleGuiButtons;
-   call startAiCom;
+   (call getEnemySide) call startAiCom;
   };
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };

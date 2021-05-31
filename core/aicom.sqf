@@ -251,13 +251,13 @@ isSameLoc =
 startAiCom =
 {
 
-aiComProcess = [] spawn
+aiComProcess = _this spawn
 {
+params ["_side"];
 
 while { true } do
 {
 
-_side = west;
 _enemySide = east;
 
 _ownGroups = _side call getOwnGroups;
