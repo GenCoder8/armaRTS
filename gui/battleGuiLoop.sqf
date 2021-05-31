@@ -176,7 +176,13 @@ _gvSize = lnbSize _groupView;
 
 _gvHeight = (_gvSize # 0) * (ctrlFontHeight _groupView) + 0.02;
 
-_panelHeight = _gvHeight + 0.125;
+_panelHeight = _gvHeight + 0.075;  // + 0.125;
+
+if(ctrlText _staticGunInfo != "") then
+{
+_panelHeight = _panelHeight + 0.05;
+};
+
 
 _panelStartY = safeZoneH + safeZoneY - _panelHeight;
 
