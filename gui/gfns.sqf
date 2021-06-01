@@ -19,11 +19,14 @@ case "placement":
 
  cutRsc["default","PLAIN",0];
 
+ if(_screen != "battle") then
+ {
+ call closeBattlefieldZeus;
+ };
 
  if(curScreen == "battle") then
  {
   call stopAiCom;
-  call closeBattlefieldZeus; // Todo might need for placement exit
  };
 };
 };
