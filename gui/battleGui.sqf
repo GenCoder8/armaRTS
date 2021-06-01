@@ -419,6 +419,7 @@ battleReady = true;
 
 closeBattlefieldZeus =
 {
+ unassignCurator plrZeus;
 
  removeAllCuratorEditingAreas plrZeus;
  removeAllCuratorCameraAreas plrZeus;
