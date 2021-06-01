@@ -28,7 +28,6 @@ case "placement":
 
 
 
-
  switch (_screen) do
  {
   case "globalmap": { call initGlobalMap;  openMap [true, false]; };
@@ -42,6 +41,7 @@ case "placement":
   };
   case "battle": 
   {
+   removeAllCuratorAddons plrZeus;
    call activateBattleGui;
    "battle" call setBattleGuiButtons;
    (call getEnemySide) call startAiCom;
