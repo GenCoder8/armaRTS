@@ -16,12 +16,14 @@ case "poolSelect": { closeDialog 0; };
 case "battle";
 case "placement":
 {
- call closeBattlefieldZeus;
+
  cutRsc["default","PLAIN",0];
+
 
  if(curScreen == "battle") then
  {
   call stopAiCom;
+  call closeBattlefieldZeus; // Todo might need for placement exit
  };
 };
 };

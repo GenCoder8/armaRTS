@@ -419,7 +419,12 @@ battleReady = true;
 
 closeBattlefieldZeus =
 {
+
+ removeAllCuratorEditingAreas plrZeus;
+ removeAllCuratorCameraAreas plrZeus;
+
  deleteVehicle plrZeus;
+
  call clearBattleField;
 };
 
