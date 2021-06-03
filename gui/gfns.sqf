@@ -49,7 +49,10 @@ case "placement":
    removeAllCuratorAddons plrZeus;
    call activateBattleGui;
    "battle" call setBattleGuiButtons;
-   (call getEnemySide) call startAiCom;
+    
+   call setupBattleLocation;
+   [(call getEnemySide), call getPlayerSide] call startAiCom;
+
   };
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };

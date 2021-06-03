@@ -61,7 +61,7 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 } foreach _vicmarkers;
 
-
+};
 
 // Capture vic loc logic 
 
@@ -108,7 +108,7 @@ _x params ["_side","_enemySide"];
 
 //hint format["num own groups: %1", count _ownGroups ];
 
-if(_x # VICLOC_OWNER != _side) then
+if(_place # VICLOC_OWNER != _side) then
 {
 
 _numFriendly = [_place,_side] call numGroupsNearVicLoc;
@@ -270,6 +270,8 @@ aiComProcess = _this spawn
 {
 params ["_side","_enemySide"];
 
+hint format["Running AI com for %1 - enemy: %2", _side,_enemySide];
+
 while { true } do
 {
 
@@ -370,7 +372,8 @@ if(count _useGroups > 0) then
 
  _near = [(_group call getGroupTargetLoc),VICINITY_DIST,_validAttSides] call getNearestVictoryLoc;
 
-diag_log format["near: %1 -- %2 ", _group, count _near];
+[DBGL_AICOM,"near att loc: %1 -- %2 ", _group, count _near] call dbgmsgl;
+
 
 if(count _near > 0) then // Own group attacking here?
 {
