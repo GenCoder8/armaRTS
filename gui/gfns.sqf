@@ -27,6 +27,7 @@ case "placement":
  if(curScreen == "battle") then
  {
   call stopAiCom;
+  call clearBattleLocation;
  };
 };
 };

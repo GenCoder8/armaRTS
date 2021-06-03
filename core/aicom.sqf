@@ -63,6 +63,12 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 };
 
+clearBattleLocation =
+{
+ { deleteMarker _x; } foreach victoryLocations;
+ victoryLocations = [];
+};
+
 // Capture vic loc logic 
 
 numGroupsNearVicLoc =
