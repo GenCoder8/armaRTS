@@ -56,4 +56,4 @@ _mrk setMarkerPos (getposATL _ldr);
 
 
 call setupBattleLocation;
-west call startAiCom;
+[west,east] call startAiCom;

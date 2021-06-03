@@ -65,6 +65,30 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 // Capture vic loc logic 
 
+numGroupsNearVicLoc =
+{
+params ["_place","_side"];
+private _testGroups = _side call getOwnGroups;
+private _numNear = 0;
+
+{
+private _group = _x;
+private _near = [(_group call getGroupPos)] call getNearestVictoryLoc;
+
+if(count _near > 0) then
+{
+if([_near,_place] call isSameLoc) then
+{
+_numNear = _numNear + 1;
+};
+};
+
+} foreach _testGroups;
+
+_numNear
+};
+
+
 [] spawn
 {
 
@@ -72,45 +96,37 @@ while { true } do
 {
 
 
-_side = west; // TODO
-_ownGroups = _side call getOwnGroups;
-
-hint format["num own groups: %1", count _ownGroups ];
-
 {
 scopename "handlePlace";
 _place = _x;
 
+{
+
+_x params ["_side","_enemySide"];
+
+//_ownGroups = _side call getOwnGroups;
+
+//hint format["num own groups: %1", count _ownGroups ];
+
 if(_x # VICLOC_OWNER != _side) then
 {
 
-{
-_group = _x;
-_near = [(_group call getGroupPos)] call getNearestVictoryLoc;
+_numFriendly = [_place,_side] call numGroupsNearVicLoc;
+_numEnemy = [_place,_enemySide] call numGroupsNearVicLoc;
 
-if(count _near > 0) then
+if(_numFriendly > 0 && _numEnemy == 0) then
 {
-// Capture
-if([_near,_place] call isSameLoc) then
-{
+
 [DBGL_AICOM,"PLACE CAPTURED '%1'", _place # VICLOC_NAME] call dbgmsgl;
 
 
 _place set[VICLOC_OWNER, _side];
 
 [_place # VICLOC_MARKER,_side] call updateVictoryLocMarker;
-
-
-breakTo "handlePlace";
 };
 };
 
-} foreach _ownGroups;
-
-
-};
-
-
+} foreach [[west,east],[east,west]];
 
 } foreach victoryLocations;
 
@@ -120,7 +136,6 @@ breakTo "handlePlace";
 };
 
 
-};
 
 updateVictoryLocMarker =
 {
@@ -253,12 +268,11 @@ startAiCom =
 
 aiComProcess = _this spawn
 {
-params ["_side"];
+params ["_side","_enemySide"];
 
 while { true } do
 {
 
-_enemySide = east;
 
 _ownGroups = _side call getOwnGroups;
 { _x setVariable ["isFree",false]; } foreach _ownGroups; // First all are defenders and not free
