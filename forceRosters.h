@@ -38,7 +38,7 @@ class east
 class NVA1
 {
  name = "NVA";
- icon = "uns_M113parts\army\1acav_co.paa";
+ icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
 
 battleGroups[] = 
 {
@@ -52,7 +52,7 @@ battleGroups[] =
 class Roster2
 {
  name = "VC";
- icon = "uns_M113parts\army\1acav_co.paa";
+ icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
 
 battleGroups[] = 
 {
