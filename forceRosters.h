@@ -49,10 +49,10 @@ battleGroups[] =
 
 };
 
-class Roster2
+class VC1
 {
  name = "VC";
- icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
+ icon = "uns_t34_t55\flags\vc_flag.paa";
 
 battleGroups[] = 
 {
