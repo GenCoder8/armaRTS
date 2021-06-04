@@ -4,6 +4,11 @@
 
 #define BATTLE_LOC_ALPHA 0.3
 
+// Radius
+#define DEPLOY_AREA_SIZE 75
+#define BATTLE_AREA_SIZE 500
+
+
 #define MAX_SELECTED_BGS 15
 
 

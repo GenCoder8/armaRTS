@@ -3,6 +3,8 @@
 
 #include "gridDefines.h"
 
+#include "..\main.h"
+
 getGuiPos =
 {
  params ["_x","_y","_w","_h",["_atGrid",true]];
@@ -28,9 +30,7 @@ this addEventHandler ["CuratorGroupSelectionChanged", {
 }];
 
 */
-// Radius
-#define DEPLOY_AREA_SIZE 75
-#define BATTLE_AREA_SIZE 255
+
 
 
 startBattleFieldZeus =
@@ -54,8 +54,9 @@ removeMissionEventHandler ["EachFrame",_thisEventHandler];
 deployAreaMain = _areaMarker;
 
 _areaPos = markerPos _areaMarker;
-_areaSize = markerSize _areaMarker; // TODO: BATTLE_AREA_SIZE
+_areaSize = markerSize _areaMarker; // always BATTLE_AREA_SIZE
 
+systemchat format["_areaSize %1", _areaSize];
 
 
 _zg = creategroup (call getPlayerSide);
@@ -85,11 +86,13 @@ _daDir = 120;
 
  missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
 
+/*
 _mrk = createmarker [format["deploySide%1",_side], _deployAreaPos];
 _mrk setMarkerShape "RECTANGLE";
 _mrk setMarkerColor "ColorGreen";
 _mrk setMarkerSize [DEPLOY_AREA_SIZE,DEPLOY_AREA_SIZE];
 _mrk setMarkerDir _daDir;
+*/
 
  _daDir = _daDir + 180;
 } foreach [west,east];

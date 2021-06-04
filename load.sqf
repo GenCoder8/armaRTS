@@ -110,6 +110,3 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 ["gui\battleGuiLoop.sqf",false] call execFile;
 
 
-// Save the battle map markers to list 
-gmBattleLocations = call getBattleLocations;
-

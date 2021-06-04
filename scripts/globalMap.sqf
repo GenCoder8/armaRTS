@@ -1,13 +1,27 @@
 #include "..\main.h"
 
-initGlobalMap =
+
+getBattleLocations =
 {
+_battleLocations = allMapMarkers select { markerColor _x == BATTLE_LOC_COLOR };
+
+_battleLocations select { !(_x call isUserMarker) }
+};
+
+
+// Save the battle map markers to list 
+gmBattleLocations = call getBattleLocations;
+
  _blocs = gmBattleLocations;
  {
   _x setMarkerAlpha BATTLE_LOC_ALPHA;
   _x setMarkerShape "ELLIPSE";
+  _x setMarkerSize [BATTLE_AREA_SIZE,BATTLE_AREA_SIZE];
  } foreach _blocs;
 
+
+initGlobalMap =
+{
 
 _battleLocations = gmBattleLocations;
 
@@ -158,12 +172,6 @@ with uinamespace do
 
 };
 
-getBattleLocations =
-{
-_battleLocations = allMapMarkers select { markerColor _x == BATTLE_LOC_COLOR };
-
-_battleLocations select { !(_x call isUserMarker) }
-};
 
 scaleToMap =
 {
