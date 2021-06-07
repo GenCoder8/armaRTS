@@ -22,12 +22,12 @@ case "placement":
  if(_screen != "battle") then
  {
  call closeBattlefieldZeus;
+ call clearBattlefieldLogic;
  };
 
  if(curScreen == "battle") then
  {
   call stopAiCom;
-  call clearBattleLocation;
  };
 };
 };
@@ -44,6 +44,8 @@ case "placement":
    call beginBattlePlacement;
    call activateBattleGui;
    "placement" call setBattleGuiButtons;
+
+   call setupBattlefieldLogic;
   };
   case "battle": 
   {
@@ -51,7 +53,7 @@ case "placement":
    call activateBattleGui;
    "battle" call setBattleGuiButtons;
     
-   call setupBattleLocation;
+   
    [(call getEnemySide), call getPlayerSide] call startAiCom;
 
   };

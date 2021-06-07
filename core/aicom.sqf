@@ -8,20 +8,14 @@ victoryLocations = [];
 startPosWest = -1;
 startPosEast = -1;
 
-#define VICLOC_ID       0
-#define VICLOC_POS      1
-#define VICLOC_NAME     2
-#define VICLOC_OWNER    3
-#define VICLOC_MARKER   4
+
 
 #define VICINITY_DIST 75
 
 aiNumAttackLocations = 2;
 
 
-// Start the com
-
-setupBattleLocation =
+setupBattlefieldLogic =
 {
 
 _vicmarkers = call getVicLocMarkers;
@@ -63,7 +57,7 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 };
 
-clearBattleLocation =
+clearBattlefieldLogic =
 {
  { deleteMarker _x; } foreach victoryLocations;
  victoryLocations = [];
@@ -147,13 +141,9 @@ updateVictoryLocMarker =
 {
  params ["_marker","_side"];
 
- _mtype = switch(_side) do
- {
-  case east: { "flag_CSAT" };
-  case west: { "flag_NATO" };
-  default { "flag_un" };
- };
- _marker setMarkerType _mtype;
+ _sf = _side call getSideFlags;
+
+ _marker setMarkerType (_sf # 0);
 };
 
 getGroupTargetLoc =
