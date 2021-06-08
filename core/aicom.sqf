@@ -59,7 +59,6 @@ victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 clearBattlefieldLogic =
 {
- { deleteMarker _x; } foreach victoryLocations;
  victoryLocations = [];
 };
 
