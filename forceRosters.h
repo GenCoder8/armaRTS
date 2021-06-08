@@ -9,6 +9,7 @@ class Roster1
 {
  name = "The Avengers";
  icon = "uns_M113parts\army\11acr_co.paa";
+ playable = true;
 
 battleGroups[] = 
 {
@@ -39,6 +40,7 @@ class NVA1
 {
  name = "NVA";
  icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
+ playable = true;
 
 battleGroups[] = 
 {
