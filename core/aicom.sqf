@@ -18,6 +18,8 @@ aiNumAttackLocations = 2;
 setupBattlefieldLogic =
 {
 
+waituntil { count (call getVicLocMarkers) > 0 };
+
 _vicmarkers = call getVicLocMarkers;
 
 {
@@ -54,6 +56,7 @@ _vlId = count victoryLocations;
 victoryLocations pushback [_vlId,_lpos,markerText _marker,_lside,_marker];
 
 } foreach _vicmarkers;
+
 
 };
 

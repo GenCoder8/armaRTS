@@ -63,6 +63,7 @@ _force = _rosters select _i;
  if(testCfgs || (getNumber (_force >> "playable") == 1)) then
  {
 _forces lbAdd format ["%1", getText (_force >> "name")];
+_forces lbSetData [lbSize _forces - 1, configname _force];
  };
 
 };
@@ -96,11 +97,15 @@ _forces = _display displayCtrl _ctrlId;
 
 _rosIndex = lbcurSel _forces;
 
-_rosName = _forces lbText _rosIndex;
+
+_rosName = _forces lbData _rosIndex;
+
+//_rosName = _forces lbText _rosIndex;
 
 //_rosClass = _rosters select _rosIndex;
 
 _rosClass = _rosters >> _rosName;
+
 
 [_side,configname _rosClass,configname _rosClass] call createForce; // Todo clean this up after battle
 

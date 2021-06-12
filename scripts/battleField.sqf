@@ -27,6 +27,7 @@ _mloc = [_apos,_vec] call addvector;
 
 [_apos,100] call _createVicLocMarker;
 
+
 };
 
 getVicLocMarkers =

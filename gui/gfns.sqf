@@ -45,7 +45,8 @@ case "placement":
    call activateBattleGui;
    "placement" call setBattleGuiButtons;
 
-   call setupBattlefieldLogic;
+   // Have to wait the battle is setup because of eachframe runs
+   [] spawn setupBattlefieldLogic;
   };
   case "battle": 
   {

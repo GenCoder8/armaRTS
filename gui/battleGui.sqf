@@ -110,7 +110,6 @@ _zeus addCuratorEditingArea [0,_deployAreaPos,DEPLOY_AREA_SIZE];
 //curatorCamera camCommit 0;
 
 
-/*
 [_deployAreaPos] spawn
 {
 params ["_deployAreaPos"];
@@ -118,10 +117,10 @@ sleep 0.5;
 _cp = +_deployAreaPos;
 _cp set [2,50];
 curatorCamera setposATL _cp;
-curatorCamera setVectorDirAndUp [[0,0,-1], [0,1,0]];
+///curatorCamera setVectorDirAndUp [[0,0,-1], [0,1,0]];
 
 };
-*/
+
 
 deployAreaSize = DEPLOY_AREA_SIZE;
 
