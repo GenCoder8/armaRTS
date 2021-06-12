@@ -1,5 +1,7 @@
 dbgmsg =
 {
+if(!rtsDebugMode) exitWith {};
+
 if(typename _this == "ARRAY") then
 {
 _this = format _this;
