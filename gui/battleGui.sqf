@@ -42,7 +42,7 @@ bpArgs = _this;
 
 battleReady = false;
 
-"Loading battle field" call startRtsLoadScreen;
+"Loading battlefield" call startRtsLoadScreen;
 
 
 addMissionEventHandler ["EachFrame",
