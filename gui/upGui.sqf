@@ -535,28 +535,6 @@ private _hiRank = getArray (_bgCfg >> "ranks") # 0;
 _ret
 };
 
-getBattlegroupIcon =
-{
- params ["_bgcfg"];
-
-private _units = getArray(_bgCfg >> "units");
-private _leadUnit = _units select 0;
-
- private _isMan = (_leadUnit iskindof "man");
-
- private _icon = switch (true) do
- {
-  case ( !isnull(_bgCfg >> "mortar")  ): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
-  case (_isMan && count _units <= 3): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; // Antitank, MG, sniper
-  case _isMan: { ["Infantry","a3\ui_f\data\map\markers\nato\b_inf.paa"] };
-  case ( _leadUnit iskindof "tank"): { ["Armor","a3\ui_f\data\map\markers\nato\b_armor.paa"] };
-  case ( _leadUnit iskindof "truck_f"): { ["Truck","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
-  case ( [_leadUnit,"APC"] call checkForvehType ): { ["APC","a3\ui_f\data\map\markers\nato\b_mech_inf.paa"] };
-  default { ["Unknown bg type '%1'", configname _bgcfg ] call errmsg; ["","a3\ui_f\data\map\markers\nato\b_unknown"] };
- };
-
-  _icon
-};
 
 checkForvehType =
 {
