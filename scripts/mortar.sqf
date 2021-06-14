@@ -160,37 +160,28 @@ hint format ["in range: %1", _isInRange];
 
 getMortarAmmoLeft =
 {
- params ["_group"];
+ params ["_group","_fireType"];
 
- private _mor = _group getVariable ["art", objnull];
- if(isnull _mor) exitWith { 0 };
+ //private _mor = _group getVariable ["art", objnull];
+ //if(isnull _mor) exitWith { 0 };
 
 
  private _ammo = 0;
-/*
- private _cmags = magazinesAmmo _mor;
- if(count _cmags > 0) then
- {
- 
- private _curMag = _cmags # 0; // currentMagazine ?
-  _ammo = _ammo + (_curMag # 1);
-*/
+
 
  // Count only same mags as currently loaded one
  private _mags = _group getVariable ["mortarMags",[]];
- private _fireType = _mor getVariable "firingType";
+ //private _fireType = _mor getVariable "firingType";
 
 private _magType = [_group,_fireType] call getMortarMagType;
 
-
  {
+
   if((_x # 0) == _magType) then
   {
    _ammo = _ammo + (_x # 1);
   };
  } foreach _mags; 
-
-// };
 
 
  _ammo
@@ -210,6 +201,15 @@ private _text = "";
 _text = getText(configfile >> "cfgVehicles" >> (getText (_gcfg >> "mortar")) >> "displayName") + " - ";
 
 
+{
+
+private _ammo = [_group,_x] call getMortarAmmoLeft;
+
+_text = _text + format ["%1 %2 ", _ammo, _x];
+
+} foreach ["HE","Smoke"];
+
+/*
 private _mor = _group getVariable ["art", objnull];
 if(!isnull _mor && count (magazines _mor) > 0 ) then // Must have mag loaded for this
 {
@@ -241,7 +241,7 @@ else
 
  //_text = format ["%1", _list  ];
 };
-
+*/
 _text
 };
 

@@ -101,9 +101,11 @@ private _sel = curatorSelected # 1;
 
 private _ok = false;
 
-if(({ _x call isMortarGroup && !(_x call isArtilleryFiring) } count _sel) > 0) then
+private _morGroups = _sel select { _x call isMortarGroup && !(_x call isArtilleryFiring) };
+
+if(count _morGroups > 0) then
 {
-if({ [_x,_fireType] call doesMortarHaveMag} count _sel > 0) then
+if({ [_x,_fireType] call doesMortarHaveMag} count _morGroups > 0) then
 {
  _ok = true;
 };

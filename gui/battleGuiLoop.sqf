@@ -139,7 +139,8 @@ if(_mainWeapon != "") then // If any weapon at all
 if((_mainVeh iskindof "StaticWeapon")) then
 {
  _ammo = "";
- _ammoCount = (_selGroup call getMortarAmmoLeft);
+ _mor = _selGroup getVariable ["art", objnull];
+ _ammoCount = ([_selGroup, _mor getVariable "firingType"] call getMortarAmmoLeft);
  if(_ammoCount > 0 ) then 
 {
 _ammo = _ammoCount call toRoundsText;
