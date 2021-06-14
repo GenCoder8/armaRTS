@@ -786,6 +786,9 @@ setBattleGuiButtons =
 {
  if(!canSuspend) exitWith { _this spawn setBattleGuiButtons; };
 
+// Wait until battle groups are created
+waituntil { deployDone };
+
  params ["_guiName"];
 
 _display = displayNull;
@@ -824,6 +827,18 @@ actionButtons = _ab;
 };
 
 
+#define UNIT_LIST_WIDTH  11
+#define UNIT_LIST_HEIGHT  22
+
+_ul = _display ctrlCreate ["RscControlsGroup", -1];
+_ul ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT] call getGuiPos);
+_ul ctrlCommit 0;
+
+with (uinamespace) do
+{
+unitList = _ul;
+};
+
 switch(_guiName) do
 {
 
@@ -836,6 +851,12 @@ _bt ctrlSetPosition [0.0,0.0, 0.2,0.1];
 _bt ctrlCommit 0;
 _bt buttonSetAction format["[] spawn beginBattle"];
 
+
+_img = _display ctrlCreate ["RtsPicture", -1, _ul];
+_img ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT,false] call getGuiPos);
+_img ctrlCommit 0;
+
+_ul call fillUnitList;
 
 };
 
@@ -851,6 +872,8 @@ _img = _display ctrlCreate ["RtsPicture", -1, _ab];
 //_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,ACT_CGROUP_WIDTH,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
+
+
 
 _buttonDefs = (missionConfigFile >> "RtsActionButtons");
 
@@ -915,4 +938,10 @@ _indpActs = [_buttonDefs,{ getNumber(_x >> "isIndependedAction")==1 } ] call sel
 
 };
 
+};
+
+
+clearBattleguiButtons =
+{
+ // TODO
 };

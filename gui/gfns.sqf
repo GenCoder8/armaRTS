@@ -19,10 +19,11 @@ case "placement":
 
  cutRsc["default","PLAIN",0];
 
- if(_screen != "battle") then
+ if(_screen != "battle") then // Going anywhere else than battle (could be placement...)
  {
- call closeBattlefieldZeus;
- call clearBattlefieldLogic;
+  call closeBattlefieldZeus;
+  call clearBattlefieldLogic;
+  call clearBattleguiButtons;
  };
 
  if(curScreen == "battle") then
@@ -43,16 +44,16 @@ case "placement":
   {
    call beginBattlePlacement;
    call activateBattleGui;
-   "placement" call setBattleGuiButtons;
 
    // Have to wait the battle is setup because of eachframe runs
    [] spawn setupBattlefieldLogic;
+   "placement" spawn setBattleGuiButtons;
   };
   case "battle": 
   {
    removeAllCuratorAddons plrZeus;
    call activateBattleGui;
-   "battle" call setBattleGuiButtons;
+   "battle" spawn setBattleGuiButtons;
     
    
    [(call getEnemySide), call getPlayerSide] call startAiCom;
