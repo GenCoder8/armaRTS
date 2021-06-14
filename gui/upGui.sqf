@@ -196,7 +196,7 @@ if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
 private _units = getArray(_bgCfg >> "units");
 {
  private _utype = _x;
-if(!(_utype iskindof "Man")) then // Type requirement - only for vehicles
+if(!(_utype iskindof "Man") || _utype call isSniper) then // Type requirement - only for vehicles OR snipers
 {
  private _leftInPool = (_poolTypes getOrDefault [_utype,0]) - (_usedPoolTypes getOrDefault [_utype,0]);
 
