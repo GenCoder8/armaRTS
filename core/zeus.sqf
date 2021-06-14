@@ -190,7 +190,7 @@ _display displayAddEventHandler ["MouseButtonDown",
 
 if(_button == 1) then
 {
- rightMouseButtonDown = true;
+ // rightMouseButtonDown = true;
 }; 
 
  _handled
