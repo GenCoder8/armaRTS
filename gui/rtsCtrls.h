@@ -24,6 +24,31 @@ class RtsButton : RscButton
 	};
 };
 
+class RtsInvisibleButton : RscButton
+{
+	colorBackground[] = 
+	{
+		0,
+		1,
+		0,
+		0
+	};
+	colorBackgroundActive[] = 
+	{
+		0,
+		1,
+		0,
+		0
+	};
+	colorFocused[] = 
+	{
+		0,
+		1,
+		0,
+		0
+	};
+};
+
 class RtsPicture : RscPicture
 {
  text = "#(argb,8,8,3)color(0,0.75,0,1)";

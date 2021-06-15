@@ -22,7 +22,7 @@ unitListGroups = [];
 {
 _group = _x;
 
-_con = _display ctrlCreate ["RtsButton", -1, _ctrlGroup];
+_con = _display ctrlCreate ["RtsInvisibleButton", -1, _ctrlGroup];
 _con ctrlSetText format["%1", _group];
 _con ctrlSetPosition ([0,0, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
 _con ctrlCommit 0;
