@@ -7,9 +7,9 @@ fillUnitList =
 {
  params ["_ctrlGroup"];
 
- _display = finddisplay 312;
+ private _display = finddisplay 312;
 
- _groups = (call getPlayerSide) call getOwnGroups;
+ private _groups = (call getPlayerSide) call getOwnGroups;
 
 hint (str _groups);
 
