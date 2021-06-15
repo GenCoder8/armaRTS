@@ -131,11 +131,40 @@ plrClass call fillWithRandomBgs;
 
 };
 
+#include "..\main.h"
+
 setNextBattleArgs =
 {
  params ["_locmarker","_attackDir"];
 
+
+deployAreaSize = DEPLOY_AREA_SIZE;
+
+
  nextBattleMap = _locmarker;
  nextBattleDir = _attackDir;
+
+_areaPos = markerPos _locmarker;
+_areaSize = markerSize _locmarker;
+
+
+_daDir = 120;
+{
+ _side = _x;
+ _deployAreaPos = [_areaPos,_daDir] call getBattleDeployPos;
+
+ missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
+
+/*
+_mrk = createmarker [format["deploySide%1",_side], _deployAreaPos];
+_mrk setMarkerShape "RECTANGLE";
+_mrk setMarkerColor "ColorGreen";
+_mrk setMarkerSize [DEPLOY_AREA_SIZE,DEPLOY_AREA_SIZE];
+_mrk setMarkerDir _daDir;
+*/
+
+ _daDir = _daDir + 180;
+} foreach [west,east];
+
 };
 

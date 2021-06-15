@@ -426,6 +426,8 @@ createBattleGroupFromPool =
 
  private _group = creategroup _side;
 
+diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _ce];
+
  _group setVariable ["cfg",_ce];
 
 _setupMan =

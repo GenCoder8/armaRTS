@@ -250,7 +250,16 @@ getGroupPos =
 getOwnGroups =
 {
  params ["_side"];
- private _ownGroups = allgroups select { side _x == _side && !(player in (units _x)) };
+
+ private _ownGroups = allgroups select 
+{ 
+private _bgcfg = _x getVariable ["cfg",confignull];
+//side _x == _side && !(player in (units _x)) 
+
+side _x == _side && !isnull _bgcfg
+
+};
+
  _ownGroups
 };
 

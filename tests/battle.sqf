@@ -23,21 +23,25 @@ loadCovers = true;
 
 ["marker_0",110] call setNextBattleArgs;
 
-["placement"] call openGameScreen;
-
-waituntil { battleReady };
-
 _deployAreaPos = (call getPlayerSide) call getDeployArea;
 
 _area = [_deployAreaPos,deployAreaSize];
 
 
+["Patton",_area] call placeTestGroup;
 
 ["LightMortarTeam",_area] call placeTestGroup;
 
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
-["Patton",_area] call placeTestGroup;
+
+["placement"] call openGameScreen;
+
+waituntil { battleReady };
+
+
+
+
 
 
 

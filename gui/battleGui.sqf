@@ -79,23 +79,7 @@ diag_log format[">> %1", _x];
 //_zmCamArea = _zg createUnit ["ModuleCuratorAddCameraArea_F",_areaPos,[],0,"NONE"];
 //_zeus synchronizeObjectsAdd [_zmCamArea];
 
-_daDir = 120;
-{
- _side = _x;
- _deployAreaPos = [_areaPos,_daDir] call getBattleDeployPos;
 
- missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
-
-/*
-_mrk = createmarker [format["deploySide%1",_side], _deployAreaPos];
-_mrk setMarkerShape "RECTANGLE";
-_mrk setMarkerColor "ColorGreen";
-_mrk setMarkerSize [DEPLOY_AREA_SIZE,DEPLOY_AREA_SIZE];
-_mrk setMarkerDir _daDir;
-*/
-
- _daDir = _daDir + 180;
-} foreach [west,east];
 
 _deployAreaPos = (call getPlayerSide) call getDeployArea;
 
@@ -121,8 +105,6 @@ curatorCamera setposATL _cp;
 
 };
 
-
-deployAreaSize = DEPLOY_AREA_SIZE;
 
 
 [_areaPos,_areaSize # 0] call initBattleField;
@@ -453,13 +435,13 @@ getDeployArea =
  missionnamespace getVariable format["deployArea%1", _side]
 };
 
+wantedTestGroups = [];
+
 placeTestGroup =
 {
  params ["_groupName","_area"];
 
-[call getPlayerSide,_groupName] call addBattleGroupToPool;
-[call getPlayerSide,_groupName,_area] call createBattleGroupFromPool;
-
+wantedTestGroups pushback [_groupName,_area];
 
 };
 

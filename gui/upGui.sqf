@@ -506,6 +506,20 @@ diag_log format["---------  Done Creating %1 forces --------- ",_side];
 
 } foreach _sideArr;
 
+if(count wantedTestGroups > 0) then
+{
+ diag_log "Placing test groups";
+
+
+{
+ _x params ["_groupName","_area"];
+
+[call getPlayerSide,_groupName] call addBattleGroupToPool;
+[call getPlayerSide,_groupName,_area] call createBattleGroupFromPool;
+
+} foreach wantedTestGroups;
+
+};
 
 deployDone = true;
 }];
