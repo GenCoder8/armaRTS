@@ -451,6 +451,8 @@ beginBattlePlacement =
 {
 if(!canSuspend) exitwith { _this spawn beginBattlePlacement; };
 
+deployDone = false;
+
 
 [nextBattleMap,nextBattleDir] call startBattleFieldZeus;
 
@@ -460,7 +462,7 @@ waituntil { battleReady && !loadScreenStarted };
 "Deploying troops" call startRtsLoadScreen;
 
 
-deployDone = false;
+
 
 addMissionEventHandler ["EachFrame",
 {
