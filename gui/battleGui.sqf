@@ -808,8 +808,10 @@ actionButtons = []; // Always reset
 #define ACTB_SIZE_Y 6
 #define ACT_CGROUP_WIDTH 15
 
+_buttonsY = 39 - ACTB_SIZE_Y;
+
 _cg = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
-_cg ctrlSetPosition ([15,33,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
+_cg ctrlSetPosition ([ACT_CGROUP_WIDTH,_buttonsY,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
 _cg ctrlCommit 0;
 
 with (uinamespace) do
@@ -818,7 +820,7 @@ battleButtonGroup = _cg;
 };
 
 _ab = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
-_ab ctrlSetPosition ([0,33,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
+_ab ctrlSetPosition ([0,_buttonsY,ACT_CGROUP_WIDTH,ACTB_SIZE_Y] call getGuiPos);
 _ab ctrlCommit 0;
 
 with (uinamespace) do
