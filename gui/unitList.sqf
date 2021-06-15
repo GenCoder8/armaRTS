@@ -11,25 +11,63 @@ fillUnitList =
 
  private _groups = (call getPlayerSide) call getOwnGroups;
 
-hint (str _groups);
 
 // allControls controlsGroup
 
+//sleep 2;
+
+{
+diag_log format[">>> %1 %2 %3", _x, side _x, _x getVariable "cfg" ];
+} foreach _groups;
+
+
+diag_log format["----- %1 - %2", plrZeus, player];
+
+{
+diag_log format[">>> %1 %2 %3", _x, side _x, _x getVariable "cfg" ];
+} foreach allgroups;
 
 
 unitListGroups = [];
 
 {
-_group = _x;
+private _group = _x;
 
-_con = _display ctrlCreate ["RtsInvisibleButton", -1, _ctrlGroup];
-_con ctrlSetText format["%1", _group];
+private _bgcfg = _group getVariable ["cfg",confignull];
+
+if(isnull _bgcfg) then { continue; };
+
+_cont = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1, _ctrlGroup];
+_cont ctrlSetPosition ([0,0, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
+_cont ctrlCommit 0;
+
+_con = _display ctrlCreate ["RtsInvisibleButton", -1, _cont];
+// _con ctrlSetText format["%1",  ];
 _con ctrlSetPosition ([0,0, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
 _con ctrlCommit 0;
 
 _con setVariable ["group", _group];
 
-unitListGroups pushback [_con,_group];
+
+_typeInfo = _bgcfg call getBattlegroupIcon;
+
+_ctrlsY = 0;
+
+_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text ctrlSetText format["%1", getText (_bgcfg >> "name")];
+_h = ctrlTextHeight _text;
+_text ctrlSetPosition ([0,_ctrlsY, GE_WIDTH, GE_HEIGHT/2 ,false] call getGuiPos);
+_text ctrlCommit 0;
+
+_ctrlsY = _ctrlsY + GE_HEIGHT/2;
+
+_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text ctrlSetText format["%1", _typeInfo # 0];
+_h = ctrlTextHeight _text;
+_text ctrlSetPosition ([0, _ctrlsY, GE_WIDTH, GE_HEIGHT/2 ,false] call getGuiPos);
+_text ctrlCommit 0;
+
+unitListGroups pushback [_cont,_group];
 _con buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
 
 } foreach _groups;
@@ -41,17 +79,37 @@ call updateUnitListCtrls;
 updateUnitListCtrls =
 {
  {
-  _x params ["_con","_group"];
+  _x params ["_cont","_group"];
 
-  _con ctrlSetPosition ([0,(GE_HEIGHT + 0.05) * _forEachIndex, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
-_con ctrlCommit 0;
+  _cont ctrlSetPosition ([0,(GE_HEIGHT + 0.05) * _forEachIndex, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
+_cont ctrlCommit 0;
 
  } foreach unitListGroups;
 };
 
 onUnitListSelect =
 {
+ params ["_ctrl","_group"];
  hint (str _this);
+
+_leader = leader _group;
+ if(isnull _leader) exitWith {};
+
+_cam = curatorcamera; 
+
+_cam camSetTarget _leader;
+_cam camCommit 0;
+_cam camSetTarget objnull;
+_cam camCommit 0;
+
+// nextBattleDir
+
+ /*
+curatorcamera camPrepareTarget player; 
+curatorcamera camCommitPrepared 0;  
+curatorcamera camPrepareTarget objnull;
+curatorcamera camCommitPrepared 0; 
+*/
 };
 
 selectFromUnitList =
