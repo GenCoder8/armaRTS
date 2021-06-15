@@ -37,7 +37,7 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["placement"] call openGameScreen;
 
-waituntil { battleReady };
+waituntil { battleGuiReady };
 
 
 

@@ -456,7 +456,7 @@ deployDone = false;
 
 [nextBattleMap,nextBattleDir] call startBattleFieldZeus;
 
-waituntil { battleReady && !loadScreenStarted };
+waituntil { battleGuiReady && !loadScreenStarted };
 
 
 "Deploying troops" call startRtsLoadScreen;

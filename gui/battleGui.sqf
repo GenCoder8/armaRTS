@@ -40,7 +40,7 @@ if(!canSuspend) exitwith { _this spawn startBattleFieldZeus; };
 
 bpArgs = _this;
 
-battleReady = false;
+battleGuiReady = false;
 
 "Loading battlefield" call startRtsLoadScreen;
 
@@ -407,11 +407,11 @@ else
 call openZeus;
 
 
-battleReady = true;
+battleGuiReady = true;
 }];
 
 
- waituntil { battleReady };
+ waituntil { battleGuiReady };
  call endRtsLoadScreen;
 
 };
