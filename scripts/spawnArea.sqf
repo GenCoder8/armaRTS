@@ -154,7 +154,8 @@ findSafePosVehicle =
   _trees = nearestTerrainObjects [_cpos, ["TREE","SMALL TREE"], _vehSize + 0.5];
   if(count _trees > 0) then { breakto "lookpos"; };
   
-  _to = nearestTerrainObjects [_cpos, ["ROCK","ROCKS", "WALL","FENCE" ], 50];
+  // HIDE = rocks
+  _to = nearestTerrainObjects [_cpos, ["HIDE","ROCK","ROCKS", "WALL","FENCE" ], 50];
 
   _toCol = { [_cpos,_x,_vehSize] call checkBoundingCollide } count _to;
   
