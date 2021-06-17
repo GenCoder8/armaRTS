@@ -1,4 +1,4 @@
-#define GE_WIDTH  6
+#define GE_WIDTH  7
 #define GE_HEIGHT 3
 
 
@@ -53,19 +53,36 @@ _typeInfo = _bgcfg call getBattlegroupIcon;
 
 _ctrlsY = 0;
 
+#define ROW_HEIGHT 1
+#define PADD 0.1
+
+_bgr = _display ctrlCreate ["RscPicture", -1, _cont];
+_bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
+
+
+_ico = _display ctrlCreate ["RscPicture", -1, _cont];
+_ico ctrlSetText (_typeInfo # 1);
+_ico ctrlSetPosition ([0+PADD+0.2,_ctrlsY+PADD, 1, ROW_HEIGHT ,false] call getGuiPos);
+_ico ctrlCommit 0;
+
 _text = _display ctrlCreate ["RtsPoolText", -1, _cont];
 _text ctrlSetText format["%1", getText (_bgcfg >> "name")];
 _h = ctrlTextHeight _text;
-_text ctrlSetPosition ([0,_ctrlsY, GE_WIDTH, GE_HEIGHT/2 ,false] call getGuiPos);
+_text ctrlSetPosition ([1+PADD,_ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
 _text ctrlCommit 0;
 
-_ctrlsY = _ctrlsY + GE_HEIGHT/2;
+_ctrlsY = _ctrlsY + ROW_HEIGHT;
 
 _text = _display ctrlCreate ["RtsPoolText", -1, _cont];
-_text ctrlSetText format["%1", _typeInfo # 0];
+_text ctrlSetText format["%1", _group call getBattleGroupStrengthStr ];
 _h = ctrlTextHeight _text;
-_text ctrlSetPosition ([0, _ctrlsY, GE_WIDTH, GE_HEIGHT/2 ,false] call getGuiPos);
+_text ctrlSetPosition ([0+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
 _text ctrlCommit 0;
+
+_ctrlsY = _ctrlsY + ROW_HEIGHT;
+
+_bgr ctrlSetPosition ([0,0, GE_WIDTH+PADD*2, _ctrlsY+PADD*2 ,false] call getGuiPos);
+_bgr ctrlCommit 0;
 
 unitListGroups pushback [_cont,_group];
 _con buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];

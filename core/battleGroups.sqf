@@ -166,3 +166,11 @@ private _leadUnit = _units select 0;
 
   _icon
 };
+
+getBattleGroupStrengthStr =
+{
+params ["_group"];
+
+format[ "%1 men",  (count (units _group))];
+
+};
