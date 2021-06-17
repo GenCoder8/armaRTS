@@ -81,6 +81,7 @@ _text ctrlCommit 0;
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
+// Set background size
 _bgr ctrlSetPosition ([0,0, GE_WIDTH+PADD*2, _ctrlsY+PADD*2 ,false] call getGuiPos);
 _bgr ctrlCommit 0;
 
