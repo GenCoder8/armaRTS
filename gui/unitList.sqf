@@ -96,11 +96,23 @@ call updateUnitListCtrls;
 
 updateUnitListCtrls =
 {
+ private _index = 0;
+
  {
   _x params ["_cont","_group"];
 
-  _cont ctrlSetPosition ([0,(GE_HEIGHT + 0.05) * _forEachIndex, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
+if( { alive _x} count (units _group) > 0 ) then
+{
+
+  _cont ctrlSetPosition ([0,(GE_HEIGHT + 0.05) * _index, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
 _cont ctrlCommit 0;
+
+ _index = _index + 1;
+}
+else
+{
+ ctrlDelete _cont;
+};
 
  } foreach unitListGroups;
 };
@@ -115,22 +127,40 @@ _leader = leader _group;
 
 _cam = curatorcamera; 
 
+_v = [nextBattleDir, 25] call getVector;
+_cpos = [getpos _leader,_v] call addvector;
+
+_cpos set [2,25];
+
+_cam setposATL _cpos;
+
+
 _cam camSetTarget _leader;
 _cam camCommit 0;
 _cam camSetTarget objnull;
 _cam camCommit 0;
 
-// nextBattleDir
-
- /*
-curatorcamera camPrepareTarget player; 
-curatorcamera camCommitPrepared 0;  
-curatorcamera camPrepareTarget objnull;
-curatorcamera camCommitPrepared 0; 
-*/
 };
 
 selectFromUnitList =
 {
 
 };
+
+
+addMissionEventHandler ["EntityKilled", {
+	params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+call updateUnitListCtrls;
+
+}];
+
+
+addMissionEventHandler ["GroupDeleted", {
+ params ["_group"];
+
+
+hint format["DELETED %1", _group];
+
+}];
+

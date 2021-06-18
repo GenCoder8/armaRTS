@@ -424,7 +424,7 @@ createBattleGroupFromPool =
 
  if(isnull _ce) exitWith { "Failed to get battlegroup cfg" call errmsg; };
 
- private _group = creategroup _side;
+ private _group = creategroup _side; // [_side,true];
 
 diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _ce];
 
