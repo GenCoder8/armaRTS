@@ -74,10 +74,14 @@ _text ctrlCommit 0;
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
 _text = _display ctrlCreate ["RtsPoolText", -1, _cont];
-_text ctrlSetText format["%1", _group call getBattleGroupStrengthStr ];
+
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([0+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
 _text ctrlCommit 0;
+
+_cont setVariable ["strengthText", _text];
+
+[_cont,_group] call setStrengthText;
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
@@ -91,6 +95,16 @@ _con buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", 
 } foreach _groups;
 
 call updateUnitListCtrls;
+
+};
+
+setStrengthText =
+{
+ params ["_cont","_group"];
+
+ _text = _cont getVariable "strengthText";
+
+ _text ctrlSetText format["%1", _group call getBattleGroupStrengthStr ];
 
 };
 
@@ -144,14 +158,38 @@ _cam camCommit 0;
 
 selectFromUnitList =
 {
+ 
+};
 
+ulGetGroupEntry =
+{
+ params ["_group"];
+ private _ret = [];
+
+ { 
+ if(_group == (_x # 1) ) exitWith { _ret = _x; };
+
+} foreach unitListGroups;
+
+_ret
 };
 
 
 addMissionEventHandler ["EntityKilled", {
 	params ["_unit", "_killer", "_instigator", "_useEffects"];
 
-call updateUnitListCtrls;
+private _group = group _unit;
+private _groups = (call getPlayerSide) call getOwnGroups;
+
+if(!(_group in _groups)) exitWith {};
+
+_entry = _group call ulGetGroupEntry;
+
+
+_entry call setStrengthText; // Update just one
+
+
+call updateUnitListCtrls; // Update all
 
 }];
 

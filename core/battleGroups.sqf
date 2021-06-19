@@ -171,6 +171,6 @@ getBattleGroupStrengthStr =
 {
 params ["_group"];
 
-format[ "%1 men",  (count (units _group))];
+format[ "%1 men",  ({ alive _x } count (units _group))];
 
 };
