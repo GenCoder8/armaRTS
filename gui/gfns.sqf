@@ -13,6 +13,7 @@ switch (curScreen) do
 case "globalmap": { showMap false; call closeGlobalMap; };
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
+/*
 case "battle";
 case "placement":
 {
@@ -31,10 +32,30 @@ case "placement":
   call stopAiCom;
  };
 };
+*/
 };
 
 
 
+ if(curScreen == "placement" || curScreen == "battle") then
+ {
+  cutRsc["default","PLAIN",0];
+
+ if(_screen != "battle") then // Going anywhere else than battle (could be placement...)
+ {
+  call closeBattlefieldZeus;
+  call clearBattlefieldLogic;
+  call clearBattleguiButtons;
+ };
+ };
+
+
+ if(curScreen == "battle") then
+ {
+  call stopAiCom;
+ };
+
+ // Open new screen
  switch (_screen) do
  {
   case "globalmap": { call initGlobalMap;  openMap [true, false]; };
