@@ -34,6 +34,10 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
+for "_i" from 0 to 15 do
+{
+ ["HeavyMortarTeam",_area] call placeTestGroup;
+};
 
 ["placement"] call openGameScreen;
 
