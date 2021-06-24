@@ -36,8 +36,6 @@ coverObjsIncluded = createHashMap;
 
 coverObjs = createHashMap;
 
-//_objs = [] call getCoverObjects;
-
 
 private _objs = nearestObjects [coverAreaPos, [], coverAreaSize, true];
 
@@ -49,7 +47,14 @@ private _objs = nearestObjects [coverAreaPos, [], coverAreaSize, true];
 
 
 _obj call registerCoverObj;
-_obj call createCoverPointsForObj;
+
+
+/*
+_mrk = createmarker [format["%1",random 1000], getpos _obj];
+_mrk setMarkerShape "icon";
+_mrk setMarkerType "mil_dot";
+_mrk setMarkerColor "ColorRed";
+*/
 
 /*
 if(DEBUG_COVERS) then
@@ -68,9 +73,14 @@ _arrow = createSimpleObject ["Sign_Arrow_F", _pos,false];
 
 
 
+{
+ _obj = _x;
+ _obj call createCoverPointsForObj;
+} foreach _objs;
+
 };
 
-isObjExcluded =
+isObjNotExcluded =
 {
  params ["_obj"];
  private _ok = true;
@@ -84,7 +94,7 @@ isObjExcluded =
 
 getCoverObjects =
 {
- params ["_cPos","_cSize"];
+ params ["_cPos","_cSize",["_excludeObj",objNull]];
 
 if(count _this == 0) then
 {
@@ -92,27 +102,19 @@ _cPos = coverAreaPos;
 _cSize = coverAreaSize;
 };
 
-//private _objs = nearestObjects [_cPos, [], _cSize, true];
-//private _foundObjs = _objs select { (str _x) in coverObjsIncluded };
 
 private _foundObjs = [];
 
 {
 
-if(_y distance2D _cPos < _cSize) then
+if(_y != _excludeObj && _y distance2D _cPos < _cSize) then
 {
- _foundObjs pushback _y;
+_foundObjs pushback _y;
+
 };
 
 } foreach coverObjsIncluded;
 
-
-/*
-{
-_b = (tolower (str _x)); 
-
-(((_x call getObjVisibilityAboveGround) > 0.5) && ( (_x iskindof "building") || ( (includeCover findIf { (tolower _x) in _b }) >= 0)) && (_x call isObjExcluded))
-};*/
 
 _foundObjs
 };
@@ -121,12 +123,14 @@ includeCheckCoverObject =
 {
  params ["_obj"];
  private _b = (tolower (str _obj));
+ private _wasRegistered = false;
 
- if((((_x call getObjVisibilityAboveGround) > 0.5) && ( (_x iskindof "building") || ( (includeCover findIf { (tolower _x) in _b }) >= 0)) && (_x call isObjExcluded))) then
+ if((((_x call getObjVisibilityAboveGround) > 0.5) && ( (_x iskindof "building") || ( (includeCover findIf { (tolower _x) in _b }) >= 0)) && (_x call isObjNotExcluded))) then
  { 
   coverObjsIncluded set [_b, _obj];
+  _wasRegistered = true;
  };
-
+ _wasRegistered
 };
 
 getObjectCenter =
@@ -192,13 +196,6 @@ _ret = [_cx+_xf,_cy+_yf,0];
 _ret
 };
 
-/*
-getCoverObjects =
-{
-private _objs = nearestObjects [player, ["Land_VR_Block_05_F","BagFence_base_F"], 30];
-_objs
-};*/
-
 
 getCoverObjType =
 {
@@ -211,7 +208,7 @@ registerCoverObj =
 {
  params ["_obj"];
 
-_obj call includeCheckCoverObject; // Create include list also in here
+if(!(_obj call includeCheckCoverObject)) exitWith { }; // Create include list also in here
 
 private _edges = coverObjTypes getOrDefault [_obj call getCoverObjType,[]];
 
@@ -278,6 +275,7 @@ createCoverPointsForObj =
  params ["_obj",["_checkExisting",false]];
 
  private _edges = coverObjTypes getOrDefault [_obj call getCoverObjType,[]];
+
  if(count _edges == 0) exitWith { }; // systemchat format["ERROR no cover points"]; 
 
  private _prevEdges = [];
@@ -295,6 +293,9 @@ createCoverPointsForObj =
   private _pos = getPos _obj;
   private _size = _obj call getObjectSize;
   private _sizeRad = ((_size # 0) max (_size # 1)) / 2;
+
+ private _nearObjs = [_pos,COVER_COLLIDE_DIST,_obj] call getCoverObjects;
+
 
   private _rotateAngle = _angle + 90;
 
@@ -352,7 +353,7 @@ _rotPoint = aslToAgl _intPos;
 _rotPoint set [2,0];
 
 //if(count (_rotPoint isFlatEmpty  [SPACE_REQ_FOR_POINT, -1, -1, -1, -1, false, _obj]) == 0) then
-if([_rotPoint,_obj] call isPositionBlocked) then
+if([_rotPoint,_nearObjs] call isPositionBlocked) then
 {
  _okPos = false;
 };
@@ -392,9 +393,8 @@ coverObjs set [str _obj, _rotEdges];
 
 isPositionBlocked =
 {
- params ["_checkPos","_exclude"];
- private _objs = [_checkPos,COVER_COLLIDE_DIST] call getCoverObjects;
- private _closest = _objs select { _x != _exclude }; // _x distance2D _checkPos < 20 &&
+ params ["_checkPos","_closestObjs"];
+
  private _ret = false;
 
  private _spaceReq = SPACE_REQ_FOR_POINT / 2;
@@ -409,7 +409,7 @@ if(_checkPos inArea [getposATL _obj, (_size # 0) / 2 + _spaceReq, (_size # 1) / 
  break;
 };
 
-} foreach _closest;
+} foreach _closestObjs;
 
  _ret
 };
