@@ -12,21 +12,11 @@ fillUnitList =
  private _groups = (call getPlayerSide) call getOwnGroups;
 
 
-// allControls controlsGroup
+{ ctrlDelete _x; } foreach (allControls _ctrlGroup);
 
-//sleep 2;
+_img = _display ctrlCreate ["RtsPicture", -1, _ctrlGroup];
 
-{
-diag_log format[">>> %1 %2 %3", _x, side _x, _x getVariable "cfg" ];
-} foreach _groups;
-
-
-diag_log format["----- %1 - %2", plrZeus, player];
-
-{
-diag_log format[">>> %1 %2 %3", _x, side _x, _x getVariable "cfg" ];
-} foreach allgroups;
-
+_ctrlGroup setVariable ["background",_img];
 
 unitListGroups = [];
 
@@ -129,12 +119,37 @@ else
 };
 
  } foreach unitListGroups;
+
+
+_gpos = ([0,0,0,((_index + 1) * GE_HEIGHT )] call getGuiPos);
+
+with (uinamespace) do
+{
+
+_ul = unitList;
+_img = _ul getVariable "background";
+
+_pos = ctrlPosition _ul;
+_pos params ["","","_w","_h"];
+
+
+// _ipos = ctrlPosition _img;
+
+_img ctrlSetPosition [0,0,_w, _gpos # 3];
+_img ctrlCommit 0;
+
+};
+
+
+
+
 };
 
 onUnitListSelect =
 {
  params ["_ctrl","_group"];
- hint (str _this);
+
+ systemchat (str _this);
 
 _leader = leader _group;
  if(isnull _leader) exitWith {};
@@ -198,7 +213,7 @@ addMissionEventHandler ["GroupDeleted", {
  params ["_group"];
 
 
-hint format["DELETED %1", _group];
+// hint format["DELETED %1", _group];
 
 }];
 

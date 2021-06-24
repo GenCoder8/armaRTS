@@ -762,6 +762,7 @@ with (uinamespace) do
 {
 battleButtonGroup = controlNull;
 actionButtons = controlNull;
+unitList = controlNull;
 };
 
 setBattleGuiButtons =
@@ -783,6 +784,8 @@ if(!isnull battleButtonGroup) then
  ctrlDelete battleButtonGroup;
  ctrlDelete actionButtons;
 };
+
+ctrldelete unitList;
 };
 
 actionButtons = []; // Always reset
@@ -814,6 +817,8 @@ actionButtons = _ab;
 #define UNIT_LIST_WIDTH  11
 #define UNIT_LIST_HEIGHT  22
 
+
+
 _ul = _display ctrlCreate ["RscControlsGroup", -1];
 _ul ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT] call getGuiPos);
 _ul ctrlCommit 0;
@@ -836,10 +841,6 @@ _bt ctrlCommit 0;
 _bt buttonSetAction format["[] spawn beginBattle"];
 
 
-_img = _display ctrlCreate ["RtsPicture", -1, _ul];
-_img ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT,false] call getGuiPos);
-_img ctrlCommit 0;
-
 _ul call fillUnitList;
 
 };
@@ -857,7 +858,7 @@ _img = _display ctrlCreate ["RtsPicture", -1, _ab];
 _img ctrlSetPosition ([0,0,ACT_CGROUP_WIDTH,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
 
-
+_ul call fillUnitList; // Must call twice or unclickable
 
 _buttonDefs = (missionConfigFile >> "RtsActionButtons");
 
