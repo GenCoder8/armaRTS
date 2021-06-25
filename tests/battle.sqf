@@ -28,17 +28,22 @@ _deployAreaPos = (call getPlayerSide) call getDeployArea;
 _area = [_deployAreaPos,deployAreaSize];
 
 
-["Patton",_area] call placeTestGroup;
+//["Patton",_area] call placeTestGroup;
 
 ["LightMortarTeam",_area] call placeTestGroup;
 
 ["HeavyMortarTeam",_area] call placeTestGroup;
 
+["AntiTankTeam",_area] call placeTestGroup;
+
+
+
+/*
 for "_i" from 0 to 15 do
 {
  ["HeavyMortarTeam",_area] call placeTestGroup;
 };
-
+*/
 ["placement"] call openGameScreen;
 
 waituntil { battleGuiReady };

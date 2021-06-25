@@ -1,5 +1,5 @@
 #define GE_WIDTH  7
-#define GE_HEIGHT 3
+#define GE_HEIGHT 5
 
 
 
@@ -28,15 +28,12 @@ private _bgcfg = _group getVariable ["cfg",confignull];
 if(isnull _bgcfg) then { continue; };
 
 _cont = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1, _ctrlGroup];
-_cont ctrlSetPosition ([0,0, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
-_cont ctrlCommit 0;
 
-_con = _display ctrlCreate ["RtsInvisibleButton", -1, _cont];
-// _con ctrlSetText format["%1",  ];
-_con ctrlSetPosition ([0,0, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
-_con ctrlCommit 0;
+_conb = _display ctrlCreate ["RtsInvisibleButton", -1, _cont];
+// _conb ctrlSetText format["%1",  ];
 
-_con setVariable ["group", _group];
+
+_conb setVariable ["group", _group];
 
 
 _typeInfo = _bgcfg call getBattlegroupIcon;
@@ -44,7 +41,7 @@ _typeInfo = _bgcfg call getBattlegroupIcon;
 _ctrlsY = 0;
 
 #define ROW_HEIGHT 1
-#define PADD 0.1
+#define PADD 0.2
 
 _bgr = _display ctrlCreate ["RscPicture", -1, _cont];
 _bgr ctrlSetText format[RTSmainPath+"gui\bgPanel.jpg"];
@@ -63,6 +60,7 @@ _text ctrlCommit 0;
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
+// Strength
 _text = _display ctrlCreate ["RtsPoolText", -1, _cont];
 
 _h = ctrlTextHeight _text;
@@ -75,12 +73,46 @@ _cont setVariable ["strengthText", _text];
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
+
+
+// Secondary Ammo
+
+_secinfo = _group call getBattleGroupSecWeapInfo;
+
+_wpic = _display ctrlCreate ["RscPicture", -1, _cont];
+_wpic ctrlSetPosition ([0+PADD, _ctrlsY+PADD, 1, ROW_HEIGHT ,false] call getGuiPos);
+_wpic ctrlCommit 0;
+_wpic ctrlSetText (_secinfo # 0);
+_wpic ctrlSetTooltip (_secinfo # 1); 
+
+_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_h = ctrlTextHeight _text;
+_text ctrlSetPosition ([1+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
+_text ctrlCommit 0;
+
+_cont setVariable ["ammoText", _text];
+
+[_cont,_group] call setAmmoText;
+
+_ctrlsY = _ctrlsY + ROW_HEIGHT;
+
+ulContHeight = _ctrlsY + 0.2; // Plu some padd
+
+// Set later
+_cont ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
+_cont ctrlCommit 0;
+
+_conb ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
+_conb ctrlCommit 0;
+
 // Set background size
-_bgr ctrlSetPosition ([0,0, GE_WIDTH+PADD*2, _ctrlsY+PADD*2 ,false] call getGuiPos);
+_bgr ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
 _bgr ctrlCommit 0;
 
+
+
 unitListGroups pushback [_cont,_group];
-_con buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
+_conb buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
 
 } foreach _groups;
 
@@ -98,6 +130,14 @@ setStrengthText =
 
 };
 
+setAmmoText =
+{
+ params ["_cont","_group"];
+ _text = _cont getVariable "ammoText";
+
+ _text ctrlSetText format["%1", _group call getBattleGroupAmmoText ];
+};
+
 updateUnitListCtrls =
 {
  private _index = 0;
@@ -107,8 +147,8 @@ updateUnitListCtrls =
 
 if( { alive _x} count (units _group) > 0 ) then
 {
-
-  _cont ctrlSetPosition ([0,(GE_HEIGHT + 0.05) * _index, GE_WIDTH, GE_HEIGHT ,false] call getGuiPos);
+ // Big enough to have all the ctrls in it
+_cont ctrlSetPosition ([0,(ulContHeight + 0.05) * _index, GE_WIDTH+2, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
  _index = _index + 1;

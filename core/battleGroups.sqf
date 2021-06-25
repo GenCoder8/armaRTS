@@ -174,3 +174,81 @@ params ["_group"];
 format[ "%1 men",  ({ alive _x } count (units _group))];
 
 };
+
+getBattleGroupSecWeapInfo =
+{
+ params ["_group"];
+
+
+private _secPic = "";
+private _secStr = "";
+
+if(_group call isMortarGroup) then 
+{
+ //(_group call getMortarAmmoInfo)
+
+private _gcfg = _group getVariable ["cfg",configNull];
+private _mortarType = getText(_gcfg >> "mortar");
+private _mcfg = configfile >> "CfgVehicles" >> _mortarType;
+_secPic = getText (_mcfg >> "picture");
+_secStr = getText (_mcfg >> "displayName");
+}
+else
+{
+
+_sec = "";
+
+ {
+  _man = _x;
+  if(secondaryWeapon _man != "") then
+{
+ _sec = secondaryWeapon _man;
+};
+ } foreach (units _group select { alive _x });
+
+
+if(_sec != "") then
+{
+ _secPic = gettext (configfile >> "cfgweapons" >> _sec >> "picture");
+ _secStr = gettext (configfile >> "cfgweapons" >> _sec >> "displayName");
+
+};
+
+};
+
+
+
+
+[_secPic,_secStr]
+};
+
+getBattleGroupAmmoText =
+{
+ params ["_group"];
+
+if(_group call isMortarGroup) exitWith 
+{
+ ([_group,false] call getMortarAmmoInfo)
+};
+
+
+_sec = "";
+_totalAmmo = 0;
+
+ {
+  _man = _x;
+  if(secondaryWeapon _man != "") then
+{
+ _sec = secondaryWeapon _man;
+ _totalAmmo = _totalAmmo + (_man ammo _sec);
+};
+ } foreach (units _group select { alive _x });
+
+
+if(_sec != "") then
+{
+ _sec = format["%1", _totalAmmo];
+};
+
+_sec
+};

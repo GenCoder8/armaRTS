@@ -189,7 +189,7 @@ private _magType = [_group,_fireType] call getMortarMagType;
 
 getMortarAmmoInfo =
 {
-params ["_group"];
+params ["_group",["_getName",true]];
 
 if(!(_group call isMortarGroup)) exitWith { "" };
 
@@ -198,8 +198,10 @@ private _text = "";
  private _gcfg = _group getVariable ["cfg",configNull];
  if(isnull _gcfg) exitWith { "" };
 
+if(_getName) then
+{
 _text = getText(configfile >> "cfgVehicles" >> (getText (_gcfg >> "mortar")) >> "displayName") + " - ";
-
+};
 
 {
 
@@ -209,39 +211,6 @@ _text = _text + format ["%1 %2 ", _ammo, _x];
 
 } foreach ["HE","Smoke"];
 
-/*
-private _mor = _group getVariable ["art", objnull];
-if(!isnull _mor && count (magazines _mor) > 0 ) then // Must have mag loaded for this
-{
-private _ammo = _group call getMortarAmmoLeft;
-_text = _text + format ["%1 %2 rounds",_ammo,  (getText (configfile >> "cfgMagazines" >> (currentMagazine _mor) >> "displayName"))  ];
-}
-else
-{
-
- private _mags = _group getVariable ["mortarMags",[]];
- private _hash = createHashMap;
-
-  // Count mags
- {
-
-  private _mname = _x # 0; //(getNumber (configfile >> "cfgMagazines" >> _x >> "name"));
-
-  private _entry = _hash getOrDefault [_mname, 0];
-   
-   _hash set [_mname, _entry + 1 ];
-  
- } foreach _mags;
-
- _text = _text + " Ammo: ";
- {
-  private _name = (getText (configfile >> "cfgMagazines" >> _x >> "displayName"));
-  _text = _text + format["%1 x %2 ",_name, _y];
- } forEach _hash;
-
- //_text = format ["%1", _list  ];
-};
-*/
 _text
 };
 
