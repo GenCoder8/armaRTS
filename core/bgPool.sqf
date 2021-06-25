@@ -437,6 +437,12 @@ _unit setRank (_entry # MANP_RANK);
 _unit setSkill (_entry # MANP_SKILL);
 
 _unit setVariable ["orgSkill", skill _unit]; // Needed later
+
+if(side _unit == (call getPlayerSide)) then // Optimization
+{
+_unit addEventHandler ["FiredMan", unitFiring];
+};
+
 };
 
 private _highestRank = 0;

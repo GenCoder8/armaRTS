@@ -74,7 +74,6 @@ _cont setVariable ["strengthText", _text];
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
 
-
 // Secondary Ammo
 
 _secinfo = _group call getBattleGroupSecWeapInfo;
@@ -96,7 +95,7 @@ _cont setVariable ["ammoText", _text];
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
-ulContHeight = _ctrlsY + 0.2; // Plu some padd
+ulContHeight = _ctrlsY + 0.3; // Plu some padd
 
 // Set later
 _cont ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
@@ -247,6 +246,21 @@ _entry call setStrengthText; // Update just one
 call updateUnitListCtrls; // Update all
 
 }];
+
+
+unitFiring =
+{
+params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
+
+_group = group _unit;
+
+
+_entry = _group call ulGetGroupEntry;
+
+
+_entry call setAmmoText;
+
+};
 
 
 addMissionEventHandler ["GroupDeleted", {
