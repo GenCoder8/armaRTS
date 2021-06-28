@@ -38,8 +38,10 @@ getVicLocMarkers =
 
 clearBattleField =
 {
+/*
 _vicmarkers = call getVicLocMarkers;
 { deleteMarker _x; } foreach _vicmarkers;
+*/
 
 // Just delete all
 { deleteMarker _x; } foreach allmapmarkers;
