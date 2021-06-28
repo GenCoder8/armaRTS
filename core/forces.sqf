@@ -1,9 +1,5 @@
 #include "..\main.h"
 
-#define FORCE_SIDE       0
-#define FORCE_ICON       1
-#define FORCE_POSMARKER  2
-#define FORCE_NUM_MOVES  3
 
 #define FORCE_ICON_SIZE 128
 
@@ -11,9 +7,9 @@ allforces = createHashMap;
 
 registerNewForce =
 {
-params ["_side","_name","_icon","_posmrk"];
+params ["_side","_name","_icon","_posmrk","_usedroster"];
 
-allforces set [_name, [_side,_icon,_posmrk, 1, [], [] ] ];
+allforces set [_name, [_side,_icon,_posmrk, 1, [], [], _usedroster ] ];
 };
 
 isFriendlyForce =

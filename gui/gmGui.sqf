@@ -92,12 +92,15 @@ gmSelectNextBattle =
 gmBeginBattle =
 {
  _nextBattle = gmBattles # gmCurBattleIndex;
+ _nextBattle params ["_placeMrk","_westForce","_eastForce"];
 
  hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
 
- [_nextBattle # 0,90] call setNextBattleArgs;
+ [_placeMrk,90] call setNextBattleArgs;
 
  ["poolSelect"] call openGameScreen;
+
+ (_westForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
 };
 
 onBattleEnded =

@@ -26,3 +26,13 @@
 
 #define DBGL_NONE  0
 #define DBGL_AICOM 2
+
+
+#define FORCE_SIDE       0
+#define FORCE_ICON       1
+#define FORCE_POSMARKER  2
+#define FORCE_NUM_MOVES  3
+#define FORCE_BG_TYPES   4
+#define FORCE_MAN_POOL   5
+#define FORCE_ROSTER     6
+

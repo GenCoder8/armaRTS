@@ -2,10 +2,6 @@
 #include "..\main.h"
 
 
-#define FORCE_BG_TYPES  4
-#define FORCE_MAN_POOL  5
-
-
 //forcePools = createHashMap;
 curPlrForce = [];
 curEnemyForce = [];
@@ -365,7 +361,7 @@ if(_rosterName != "") then
 // forcePools set [_name,[[],[]]];
 // private _fpool = forcePools get _name;
 
-[_side,_name,_icon,_posMrk] call registerNewForce;
+[_side,_name,_icon,_posMrk,_rosterCfg] call registerNewForce;
 _force = allforces get _name;
 
 //diag_log format["POOL123 %1", _fpool];
