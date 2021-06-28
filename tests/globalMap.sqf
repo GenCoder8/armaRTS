@@ -42,6 +42,7 @@ sleep 0.1;
 [east,"testersE","NVA1", "marker_18" ] call createForce;
 
 
+call initGlobalMap;
 
 "globalmap" call openGameScreen;
 

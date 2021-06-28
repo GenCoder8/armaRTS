@@ -1,10 +1,14 @@
 #include "..\main.h"
 
+viclocMarkers = [];
+
+
 initBattleField =
 {
  params ["_apos","_asize"];
 
 _asize = _asize - BATTKE_VICLOC_FROM_EDGE;
+
 
 _createVicLocMarker =
 {
@@ -13,6 +17,8 @@ _marker = createmarker [format["vicLoc%1",_id], _mloc];
 _marker setMarkerShape "ICON";
 _marker setMarkerType VICLOC_MARKER_TYPE;
 _marker setMarkerColor "ColorWhite";
+
+viclocMarkers pushback _marker;
 };
 
 for "_i" from 0 to 3 do
@@ -32,19 +38,21 @@ _mloc = [_apos,_vec] call addvector;
 
 getVicLocMarkers =
 {
- private _mrks = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
- _mrks select { !(_x call isUserMarker) }
+ //private _mrks = allMapMarkers select { (getMarkerType _x) == VICLOC_MARKER_TYPE };
+ //_mrks select { !(_x call isUserMarker) }
+ viclocMarkers
 };
 
 clearBattleField =
 {
-/*
+
 _vicmarkers = call getVicLocMarkers;
 { deleteMarker _x; } foreach _vicmarkers;
-*/
 
-// Just delete all
-{ deleteMarker _x; } foreach allmapmarkers;
+{ deleteMarker _x; } foreach battlelocConArrows;
+
+
+viclocMarkers = [];
 };
 
 getSideFlags =

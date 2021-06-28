@@ -79,7 +79,7 @@ addUnitEntryToPool =
 
  private _ranks = getArray(_cfg >> "ranks");
 
-diag_log format ["Adding unit to pool: %1 - %2 - %3", _type, _rank, _skill ];
+// diag_log format ["Adding unit to pool: %1 - %2 - %3", _type, _rank, _skill ];
 
 _pushToPool =
 {
@@ -301,7 +301,7 @@ retAllBattleGroupsToPool =
 {
   params ["_side"];
 
-  private _groups = allgroups select { _side == (side _x) && (leader _group != player) };
+  private _groups = _side call getOwnGroups;
 
  // Loop backwards to keep same order as when picked from the pool
  for "_i" from (count _groups - 1) to 0 step -1 do

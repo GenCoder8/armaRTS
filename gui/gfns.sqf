@@ -6,11 +6,12 @@ openGameScreen =
 {
  params ["_screen"];
 
+diag_log format["Opening screen '%1' from '%2'", _screen,curScreen];
 
 // Cleanup first
 switch (curScreen) do
 {
-case "globalmap": { showMap false; call closeGlobalMap; };
+case "globalmap": { call closeGlobalMap; };
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
 /*
@@ -36,13 +37,14 @@ case "placement":
 };
 
 
-
  if(curScreen == "placement" || curScreen == "battle") then
  {
   cutRsc["default","PLAIN",0];
 
  if(_screen != "battle") then // Going anywhere else than battle (could be placement...)
  {
+  west call retAllBattleGroupsToPool;
+  east call retAllBattleGroupsToPool;
   call closeBattlefieldZeus;
   call clearBattlefieldLogic;
   call clearBattleguiButtons;
@@ -58,7 +60,7 @@ case "placement":
  // Open new screen
  switch (_screen) do
  {
-  case "globalmap": { call initGlobalMap;  openMap [true, false]; };
+  case "globalmap": { call openGlobalMap; };
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };
   case "placement": 

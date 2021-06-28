@@ -11,25 +11,57 @@ waituntil { _display = findDisplay 12; !isnull _display };
 
 gmPhase = "move";
 
-gmControls = [];
 
 with uinamespace do
 {
-gmNextButtton = nil;
+gmControls = [];
+gmNextButtton = controlNull;
 };
 
-beginGmMovePhase =
+openGlobalMap =
 {
-gmPhase = "move";
+ openMap [true, false];
 
-call resetForcesTurn;
+_display = findDisplay 12;
+
+// Create global map controls
+_ctrlg = _display ctrlCreate ["RscControlsGroup", -1, controlNull];
+_ctrlg ctrlSetPosition ([36,23,15,15,false] call getGuiPos);
+_ctrlg ctrlCommit 0;
+_ctrlg ctrlShow false;
+
+uiNamespace setVariable ["forceCtrlGroup", _ctrlg];
+
+
+_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
+_img ctrlSetText "#(argb,8,8,3)color(0,1,0,1)﻿";
+_img ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
+_img ctrlCommit 0;
+
+_txt = _display ctrlCreate ["RscTextMulti", -1, _ctrlg];
+_txt ctrlSetText "";
+_txt ctrlSetPosition ([0,5,15,5,false] call getGuiPos);
+_txt ctrlCommit 0;
+
+uiNamespace setVariable ["forceInfoCtrl", _txt];
+
+
+_img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
+_img ctrlSetText "uns_men_c\portrait\usarmy\port_soldier1.paa";
+_img ctrlSetPosition ([7,0,5,5,false] call getGuiPos);
+_img ctrlCommit 0;
+
+uiNamespace setVariable ["forceImg", _img];
+
+
 
 _gpos = ([23,35,5,3] call getGuiPos);
 
 with uinamespace do
 {
+diag_log format["... 12345 ... _display......... %1", _display];
 
-if(isnil "gmNextButtton") then
+if(isnull gmNextButtton) then
 {
 
 _display = findDisplay 12;
@@ -42,17 +74,50 @@ _bt buttonSetAction "";
 _bt ctrlSetPosition _gpos;
 _bt ctrlCommit 0;
 
+diag_log format["CREATING THE CTRL %1 %2", _display,  _bt];
 
- gmNextButtton = _bt;
-};
-
+gmNextButtton = _bt;
 
 gmControls pushback gmNextButtton;
+
 };
+
+};
+
+};
+
+closeGlobalMap =
+{
+
+with uinamespace do
+{
+ { ctrlDelete _x; } foreach gmControls;
+ gmControls = [];
+};
+
+ // Delete connection markers
+{ deletemarker _x; }  foreach battlelocConArrows;
+battlelocConArrows = [];
+
+ // Clear map gui
+ ctrlDelete (uiNamespace getVariable "forceImg");
+ ctrlDelete (uiNamespace getVariable "forceInfoCtrl");
+ ctrlDelete (uiNamespace getVariable "forceCtrlGroup");
+
+uiNamespace setVariable ["gmNextButtton", controlNull];
+
+openMap false;
+
+};
+
+beginGmMovePhase =
+{
+gmPhase = "move";
+
+call resetForcesTurn;
 
  (uinamespace getVariable "gmNextButtton") ctrlSetText "End round";
  (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmBattlePhase ";
-
 };
 
 beginGmBattlePhase =
@@ -101,6 +166,13 @@ gmBeginBattle =
  ["poolSelect"] call openGameScreen;
 
  (_westForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
+};
+
+gmEndBattle =
+{
+ ["globalmap"] call openGameScreen;
+
+ call onBattleEnded;
 };
 
 onBattleEnded =
