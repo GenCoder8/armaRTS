@@ -30,7 +30,6 @@ if(isnull _bgcfg) then { continue; };
 _cont = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1, _ctrlGroup];
 
 _conb = _display ctrlCreate ["RtsInvisibleButton", -1, _cont];
-// _conb ctrlSetText format["%1",  ];
 
 
 _conb setVariable ["group", _group];
@@ -84,6 +83,8 @@ _wpic ctrlCommit 0;
 _wpic ctrlSetText (_secinfo # 0);
 _wpic ctrlSetTooltip (_secinfo # 1); 
 
+_cont setVariable ["apic", _wpic];
+
 _text = _display ctrlCreate ["RtsPoolText", -1, _cont];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([1+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
@@ -95,7 +96,7 @@ _cont setVariable ["ammoText", _text];
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
-ulContHeight = _ctrlsY + 0.3; // Plu some padd
+ulContHeight = _ctrlsY + 0.3; // Plus some padd
 
 // Set later
 _cont ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
@@ -109,9 +110,9 @@ _bgr ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
 _bgr ctrlCommit 0;
 
 
-
 unitListGroups pushback [_cont,_group];
 _conb buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
+
 
 } foreach _groups;
 
@@ -180,15 +181,22 @@ _img ctrlCommit 0;
 };
 
 
-
-
 };
 
 onUnitListSelect =
 {
- params ["_ctrl","_group"];
+ params ["_cont","_group"];
 
- systemchat (str _this);
+
+ //private _display = finddisplay 312;
+
+//ctrlSetFocus controlNull;
+
+ //systemchat format["%1 -- %2 -- %3",(str _this), focusedCtrl _display,_cont];
+
+
+//ctrlSetFocus (_cont getvariable "apic");
+
 
 _leader = leader _group;
  if(isnull _leader) exitWith {};
