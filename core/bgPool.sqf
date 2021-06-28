@@ -268,16 +268,19 @@ addBattleGroupToPool =
 
  private _ce = [_side,_bgname] call getBattleGroupCfg;
 
- _skill = 0.3;
+ //_skill = 0.3;
 
  private _units = getArray(_ce >> "units");
  {
   _rank = [_ce,_foreachIndex] call getRankFromCfg;
+  _rankIndex = _rank call rankToNumber;
+  
+  _manSkill = 0.3 * _rankIndex + (random 0.2); // Lieutenant is highest rank... with little bit of random
 
-  [_manPool,_x,_rank,random [0.1,_skill, 0.5],_ce] call addUnitEntryToPool;
+  [_manPool,_x,_rank,_manSkill,_ce] call addUnitEntryToPool;
 
-  _skill = _skill - 0.1;
-  if(_skill < 0.1) then { _skill = 0.1; };
+  //_skill = _skill - 0.1;
+  //if(_skill < 0.1) then { _skill = 0.1; };
  } foreach _units;
 
 };
