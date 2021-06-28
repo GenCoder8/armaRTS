@@ -144,14 +144,14 @@ deployAreaSize = DEPLOY_AREA_SIZE;
  nextBattleMap = _locmarker;
  nextBattleDir = _attackDir;
 
-_areaPos = markerPos _locmarker;
-_areaSize = markerSize _locmarker;
+battleAreaPos = markerPos _locmarker;
+battleAreaSize = markerSize _locmarker;
 
 
 _daDir = 120;
 {
  _side = _x;
- _deployAreaPos = [_areaPos,_daDir] call getBattleDeployPos;
+ _deployAreaPos = [battleAreaPos,_daDir] call getBattleDeployPos;
 
  missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
 

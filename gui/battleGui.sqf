@@ -49,12 +49,16 @@ addMissionEventHandler ["EachFrame",
 {
 removeMissionEventHandler ["EachFrame",_thisEventHandler];
 
+
  bpArgs params ["_areaMarker","_attackDir"];
 
 deployAreaMain = _areaMarker;
 
-_areaPos = markerPos _areaMarker;
-_areaSize = markerSize _areaMarker; // always BATTLE_AREA_SIZE
+_areaPos = battleAreaPos; // markerPos _areaMarker;
+_areaSize = battleAreaSize; // markerSize _areaMarker; // always BATTLE_AREA_SIZE
+
+
+//systemchat format["bpArgs %1 -- %2 -- %3 %4", bpArgs,_areaPos, _areaMarker, _attackDir];
 
 systemchat format["_areaSize %1", _areaSize];
 
@@ -105,7 +109,7 @@ curatorCamera setposATL _cp;
 
 };
 
-
+systemchat format[" %1 .. %2 ", _areaPos,_areaSize # 0];
 
 [_areaPos,_areaSize # 0] call initBattleField;
 

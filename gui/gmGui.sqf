@@ -93,7 +93,11 @@ gmBeginBattle =
 {
  _nextBattle = gmBattles # gmCurBattleIndex;
 
- hint format["Next battle %1", _nextBattle];
+ hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
+
+ [_nextBattle # 0,90] call setNextBattleArgs;
+
+ ["poolSelect"] call openGameScreen;
 };
 
 onBattleEnded =
