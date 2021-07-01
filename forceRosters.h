@@ -30,6 +30,12 @@ battleGroups[] =
 
 };
 
+class Roster2 : Roster1
+{
+ name = "The Testers";
+ icon = "uns_M113parts\army\1id_co.paa";
+};
+
  };
 
 
