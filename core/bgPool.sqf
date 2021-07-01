@@ -123,10 +123,13 @@ deleteVehicle _veh;
 // Add crew to pool
 _vattrs = _type call getVehicleAttrs;
 {
+_crewtype = _x;
+if(!(_crewtype call isTankCrew)) then { ["Tank crew not listed '%1'", _crewtype] call errmsg; };
+
 private _rank = "PRIVATE";
 if(_foreachIndex < (count _ranks)) then { _rank = _ranks # _foreachIndex; };
 
-[_x,_rank,_skill] call _pushToPool;
+[_crewtype,_rank,_skill] call _pushToPool;
 } foreach (_vattrs # VEH_ATTRS_CREW);
 
 }
@@ -293,8 +296,19 @@ retBattleGroupToPool =
   private _man = _x;
 
   [_manPool,_man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
+ 
 
- } foreach (units _group);
+ } foreach ((units _group) select { alive _x });
+
+ private _vehs = _group call getVehicles;
+
+// Vehicles too
+{
+ _vehType = typeof _x;
+ [_manPool,_vehType,"PRIVATE",0, _group getVariable "cfg"] call addUnitEntryToPool;
+
+} foreach (_vehs select {alive _x});
+
 };
 
 retAllBattleGroupsToPool =
