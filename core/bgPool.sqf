@@ -93,7 +93,7 @@ _pushToPool =
 
 [_type,_rank,_skill] call _pushToPool;
 
-if(!(_type iskindOf "man")) then
+if(!(_type iskindOf "man")) then // If vehicle
 {
 _vattrs = _type call getVehicleAttrs;
 
@@ -517,6 +517,8 @@ if(count _crewList != count _crew) then
  {
  private _ce = _x;
  private _entry = [_manPool,_ce,isTankCrew, call _useRank] call getUnitEntryFromPool;
+
+ if(count _entry == 0) exitWith { "Could not find crew from pool" call errmsg; };
 
  _cm = _crew # _foreachIndex;
  _cm call _setupMan;
