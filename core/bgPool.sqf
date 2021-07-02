@@ -52,9 +52,7 @@ getForcePool =
 
 vehicleAttributes = [];
 
-#define VEH_ATTRS_TYPE   0
-#define VEH_ATTRS_CREW   1
-#define VEH_ATTRS_SIZE   2
+
 
 
 // Keeps all the bgs that can be used
@@ -159,7 +157,7 @@ printArray =
 
 getUnitEntryFromPool =
 {
- params ["_manPool","_type","_kindFn",["_reqRank",-1]];
+ params ["_manPool","_type","_kindFn",["_reqRank",-1],["_onlyCheck",false]];
  private _entry = [];
  private _highestRank = -1;
  private _selEntryIndex = -1;
@@ -178,10 +176,14 @@ getUnitEntryFromPool =
 
 if(_selEntryIndex >= 0) then
 {
- _entry = _manPool deleteAt _selEntryIndex;
+ _entry = _manPool select _selEntryIndex;
+ if(!_onlyCheck) then
+ {
+  _manPool deleteAt _selEntryIndex;
+ };
 };
 
-if(count _entry == 0) then
+if(count _entry == 0 && !_onlyCheck) then
 {
  ["getUnitEntryFromPool failed %1 -- %2 <> %3",_type,_reqRank,_highestRank] call errmsg;
  //["%1", _kindFn ] call errmsg;
@@ -190,6 +192,15 @@ if(count _entry == 0) then
 };
 
  _entry
+};
+
+hasUnitEntryInPool =
+{
+ params ["_manPool","_type","_kindFn",["_reqRank",-1]];
+
+ private _entry = [_manPool,_type,_kindFn, _reqRank, true] call getUnitEntryFromPool;
+
+ count _entry > 0
 };
 
 isOfSpecialType =

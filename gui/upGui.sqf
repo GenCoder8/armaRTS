@@ -161,7 +161,21 @@ for "_i" from 0 to (count _selectedBgs - 1) do
 
 private _units = getArray(_obgCfg >> "units");
 {
-[_usedPoolTypes,_x] call addTypeToList;
+_u = _x;
+[_usedPoolTypes,_u] call addTypeToList;
+
+// Must also check crew
+if(!(_u iskindof "Man")) then
+{
+ private _vattrs = _u call getVehicleAttrs;
+
+ private _crewList = _vattrs # VEH_ATTRS_CREW;
+ {
+  [_usedPoolTypes,_u] call addTypeToList;
+} foreach _crewList;
+
+};
+
 } foreach _units;
 
 };
@@ -207,6 +221,30 @@ if(_leftInPool <= 0) then
 _notEnough = true;
 break;
 };
+};
+
+// Check if vehicle has crew in the pool
+if(!(_utype iskindof "Man")) then
+{
+ private _vattrs = _utype call getVehicleAttrs;
+ private _crewList = _vattrs # VEH_ATTRS_CREW;
+
+ private _crewLeftInPool = 1;
+
+ {
+   private _crewType = _x;
+   _crewLeftInPool = (_poolTypes getOrDefault [_crewType,0]) - (_usedPoolTypes getOrDefault [_crewType,0]);
+
+   if(_crewLeftInPool < 0) then { break; };
+
+ } foreach _crewList;
+
+if(_crewLeftInPool <= 0) then
+{
+_notEnough = true;
+break;
+};
+
 };
 
 } foreach _units;
