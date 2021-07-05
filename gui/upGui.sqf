@@ -323,7 +323,7 @@ if([(call getPlayerSide),_bgName,selectedBattleGroups,true] call canBgBeSelected
 
 _display = findDisplay UNITPOOLDLGID;
 _ctrlMpl = _display displayCtrl 1000;
-_ctrlMpl ctrlSetText format["Left in pool: man %1 vehicles %2 crew %3", manpoolSelLeft # UTYPE_NUMBER_INFANTRY, manpoolSelLeft # UTYPE_NUMBER_VEHICLE, manpoolSelLeft # UTYPE_NUMBER_CREW];
+_ctrlMpl ctrlSetText format["Left in pool: infantry %1 vehicles %2 crew %3", manpoolSelLeft # UTYPE_NUMBER_INFANTRY, manpoolSelLeft # UTYPE_NUMBER_VEHICLE, manpoolSelLeft # UTYPE_NUMBER_CREW];
 
 };
 
