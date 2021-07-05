@@ -145,7 +145,7 @@ _text3 ctrlCommit 0;
 
 canBgBeSelected =
 {
- params ["_side","_bgName","_selectedBgs"];
+ params ["_side","_bgName","_selectedBgs",["_retLeft",false]];
 
 if((count _selectedBgs) >= MAX_SELECTED_BGS) exitwith { false };
 
@@ -196,6 +196,14 @@ private _poolLeftTypes = [_poolCounts,_neededMen] call subList;
 
  private _cn = [_side,_bgName] call countBgPoolNeed;
  private _left = [+_poolLeftTypes,_cn] call subList;
+
+
+if(_retLeft) then
+{
+ manpoolSelLeft = +_left;
+
+ //systemchat format["_>>>>>>>>>>>>>>>> %1", _retLeft];
+};
  
 private _notEnough = false;
 if((_left findIf { _x < 0}) >= 0 ) then // Anything depleted?
@@ -293,6 +301,7 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 
 _availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
 
+
 // Create battle groups pool
 numPoolPanels = 0;
 for "_i" from 0 to (count _availBgs - 1) do
@@ -302,7 +311,7 @@ for "_i" from 0 to (count _availBgs - 1) do
 
 private _canSel = false;
 
-if([(call getPlayerSide),_bgName,selectedBattleGroups] call canBgBeSelected) then
+if([(call getPlayerSide),_bgName,selectedBattleGroups,true] call canBgBeSelected) then
 {
  _canSel = true;
 };
@@ -311,6 +320,10 @@ if([(call getPlayerSide),_bgName,selectedBattleGroups] call canBgBeSelected) the
 
  numPoolPanels = numPoolPanels + 1;
 };
+
+_display = findDisplay UNITPOOLDLGID;
+_ctrlMpl = _display displayCtrl 1000;
+_ctrlMpl ctrlSetText format["Left in pool: man %1 vehicles %2 crew %3", manpoolSelLeft # UTYPE_NUMBER_INFANTRY, manpoolSelLeft # UTYPE_NUMBER_VEHICLE, manpoolSelLeft # UTYPE_NUMBER_CREW];
 
 };
 
@@ -454,6 +467,7 @@ fillWithRandomBgs =
  call createBgPoolPanels;
 };
 
+// Creates the battle group list
 getBgSelectedList =
 {
  params ["_side","_rosClass"];
