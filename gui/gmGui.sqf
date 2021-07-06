@@ -109,10 +109,10 @@ with uinamespace do
 battlelocConArrows = [];
 
  // Clear map gui
- ctrlDelete (uiNamespace getVariable "forceImg");
- ctrlDelete (uiNamespace getVariable "forceInfoCtrl");
+ //ctrlDelete (uiNamespace getVariable "forceImg");
+ //ctrlDelete (uiNamespace getVariable "forceInfoCtrl");
  ctrlDelete (uiNamespace getVariable "forceCtrlGroup");
- ctrlDelete (uiNamespace getVariable "forceDeselect");
+ //ctrlDelete (uiNamespace getVariable "forceDeselect");
 
 
 uiNamespace setVariable ["gmNextButtton", controlNull];
@@ -298,7 +298,6 @@ onForceDeselect =
 
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow false;
 
- (uiNamespace getVariable "forceDeselect") ctrlShow false;
 };
 
 onForceSelect =
@@ -313,7 +312,6 @@ onForceSelect =
 
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow true;
 
- (uiNamespace getVariable "forceDeselect") ctrlShow true;
 };
 
 lastHighlight = "";
