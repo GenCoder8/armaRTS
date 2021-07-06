@@ -54,6 +54,15 @@ _img ctrlCommit 0;
 uiNamespace setVariable ["forceImg", _img];
 
 
+_bt = _display ctrlCreate ["Rscbutton", -1, _ctrlg];
+_bt ctrlSetText format["X"];
+_bt buttonSetAction "call onForceDeselect;";
+//_bt ctrlsetTooltip "";
+_bt ctrlSetPosition ([0,4,1,1,false] call getGuiPos);
+_bt ctrlCommit 0;
+
+uiNamespace setVariable ["forceDeselect", _bt];
+
 
 _gpos = ([23,35,5,3] call getGuiPos);
 
@@ -103,6 +112,8 @@ battlelocConArrows = [];
  ctrlDelete (uiNamespace getVariable "forceImg");
  ctrlDelete (uiNamespace getVariable "forceInfoCtrl");
  ctrlDelete (uiNamespace getVariable "forceCtrlGroup");
+ ctrlDelete (uiNamespace getVariable "forceDeselect");
+
 
 uiNamespace setVariable ["gmNextButtton", controlNull];
 
@@ -286,15 +297,23 @@ onForceDeselect =
  (uiNamespace getVariable "forceInfoCtrl") ctrlSetText "";
 
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow false;
+
+ (uiNamespace getVariable "forceDeselect") ctrlShow false;
 };
 
 onForceSelect =
 {
+ params ["_force"];
+
+ selectedForce = _force;
+
  (uiNamespace getVariable "forceImg") ctrlSetText (selectRandom solImgs);
 
  (uiNamespace getVariable "forceInfoCtrl") ctrlSetText (selectedForce call getForceInfo);
 
  (uiNamespace getVariable "forceCtrlGroup") ctrlShow true;
+
+ (uiNamespace getVariable "forceDeselect") ctrlShow true;
 };
 
 lastHighlight = "";
@@ -499,9 +518,8 @@ if(selectedForce == "") then
  _force = [_pos] call hoverOnForce;
  if(_force != "") then
  {
- selectedForce = _force;
  hint "Force selected!";
- _force call onForceSelect;
+ [_force] call onForceSelect;
  };
 }
 else
