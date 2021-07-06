@@ -211,26 +211,40 @@ pos set [1, (pos # 1) + 100];
 
 findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
 {
+params ["_mapCtrl"];
+
 if(curScreen != "globalmap") exitWith {};
 
-/*
-if(curScreen != "globalmap") exitWith {};
+hint (str _mapCtrl);
 
-	_this select 0 drawIcon [
-		getMissionPath "unit.jpg", // Custom images can also be used: getMissionPath "\myFolder\myIcon.paa"
+_mapCtrl call renderForces;
+
+if(selectedForce != "") then
+{
+_pmrk = selectedForce call getForcePosMarker;
+
+	_mapCtrl drawIcon [
+		"a3\ui_f\data\map\groupicons\selector_selectable_ca.paa",
 		[1,1,1,1],
-		pos,
-		TEST_ICON_SIZE / ( (1 call scaleToMap)),
-		TEST_ICON_SIZE / ( (1 call scaleToMap)),
-		45,
-		"Player Vehicle",
+		markerpos _pmrk,
+		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		0,
+		"",
 		1,
 		0.03,
 		"TahomaB",
 		"right"
 	];
-*/
- call renderForces;
+
+};
+
+// "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa"
+
+// "a3\ui_f_curator\data\cfgwrapperui\cursors\curatorselect_ca.paa"
+// "a3\ui_f\data\igui\cfg\cursors\selectover_ca.paa"
+// "a3\ui_f\data\map\groupicons\selector_selectable_ca.paa"
+
 
 }];
 

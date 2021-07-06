@@ -36,6 +36,8 @@
 #define FORCE_MAN_POOL   5
 #define FORCE_ROSTER     6
 
+#define FORCE_ICON_SIZE 128
+
 
 #define VEH_ATTRS_TYPE   0
 #define VEH_ATTRS_CREW   1

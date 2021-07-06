@@ -1,8 +1,6 @@
 #include "..\main.h"
 
 
-#define FORCE_ICON_SIZE 128
-
 allforces = createHashMap;
 
 registerNewForce =
@@ -184,9 +182,10 @@ private _poolCounts = [_mpool,true] call countListTypeNumbers;
 
 renderForces =
 {
+ params ["_mapCtrl"];
 
 {
-	_this select 0 drawIcon [
+	_mapCtrl drawIcon [
 		_y # FORCE_ICON,
 		[1,1,1,1],
 		_x call getForceRenderPos,
