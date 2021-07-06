@@ -215,7 +215,6 @@ params ["_mapCtrl"];
 
 if(curScreen != "globalmap") exitWith {};
 
-hint (str _mapCtrl);
 
 _mapCtrl call renderForces;
 
@@ -236,6 +235,31 @@ _pmrk = selectedForce call getForcePosMarker;
 		"TahomaB",
 		"right"
 	];
+
+if(mouseOverLoc != "") then
+{
+
+ _icon = "a3\ui_f\data\map\groupicons\selector_selected_ca.paa";
+if(mouseOverLoc == "enemy") then
+{
+ _icon = "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa";
+};
+
+	_mapCtrl drawIcon [
+		_icon,
+		[1,1,1,1],
+		markerpos lastHighlight,
+		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		0,
+		"",
+		1,
+		0.03,
+		"TahomaB",
+		"right"
+	];
+
+};
 
 };
 
@@ -305,6 +329,7 @@ if(lastHighlight != "") then
 {
 lastHighlight setmarkeralpha BATTLE_LOC_ALPHA;
 lastHighlight setMarkerColor BATTLE_LOC_COLOR;
+mouseOverLoc = "";
 };
 
 _highlightingSelection = false;
@@ -320,10 +345,12 @@ if(_bf != "") then
 
 _numEnemies = [call getEnemySide,_bf] call countSideForcesAtBattleLoc;
 
+mouseOverLoc = "free";
 
 if(_numEnemies > 0) then
 {
  _bf setMarkerColor "ColorRed";
+ mouseOverLoc = "enemy";
 };
 
 _bf setmarkeralpha 1;
