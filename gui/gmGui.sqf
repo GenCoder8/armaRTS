@@ -65,14 +65,13 @@ uiNamespace setVariable ["forceDeselect", _bt];
 
 
 _gpos = ([23,35,5,3] call getGuiPos);
+_phaseTextPos = ([12,-5.5,15,1,false] call getGuiPos);
 
 with uinamespace do
 {
-diag_log format["... 12345 ... _display......... %1", _display];
 
 if(isnull gmNextButtton) then
 {
-
 _display = findDisplay 12;
 
 _bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
@@ -83,11 +82,19 @@ _bt buttonSetAction "";
 _bt ctrlSetPosition _gpos;
 _bt ctrlCommit 0;
 
-diag_log format["CREATING THE CTRL %1 %2", _display,  _bt];
 
 gmNextButtton = _bt;
 
 gmControls pushback gmNextButtton;
+
+
+_txt = _display ctrlCreate ["RscText", -1, controlNull];
+_txt ctrlSetText "";
+_txt ctrlSetPosition _phaseTextPos;
+_txt ctrlCommit 0;
+_txt ctrlSetTextColor [1,0,0,1];
+gmControls pushback _txt;
+uiNamespace setVariable ["phaseText", _txt];
 
 };
 
@@ -127,6 +134,7 @@ gmPhase = "move";
 
 call resetForcesTurn;
 
+ (uinamespace getVariable "phaseText") ctrlSetText "Move phase";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "End round";
  (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmBattlePhase ";
 };
@@ -152,7 +160,8 @@ gmSelectNextBattle =
  private _map =  findDisplay 12 displayCtrl 51;
  _map ctrlMapAnimAdd [1, 0.05, getMarkerPos _loc];
  ctrlMapAnimCommit _map;
-
+ 
+  (uinamespace getVariable "phaseText") ctrlSetText "Battle phase";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "To battle";
  (uinamespace getVariable "gmNextButtton") buttonSetAction " call gmBeginBattle ";
 
@@ -201,6 +210,7 @@ gmCheckRoundEnd =
 
 if(gmCurBattleIndex >= (count gmBattles) || (count gmBattles) == 0) then
 {
+  (uinamespace getVariable "phaseText") ctrlSetText "End of round";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "Next round";
  (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmMovePhase ";
 }
