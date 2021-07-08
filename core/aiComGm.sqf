@@ -1,5 +1,5 @@
 
-createPathfindingData =
+createGmPathfindingData =
 {
 
 pfNodes = [];
@@ -40,14 +40,20 @@ pfGetMarkerNodeId =
  private _ret = -1;
 
  _ret = pfMapMarkerIds getOrDefault [_marker, -1];
-/*
-{
 
- if(_x # 1 == _marker) exitWith { _ret = _x # 0; };
-
-} foreach pfNodes;
-*/
  _ret
+};
+
+pfGetMarkerById =
+{
+ params ["_nodeId"];
+ private _ret = "";
+
+{
+ if(_y == _nodeId) exitWith { _ret  = _x; };
+} foreach pfMapMarkerIds;
+
+_ret
 };
 
 findPath =
@@ -64,4 +70,4 @@ systemchat format ["Solution: %1", _solution ];
 
 };
 
-// ["marker_9","marker_17"] call findPath
+// call createGmPathfindingData; ["marker_9","marker_17"] call findPath
