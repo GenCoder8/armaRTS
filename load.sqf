@@ -57,6 +57,9 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
  make360 = RTSmainPath+"scripts\math\make360Fn.sqf" call compileFile;
 
 
+ shortPathDijkstra = RTSmainPath+"scripts\dl\fn_shortPathDijkstra.sqf" call compileFile;
+
+
 "scripts\fns.sqf" call execFile;
 
 "scripts\debug.sqf" call execFile;
@@ -72,6 +75,8 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 "core\zeus.sqf" call execFile;
 
 "core\aicom.sqf" call execFile;
+
+"core\aiComGm.sqf" call execFile;
 
 "scripts\garrison.sqf" call execFile;
 
