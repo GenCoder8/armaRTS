@@ -68,6 +68,42 @@ _solution = [_sid,_eid,+pfNodes,+pfConnections] call shortPathDijkstra;
 
 systemchat format ["Solution: %1", _solution ];
 
+_solution
 };
+
+
+
+#include "..\main.h"
+
+testGmAI =
+{
+ _forces = [allforces, { _x # FORCE_SIDE == east } ] call hashmapSelect;
+
+ _tf = _forces # 0;
+
+ // systemchat format["Running PF for %1", _tf];
+
+ call createGmPathfindingData; 
+
+
+ _start = _tf # FORCE_POSMARKER;
+ 
+ _path = [_start,"marker_17"] call findPath;
+
+ {
+  _nodeMarker = _x call pfGetMarkerById;
+
+  _tf set [FORCE_POSMARKER, _nodeMarker ];
+
+  sleep 2;
+ } foreach _path;
+ 
+ systemchat "DONE PATHING";
+};
+
+
+
+
+
 
 // call createGmPathfindingData; ["marker_9","marker_17"] call findPath
