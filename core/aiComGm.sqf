@@ -4,6 +4,7 @@
 
 createGmPathfindingData =
 {
+params ["_aiForce"];
 
 pfNodes = [];
 pfMapMarkerIds = createHashmap;
@@ -24,12 +25,12 @@ pfConnections = [];
  _curId = _marker call pfGetMarkerNodeId;
  _connections = _y;
 
-//if(_marker == "marker_17") then { continue; };
+ if(!([_aiForce,_marker] call canForceMoveToLoc)) then { continue; };
 
 {
 _omarker = _x;
 
-//if(_omarker == "marker_17") then { continue; };
+ if(!([_aiForce,_omarker] call canForceMoveToLoc)) then { continue; };
 
 _oId = _omarker call pfGetMarkerNodeId;
 
@@ -80,7 +81,19 @@ systemchat format ["Solution: %1", _solution ];
 _solution
 };
 
+canForceMoveToLoc =
+{
+ params ["_force","_locMarker"];
 
+ private _side = _force # FORCE_SIDE;
+
+// ([_side,_locMarker] call countSideForcesAtBattleLoc) == 0
+
+ private _forces = _locMarker call getForcesAtBattleLoc;
+
+ // No friendly forces in tile, then can move
+ ({ (_x # FORCE_SIDE) == _side && (_x # FORCE_ID) != (_force # FORCE_ID) } count _forces) == 0
+};
 
 testGmAICap =
 {
@@ -95,25 +108,30 @@ while { true } do
 
 
 {
- _tf = _y;
- _side = _tf # FORCE_SIDE;
+ private _aiforce = _y;
+ _side = _aiforce # FORCE_SIDE;
+ _curLocMrk = _aiforce # FORCE_POSMARKER;
  if(_side == (call getplayerSide)) then { continue; };
+ 
+ // Can't move if in engagement
+ if(_curLocMrk call isEngagementInLoc) then { continue; };
 
  _capLocs = _bvlocs select { _x # BATTLELOC_OWNER != _side };
+
 
 if(count _capLocs > 0) then
 {
  _cl = _capLocs # 0;
 
- call createGmPathfindingData; 
+ [_aiforce] call createGmPathfindingData; 
 
- _start = _tf # FORCE_POSMARKER;
+ _start = _aiforce # FORCE_POSMARKER;
  _path = [_start,_cl # BATTLELOC_MARKER] call findPath;
 
  if(count _path > 1) then // Should be two, first is current pos
  {
   _nodeMarker = (_path # 1) call pfGetMarkerById;
-   [_tf,_nodeMarker] call setForceNewBattleLoc;
+   [_aiforce,_nodeMarker] call setForceNewBattleLoc;
  };
 
 };

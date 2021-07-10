@@ -489,8 +489,8 @@ if(_bf != "") then
 {
  private _floc = (selectedForce call getForcePosMarker);
 
-// If more than one then it's engagement
-if(count (_floc call getForcesAtBattleLoc) == 1) then
+// If not engagement
+if(!(_floc call isEngagementInLoc)) then
 {
 
 if(selectedForce call numForceMoves > 0) then

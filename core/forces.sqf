@@ -2,12 +2,15 @@
 
 
 allforces = createHashMap;
+numForcesCreated = 0;
 
 registerNewForce =
 {
 params ["_side","_name","_icon","_posmrk","_usedroster"];
 
-allforces set [_name, [_side,_icon,_posmrk, 1, [], [], _usedroster ] ];
+allforces set [_name, [numForcesCreated,_side,_icon,_posmrk, 1, [], [], _usedroster ] ];
+
+numForcesCreated = numForcesCreated + 1;
 };
 
 isFriendlyForce =
@@ -78,6 +81,12 @@ if((_y # FORCE_POSMARKER) == _loc) then
 
 
  _list
+};
+
+isEngagementInLoc =
+{
+ params ["_locMarker"];
+ count (_locMarker call getForcesAtBattleLoc) > 1
 };
 
 countSideForcesAtBattleLoc =
