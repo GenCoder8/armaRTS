@@ -1,4 +1,9 @@
 
+#define BATTLELOC_MARKER    0
+#define BATTLELOC_ISVICLOC  1
+#define BATTLELOC_OWNER     2
+
+
 #define VICLOC_ID       0
 #define VICLOC_POS      1
 #define VICLOC_NAME     2

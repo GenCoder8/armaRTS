@@ -1,4 +1,7 @@
 
+#include "..\main.h"
+
+
 createGmPathfindingData =
 {
 
@@ -7,9 +10,10 @@ pfMapMarkerIds = createHashmap;
 
 
 {
+private _mrk = _x # BATTLELOC_MARKER;
 
-pfNodes pushback [_forEachIndex, markerpos _x ];
-pfMapMarkerIds set [_x, _forEachIndex];
+pfNodes pushback [_forEachIndex, markerpos _mrk ];
+pfMapMarkerIds set [_mrk, _forEachIndex];
 
 } foreach gmBattleLocations;
 
@@ -20,8 +24,13 @@ pfConnections = [];
  _curId = _marker call pfGetMarkerNodeId;
  _connections = _y;
 
+if(_marker == "marker_17") then { continue; };
+
 {
 _omarker = _x;
+
+if(_omarker == "marker_17") then { continue; };
+
 _oId = _omarker call pfGetMarkerNodeId;
 
 pfConnections pushback [_curId,_oId];
@@ -72,9 +81,6 @@ _solution
 };
 
 
-
-#include "..\main.h"
-
 testGmAI =
 {
  _forces = [allforces, { _x # FORCE_SIDE == east } ] call hashmapSelect;
@@ -88,14 +94,14 @@ testGmAI =
 
  _start = _tf # FORCE_POSMARKER;
  
- _path = [_start,"marker_17"] call findPath;
+ _path = [_start,"marker_31"] call findPath;
 
  {
   _nodeMarker = _x call pfGetMarkerById;
 
   _tf set [FORCE_POSMARKER, _nodeMarker ];
 
-  sleep 2;
+  sleep 1.5;
  } foreach _path;
  
  systemchat "DONE PATHING";
@@ -106,4 +112,4 @@ testGmAI =
 
 
 
-// call createGmPathfindingData; ["marker_9","marker_17"] call findPath
+// call createGmPathfindingData; ["marker_9","marker_31"] call findPath

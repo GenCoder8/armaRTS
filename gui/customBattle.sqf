@@ -16,7 +16,7 @@ _blocs = gmBattleLocations;
 battleLocList = [];
 
 {
-_marker = _x;
+_marker = _x # BATTLELOC_MARKER;
 
 _locName = _marker splitString "_" joinString " ";
 

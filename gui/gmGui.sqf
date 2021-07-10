@@ -227,6 +227,10 @@ pos set [1, (pos # 1) + 100];
 
 
 
+getIconScale =
+{
+ (1 - (1 call scaleToMap)) * FORCE_ICON_SIZE
+};
 
 #define TEST_ICON_SIZE 10
 
@@ -235,6 +239,39 @@ findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw",
 params ["_mapCtrl"];
 
 if(curScreen != "globalmap") exitWith {};
+
+private _is = call getIconScale;
+
+{
+
+if(_x # BATTLELOC_ISVICLOC) then
+{
+ _mrk = _x # BATTLELOC_MARKER;
+ _side = _x # BATTLELOC_OWNER;
+
+#define BL_SCALE 1
+
+_color = [1,1,1,1];
+if(_side == west) then { _color = [0,0,1,1]; };
+if(_side == east) then { _color = [1,0,0,1]; };
+
+	_mapCtrl drawIcon [
+		"uns_M113parts\art\starlg.paa",
+		_color,
+		markerpos _mrk,
+		_is * BL_SCALE,
+		_is * BL_SCALE,
+		0,
+		"",
+		1,
+		0.03,
+		"TahomaB",
+		"right"
+	];
+
+};
+
+} foreach gmBattleLocations;
 
 
 _mapCtrl call renderForces;
@@ -247,8 +284,8 @@ _pmrk = selectedForce call getForcePosMarker;
 		"a3\ui_f\data\map\groupicons\selector_selectable_ca.paa",
 		[1,1,1,1],
 		markerpos _pmrk,
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		_is,
+		_is,
 		0,
 		"",
 		1,
@@ -270,8 +307,8 @@ if(mouseOverLoc == "enemy") then
 		_icon,
 		[1,1,1,1],
 		markerpos lastHighlight,
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
-		(1 - (1 call scaleToMap)) * FORCE_ICON_SIZE,
+		_is,
+		_is,
 		0,
 		"",
 		1,
@@ -567,10 +604,10 @@ isMouseOverBattlefield =
 _locs = gmBattleLocations;
 
 {
-
-if(_pos distance2D (getMarkerPos _x) < ((2000) * ( (1 call scaleToMap))) ) exitWith
+private _mrk = _x # BATTLELOC_MARKER;
+if(_pos distance2D (getMarkerPos _mrk) < ((2000) * ( (1 call scaleToMap))) ) exitWith
 {
- _ret = _x;
+ _ret = _mrk;
 };
 
 } foreach _locs;

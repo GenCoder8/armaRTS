@@ -5,7 +5,10 @@ getBattleLocations =
 {
 _battleLocations = allMapMarkers select { markerColor _x == BATTLE_LOC_COLOR };
 
-_battleLocations select { !(_x call isUserMarker) }
+private _locs = _battleLocations select { !(_x call isUserMarker) };
+
+
+ _locs apply { [_x, _x find "vic" >= 0 , resistance ] }
 };
 
 
@@ -13,10 +16,14 @@ _battleLocations select { !(_x call isUserMarker) }
 gmBattleLocations = call getBattleLocations;
 
  _blocs = gmBattleLocations;
+
+ // Setup correct colors etc
  {
-  _x setMarkerAlpha BATTLE_LOC_ALPHA;
-  _x setMarkerShape "ELLIPSE";
-  _x setMarkerSize [BATTLE_AREA_SIZE,BATTLE_AREA_SIZE];
+  _mrk = _x # BATTLELOC_MARKER;
+  _mrk setMarkerAlpha BATTLE_LOC_ALPHA;
+  _mrk setMarkerShape "ELLIPSE";
+  _mrk setMarkerSize [BATTLE_AREA_SIZE,BATTLE_AREA_SIZE];
+
  } foreach _blocs;
 
 
@@ -31,10 +38,12 @@ systemchat format ["found %1 locations", count _battleLocations];
 
 battlelocConnections = createHashMap;
 
+_blMarkers = _battleLocations apply { _x # BATTLELOC_MARKER };
+
 {
- _mrkName = _x;
- _bl = getmarkerpos _x;
- _other = _battleLocations - [_x];
+ _mrkName = _x # BATTLELOC_MARKER;
+ _bl = getmarkerpos _mrkName;
+ _other = _blMarkers - [_mrkName];
 
 _other = _other apply { [_bl distance2D (getmarkerpos _x), _x] };
 _other sort true;
