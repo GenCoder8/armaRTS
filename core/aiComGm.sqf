@@ -24,12 +24,12 @@ pfConnections = [];
  _curId = _marker call pfGetMarkerNodeId;
  _connections = _y;
 
-if(_marker == "marker_17") then { continue; };
+//if(_marker == "marker_17") then { continue; };
 
 {
 _omarker = _x;
 
-if(_omarker == "marker_17") then { continue; };
+//if(_omarker == "marker_17") then { continue; };
 
 _oId = _omarker call pfGetMarkerNodeId;
 
@@ -79,6 +79,58 @@ systemchat format ["Solution: %1", _solution ];
 
 _solution
 };
+
+
+
+testGmAICap =
+{
+ //_forces = [allforces, { _x # FORCE_SIDE == east } ] call hashmapSelect;
+
+ _bvlocs = gmBattleLocations select { _x # BATTLELOC_ISVICLOC };
+
+sleep 2;
+
+while { true } do
+{
+
+
+{
+ _tf = _y;
+ _side = _tf # FORCE_SIDE;
+ if(_side == (call getplayerSide)) then { continue; };
+
+ _capLocs = _bvlocs select { _x # BATTLELOC_OWNER != _side };
+
+if(count _capLocs > 0) then
+{
+ _cl = _capLocs # 0;
+
+ call createGmPathfindingData; 
+
+ _start = _tf # FORCE_POSMARKER;
+ _path = [_start,_cl # BATTLELOC_MARKER] call findPath;
+
+ if(count _path > 1) then // Should be two, first is current pos
+ {
+  _nodeMarker = (_path # 1) call pfGetMarkerById;
+   [_tf,_nodeMarker] call onForceMoveToBattleLoc;
+ };
+
+};
+
+} foreach allforces;
+
+
+ sleep 2;
+};
+
+ // systemchat format["Running PF for %1", _tf];
+
+
+};
+
+
+
 
 
 testGmAI =

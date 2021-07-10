@@ -128,6 +128,14 @@ solImgs = [
 };
 
 
+getBattleLoc =
+{
+params ["_marker"];
+
+_bli = gmBattleLocations findIf { _x # BATTLELOC_MARKER == _marker };
+
+gmBattleLocations # _bli
+};
 
 scaleToMap =
 {
