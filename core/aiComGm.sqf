@@ -113,7 +113,7 @@ if(count _capLocs > 0) then
  if(count _path > 1) then // Should be two, first is current pos
  {
   _nodeMarker = (_path # 1) call pfGetMarkerById;
-   [_tf,_nodeMarker] call onForceMoveToBattleLoc;
+   [_tf,_nodeMarker] call setForceNewBattleLoc;
  };
 
 };
