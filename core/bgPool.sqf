@@ -383,8 +383,14 @@ if(_rosterName != "") then
  _icon = getText (_rosterCfg >> "icon");
 };
 
-// forcePools set [_name,[[],[]]];
-// private _fpool = forcePools get _name;
+if(_posMrk != "") then
+{
+ if(markerpos _posMrk isEqualTo [0,0,0]) then
+ {
+  ["Invalid marker '%1' in force '%2' creation", _posMrk, _name] call errmsg;
+ };
+ // Should maybe cancel creation
+};
 
 [_side,_name,_icon,_posMrk,_rosterCfg] call registerNewForce;
 _force = allforces get _name;
