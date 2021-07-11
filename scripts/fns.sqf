@@ -26,3 +26,28 @@ isUserMarker =
 {
 (_this find "_USER_DEFINED") >= 0
 };
+
+getNearest =
+{
+ params ["_array","_arCode","_pos"];
+ private _closestDist = 10000000;
+ private _nearest = [];
+ 
+ //["getNearest %1 %2 %3", _array,_arCode,_pos] call dbgmsg;
+ 
+ {
+  private _aelement = call _arCode;
+  
+  if(isnil "_aelement") then { ["getNearest NIL %1 %2 %3", _array,_arCode,_pos] call errmsg; };
+  
+  private _dist = _aelement distance2D _pos;
+  
+  if(_dist < _closestDist) then
+  {
+   _closestDist = _dist;
+   _nearest = _x;
+  };
+ } foreach _array;
+ 
+ _nearest
+};

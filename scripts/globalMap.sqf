@@ -15,6 +15,10 @@ private _locs = _battleLocations select { !(_x call isUserMarker) };
 // Save the battle map markers to list 
 gmBattleLocations = call getBattleLocations;
 
+
+startMarkerEast = "";
+startMarkerWest = "";
+
  _blocs = gmBattleLocations;
 
  // Setup correct colors etc
@@ -23,6 +27,9 @@ gmBattleLocations = call getBattleLocations;
   _mrk setMarkerAlpha BATTLE_LOC_ALPHA;
   _mrk setMarkerShape "ELLIPSE";
   _mrk setMarkerSize [BATTLE_AREA_SIZE,BATTLE_AREA_SIZE];
+
+ if(_mrk find "startEast" >= 0) then { startMarkerEast = _mrk; };
+ if(_mrk find "startWest" >= 0) then { startMarkerWest = _mrk; };
 
  } foreach _blocs;
 

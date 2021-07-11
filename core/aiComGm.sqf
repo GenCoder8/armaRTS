@@ -25,12 +25,12 @@ pfConnections = [];
  _curId = _marker call pfGetMarkerNodeId;
  _connections = _y;
 
- if(!([_aiForce,_marker] call canForceMoveToLoc)) then { continue; };
+ if(!([_aiForce,_marker] call pfCanForceMoveToLoc)) then { continue; };
 
 {
 _omarker = _x;
 
- if(!([_aiForce,_omarker] call canForceMoveToLoc)) then { continue; };
+ if(!([_aiForce,_omarker] call pfCanForceMoveToLoc)) then { continue; };
 
 _oId = _omarker call pfGetMarkerNodeId;
 
@@ -81,7 +81,8 @@ systemchat format ["Solution: %1", _solution ];
 _solution
 };
 
-canForceMoveToLoc =
+// Used for AI
+pfCanForceMoveToLoc =
 {
  params ["_force","_locMarker"];
 
@@ -93,6 +94,24 @@ canForceMoveToLoc =
 
  // No friendly forces in tile, then can move
  ({ (_x # FORCE_SIDE) == _side && (_x # FORCE_ID) != (_force # FORCE_ID) } count _forces) == 0
+};
+
+getStartLoc =
+{
+ params ["_side"];
+
+private _startLoc = call compile format["startMarker%1",_side];
+
+if(isnil "_startLoc") exitWith { ["start loc not set for '%1'",_side] call errmsg; "" };
+
+// Can start only from empty places
+private _blocs = gmBattleLocations select { count( _x call getForcesAtBattleLoc) == 0 };
+
+private _nearest = [_blocs,{ markerpos (_x # BATTLELOC_MARKER) }, markerpos _startLoc] call getNearest;
+
+if(count _nearest == 0) exitWith { "Failed to get starting location" call errmsg; "" };
+
+(_nearest # BATTLELOC_MARKER)
 };
 
 testGmAICap =

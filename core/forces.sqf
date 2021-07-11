@@ -22,7 +22,7 @@ isFriendlyForce =
 };
 
 getForcePosMarker =
-{ 
+{
  params ["_forceName"];
 
  private _force = allforces get _forceName;
