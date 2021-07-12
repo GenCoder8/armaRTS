@@ -137,16 +137,14 @@ while { true } do
 
  _capLocs = _bvlocs select { _x # BATTLELOC_OWNER != _side };
 
-if(count _capLocs == 0) then
+if(count _capLocs > 0) then // If none uncaptured vic locs are found then the game is won
 {
- _capLocs = _bvlocs;
-};
+
+for "_i" from 0 to 1 do
+{
 
 private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _curLocMrk ] call getNearest;
 
-
-if(count _nearLoc > 0) then
-{
 
  _clMarker = _nearLoc # BATTLELOC_MARKER;
 
@@ -165,8 +163,15 @@ if(count _nearLoc > 0) then
 
 //diag_log format ["FromTo: %1 == %2 => %3", _forceName, _curLocMrk, _nodeMarker ];
 
-
+   break; // Found move point
+ }
+ else
+ {
+// Go defend somewhere if cant reach 
+ _capLocs = _bvlocs select { _x # BATTLELOC_OWNER == _side };
  };
+
+};
 
 };
 
