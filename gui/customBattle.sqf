@@ -40,8 +40,8 @@ _map = _display displayCtrl 1200;
 _map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
-[_marker, 180] call setNextBattleArgs;
-// floor (random 360)
+[_marker, floor (random 360)] call setNextBattleArgs;
+
 }];
 
 _maps lbSetCurSel 0;
