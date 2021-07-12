@@ -9,12 +9,12 @@ callArtilleryBarrage =
 _p = _deployPos;
 
 _p = _p getpos [3000,_dirFromTarget];
-
+/*
 _marker = createMarker [format["teeeeeeeeeeest%1",_p],_p];
 _marker setMarkerShape "ICON";
 _marker setMarkerType "flag_un";
 _marker setMarkerColor "ColorWhite";
-
+*/
 _p set [2,ARTY_Z];
 
 _arty = [];
