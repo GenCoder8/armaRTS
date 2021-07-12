@@ -139,7 +139,7 @@ while { true } do
 
 if(count _capLocs > 0) then // If none uncaptured vic locs are found then the game is won
 {
-
+// Try enemy locs first then owned
 for "_i" from 0 to 1 do
 {
 
