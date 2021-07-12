@@ -1,5 +1,6 @@
 
 #include "ctrlIds.h"
+#include "..\main.h"
 
 openCustomBattleDlg =
 {
