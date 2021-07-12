@@ -27,6 +27,7 @@ _marker = _x;
 _lIndex = _foreachindex;
 _lpos = getmarkerPos _marker;
 
+
 // _marker = createMarker [format["VL_%1",_lpos],_lpos];
 _marker setMarkerShape "ICON";
 _marker setMarkerType "flag_un";

@@ -13,6 +13,12 @@ _asize = _asize - BATTKE_VICLOC_FROM_EDGE;
 _createVicLocMarker =
 {
  params ["_mloc","_id"];
+
+if(surfaceIsWater _mloc) exitWith
+{
+ // Skip water pos
+};
+
 _marker = createmarker [format["vicLoc%1",_id], _mloc];
 _marker setMarkerShape "ICON";
 _marker setMarkerType VICLOC_MARKER_TYPE;

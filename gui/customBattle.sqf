@@ -40,8 +40,8 @@ _map = _display displayCtrl 1200;
 _map ctrlMapAnimAdd [cbMapSpeed, 0.2, getMarkerPos _marker];
 ctrlMapAnimCommit _map;
 
-[_marker,floor (random 360)] call setNextBattleArgs;
-
+[_marker, 180] call setNextBattleArgs;
+// floor (random 360)
 }];
 
 _maps lbSetCurSel 0;
@@ -153,6 +153,33 @@ _daDir = 120;
 {
  _side = _x;
  _deployAreaPos = [battleAreaPos,_daDir] call getBattleDeployPos;
+
+ if(surfaceIsWater _deployAreaPos) then
+ {
+
+  _gpos = [_deployAreaPos,DEPLOY_AREA_SIZE] call seekGround;
+
+if(count _gpos > 0) then
+{
+  _gpos set [2,0];
+ _deployAreaPos = _gpos;
+
+/*
+_mrk = createmarker [format["deploySide%1",_side], _gpos];
+_mrk setMarkerShape "RECTANGLE";
+_mrk setMarkerColor "ColorGreen";
+_mrk setMarkerSize [DEPLOY_AREA_SIZE,DEPLOY_AREA_SIZE];
+// _mrk setMarkerDir _daDir;
+*/
+
+}
+else
+{
+ // Todo, bad error
+ "Failed to get ground starting location!" call errmsg;
+};
+
+ };
 
  missionnamespace setVariable [format["deployArea%1", _side], _deployAreaPos];
 

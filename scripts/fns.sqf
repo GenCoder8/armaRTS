@@ -51,3 +51,110 @@ getNearest =
  
  _nearest
 };
+
+
+isPosGround =
+{
+ scopename "ipg";
+ params ["_around","_areaSize"];
+ private _ret = true;
+ 
+ for "_depth" from 1 to _areaSize step 10 do
+ {
+ for "_d" from 0 to 360 step 45 do
+ {
+  private _vec = [_d,_depth] call getVector;
+  private _checkpos = [_around,_vec] call addVector;
+  
+  if(surfaceIsWater _checkpos) then
+  {
+   _ret = false;
+   breakTo "ipg";
+  };
+ };
+ };
+ _ret
+};
+
+
+seekGround =
+{
+ scopename "seekGround";
+ params ["_pos","_areaSize"];
+ private _ret = [];
+ private _closestDist = 1000000;
+ 
+for "_d" from 0 to 360 step 22.5 do 
+{
+ 
+ _groundFound = false;
+ _groundStartPos = [];
+ _cdist = 1000000;
+ 
+#define RSTEP 10
+ 
+ for "_s" from 0 to 250 step RSTEP do
+ {
+ scopename "testsg";
+ 
+ _reachDist = _s * RSTEP;
+ 
+  _vec = [_d,_reachDist] call getVector;
+  
+  _spos = [_pos,_vec] call addVector;
+  
+  
+  if(!_groundFound) then
+  {
+   _cdist = _reachDist;
+   if(_reachDist >= _closestDist) then
+   {
+    breakout "testsg";
+   };
+  };
+ 
+  if([_spos,_areaSize] call isPosGround) then // Ground found
+  {
+   if(!_groundFound) then
+   {
+   _groundFound = true;
+   _groundStartPos = _spos;
+   }
+   else
+   {
+   _dist = _groundStartPos distance2D _spos;
+   
+   if(_dist >= (_areaSize )) then
+   {
+
+	
+	_vec = [_d,_dist / 2] call getVector;
+	_cenpos = [_groundStartPos,_vec] call addVector;
+	
+
+	
+   _ret = _cenpos;
+   _closestDist = _cdist;
+   
+   breakout "testsg";
+   
+   };
+   
+   };
+  }
+  else
+  {
+   _groundFound = false;
+  };
+ 
+ };
+ 
+};
+
+if(count _ret > 0) then
+{
+//[_ret,"closest","ColorYellow"] call createDebugMarker;
+};
+
+_ret
+};
