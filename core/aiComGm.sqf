@@ -21,18 +21,18 @@ pfMapMarkerIds set [_mrk, _forEachIndex];
 pfConnections = [];
 
 {
- _marker = _x;
- _curId = _marker call pfGetMarkerNodeId;
- _connections = _y;
+ private _marker = _x;
+ private _curId = _marker call pfGetMarkerNodeId;
+ private _connections = _y;
 
  if(!([_aiForce,_marker] call pfCanForceMoveToLoc)) then { continue; };
 
 {
-_omarker = _x;
+private _omarker = _x;
 
  if(!([_aiForce,_omarker] call pfCanForceMoveToLoc)) then { continue; };
 
-_oId = _omarker call pfGetMarkerNodeId;
+private _oId = _omarker call pfGetMarkerNodeId;
 
 pfConnections pushback [_curId,_oId];
 
@@ -76,7 +76,6 @@ findPath =
 
 _solution = [_sid,_eid,+pfNodes,+pfConnections] call shortPathDijkstra;
 
-systemchat format ["Solution: %1", _solution ];
 
 _solution
 };
@@ -120,7 +119,7 @@ testGmAICap =
 
  _bvlocs = gmBattleLocations select { _x # BATTLELOC_ISVICLOC };
 
-sleep 2;
+sleep 1.5;
 
 while { true } do
 {
@@ -128,6 +127,7 @@ while { true } do
 
 {
  private _aiforce = _y;
+ private _forceName = _x;
  _side = _aiforce # FORCE_SIDE;
  _curLocMrk = _aiforce # FORCE_POSMARKER;
  if(_side == (call getplayerSide)) then { continue; };
@@ -137,20 +137,35 @@ while { true } do
 
  _capLocs = _bvlocs select { _x # BATTLELOC_OWNER != _side };
 
-
-if(count _capLocs > 0) then
+if(count _capLocs == 0) then
 {
- _cl = _capLocs # 0;
+ _capLocs = _bvlocs;
+};
 
- [_aiforce] call createGmPathfindingData; 
+private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _curLocMrk ] call getNearest;
+
+
+if(count _nearLoc > 0) then
+{
+
+ _clMarker = _nearLoc # BATTLELOC_MARKER;
+
+ [_aiforce] call createGmPathfindingData;
 
  _start = _aiforce # FORCE_POSMARKER;
- _path = [_start,_cl # BATTLELOC_MARKER] call findPath;
+ _path = [_start,_clMarker] call findPath;
+
+//diag_log format ["Solution: %1 => %2", _forceName, _path ];
+
 
  if(count _path > 1) then // Should be two, first is current pos
  {
   _nodeMarker = (_path # 1) call pfGetMarkerById;
    [_aiforce,_nodeMarker] call setForceNewBattleLoc;
+
+//diag_log format ["FromTo: %1 == %2 => %3", _forceName, _curLocMrk, _nodeMarker ];
+
+
  };
 
 };

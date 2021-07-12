@@ -24,6 +24,7 @@ sleep 0.1;
 //[west,"testers2","Roster2", "marker_31" ] call createForce;
 
 [east,"testersE","NVA1", east call getStartLoc ] call createForce;
+[east,"testersE2","NVA1", east call getStartLoc ] call createForce;
 
 
 call initGlobalMap;
