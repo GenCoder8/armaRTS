@@ -141,6 +141,8 @@ call resetForcesTurn;
 
 beginGmBattlePhase =
 {
+ call aiTurn; // Ais turn before round is ended
+
  gmPhase = "battles";
 
  gmBattles = call getGlobalBattles;

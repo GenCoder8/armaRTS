@@ -113,17 +113,9 @@ if(count _nearest == 0) exitWith { "Failed to get starting location" call errmsg
 (_nearest # BATTLELOC_MARKER)
 };
 
-testGmAICap =
+aiTurn =
 {
- //_forces = [allforces, { _x # FORCE_SIDE == east } ] call hashmapSelect;
-
  _bvlocs = gmBattleLocations select { _x # BATTLELOC_ISVICLOC };
-
-sleep 1.5;
-
-while { true } do
-{
-
 
 {
  private _aiforce = _y;
@@ -176,6 +168,22 @@ private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _
 };
 
 } foreach allforces;
+
+};
+
+testGmAICap =
+{
+ //_forces = [allforces, { _x # FORCE_SIDE == east } ] call hashmapSelect;
+
+
+
+sleep 1.5;
+
+while { true } do
+{
+
+
+ call aiTurn;
 
 
  sleep 2;
