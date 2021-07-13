@@ -306,9 +306,7 @@ retBattleGroupToPool =
  {
   private _man = _x;
 
-
   [_manPool,typeof _man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
- 
 
  } foreach ((units _group) select { alive _x });
 
