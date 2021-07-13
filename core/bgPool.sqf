@@ -306,7 +306,8 @@ retBattleGroupToPool =
  {
   private _man = _x;
 
-  [_manPool,_man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
+
+  [_manPool,typeof _man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
  
 
  } foreach ((units _group) select { alive _x });
@@ -316,6 +317,7 @@ retBattleGroupToPool =
 // Vehicles too
 {
  _vehType = typeof _x;
+
  [_manPool,_vehType,"PRIVATE",0, _group getVariable "cfg"] call addUnitEntryToPool;
 
 } foreach (_vehs select {alive _x});
@@ -690,6 +692,8 @@ addTypeToList =
 {
 params ["_list","_type"];
 
+diag_log format ["addTypeToList: %1 '%2'", _list,  _type ];
+
 private _num = _list getOrDefault [_type,0];
 
 _list set [_type, _num + 1];
@@ -704,6 +708,8 @@ getPoolUnitTypeCounts =
 {
 
 _type = _x # MANP_TYPE;
+
+diag_log format ["getPoolUnitTypeCounts: '%1' -- '%2'",  _x,  _type ];
 
 [_list,_type] call addTypeToList;
 
