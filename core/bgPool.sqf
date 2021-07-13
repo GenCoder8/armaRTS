@@ -690,8 +690,6 @@ addTypeToList =
 {
 params ["_list","_type"];
 
-diag_log format ["addTypeToList: %1 '%2'", _list,  _type ];
-
 private _num = _list getOrDefault [_type,0];
 
 _list set [_type, _num + 1];
@@ -706,8 +704,6 @@ getPoolUnitTypeCounts =
 {
 
 _type = _x # MANP_TYPE;
-
-diag_log format ["getPoolUnitTypeCounts: '%1' -- '%2'",  _x,  _type ];
 
 [_list,_type] call addTypeToList;
 
