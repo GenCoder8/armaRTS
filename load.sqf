@@ -117,3 +117,5 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 ["gui\battleGuiLoop.sqf",false] call execFile;
 
 
+// Important
+player allowDamage false;

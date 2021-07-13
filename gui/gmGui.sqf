@@ -20,7 +20,7 @@ gmNextButtton = controlNull;
 
 openGlobalMap =
 {
- openMap [true, false];
+ openMap [true, false]; // TODO force
 
 _display = findDisplay 12;
 
@@ -124,7 +124,7 @@ battlelocConArrows = [];
 
 uiNamespace setVariable ["gmNextButtton", controlNull];
 
-openMap false;
+openMap [false,false];
 
 };
 
@@ -183,7 +183,7 @@ gmBeginBattle =
 
  hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
 
- [_placeMrk,90] call setNextBattleArgs;
+ [_placeMrk,90] call setNextBattleArgs; // Todo dir
 
  ["poolSelect"] call openGameScreen;
 
