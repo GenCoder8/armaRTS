@@ -190,7 +190,7 @@ gmBeginBattle =
  (_westForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
 };
 
-gmEndBattle =
+endBattle =
 {
  ["globalmap"] call openGameScreen;
 
