@@ -11,6 +11,7 @@ diag_log format["Opening screen '%1' from '%2'", _screen,curScreen];
 // Cleanup first
 switch (curScreen) do
 {
+case "mainMenu": { call closeMainMenu; };
 case "globalmap": { call closeGlobalMap; };
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
@@ -60,7 +61,7 @@ case "placement":
  // Open new screen
  switch (_screen) do
  {
-  case "mainmenu": { call openMainMenu; };
+  case "mainMenu": { call openMainMenu; };
   case "globalmap": { call openGlobalMap; };
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };

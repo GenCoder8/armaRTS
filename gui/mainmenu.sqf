@@ -13,8 +13,10 @@ openMainMenu =
 
 closeMainMenu =
 {
- 
- endMission "END1";
+ closedialog 0;
+};
 
- //forceEnd;
+rtsEndGame =
+{
+ endMission "END1";
 };
