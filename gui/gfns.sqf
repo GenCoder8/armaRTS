@@ -60,6 +60,7 @@ case "placement":
  // Open new screen
  switch (_screen) do
  {
+  case "mainmenu": { call openMainMenu; };
   case "globalmap": { call openGlobalMap; };
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };

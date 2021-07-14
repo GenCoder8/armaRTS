@@ -1,4 +1,8 @@
 
+debriefing = 0;
+
+
+
 #include "battleGroups.h"
 #include "forceRosters.h"
 
@@ -9,6 +13,7 @@
 #include "gui\actions.h"
 
 
+
 class RscTitles
 {
  titles[]={ComOverlay}; 
@@ -16,7 +21,8 @@ class RscTitles
  #include "gui\battleGui.h"
 };
 
-
+#include "gui\ctrlIds.h"
+#include "gui\mainmenu.h"
 #include "gui\bgpool.h"
 #include "gui\customBattle.h"
 #include "gui\loading.h"

@@ -10,4 +10,5 @@ loadCovers = true;
 
 //testCfgs = true;
 
-["customBattle"] call openGameScreen;
+["mainmenu"] call openGameScreen;
+
