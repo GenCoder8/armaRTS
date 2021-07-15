@@ -119,6 +119,7 @@ class RtsUnitList: RscControlsGroup
 		autoScrollEnabled = 1;
 	};
 	
+ // Hide this one
 	class HScrollbar
 	{
 		color[] = 
