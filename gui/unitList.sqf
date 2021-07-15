@@ -1,3 +1,4 @@
+
 #define GE_WIDTH  7
 #define GE_HEIGHT 5
 
@@ -19,6 +20,7 @@ _img = _display ctrlCreate ["RtsPicture", -1, _ctrlGroup];
 _ctrlGroup setVariable ["background",_img];
 
 unitListGroups = [];
+
 
 {
 private _group = _x;
@@ -142,13 +144,13 @@ updateUnitListCtrls =
 {
  private _index = 0;
 
- {
+{
   _x params ["_cont","_group"];
 
 if( { alive _x} count (units _group) > 0 ) then
 {
- // Big enough to have all the ctrls in it
-_cont ctrlSetPosition ([0,(ulContHeight + 0.05) * _index, GE_WIDTH+2, ulContHeight ,false] call getGuiPos);
+ // Big enough to have all the ctrls in it (Todo why 9 is good, why it effects both w & h?)
+_cont ctrlSetPosition ([0,(ulContHeight + 0.05) * _index, 9, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
  _index = _index + 1;
@@ -158,7 +160,7 @@ else
  ctrlDelete _cont;
 };
 
- } foreach unitListGroups;
+} foreach unitListGroups;
 
 
 _gpos = ([0,0,0,((_index + 1) * GE_HEIGHT )] call getGuiPos);

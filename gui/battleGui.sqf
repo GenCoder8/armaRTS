@@ -818,12 +818,12 @@ actionButtons = _ab;
 };
 
 
-#define UNIT_LIST_WIDTH  11
+#define UNIT_LIST_WIDTH  7
 #define UNIT_LIST_HEIGHT  22
 
 
 
-_ul = _display ctrlCreate ["RscControlsGroup", -1];
+_ul = _display ctrlCreate ["RtsUnitList", -1];
 _ul ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT] call getGuiPos);
 _ul ctrlCommit 0;
 
