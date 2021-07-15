@@ -817,8 +817,8 @@ with (uinamespace) do
 actionButtons = _ab;
 };
 
-
-#define UNIT_LIST_WIDTH  7
+// The unit list size
+#define UNIT_LIST_WIDTH  7.7
 #define UNIT_LIST_HEIGHT  22
 
 

@@ -163,7 +163,8 @@ else
 } foreach unitListGroups;
 
 
-_gpos = ([0,0,0,((_index + 1) * GE_HEIGHT )] call getGuiPos);
+_gpos = ([0,0,0,((_index + 0) * ulContHeight )] call getGuiPos);
+// prev: _gpos = ([0,0,0,((_index + 1) * GE_HEIGHT )] call getGuiPos);
 
 with (uinamespace) do
 {
@@ -177,7 +178,7 @@ _pos params ["","","_w","_h"];
 
 // _ipos = ctrlPosition _img;
 
-_img ctrlSetPosition [0,0,_w, _gpos # 3];
+_img ctrlSetPosition [0,0,0.1, _gpos # 3];
 _img ctrlCommit 0;
 
 };
