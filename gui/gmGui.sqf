@@ -22,6 +22,8 @@ openGlobalMap =
 {
  openMap [true, false]; // TODO force
 
+call createReturnToMenuButton;
+
 _display = findDisplay 12;
 
 // Create global map controls
@@ -82,7 +84,6 @@ _bt buttonSetAction "";
 _bt ctrlSetPosition _gpos;
 _bt ctrlCommit 0;
 
-
 gmNextButtton = _bt;
 
 gmControls pushback gmNextButtton;
@@ -98,7 +99,12 @@ uiNamespace setVariable ["phaseText", _txt];
 
 };
 
+
 };
+
+
+if(isCustomBattle) then { (uinamespace getVariable "gmNextButtton") ctrlShow false; };
+
 
 };
 
