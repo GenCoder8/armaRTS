@@ -20,3 +20,14 @@ rtsEndGame =
 {
  endMission "END1";
 };
+
+startCampaign =
+{
+
+call initGlobalMap;
+
+"globalmap" call openGameScreen;
+
+call beginGmMovePhase;
+
+};

@@ -125,6 +125,7 @@ else
 [(call getPlayerSide),2101] call _preparePool;
 [(call getEnemySide),2102] call _preparePool;
 
+isCustomBattle = true;
 
 ["poolSelect"] call openGameScreen;
 

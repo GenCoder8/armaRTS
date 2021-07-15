@@ -192,9 +192,18 @@ gmBeginBattle =
 
 endBattle =
 {
+
+if(!isCustomBattle) then
+{
  ["globalmap"] call openGameScreen;
 
  call onBattleEnded;
+}
+else
+{
+ ["mainMenu"] call openGameScreen;
+};
+
 };
 
 onBattleEnded =

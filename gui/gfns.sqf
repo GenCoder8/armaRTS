@@ -2,6 +2,8 @@
 
 curScreen = "";
 
+isCustomBattle = false;
+
 openGameScreen =
 {
  params ["_screen"];
@@ -62,7 +64,7 @@ case "placement":
  switch (_screen) do
  {
   case "mainMenu": { call openMainMenu; };
-  case "globalmap": { call openGlobalMap; };
+  case "globalmap": { call openGlobalMap; isCustomBattle = false; };
   case "customBattle": { call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };
   case "placement": 
