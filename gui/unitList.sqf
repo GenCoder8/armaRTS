@@ -178,7 +178,8 @@ _pos params ["","","_w","_h"];
 
 // _ipos = ctrlPosition _img;
 
-_img ctrlSetPosition [0,0,0.1, _gpos # 3];
+ // Set the green background , minus scroll bar width
+_img ctrlSetPosition [0,0,_w-0.02, _gpos # 3];
 _img ctrlCommit 0;
 
 };
