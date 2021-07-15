@@ -145,7 +145,7 @@ updateUnitListCtrls =
  private _index = 0;
 
 {
-  _x params ["_cont","_group"];
+ _x params ["_cont","_group"];
 
 if( { alive _x} count (units _group) > 0 ) then
 {
