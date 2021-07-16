@@ -36,8 +36,8 @@ _mrk setMarkerColor "ColorRed";
 sleep 0.1;
 
 
-[west,"Tester1","Roster1", "marker_17" ] call createForce;
-[west,"testers2","Roster2", "marker_31" ] call createForce;
+[west,"Tester1","USA1", "marker_17" ] call createForce;
+[west,"testers2","TestRosterWest", "marker_31" ] call createForce;
 
 [east,"testersE","NVA1", "marker_18" ] call createForce;
 

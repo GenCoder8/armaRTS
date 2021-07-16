@@ -5,7 +5,7 @@ class ForceRosters
  class west
  {
 
-class Roster1
+class USA1
 {
  name = "The Avengers";
  icon = "uns_M113parts\army\11acr_co.paa";
@@ -13,8 +13,8 @@ class Roster1
 
 battleGroups[] = 
 {
-"Patton",1,
-"Sheridan",1,
+"Patton",2,
+"Sheridan",2,
 
 "PlatoonHQ",1,
 "HeavyTeam",3,
@@ -30,7 +30,7 @@ battleGroups[] =
 
 };
 
-class Roster2 : Roster1
+class TestRosterWest : USA1
 {
  name = "The Testers";
  icon = "uns_M113parts\army\1id_co.paa";

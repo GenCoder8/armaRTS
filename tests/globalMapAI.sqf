@@ -20,7 +20,7 @@ loadCovers = false;
 sleep 0.1;
 
 
-[west,"Tester1","Roster1", west call getStartLoc ] call createForce;
+[west,"Tester1","USA1", west call getStartLoc ] call createForce;
 //[west,"testers2","Roster2", "marker_31" ] call createForce;
 
 [east,"testersE","NVA1", east call getStartLoc ] call createForce;

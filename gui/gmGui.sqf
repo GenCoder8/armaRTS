@@ -20,7 +20,7 @@ gmNextButtton = controlNull;
 
 openGlobalMap =
 {
- openMap [true, false]; // TODO force
+ openMap [true, true];
 
 call createReturnToMenuButton;
 

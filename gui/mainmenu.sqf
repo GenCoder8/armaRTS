@@ -28,6 +28,12 @@ isCustomBattle = false;
 
 call initGlobalMap;
 
+[west,"usa1","USA1", "startWest" ] call createForce;
+[west,"usa2","TestRosterWest", "marker_17_vic" ] call createForce;
+
+[east,"nva1","NVA1", "startEast" ] call createForce;
+[east,"nva2","NVA1", "marker_12" ] call createForce;
+
 "globalmap" call openGameScreen;
 
 call beginGmMovePhase;

@@ -4,6 +4,8 @@
 
 openCustomBattleDlg =
 {
+ isCustomBattle = true;
+
 "globalmap" call openGameScreen;
 
 createDialog "CustomBattleDlg";

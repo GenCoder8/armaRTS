@@ -367,6 +367,7 @@ _npos
 
 createForce =
 {
+scopename "createf";
 params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
 private _icon = "uns_M113parts\army\1id_co.paa";
@@ -388,12 +389,15 @@ if(_posMrk != "") then
  if(markerpos _posMrk isEqualTo [0,0,0]) then
  {
   ["Invalid marker '%1' in force '%2' creation", _posMrk, _name] call errmsg;
+  breakout "createf";
  };
- // Should maybe cancel creation
 };
 
 [_side,_name,_icon,_posMrk,_rosterCfg] call registerNewForce;
 _force = allforces get _name;
+
+// Call this incase starting from vic loc
+[_force,_posMrk] call setForceNewBattleLoc;
 
 //diag_log format["POOL123 %1", _fpool];
 
