@@ -370,7 +370,11 @@ createForce =
 scopename "createf";
 params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
-if((allforces getOrDefault _name) != "") then { ["Force with the given name '%1' already exists",_name] call errmsg; breakout "createf"; };
+if((allforces getOrDefault _name) != "") then 
+{ 
+["Force with the given name '%1' already exists",_name] call errmsg; 
+breakout "createf"; 
+};
 
 private _icon = "uns_M113parts\army\1id_co.paa";
 
@@ -378,7 +382,6 @@ private _rosterCfg = configNull;
 
 if(_rosterName != "") then
 {
-
  _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> _rosterName;
 
  if(isnull _rosterCfg) exitWith { ["invalid roster name %1 '%2'",_side, _rosterName] call errmsg; };
