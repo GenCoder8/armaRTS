@@ -370,6 +370,8 @@ createForce =
 scopename "createf";
 params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
+if((allforces getOrDefault _name) != "") then { ["Force with the given name '%1' already exists",_name] call errmsg; breakout "createf"; };
+
 private _icon = "uns_M113parts\army\1id_co.paa";
 
 private _rosterCfg = configNull;
