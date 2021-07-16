@@ -137,7 +137,6 @@ for "_i" from 0 to 1 do
 
 private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _curLocMrk ] call getNearest;
 
-
  _clMarker = _nearLoc # BATTLELOC_MARKER;
 
  [_aiforce] call createGmPathfindingData;
@@ -161,6 +160,7 @@ private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _
  {
 // Go defend somewhere if cant reach 
  _capLocs = _bvlocs select { _x # BATTLELOC_OWNER == _side };
+ if(count _capLocs == 0) then { break; };
  };
 
 };
