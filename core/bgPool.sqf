@@ -370,7 +370,7 @@ createForce =
 scopename "createf";
 params ["_side","_name",["_rosterName",""],["_posMrk",""]];
 
-if((allforces getOrDefault _name) != "") then 
+if((allforces getOrDefault [_name,""]) != "") then 
 { 
 ["Force with the given name '%1' already exists",_name] call errmsg; 
 breakout "createf"; 
