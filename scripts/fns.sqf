@@ -27,6 +27,13 @@ isUserMarker =
 (_this find "_USER_DEFINED") >= 0
 };
 
+isValidMarker =
+{
+ params ["_marker"];
+
+ !(markerpos _marker isEqualTo [0,0,0])
+};
+
 getNearest =
 {
  params ["_array","_arCode","_pos"];

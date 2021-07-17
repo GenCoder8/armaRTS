@@ -52,6 +52,8 @@ setForceNewBattleLoc =
 {
  params ["_force","_destMarker"];
 
+ if(!(_destMarker call isValidMarker)) exitWith { ["invalid marker '%1'", _destMarker] call errmsg; };
+
  private _bloc = _destMarker call getBattleLoc;
 
  _bloc set [BATTLELOC_OWNER, _force # FORCE_SIDE]; // Always update

@@ -42,6 +42,9 @@ bpArgs = _this;
 
 battleGuiReady = false;
 
+// Can be here
+call initMorale;
+
 "Loading battlefield" call startRtsLoadScreen;
 
 
@@ -767,6 +770,7 @@ with (uinamespace) do
 battleButtonGroup = controlNull;
 actionButtons = controlNull;
 unitList = controlNull;
+moraleDisp = controlNull;
 };
 
 setBattleGuiButtons =
@@ -790,6 +794,8 @@ if(!isnull battleButtonGroup) then
 };
 
 ctrldelete unitList;
+
+ctrlDelete moraleDisp;
 };
 
 actionButtons = []; // Always reset
@@ -861,6 +867,47 @@ _img = _display ctrlCreate ["RtsPicture", -1, _ab];
 //_img ctrlSetText "#(argb,8,8,3)color(1,0,0,1)﻿";
 _img ctrlSetPosition ([0,0,ACT_CGROUP_WIDTH,ACTB_SIZE_Y,false] call getGuiPos);
 _img ctrlCommit 0;
+
+
+_moraleDisp = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1];
+_moraleDisp ctrlSetPosition ([35,_buttonsY,15,ACTB_SIZE_Y] call getGuiPos);
+_moraleDisp ctrlCommit 0;
+
+with (uinamespace) do
+{
+moraleDisp = _moraleDisp;
+};
+
+_img = _display ctrlCreate ["RtsPicture", -1, _moraleDisp];
+_img ctrlSetPosition ([0,0,5,5,false] call getGuiPos);
+_img ctrlCommit 0;
+_img ctrlSetTextColor [1, 0, 0, 1];
+
+updateMoraleBar =
+{
+params ["_side","_progress"];
+_bar = uinamespace getVariable [format["moraleBar%1", _side],controlNull ];
+
+_bar progressSetPosition _progress;
+};
+
+for "_i" from 0 to 1 do
+{
+_side = [east,west] select _i;
+_sideStr = str _side;
+_moraleBar = _display ctrlCreate ["RscProgress", -1, _moraleDisp];
+_moraleBar ctrlSetPosition ([0, _i * 1.5 ,5,1,false] call getGuiPos);
+_moraleBar progressSetPosition 0;
+_moraleBar ctrlCommit 0;
+_moraleBar ctrlSetTooltip format["%1 Morale", _sideStr ];
+
+uinamespace setVariable [format["moraleBar%1", _side], _moraleBar ];
+
+[_side,0.8] call updateMoraleBar;
+
+};
+
+
 
 _ul call fillUnitList; // Must call twice or unclickable
 
