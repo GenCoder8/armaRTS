@@ -70,9 +70,27 @@ changeSideMorale =
 
  if(_morale < 0) then { _morale = 0; };
 
- // systemchat format["Morale update: %1 %2", _side, _morale];
- 
  morales set [_sideStr,_morale];
+
+ [_side,_morale] call updateMoraleBar;
+
+//systemchat format["Morale update: %1 %2", _side, _morale];
+
+ if(_morale == 0) then
+ {
+  systemchat "Battle ended due to lack of morale";
+  call endBattle;
+ }
+ else
+ {
+  // This place is fine for this, make sure battle ends when no men are left
+ if({ !isplayer _x && alive _x } count (units _side) == 0) then
+ {
+  systemchat "Battle ended because of no more men";
+  call endBattle;
+ };
+ };
+
 };
 
 addMissionEventHandler ["EntityKilled", 
@@ -100,6 +118,5 @@ else // If veh
 
 // Killer gain some morale
 [_kSide,_moraleChange * MORALE_GAIN_MUL] call changeSideMorale;
-
 
 }];

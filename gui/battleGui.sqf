@@ -765,6 +765,17 @@ _bg ctrlCommit 0;
 
 };
 
+
+updateMoraleBar =
+{
+params ["_side","_progress"];
+_bar = uinamespace getVariable [format["moraleBar%1", _side],controlNull ];
+
+_bar progressSetPosition _progress;
+
+_bar ctrlSetTooltip format["%1 Morale %2%3", tolower str _side, ceil (_progress * 100), "%" ];
+};
+
 with (uinamespace) do
 {
 battleButtonGroup = controlNull;
@@ -883,27 +894,19 @@ _img ctrlSetPosition ([0,0,5,5,false] call getGuiPos);
 _img ctrlCommit 0;
 _img ctrlSetTextColor [1, 0, 0, 1];
 
-updateMoraleBar =
-{
-params ["_side","_progress"];
-_bar = uinamespace getVariable [format["moraleBar%1", _side],controlNull ];
-
-_bar progressSetPosition _progress;
-};
 
 for "_i" from 0 to 1 do
 {
 _side = [east,west] select _i;
 _sideStr = str _side;
 _moraleBar = _display ctrlCreate ["RscProgress", -1, _moraleDisp];
-_moraleBar ctrlSetPosition ([0, _i * 1.5 ,5,1,false] call getGuiPos);
+_moraleBar ctrlSetPosition ([0, 0.5 + _i * 1.5 ,5,1,false] call getGuiPos);
 _moraleBar progressSetPosition 0;
 _moraleBar ctrlCommit 0;
-_moraleBar ctrlSetTooltip format["%1 Morale", _sideStr ];
 
 uinamespace setVariable [format["moraleBar%1", _side], _moraleBar ];
 
-[_side,0.8] call updateMoraleBar;
+[_side,1] call updateMoraleBar;
 
 };
 

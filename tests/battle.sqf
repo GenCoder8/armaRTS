@@ -12,7 +12,7 @@ loadCovers = true;
 
 
 
-
+iscustombattle = true; // So that ending battle works properly
 
 
 //["marker_0",120] call startBattleFieldZeus;
