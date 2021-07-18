@@ -189,6 +189,19 @@ gmBeginBattle =
 
  hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
 
+ // Must set these for global map battles (Maybe for custombattle too?)
+ if((_westForce # FORCE_SIDE) == (call getPlayerSide)) then
+ {
+  curPlrForce = _westForce;
+  curEnemyForce = _eastForce;
+ }
+ else
+ {
+  curPlrForce = _eastForce;
+  curEnemyForce = _westForce;
+ };
+
+
  [_placeMrk,90] call setNextBattleArgs; // Todo dir
 
  ["poolSelect"] call openGameScreen;
@@ -214,6 +227,14 @@ else
 
 onBattleEnded =
 {
+
+{
+
+[_x] call deleteForce;
+
+} foreach [curPlrForce,curEnemyForce];
+
+
  gmCurBattleIndex = gmCurBattleIndex + 1;
 
  systemchat format["gmCurBattleIndex %1", gmCurBattleIndex];

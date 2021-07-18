@@ -245,7 +245,7 @@ params ["_id"];
 private _ret = "";
 
 {
- if((_x # FORCE_ID) == _id) exitWith { _ret = _x; };
+ if((_y # FORCE_ID) == _id) exitWith { _ret = _x; };
 } foreach allforces;
 
 _ret

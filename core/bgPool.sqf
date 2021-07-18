@@ -777,6 +777,8 @@ private _name = (_force # FORCE_ID) call getForceName;
 
 if(_name == "") exitWith { "force with name not found" call errmsg; };
 
+["deleting force .... '%1'" , _name] call dbgmsg;
+
 allforces deleteAt _name;
 
 };
