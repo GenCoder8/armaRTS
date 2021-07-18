@@ -46,8 +46,6 @@ case "placement":
 
  if(_screen != "battle") then // Going anywhere else than battle (could be placement...)
  {
-  west call retAllBattleGroupsToPool;
-  east call retAllBattleGroupsToPool;
   call closeBattlefieldZeus;
   call clearBattlefieldLogic;
   call clearBattleguiButtons;
@@ -64,6 +62,7 @@ case "placement":
  switch (_screen) do
  {
   case "mainMenu": { call openMainMenu; };
+  case "endingDlg": { call openEndingDlg; };
   case "globalmap": { call openGlobalMap; };
   case "customBattle": { isCustomBattle = true; call openCustomBattleDlg; };
   case "poolSelect": { call openPoolDlg; };

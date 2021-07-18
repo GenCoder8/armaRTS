@@ -79,7 +79,7 @@ changeSideMorale =
  if(_morale == 0) then
  {
   systemchat "Battle ended due to lack of morale";
-  call endBattle;
+  [_side,"morale"] call endBattle;
  }
  else
  {
@@ -87,7 +87,7 @@ changeSideMorale =
  if({ !isplayer _x && alive _x } count (units _side) == 0) then
  {
   systemchat "Battle ended because of no more men";
-  call endBattle;
+  [_side,"nomen"] call endBattle;
  };
  };
 

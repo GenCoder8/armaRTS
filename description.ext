@@ -11,7 +11,7 @@ debriefing = 0;
 #include "gui\parent.h"
 #include "gui\rtsCtrls.h"
 #include "gui\actions.h"
-
+#include "gui\battleEnding.h"
 
 
 class RscTitles

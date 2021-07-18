@@ -215,24 +215,18 @@ setForcesToPlayWith =
 
 endBattle =
 {
+ params [["_loser",west],["_reason","morale"]];
+
+battleLoser = _loser;
+battleEndReason = _reason;
 
 if(!isCustomBattle) then
 {
- ["globalmap"] call openGameScreen;
-
- call onBattleEnded;
-}
-else
 {
- ["mainMenu"] call openGameScreen;
-};
+  _x call retAllBattleGroupsToPool;
+} foreach [east,west];
 
-};
-
-onBattleEnded =
-{
-
-// Delete depleted forces here
+// Delete depleted forces here (Should have returned to pool)
 {
 
 if(!([_x] call isForceAlive)) then
@@ -242,6 +236,14 @@ if(!([_x] call isForceAlive)) then
 
 } foreach [curPlrForce,curEnemyForce];
 
+};
+
+["endingDlg"] call openGameScreen;
+
+};
+
+onBattleEnded =
+{
 
  gmCurBattleIndex = gmCurBattleIndex + 1;
 

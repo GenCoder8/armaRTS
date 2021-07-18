@@ -55,3 +55,52 @@ _bt ctrlSetPosition ([44.5,-4,7,2,false] call getGuiPos);
 _bt ctrlCommit 0;
 
 };
+
+// Ending dlg code also in here
+
+openEndingDlg =
+{
+
+createDialog "BattleEndingDlg";
+
+_display = finddisplay RTSENDINGDLGID;
+_display displaySetEventHandler ["KeyDown", " true "];
+
+systemchat format["_display %1", _display];
+
+_outcome = _display displayCtrl 1000;
+_reason = _display displayCtrl 1100;
+
+if(battleLoser == (call getPlayerSide)) then
+{
+_outcome ctrlSetText "Defeat";
+_outcome ctrlSetTextColor [1,0,0,1];
+}
+else
+{
+_outcome ctrlSetText "Victory!";
+_outcome ctrlSetTextColor [0,1,0,1];
+};
+
+_reason ctrlSetStructuredText parseText format["%1", ["Battle ended because no more men left","Battle ended because morale broke"] select (battleEndReason == "morale") ];
+
+
+};
+
+closeEndingDlg =
+{
+ closedialog 0;
+
+// Determine where to go next
+if(!isCustomBattle) then
+{
+ ["globalmap"] call openGameScreen;
+
+ call onBattleEnded;
+}
+else
+{
+ ["mainMenu"] call openGameScreen;
+};
+
+};
