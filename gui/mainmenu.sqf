@@ -66,7 +66,6 @@ createDialog "BattleEndingDlg";
 _display = finddisplay RTSENDINGDLGID;
 _display displaySetEventHandler ["KeyDown", " true "];
 
-systemchat format["_display %1", _display];
 
 _outcome = _display displayCtrl 1000;
 _reason = _display displayCtrl 1100;
@@ -82,7 +81,7 @@ _outcome ctrlSetText "Victory!";
 _outcome ctrlSetTextColor [0,1,0,1];
 };
 
-_reason ctrlSetStructuredText parseText format["%1", ["Battle ended because no more men left","Battle ended because morale broke"] select (battleEndReason == "morale") ];
+_reason ctrlSetStructuredText parseText format["%1", ["Battle ended because there is no more men left","Battle ended because morale broke"] select (battleEndReason == "morale") ];
 
 };
 
