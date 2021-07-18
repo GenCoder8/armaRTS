@@ -187,7 +187,7 @@ gmBeginBattle =
  _nextBattle = gmBattles # gmCurBattleIndex;
  _nextBattle params ["_placeMrk","_westForce","_eastForce"];
 
- hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
+ // hint format["Next battle %1 -- %2", _nextBattle # 0, markerpos ( _nextBattle # 0)];
 
  // Must set these for global map battles (Maybe for custombattle too?)
  if((_westForce # FORCE_SIDE) == (call getPlayerSide)) then
@@ -201,12 +201,20 @@ gmBeginBattle =
   curEnemyForce = _westForce;
  };
 
-
  [_placeMrk,90] call setNextBattleArgs; // Todo dir
 
  ["poolSelect"] call openGameScreen;
 
- (_westForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
+ [curPlrForce,curEnemyForce] call setForcesToPlayWith;
+};
+
+setForcesToPlayWith =
+{
+ params ["_plrForce","_enemyForce"];
+
+ (_plrForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
+
+ enemySelectedBgs = [_enemyForce # FORCE_SIDE,(_enemyForce # FORCE_ROSTER)] call getBgSelectedList;
 };
 
 endBattle =
@@ -228,9 +236,13 @@ else
 onBattleEnded =
 {
 
+// Delete depleted forces here
 {
 
+if(!([_x] call isForceAlive)) then
+{
 [_x] call deleteForce;
+};
 
 } foreach [curPlrForce,curEnemyForce];
 
