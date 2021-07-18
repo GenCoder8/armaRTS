@@ -84,7 +84,6 @@ _outcome ctrlSetTextColor [0,1,0,1];
 
 _reason ctrlSetStructuredText parseText format["%1", ["Battle ended because no more men left","Battle ended because morale broke"] select (battleEndReason == "morale") ];
 
-
 };
 
 closeEndingDlg =
