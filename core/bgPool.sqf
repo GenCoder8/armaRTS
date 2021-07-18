@@ -768,3 +768,15 @@ if(_numCrewNeeded <= _numTankCrew) then
 
  _isAlive
 };
+
+deleteForce =
+{
+params ["_force"];
+
+private _name = (_force # FORCE_ID) call getForceName;
+
+if(_name == "") exitWith { "force with name not found" call errmsg; };
+
+allforces deleteAt _name;
+
+};
