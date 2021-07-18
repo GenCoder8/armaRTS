@@ -721,5 +721,50 @@ _type = _x # MANP_TYPE;
  _list
 };
 
+isForceAlive =
+{
+ params ["_force"];
+
+private _isAlive = false;
+
+ private _side = _force # FORCE_SIDE;
+
+private _mpool = _side call getManPool;
+
+private _numInfantry = { (_x # MANP_TYPE) call isInfantry } count _mpool;
+
+// If infantry then force is alive
+if(_numInfantry > 0) then { _isAlive = true; };
 
 
+if(!_isAlive) then // Check vehicles next
+{
+
+private _numTankCrew = { (_x # MANP_TYPE) call isTankCrew } count _mpool;
+
+{
+ private _type = (_x # MANP_TYPE);
+
+if(!(_type iskindof "man")) then // Veh
+{
+private _vattrs = _type call getVehicleAttrs;
+
+private _numCrewNeeded = count (_vattrs # VEH_ATTRS_CREW);
+
+// If enough crew in the pool for the vehicle then the force is alive
+if(_numCrewNeeded <= _numTankCrew) then
+{
+ _isAlive = true;
+ break;
+};
+
+};
+ 
+
+} foreach _mpool;
+
+
+};
+
+ _isAlive
+};
