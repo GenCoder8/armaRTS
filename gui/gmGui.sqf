@@ -1,11 +1,5 @@
 #include "..\main.h"
 
-_display = controlNull;
-
-waituntil { _display = findDisplay 12; !isnull _display };
-
-
-
 
 //hint format["action! %1", _bt ];
 
@@ -17,6 +11,8 @@ with uinamespace do
 gmControls = [];
 gmNextButtton = controlNull;
 };
+
+
 
 openGlobalMap =
 {
@@ -271,121 +267,12 @@ else
 
 };
 
-pos = getpos player;
-
-pos set [1, (pos # 1) + 100];
-
 
 
 getIconScale =
 {
  (1 - (1 call scaleToMap)) * FORCE_ICON_SIZE
 };
-
-#define TEST_ICON_SIZE 10
-
-findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
-{
-params ["_mapCtrl"];
-
-if(curScreen != "globalmap") exitWith {};
-
-private _is = call getIconScale;
-
-{
-
-if(_x # BATTLELOC_ISVICLOC) then
-{
- _mrk = _x # BATTLELOC_MARKER;
- _side = _x # BATTLELOC_OWNER;
-
-#define BL_SCALE 1
-
-_color = [1,1,1,1];
-if(_side == west) then { _color = [0,0,1,1]; };
-if(_side == east) then { _color = [1,0,0,1]; };
-
-	_mapCtrl drawIcon [
-		"uns_M113parts\art\starlg.paa",
-		_color,
-		markerpos _mrk,
-		_is * BL_SCALE,
-		_is * BL_SCALE,
-		0,
-		"",
-		1,
-		0.03,
-		"TahomaB",
-		"right"
-	];
-
-};
-
-} foreach gmBattleLocations;
-
-
-_mapCtrl call renderForces;
-
-if(selectedForce != "") then
-{
-_pmrk = selectedForce call getForcePosMarker;
-
-	_mapCtrl drawIcon [
-		"a3\ui_f\data\map\groupicons\selector_selectable_ca.paa",
-		[1,1,1,1],
-		markerpos _pmrk,
-		_is,
-		_is,
-		0,
-		"",
-		1,
-		0.03,
-		"TahomaB",
-		"right"
-	];
-
-if(mouseOverLoc != "") then
-{
-
- _icon = "a3\ui_f\data\map\groupicons\selector_selected_ca.paa";
-if(mouseOverLoc == "enemy") then
-{
- _icon = "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa";
-};
-
-	_mapCtrl drawIcon [
-		_icon,
-		[1,1,1,1],
-		markerpos lastHighlight,
-		_is,
-		_is,
-		0,
-		"",
-		1,
-		0.03,
-		"TahomaB",
-		"right"
-	];
-
-};
-
-};
-
-// "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa"
-
-// "a3\ui_f_curator\data\cfgwrapperui\cursors\curatorselect_ca.paa"
-// "a3\ui_f\data\igui\cfg\cursors\selectover_ca.paa"
-// "a3\ui_f\data\map\groupicons\selector_selectable_ca.paa"
-
-
-}];
-
-
-
-
-_defaultMainMapCtrl = (findDisplay 12 displayCtrl 51);
-_defaultMainMapCtrl ctrlAddEventHandler ["MouseMoving"," _this call mouseMoveUpdate; "];
-_defaultMainMapCtrl ctrlAddEventHandler ["MouseButtonUp"," _this call mouseButtonUp; "];
 
 
 onForceDeselect =
@@ -664,3 +551,118 @@ if(_pos distance2D (getMarkerPos _mrk) < ((2000) * ( (1 call scaleToMap))) ) exi
 
 _ret
 };
+
+
+
+
+
+_display = controlNull;
+
+waituntil { _display = findDisplay 12; !isnull _display };
+
+
+#define TEST_ICON_SIZE 10
+
+findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", 
+{
+params ["_mapCtrl"];
+
+if(curScreen != "globalmap") exitWith {};
+
+private _is = call getIconScale;
+
+{
+
+if(_x # BATTLELOC_ISVICLOC) then
+{
+ _mrk = _x # BATTLELOC_MARKER;
+ _side = _x # BATTLELOC_OWNER;
+
+#define BL_SCALE 1
+
+_color = [1,1,1,1];
+if(_side == west) then { _color = [0,0,1,1]; };
+if(_side == east) then { _color = [1,0,0,1]; };
+
+	_mapCtrl drawIcon [
+		"uns_M113parts\art\starlg.paa",
+		_color,
+		markerpos _mrk,
+		_is * BL_SCALE,
+		_is * BL_SCALE,
+		0,
+		"",
+		1,
+		0.03,
+		"TahomaB",
+		"right"
+	];
+
+};
+
+} foreach gmBattleLocations;
+
+
+_mapCtrl call renderForces;
+
+if(selectedForce != "") then
+{
+_pmrk = selectedForce call getForcePosMarker;
+
+	_mapCtrl drawIcon [
+		"a3\ui_f\data\map\groupicons\selector_selectable_ca.paa",
+		[1,1,1,1],
+		markerpos _pmrk,
+		_is,
+		_is,
+		0,
+		"",
+		1,
+		0.03,
+		"TahomaB",
+		"right"
+	];
+
+if(mouseOverLoc != "") then
+{
+
+ _icon = "a3\ui_f\data\map\groupicons\selector_selected_ca.paa";
+if(mouseOverLoc == "enemy") then
+{
+ _icon = "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa";
+};
+
+	_mapCtrl drawIcon [
+		_icon,
+		[1,1,1,1],
+		markerpos lastHighlight,
+		_is,
+		_is,
+		0,
+		"",
+		1,
+		0.03,
+		"TahomaB",
+		"right"
+	];
+
+};
+
+};
+
+// "a3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa"
+
+// "a3\ui_f_curator\data\cfgwrapperui\cursors\curatorselect_ca.paa"
+// "a3\ui_f\data\igui\cfg\cursors\selectover_ca.paa"
+// "a3\ui_f\data\map\groupicons\selector_selectable_ca.paa"
+
+
+}];
+
+
+
+
+_defaultMainMapCtrl = (findDisplay 12 displayCtrl 51);
+_defaultMainMapCtrl ctrlAddEventHandler ["MouseMoving"," _this call mouseMoveUpdate; "];
+_defaultMainMapCtrl ctrlAddEventHandler ["MouseButtonUp"," _this call mouseButtonUp; "];
+
