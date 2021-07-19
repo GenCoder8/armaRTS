@@ -228,10 +228,23 @@ if(!isCustomBattle) then
 
 // Delete depleted forces here (Should have returned to pool)
 {
+_force = _x;
 
-if(!([_x] call isForceAlive)) then
+if(!([_force] call isForceAlive)) then
 {
-[_x] call deleteForce;
+[_force] call deleteForce;
+}
+else
+{
+if(_loser == (_force # FORCE_SIDE)) then
+{
+_loc = [_force] call getForceFleeLocation;
+if(_loc != "") then
+{
+ systemchat format["Fleeing to %1", _loc];
+ [_force,_loc] call setForceNewBattleLoc;
+};
+};
 };
 
 } foreach [curPlrForce,curEnemyForce];

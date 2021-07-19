@@ -99,9 +99,9 @@ getStartLoc =
 {
  params ["_side"];
 
-private _startLoc = call compile format["startMarker%1",_side];
+private _startLoc = _side call getStartMarker;
 
-if(isnil "_startLoc") exitWith { ["start loc not set for '%1'",_side] call errmsg; "" };
+if(count _startLoc == 0) exitWith { ["start loc not set for '%1'",_side] call errmsg; "" };
 
 // Can start only from empty places
 private _blocs = gmBattleLocations select { count( _x call getForcesAtBattleLoc) == 0 };
@@ -111,6 +111,14 @@ private _nearest = [_blocs,{ markerpos (_x # BATTLELOC_MARKER) }, markerpos _sta
 if(count _nearest == 0) exitWith { "Failed to get starting location" call errmsg; "" };
 
 (_nearest # BATTLELOC_MARKER)
+};
+
+getStartMarker =
+{
+ params ["_side"];
+private _startLoc = call compile format["startMarker%1",_side];
+if(isnil "_startLoc") exitWith { [] };
+_startLoc
 };
 
 aiTurn =
@@ -224,9 +232,24 @@ testGmAI =
  systemchat "DONE PATHING";
 };
 
+// Used by player forces too
+getForceFleeLocation =
+{
+params ["_force"];
 
+private _startMarker = [_force # FORCE_SIDE] call getStartMarker;
 
+private _curLoc = _force # FORCE_POSMARKER;
 
+private _connections = battlelocConnections get _curLoc;
 
+private _freeLocs = _connections select { [_force,_x] call pfCanForceMoveToLoc };
+
+if(count _freeLocs == 0) exitWith { "" };
+
+private _nearest = [_freeLocs, {markerpos _x}, markerpos _startMarker ] call getNearest;
+
+_nearest
+};
 
 // call createGmPathfindingData; ["marker_9","marker_31"] call findPath

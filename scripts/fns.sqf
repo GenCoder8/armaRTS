@@ -168,6 +168,7 @@ _ret
 
 makeFirstLetterCapital =
 {
+ params ["_str"];
 
 _strend = _str select [1, count _str];
 _firstLetter = _str select [0, 1];
