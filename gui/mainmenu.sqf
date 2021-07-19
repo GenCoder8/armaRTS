@@ -7,7 +7,7 @@ openMainMenu =
  _display = finddisplay MAINMENUID;
 
  // Disable main menu keys (No esc quit)
- _display displaySetEventHandler ["KeyDown", " true "];
+ _display call disableDlgEscaping;
 
 };
 
@@ -77,7 +77,7 @@ openEndingDlg =
 createDialog "BattleEndingDlg";
 
 _display = finddisplay RTSENDINGDLGID;
-_display displaySetEventHandler ["KeyDown", " true "];
+_display call disableDlgEscaping;
 
 
 _outcome = _display displayCtrl 1000;
@@ -114,4 +114,10 @@ else
  ["mainMenu"] call openGameScreen;
 };
 
+};
+
+disableDlgEscaping =
+{
+ params ["_display"];
+ _display displaySetEventHandler ["KeyDown", " true "];
 };

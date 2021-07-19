@@ -16,6 +16,8 @@ selectedBattleGroups = [];
 
 createDialog "UnitPoolDlg";
 
+_display = finddisplay UNITPOOLDLGID;
+_display call disableDlgEscaping;
 
 selectableBgs = ([curPlrForce] call getForceBgTypes);
 

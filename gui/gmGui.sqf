@@ -6,11 +6,8 @@
 gmPhase = "move";
 
 
-with uinamespace do
-{
-gmControls = [];
-gmNextButtton = controlNull;
-};
+uinamespace setVariable ["gmControls",[]];
+uinamespace setVariable ["gmNextButtton",controlNull];
 
 
 
