@@ -773,7 +773,7 @@ _bar = uinamespace getVariable [format["moraleBar%1", _side],controlNull ];
 
 _bar progressSetPosition _progress;
 
-_bar ctrlSetTooltip format["%1 Morale %2%3", tolower str _side, ceil (_progress * 100), "%" ];
+_bar ctrlSetTooltip format["%1 Morale %2%3", (tolower str _side) call makeFirstLetterCapital, ceil (_progress * 100), "%" ];
 };
 
 with (uinamespace) do

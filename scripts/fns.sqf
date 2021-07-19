@@ -165,3 +165,13 @@ if(count _ret > 0) then
 
 _ret
 };
+
+makeFirstLetterCapital =
+{
+
+_strend = _str select [1, count _str];
+_firstLetter = _str select [0, 1];
+
+ ((toupper _firstLetter) + _strend)
+};
+
