@@ -232,6 +232,10 @@ _force = _x;
 
 if(!([_force] call isForceAlive)) then
 {
+if((_force # FORCE_SIDE) == (call getPlayerSide)) then
+{
+ hint "Your force was destroyed"; // Todo better msg to player
+};
 [_force] call deleteForce;
 }
 else

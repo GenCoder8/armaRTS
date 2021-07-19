@@ -24,6 +24,9 @@ rtsEndGame =
 startCampaign =
 {
 
+// Better reset this
+allforces = createHashMap;
+
 isCustomBattle = false; 
 
 call initGlobalMap;
