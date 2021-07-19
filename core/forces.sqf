@@ -42,10 +42,20 @@ numForceMoves =
 moveForceToBattleloc =
 {
  params ["_forceName","_destMarker"];
- private _force = allforces get _forceName;
+
+private _force = [];
+if(typename _forceName == "STRING") then
+{
+ _force = allforces get _forceName;
+}
+else
+{
+ _force = _forceName;
+};
 
  [_force,_destMarker] call setForceNewBattleLoc;
 
+ _force set [FORCE_NUM_MOVES, (_force # FORCE_NUM_MOVES) - 1];
 };
 
 setForceNewBattleLoc =
@@ -61,10 +71,6 @@ setForceNewBattleLoc =
  _bloc set [BATTLELOC_OWNER, _force # FORCE_SIDE]; // Always update
 
  _force set [FORCE_POSMARKER, _destMarker ];
-
-
- _force set [FORCE_NUM_MOVES, (_force # FORCE_NUM_MOVES) - 1];
-
 };
 
 getForcesAtBattleLoc =

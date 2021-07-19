@@ -78,6 +78,8 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "core\aiComGm.sqf" call execFile;
 
+"core\savegame.sqf" call execFile;
+
 "scripts\morale.sqf" call execFile;
 
 "scripts\garrison.sqf" call execFile;

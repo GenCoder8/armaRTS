@@ -16,7 +16,7 @@ gmNextButtton = controlNull;
 
 openGlobalMap =
 {
- openMap [true, true];
+ openMap [true, !debugMode];
 
 call createReturnToMenuButton;
 
@@ -246,7 +246,7 @@ _loc = [_force] call getForceFleeLocation;
 if(_loc != "") then
 {
  systemchat format["Fleeing to %1", _loc];
- [_force,_loc] call setForceNewBattleLoc;
+ [_force,_loc] call moveForceToBattleloc;
 };
 };
 };

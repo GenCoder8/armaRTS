@@ -23,23 +23,33 @@ rtsEndGame =
 
 startCampaign =
 {
+params [["_customForces",false]];
 
-// Better reset this
-allforces = createHashMap;
+call initCampaign;
 
-isCustomBattle = false; 
-
-call initGlobalMap;
-
+if(!_customForces) then
+{
 [west,"usa1","USA1", "startWest" ] call createForce;
 [west,"usa2","TestRosterWest", "marker_17_vic" ] call createForce;
 
 [east,"nva1","NVA1", "startEast" ] call createForce;
 [east,"nva2","NVA1", "marker_12" ] call createForce;
+};
 
 "globalmap" call openGameScreen;
 
 call beginGmMovePhase;
+
+};
+
+initCampaign =
+{
+isCustomBattle = false; 
+
+// Better reset this
+allforces = createHashMap;
+
+call initGlobalMap;
 
 };
 

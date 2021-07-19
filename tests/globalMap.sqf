@@ -16,6 +16,10 @@ waituntil { scriptdone _w };
 
 loadCovers = false;
 
+
+debugMode = true;
+
+
 /*
 for "_i" from 0 to 1000 do
 {
@@ -36,10 +40,10 @@ _mrk setMarkerColor "ColorRed";
 sleep 0.1;
 
 
+
+true call startCampaign;
+
 [west,"Tester1","USA1", "marker_17" ] call createForce;
-[west,"testers2","TestRosterWest", "marker_31" ] call createForce;
+[west,"testers2","TestRosterWest", "startWest" ] call createForce;
 
 [east,"testersE","NVA1", "marker_18" ] call createForce;
-
-
-call startCampaign;

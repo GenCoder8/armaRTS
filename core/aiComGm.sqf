@@ -158,7 +158,7 @@ private _nearLoc = [_capLocs, { markerpos (_x # BATTLELOC_MARKER) }, markerpos _
  if(count _path > 1) then // Should be two, first is current pos
  {
   _nodeMarker = (_path # 1) call pfGetMarkerById;
-   [_aiforce,_nodeMarker] call setForceNewBattleLoc;
+   [_aiforce,_nodeMarker] call moveForceToBattleloc;
 
 //diag_log format ["FromTo: %1 == %2 => %3", _forceName, _curLocMrk, _nodeMarker ];
 
