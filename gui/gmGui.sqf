@@ -232,14 +232,17 @@ _force = _x;
 
 if(!([_force] call isForceAlive)) then
 {
+
 if((_force # FORCE_SIDE) == (call getPlayerSide)) then
 {
  hint "Your force was destroyed"; // Todo better msg to player
 };
 [_force] call deleteForce;
+
 }
 else
 {
+
 if(_loser == (_force # FORCE_SIDE)) then
 {
 _loc = [_force] call getForceFleeLocation;
@@ -249,6 +252,7 @@ if(_loc != "") then
  [_force,_loc] call moveForceToBattleloc;
 };
 };
+
 };
 
 } foreach [curPlrForce,curEnemyForce];
@@ -275,7 +279,7 @@ gmCheckRoundEnd =
 
 if(gmCurBattleIndex >= (count gmBattles) || (count gmBattles) == 0) then
 {
-  (uinamespace getVariable "phaseText") ctrlSetText "End of round";
+ (uinamespace getVariable "phaseText") ctrlSetText "End of round";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "Next round";
  (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmMovePhase ";
 }

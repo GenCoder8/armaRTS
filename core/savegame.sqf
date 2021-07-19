@@ -30,7 +30,7 @@ call beginGmMovePhase;
 case "battles":
 {
  gmBattles = call getGlobalBattles;
- call gmSelectNextBattle;
+ call gmCheckRoundEnd;
 };
 
 };
