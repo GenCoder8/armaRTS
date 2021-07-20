@@ -248,6 +248,10 @@ if(_loc != "") then
  systemchat format["Fleeing to %1", _loc];
  [_force,_loc] call moveForceToBattleloc;
 };
+}
+else // Winner here
+{
+ [_force] call claimBattleVictoryLoc; // Capture (if not already owned)
 };
 
 };

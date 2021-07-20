@@ -66,11 +66,27 @@ setForceNewBattleLoc =
 
  if(!(_destMarker call isValidMarker)) exitWith { ["invalid marker '%1'", _destMarker] call errmsg; };
 
+ _force set [FORCE_POSMARKER, _destMarker ];
+
+
+_forces = _destMarker call _destMarker getForcesAtBattleLoc;
+
+// Only this force
+if(count _forces == 1) then
+{
+ [_force] call claimBattleVictoryLoc;
+};
+
+};
+
+claimBattleVictoryLoc =
+{
+ params ["_force"];
+ _curMarker = _force # FORCE_POSMARKER;
+
  private _bloc = _destMarker call getBattleLoc;
 
- _bloc set [BATTLELOC_OWNER, _force # FORCE_SIDE]; // Always update
-
- _force set [FORCE_POSMARKER, _destMarker ];
+ _bloc set [BATTLELOC_OWNER, _force # FORCE_SIDE];
 };
 
 getForcesAtBattleLoc =

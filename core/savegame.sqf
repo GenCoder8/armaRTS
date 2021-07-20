@@ -6,6 +6,8 @@ rtsSavegame =
  profilenamespace setVariable ["gmPhase",gmPhase];
 
  profilenamespace setVariable ["gmCurBattleIndex",gmCurBattleIndex];
+
+// gmBattleLocations
 };
 
 rtsLoadGame =
