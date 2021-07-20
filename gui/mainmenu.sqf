@@ -1,3 +1,4 @@
+#include "\a3\ui_f\hpp\definedikcodes.inc"
 #include "ctrlids.h";
 
 openMainMenu =
@@ -24,6 +25,8 @@ rtsEndGame =
 startCampaign =
 {
 params [["_customForces",false]];
+
+call closeMainMenu;
 
 call initCampaign;
 
@@ -62,7 +65,7 @@ if(isnull _display) exitWith { "Cant create return to menu button" call errmsg; 
 
 _bt = _display ctrlCreate ["Rscbutton", -1, controlNull];
 _bt ctrlSetText format["Return to menu"];
-_bt buttonSetAction " ['mainMenu'] call openGameScreen; ";
+_bt buttonSetAction " call openMainMenu ";
 //_bt ctrlsetTooltip "";
 _bt ctrlSetPosition ([44.5,-4,7,2,false] call getGuiPos);
 _bt ctrlCommit 0;
@@ -111,7 +114,7 @@ if(!isCustomBattle) then
 }
 else
 {
- ["mainMenu"] call openGameScreen;
+ call openMainMenu;
 };
 
 };
@@ -121,3 +124,21 @@ disableDlgEscaping =
  params ["_display"];
  _display displaySetEventHandler ["KeyDown", " true "];
 };
+
+rtsGameInput =
+{
+params ["_display", "_key", "_shift", "_ctrl", "_alt"];
+
+systemchat format["input %1 %2",_key, time];
+
+private _handled = false;
+
+if(_key == DIK_ESCAPE) then
+{
+ call openMainMenu;
+ _handled = true;
+};
+
+ _handled
+};
+

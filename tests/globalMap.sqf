@@ -1,5 +1,6 @@
 RTSmainPath = "armaRTS.Altis\";
 
+#include "..\main.h"
 
 
 folderPrefix = "";
@@ -47,3 +48,5 @@ true call startCampaign;
 [west,"testers2","TestRosterWest", "startWest" ] call createForce;
 
 [east,"testersE","NVA1", "marker_18" ] call createForce;
+
+DBGL_NONE call setDebugFlags;

@@ -1,6 +1,7 @@
 #include "ctrlIds.h"
 
 curScreen = "";
+prevScreen = "";
 
 isCustomBattle = false;
 
@@ -10,10 +11,12 @@ openGameScreen =
 
 diag_log format["Opening screen '%1' from '%2'", _screen,curScreen];
 
+prevScreen = curScreen;
+
 // Cleanup first
 switch (curScreen) do
 {
-case "mainMenu": { call closeMainMenu; };
+//case "mainMenu": { call closeMainMenu; };
 case "globalmap": { call closeGlobalMap; };
 case "customBattle": { closeDialog 0; };
 case "poolSelect": { closeDialog 0; };
@@ -61,7 +64,7 @@ case "placement":
  // Open new screen
  switch (_screen) do
  {
-  case "mainMenu": { call openMainMenu; };
+  //case "mainMenu": { call openMainMenu; };
   case "endingDlg": { call openEndingDlg; };
   case "globalmap": { call openGlobalMap; };
   case "customBattle": { isCustomBattle = true; call openCustomBattleDlg; };
@@ -90,6 +93,16 @@ case "placement":
 
  curScreen = _screen;
 };
+
+returnToPreviousScreen =
+{
+ if(prevScreen == "") exitWith {};
+
+ systemchat format["return to: '%1'", prevScreen];
+
+ [prevScreen] call openGameScreen;
+};
+
 
 loadScreenStarted = false;
 startRtsLoadScreen =

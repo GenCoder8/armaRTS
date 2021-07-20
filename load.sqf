@@ -5,6 +5,12 @@ testCfgs = false;
 
 rtsDebugMode = profileNamespace getvariable ["rtsDebugMode",false];
 
+
+// Important
+player allowDamage false;
+enableSaving [false, false];
+
+
 errmsg =
 {
 private "_print";
@@ -123,5 +129,3 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 ["gui\battleGuiLoop.sqf",false] call execFile;
 
 
-// Important
-player allowDamage false;

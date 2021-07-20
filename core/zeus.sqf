@@ -34,6 +34,11 @@ waitUntil { !isNull findDisplay 312 };
 
 _display = finddisplay 312;
 
+
+(finddisplay 312) displaySetEventHandler ["KeyDown", " _this call rtsGameInput "];
+
+
+
 if(isnil "zeusModded") then
 {
 

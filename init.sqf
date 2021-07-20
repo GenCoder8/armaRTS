@@ -10,5 +10,5 @@ loadCovers = true;
 
 //testCfgs = true;
 
-["mainMenu"] call openGameScreen;
+call openMainMenu;
 
