@@ -82,9 +82,9 @@ if(count _forces == 1) then
 claimBattleVictoryLoc =
 {
  params ["_force"];
- _curMarker = _force # FORCE_POSMARKER;
+ private _curMarker = _force # FORCE_POSMARKER;
 
- private _bloc = _destMarker call getBattleLoc;
+ private _bloc = _curMarker call getBattleLoc;
 
  _bloc set [BATTLELOC_OWNER, _force # FORCE_SIDE];
 };
