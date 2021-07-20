@@ -69,9 +69,9 @@ setForceNewBattleLoc =
  _force set [FORCE_POSMARKER, _destMarker ];
 
 
-_forces = _destMarker call _destMarker getForcesAtBattleLoc;
+private _forces = _destMarker call getForcesAtBattleLoc;
 
-// Only this force
+// If only this force then own it
 if(count _forces == 1) then
 {
  [_force] call claimBattleVictoryLoc;

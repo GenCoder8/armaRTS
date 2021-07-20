@@ -223,6 +223,8 @@ if(!isCustomBattle) then
   _x call retAllBattleGroupsToPool;
 } foreach [east,west];
 
+_winnerForce = [];
+
 // Delete depleted forces here (Should have returned to pool)
 {
 _force = _x;
@@ -251,12 +253,15 @@ if(_loc != "") then
 }
 else // Winner here
 {
- [_force] call claimBattleVictoryLoc; // Capture (if not already owned)
+ _winnerForce = _force;
 };
 
 };
 
 } foreach [curPlrForce,curEnemyForce];
+
+ // Do this last after fleeing
+ [_winnerForce] call claimBattleVictoryLoc; // Capture (if not already owned)
 
 };
 
