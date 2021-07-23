@@ -16,13 +16,15 @@ rtsLoadGame =
 
 call initCampaign;
 
-allforces = profilenamespace getVariable ["rtsForces",createHashmap];
+// Array must be copied!
 
-gmPhase = profilenamespace getVariable "gmPhase";
+allforces = +(profilenamespace getVariable ["rtsForces",createHashmap]);
 
-gmCurBattleIndex = profilenamespace getVariable "gmCurBattleIndex";
+gmPhase = (profilenamespace getVariable "gmPhase");
 
-gmBattleLocations = profilenamespace getVariable "gmBattleLocations";
+gmCurBattleIndex = (profilenamespace getVariable "gmCurBattleIndex");
+
+gmBattleLocations = +(profilenamespace getVariable "gmBattleLocations");
 
 "globalmap" call openGameScreen;
 
