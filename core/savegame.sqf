@@ -7,7 +7,8 @@ rtsSavegame =
 
  profilenamespace setVariable ["gmCurBattleIndex",gmCurBattleIndex];
 
-// gmBattleLocations
+ profilenamespace setVariable ["gmBattleLocations",gmBattleLocations];
+
 };
 
 rtsLoadGame =
@@ -21,13 +22,15 @@ gmPhase = profilenamespace getVariable "gmPhase";
 
 gmCurBattleIndex = profilenamespace getVariable "gmCurBattleIndex";
 
+gmBattleLocations = profilenamespace getVariable "gmBattleLocations";
+
 "globalmap" call openGameScreen;
 
 switch(gmPhase) do
 {
 case "move":
 {
-call beginGmMovePhase;
+false call beginGmMovePhase;
 };
 case "battles":
 {
@@ -38,3 +41,4 @@ case "battles":
 };
 
 };
+

@@ -129,9 +129,14 @@ openMap [false,false];
 
 beginGmMovePhase =
 {
+params [["_resetMoves",true]];
+
 gmPhase = "move";
 
+if(_resetMoves) then
+{
 call resetForcesTurn;
+};
 
  (uinamespace getVariable "phaseText") ctrlSetText "Move phase";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "End round";
