@@ -190,14 +190,18 @@ _img ctrlCommit 0;
 onUnitListSelect =
 {
  params ["_cont","_group"];
+/*
+[] spawn
+{
+ private _display = finddisplay 312;
 
+ _ctrl = _display displayCtrl 7777;
 
- //private _display = finddisplay 312;
+ ctrlSetFocus _ctrl;
 
-//ctrlSetFocus controlNull;
+ systemchat format["%1 -- %2 -- %3",_display, focusedCtrl _display,_ctrl];
 
- //systemchat format["%1 -- %2 -- %3",(str _this), focusedCtrl _display,_cont];
-
+};*/
 
 //ctrlSetFocus (_cont getvariable "apic");
 
