@@ -51,9 +51,6 @@ savedGamesList = profilenamespace getVariable ["rtsSavedGames",createHashmap];
 call fillSavegameList;
 
 
-systemChat format["Test123 --> %1 %2 %3 %4", _display, _actButton, _isSaving,isSavingGame ];
-
-
 };
 
 closeSavegameMenu =
