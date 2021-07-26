@@ -1,5 +1,5 @@
 
-rtsSavegame =
+rtsSavegameold =
 {
  profilenamespace setVariable ["rtsForces",allforces];
 
@@ -11,7 +11,7 @@ rtsSavegame =
 
 };
 
-rtsLoadGame =
+rtsLoadGameold =
 {
 
 call initCampaign;

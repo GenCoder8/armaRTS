@@ -4,7 +4,7 @@
 //hint format["action! %1", _bt ];
 
 gmPhase = "move";
-
+gmCurBattleIndex = 0;
 
 uinamespace setVariable ["gmControls",[]];
 uinamespace setVariable ["gmNextButtton",controlNull];
@@ -210,9 +210,9 @@ setForcesToPlayWith =
 {
  params ["_plrForce","_enemyForce"];
 
- (_plrForce # FORCE_ROSTER) call fillWithRandomBgs; // For player
+ (_plrForce call getForceRoster) call fillWithRandomBgs; // For player
 
- enemySelectedBgs = [_enemyForce # FORCE_SIDE,(_enemyForce # FORCE_ROSTER)] call getBgSelectedList;
+ enemySelectedBgs = [_enemyForce # FORCE_SIDE,(_enemyForce call getForceRoster)] call getBgSelectedList;
 };
 
 endBattle =

@@ -124,6 +124,7 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "gui\gmGui.sqf" call execFile;
 
+"gui\savegame.sqf" call execFile;
 
 
 ["gui\battleGuiLoop.sqf",false] call execFile;

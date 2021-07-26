@@ -1,5 +1,5 @@
 #include "\a3\ui_f\hpp\definedikcodes.inc"
-#include "ctrlids.h";
+#include "ctrlids.h"
 
 openMainMenu =
 {

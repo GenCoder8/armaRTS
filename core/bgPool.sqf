@@ -398,7 +398,7 @@ if(_posMrk != "") then
  };
 };
 
-[_side,_name,_icon,_posMrk,_rosterCfg] call registerNewForce;
+[_side,_name,_icon,_posMrk,_rosterName] call registerNewForce;
 _force = allforces get _name;
 
 // Call this incase starting from vic loc

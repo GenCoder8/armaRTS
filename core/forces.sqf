@@ -13,6 +13,17 @@ allforces set [_name, [numForcesCreated,_side,_icon,_posmrk, 1, [], [], _usedros
 numForcesCreated = numForcesCreated + 1;
 };
 
+getForceRoster =
+{
+ params ["_force"];
+
+ private _side = _force # FORCE_SIDE;
+
+ private _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> (_force # FORCE_ROSTER);
+
+ _rosterCfg
+};
+
 isFriendlyForce =
 {
  params ["_forceName"];
