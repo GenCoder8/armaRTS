@@ -26,8 +26,6 @@ startCampaign =
 {
 params [["_customForces",false]];
 
-call closeMainMenu;
-
 call initCampaign;
 
 if(!_customForces) then
