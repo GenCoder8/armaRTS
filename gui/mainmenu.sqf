@@ -39,7 +39,7 @@ if(!_customForces) then
 
 "globalmap" call openGameScreen;
 
-call beginGmMovePhase;
+[] call beginGmMovePhase;
 
 };
 

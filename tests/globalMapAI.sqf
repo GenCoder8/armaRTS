@@ -31,5 +31,5 @@ call initGlobalMap;
 
 "globalmap" call openGameScreen;
 
-call beginGmMovePhase;
+[] call beginGmMovePhase;
 

@@ -210,9 +210,9 @@ setForcesToPlayWith =
 {
  params ["_plrForce","_enemyForce"];
 
- (_plrForce call getForceRoster) call fillWithRandomBgs; // For player
+ ([_plrForce] call getForceRoster) call fillWithRandomBgs; // For player
 
- enemySelectedBgs = [_enemyForce # FORCE_SIDE,(_enemyForce call getForceRoster)] call getBgSelectedList;
+ enemySelectedBgs = [_enemyForce # FORCE_SIDE,([_enemyForce] call getForceRoster)] call getBgSelectedList;
 };
 
 endBattle =
@@ -292,7 +292,7 @@ if(gmCurBattleIndex >= (count gmBattles) || (count gmBattles) == 0) then
 {
  (uinamespace getVariable "phaseText") ctrlSetText "End of round";
  (uinamespace getVariable "gmNextButtton") ctrlSetText "Next round";
- (uinamespace getVariable "gmNextButtton") buttonSetAction " call beginGmMovePhase ";
+ (uinamespace getVariable "gmNextButtton") buttonSetAction "[] call beginGmMovePhase ";
 }
 else
 {
