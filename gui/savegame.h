@@ -1,14 +1,15 @@
-/* #Bytati
+/* #Rosoxy
 $[
 	1.063,
 	["savegame",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
 	[1500,"",[2,"",["20 * UI_GRID_W + UI_GRID_X","12 * UI_GRID_H + UI_GRID_Y","20.5 * UI_GRID_W","15.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["type = CT_LISTNBOX;","columns[] = SAVEFILE_COLUMNS;"]],
 	[1400,"",[2,"Save file name",["21 * UI_GRID_W + UI_GRID_X","9 * UI_GRID_H + UI_GRID_Y","18.5 * UI_GRID_W","1 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1600,"",[2,"save / load",["43 * UI_GRID_W + UI_GRID_X","15.5 * UI_GRID_H + UI_GRID_Y","6 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1601,"",[2,"Cancel",["43 * UI_GRID_W + UI_GRID_X","23.5 * UI_GRID_H + UI_GRID_Y","6 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |closedialog 0|;"]],
+	[1601,"",[2,"Close",["43 * UI_GRID_W + UI_GRID_X","23.5 * UI_GRID_H + UI_GRID_Y","6 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |closedialog 0; call openMainMenu|;"]],
 	[1602,"",[2,"Delete",["43 * UI_GRID_W + UI_GRID_X","19.5 * UI_GRID_H + UI_GRID_Y","6 * UI_GRID_W","2.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call rtsDeleteGame|;"]]
 ]
 */
+
 
 
 
@@ -65,7 +66,7 @@ class controls
 
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Bytati)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Rosoxy)
 ////////////////////////////////////////////////////////
 
 class RscListbox_1500: RscListbox
@@ -99,10 +100,10 @@ class RscButton_1600: RscButton
 };
 class RscButton_1601: RscButton
 {
-	action = "closedialog 0";
+	action = "closedialog 0; call openMainMenu";
 
 	idc = 1601;
-	text = "Cancel"; //--- ToDo: Localize;
+	text = "Close"; //--- ToDo: Localize;
 	x = 43 * UI_GRID_W + UI_GRID_X;
 	y = 23.5 * UI_GRID_H + UI_GRID_Y;
 	w = 6 * UI_GRID_W;

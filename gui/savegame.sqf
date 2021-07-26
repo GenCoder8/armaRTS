@@ -9,6 +9,10 @@ openSavegameMenu =
 {
 params ["_isSaving"];
 
+if(!canSuspend) exitWith { _this spawn openSavegameMenu; };
+
+sleep 0.0001; // Have to wait previous gui to close
+
 isSavingGame = _isSaving;
 
 createDialog "SavegameDlg";
@@ -30,6 +34,7 @@ else
  _actButton buttonSetAction "(call getSaveName) call rtsLoadgame";
 };
 
+
 _actButton ctrlEnable false;
 _delButton = _display displayctrl 1602;
 _delButton ctrlEnable false;
@@ -44,6 +49,10 @@ _saveList ctrlAddEventHandler ["LBSelChanged", onSavegameSelected];
 savedGamesList = profilenamespace getVariable ["rtsSavedGames",createHashmap];
 
 call fillSavegameList;
+
+
+systemChat format["Test123 --> %1 %2 %3 %4", _display, _actButton, _isSaving,isSavingGame ];
+
 
 };
 
@@ -135,8 +144,9 @@ if(_version < RTS_SAVEGAME_VERSION) then
 
 [false,+_data] call rtsSaveLoadData;
 
-call onSavegameLoaded;
+call closeSavegameMenu;
 
+call onSavegameLoaded;
 
 
 };
@@ -153,6 +163,7 @@ if(!_isSave && count _savedata == 0) exitWith { systemChat "save data empty"; };
 
 SL_VAR(allforces)
 SL_VAR(gmBattleLocations)
+SL_VAR(vehicleAttributes) // must also
 SL_VAR(gmPhase)
 SL_VAR(gmCurBattleIndex)
 
