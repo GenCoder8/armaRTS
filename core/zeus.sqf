@@ -193,9 +193,9 @@ _display displayAddEventHandler ["MouseButtonDown",
 
  _handled = false;
 
-if(_button == 1) then
+if(_button == 1 && _ctrl) then
 {
- // rightMouseButtonDown = true;
+ rightMouseButtonDown = true;
 }; 
 
  _handled
