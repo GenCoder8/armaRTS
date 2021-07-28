@@ -33,6 +33,10 @@ startMarkerWest = "";
 
  } foreach _blocs;
 
+if(startMarkerWest == "" || startMarkerEast == "") then
+{
+ ["Starting location not set in the map! west: %1 east: %2",startMarkerWest,startMarkerEast] call errmsg;
+};
 
 battlelocConArrows = [];
 

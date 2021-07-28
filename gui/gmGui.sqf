@@ -199,7 +199,10 @@ gmBeginBattle =
   curEnemyForce = _westForce;
  };
 
- [_placeMrk,90] call setNextBattleArgs; // Todo dir
+ _bangle = [markerpos startMarkerWest,markerpos startMarkerEast] call getAngle;
+
+
+ [_placeMrk,_bangle] call setNextBattleArgs;
 
  ["poolSelect"] call openGameScreen;
 
