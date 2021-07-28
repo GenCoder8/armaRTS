@@ -127,7 +127,7 @@ rtsGameInput =
 {
 params ["_display", "_key", "_shift", "_ctrl", "_alt"];
 
-systemchat format["input %1 %2",_key, time];
+// systemchat format["input %1 %2",_key, time];
 
 private _handled = false;
 
