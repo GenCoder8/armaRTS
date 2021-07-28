@@ -40,7 +40,7 @@ pfConnections pushback [_curId,_oId];
 
 } foreach battlelocConnections;
 
-systemchat format ["Nodes: %1 Cons: %2", count pfNodes, count pfConnections];
+[DBGL_AIGM,"Nodes: %1 Cons: %2", count pfNodes, count pfConnections] call dbgmsgl;
 
 };
 
@@ -229,7 +229,9 @@ testGmAI =
   sleep 1.5;
  } foreach _path;
  
- systemchat "DONE PATHING";
+
+[DBGL_AIGM,"DONE PATHING"] call dbgmsgl;
+
 };
 
 // Used by player forces too

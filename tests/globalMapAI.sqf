@@ -20,6 +20,7 @@ debugMode = true;
 
 sleep 0.1;
 
+DBGL_AIGM call setDebugFlags;
 
 [west,"Tester1","USA1", west call getStartLoc ] call createForce;
 //[west,"testers2","Roster2", "marker_31" ] call createForce;

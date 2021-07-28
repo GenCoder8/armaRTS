@@ -1,13 +1,3 @@
-dbgmsg =
-{
-if(!rtsDebugMode) exitWith {};
-
-if(typename _this == "ARRAY") then
-{
-_this = format _this;
-};
- systemchat format["DBG: %1",_this];
-};
 
 getObjectSize =
 {

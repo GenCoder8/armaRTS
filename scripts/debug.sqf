@@ -22,13 +22,19 @@ else
 
 // [flagset, flag] call BIS_fnc_bitflagsUnset
 
+isDebugLevel =
+{
+params ["_level"];
+([curDbgLevel, _level] call BIS_fnc_bitflagsCheck)
+};
+
 dbgmsgl =
 {
  private _args = _this;
 
  private _level = _args # 0;
 
-if([curDbgLevel, _level] call BIS_fnc_bitflagsCheck) then
+if(_level call isDebugLevel) then
 {
 
 // Rest are the msg/parameters
@@ -39,3 +45,15 @@ _msg = _args select [1, count _args - 1];
 };
 
 };
+
+dbgmsg =
+{
+if(!rtsDebugMode) exitWith {};
+
+if(typename _this == "ARRAY") then
+{
+_this = format _this;
+};
+ systemchat format["DBG: %1",_this];
+};
+
