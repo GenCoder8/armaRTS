@@ -1,3 +1,4 @@
+#include "..\main.h"
 
 #define KNOWS_ABOUT_REVEAL_VAL 1
 #define KNOWS_ABOUT_UNREVEAL_VAL (4 - 0.01)
