@@ -1,20 +1,58 @@
-
+#include "..\main.h"
 
 #define HIGHEST_RANK 4
 #define MAX_EFFECT_DIST 100
 #define MORALE_MULTIPLIER  0.25   // Best possible morale increase
 #define MAX_COURAGE 0.95
-/*
+
+
+addMissionEventHandler ["Draw3D", 
+{
+
+if(!(DBGL_MORA call isDebugLevel)) exitWith
+{
+ 
+removeMissionEventHandler ["Draw3D", _thisEventHandler];
+};
+
+{
+_group = _x;
+
+
+	drawIcon3D 
+	[
+		"",
+		[0,0,1,1],
+		getposAsl (leader _group),
+		1,
+		1,
+		0,
+		format["Morale: %1", _group getVariable ["fleeingValue","mor not set"] ],
+		0,
+		0.1,
+		"PuristaMedium",
+		"center",
+		true
+	];
+
+} foreach allgroups;
+
+}];
+
+
+
+[] spawn
+{
 while { true } do
 {
 
-_side = west;
-
-_friendlyGroups = allgroups select { side _x == _side && !isPlayer (leader _x) };
+{
+ _side = _x;
+_sideGroups = allgroups select { side _x == _side && !isPlayer (leader _x) };
 
 {
- _group = _x;
-_friendlies = _friendlyGroups - [_group];
+_group = _x;
+_friendlies = _sideGroups - [_group];
 _ldr = leader _group;
 
 _totalEffect = 0;
@@ -28,7 +66,7 @@ _totalEffect = 0;
  _effectDist = MAX_EFFECT_DIST / (_fldr distance _ldr);
  if(_effectDist > 1) then { _effectDist = 1; };
 
-systemchat format["e: %1 %2", _rankEffect, _effectDist ];
+ [DBGL_MORA,"e: %1 %2", _rankEffect, _effectDist ] call dbgmsgl;
 
  _finalEffect = _rankEffect * MORALE_MULTIPLIER * _effectDist;
 
@@ -36,17 +74,27 @@ systemchat format["e: %1 %2", _rankEffect, _effectDist ];
 
 } foreach _friendlies;
 
-systemchat format["TOTAL EFFECT: %1 ", _totalEffect ];
 
-_applyEffect = 0.5 + _totalEffect;
+[DBGL_MORA,"TOTAL EFFECT: %1 ", _totalEffect ] call dbgmsgl;
+
+_applyEffect = BASE_MORALE + _totalEffect;
 if(_applyEffect > MAX_COURAGE) then { _applyEffect = MAX_COURAGE; };
 
 _group allowFleeing _applyEffect;
 
-} foreach [testg];
+_group setVariable ["fleeingValue", _applyEffect ];
+
+} foreach _sideGroups;
+
+ sleep 1;
+
+} foreach [east,west];
 
  sleep 3;
-};*/
+};
+
+};
+
 
 #define MORALE_LOS_MAN  0.025
 #define MORALE_LOS_VEH  0.1   // only tanks atm
