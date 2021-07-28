@@ -45,6 +45,10 @@ battleGuiReady = false;
 // Can be here
 call initMorale;
 
+plrSupports = createHashMapFromArray [['cas',2],['artillery',2]];
+
+
+
 "Loading battlefield" call startRtsLoadScreen;
 
 
