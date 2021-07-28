@@ -32,6 +32,7 @@
 #define DBGL_NONE  0
 #define DBGL_AICOM 2
 #define DBGL_AIGM  4
+#define DBGL_VISI  8
 
 #define FORCE_ID         0
 #define FORCE_SIDE       1

@@ -50,12 +50,11 @@ initObjectVisibility =
  [_man,false] call setUnitVisibility;
 
 
-_x addEventHandler ["FiredMan", {
-	params ["_man", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
+_man addEventHandler ["FiredMan", 
+{
+ params ["_man", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
 
-
-_man setvariable ["isFiring", true];
-
+ _man setvariable ["isFiring", true];
 
 }];
 };
@@ -106,6 +105,8 @@ case LOS_STEP_REVEAL:
  private _makeVisible = false;
 
 // Debug arrow //
+if(DBGL_VISI call isDebugLevel) then
+{
 _apos = getposATL _enemy;
 _apos set [2,2.7];
 
@@ -123,6 +124,7 @@ deleteVehicle (_enemy getvariable ["posDebug",objnull]);
 };
 
 _arrow setposATL _apos;
+};
 ////
 
 if((_friendlySide knowsAbout _enemy) >= KNOWS_ABOUT_UNREVEAL_VAL || (_enemy getvariable ["isFiring", false])) then
@@ -142,7 +144,7 @@ else
  if(([_man, "VIEW"] checkVisibility [eyePos _man, _epos]) > 0) then
  {
   _makeVisible = true;
- systemchat format["LOS check %1 ", _enemy];
+ //systemchat format["LOS check %1 ", _enemy];
   break;
  };
  };
@@ -152,7 +154,7 @@ else
 
 if(_makeVisible) then
 {
- player globalchat format["making visible %1",_enemy];
+// player globalchat format["making visible %1",_enemy];
  [_enemy,true] call setUnitVisibility;
 };
 
