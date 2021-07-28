@@ -933,7 +933,7 @@ for "_i" from 0 to ( count _cfg - 1) do
 };
 
 #define BUT_SIZE 0.1
-#define NUM_ROW 3
+#define NUM_IN_ROW 4
 
 
 _createActButtons =
@@ -949,7 +949,7 @@ _bd = (_buttonDefs select _i);
 _bt = _display ctrlCreate ["RtsImgButton", -1, _contGroup];
 _bt ctrlSetText (getText (_bd >> "icon"));
 
-_bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_ROW))), BUT_SIZE, BUT_SIZE];
+_bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_IN_ROW)), 0.0 + (BUT_SIZE * (floor(_i / NUM_IN_ROW))), BUT_SIZE, BUT_SIZE];
 _bt ctrlCommit 0;
 
 _h = getText (_bd >> "help");

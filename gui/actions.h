@@ -35,13 +35,13 @@ class ThrowSmoke
 class SetFormationDir
 {
  icon = "a3\ui_f\data\gui\cfg\cursors\rotate_gs.paa";
- text = "Set formation direction";
+ text = "Set formation direction"; // todo msg Press ctrl and hold down right mouse button to set move waypoint with formation direction
  condition = "call canSetFormationDir";
  action = "call beginNewFormationDir";
- help = "Right click position to face to";
+ help = "Right click position to face to.";
 };
 
-
+/*
 class SetGroupStanceDown
 {
  icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_prone_down_ca.paa";//"a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
@@ -57,7 +57,31 @@ class SetGroupStanceUp : SetGroupStanceDown
  text = "Change group stance up";
  action = "1 call changeGroupStance";
 };
+*/
 
+class SetGroupStanceProne
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_prone_ca.paa";
+ text = "Change group stance to prone";
+ condition = "'DOWN' call canSetGroupStanceTo";
+ action = "'DOWN' call changeGroupStanceTo";
+};
+
+class SetGroupStanceCrouch
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_ca.paa";
+ text = "Change group stance to crouch";
+ condition = "'MIDDLE' call canSetGroupStanceTo";
+ action = "'MIDDLE' call changeGroupStanceTo";
+};
+
+class SetGroupStanceStand
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_stand_ca.paa";
+ text = "Change group stance to stand";
+ condition = "'UP' call canSetGroupStanceTo";
+ action = "'UP' call changeGroupStanceTo";
+};
 
 
 class CasSupport

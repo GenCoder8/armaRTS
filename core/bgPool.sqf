@@ -590,6 +590,9 @@ if(count _infPos == 0) then
  _unit call _setupMan;
  _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
+ // So that stance buttons are ok
+ _unit setUnitPos "UP";
+
 if((typeof _unit) call isSniper) then
 {
 _unit setSkill 1;

@@ -16,12 +16,40 @@ beginNewFormationDir =
  "setFormDir" call setSpecialMove;
 };
 
-canSetGroupStance =
+canSetGroupStanceTo =
 {
- (call anythingSelected)
+ params ["_stance"];
+ if(!(call anythingSelected)) exitWith { false };
+
+ _stance call isStanceNotSet
 };
 
-changeGroupStance =
+isStanceNotSet =
+{
+params ["_stance"];
+
+private _groups = curatorSelected # 1;
+
+private _group = _groups # 0;
+
+private _curStance = toupper (unitPos (leader _group));
+
+_curStance != _stance
+};
+
+changeGroupStanceTo =
+{
+params ["_newStance"];
+
+{
+
+_x setUnitPos _newStance;
+
+} foreach (call getSelectedInfantry);
+
+};
+
+changeGroupStanceOld =
 {
 params ["_dir"];
 
