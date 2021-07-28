@@ -16,6 +16,7 @@ waituntil { scriptdone _w };
 
 loadCovers = false;
 
+debugMode = true;
 
 sleep 0.1;
 
