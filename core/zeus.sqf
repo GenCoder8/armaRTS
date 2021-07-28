@@ -413,7 +413,7 @@ interceptZeusKeys =
 
 findDisplay 312 displayAddEventHandler ["KeyDown",
 {
-params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
+params ["_display", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
