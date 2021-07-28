@@ -1,8 +1,6 @@
 
 curMouseClickAction = "";
 
-plrSupports = createHashMapFromArray [['cas',2],['artillery',2]];
-
 
 
 anythingSelected =
