@@ -24,6 +24,11 @@ isValidMarker =
  !(markerpos _marker isEqualTo [0,0,0])
 };
 
+isValidGroup =
+{
+!isnull (_this getVariable ["cfg",confignull])
+};
+
 getNearest =
 {
  params ["_array","_arCode","_pos"];

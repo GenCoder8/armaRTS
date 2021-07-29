@@ -47,6 +47,7 @@ call initMorale;
 
 plrSupports = createHashMapFromArray [['cas',2],['artillery',2]];
 
+numAiSupports = 2;
 
 
 "Loading battlefield" call startRtsLoadScreen;
