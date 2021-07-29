@@ -593,6 +593,8 @@ if(count _infPos == 0) then
  // So that stance buttons are ok
  _unit setUnitPos "UP";
 
+ _unit call initObjectVisibility;
+
 if((typeof _unit) call isSniper) then
 {
 _unit setSkill 1;

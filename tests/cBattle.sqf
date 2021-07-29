@@ -10,4 +10,7 @@ loadCovers = false;
 
 //testCfgs = true;
 
+#include "..\main.h"
+DBGL_VISI call setDebugFlags;
+
 ["customBattle"] call openGameScreen;

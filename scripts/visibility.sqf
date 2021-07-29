@@ -48,6 +48,10 @@ isObjVisible =
 initObjectVisibility =
 {
  params ["_man"];
+
+ if(side _man != (call getEnemySide)) exitwith {};
+
+
  [_man,false] call setUnitVisibility;
 
 
@@ -58,6 +62,7 @@ _man addEventHandler ["FiredMan",
  _man setvariable ["isFiring", true];
 
 }];
+
 };
 
 /*
@@ -78,7 +83,7 @@ lastLosTime = time;
 
 curLosStep = LOS_STEP_REVEAL;
 
-curLosSide = east;
+//curLosSide = east;
 
 
 addMissionEventHandler ["EachFrame",
@@ -92,8 +97,8 @@ switch(curLosStep) do
 case LOS_STEP_REVEAL:
 {
 
-{
- private _friendlySide = _x;
+
+ private _friendlySide = call getPlayerSide;
  private _enemySides = _friendlySide call getEnemySides;
 
  private _enemies = allunits select { ( !(_x call isObjVisible) ) && (side _x) in _enemySides };
@@ -135,13 +140,18 @@ if((_friendlySide knowsAbout _enemy) >= KNOWS_ABOUT_UNREVEAL_VAL || (_enemy getv
 else
 {
 
+// Check if any man sees this enemy
 {
  // scopename "checkManVis";
  private _man = _x;
  if(_enemy distance2D _man < MAX_DIST_TO_ENEMY_REVEAL) then
  {
  private _epos = (getposASL _enemy);
- _epos set [2, _epos # 2 + 0.8 ];
+
+ private _hadj = (_enemy selectionPosition "pelvis") # 2;
+
+ _epos set [2, (_epos # 2) + _hadj ];
+
  if(([_man, "VIEW"] checkVisibility [eyePos _man, _epos]) > 0) then
  {
   _makeVisible = true;
@@ -161,17 +171,18 @@ if(_makeVisible) then
 
 } foreach _enemies;
 
-} foreach [curLosSide];
 
+/*
 if(curLosSide == east) then // only east and west
 {
  curLosSide = west;
 }
 else
-{
-curLosSide = east; // Reset
+{*/
+
+//curLosSide = east; // Reset
 curLosStep = LOS_STEP_UNREVEAL;
-};
+
 
 };
 
@@ -210,9 +221,9 @@ else
 };
 };
 
-} foreach (units curLosSide);
+} foreach (units (call getEnemySide));
 
-
+/*
 if(curLosSide == east) then // only east and west
 {
  curLosSide = west;
@@ -220,10 +231,9 @@ if(curLosSide == east) then // only east and west
 else
 {
 curLosSide = east; // Reset
+*/
+
 curLosStep = LOS_STEP_REVEAL; // Restart the loop
-};
-
-
 
 
 };
