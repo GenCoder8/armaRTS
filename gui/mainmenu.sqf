@@ -120,7 +120,11 @@ else
 disableDlgEscaping =
 {
  params ["_display"];
+
+ if(!debugMode) then // Allow debug console
+ {
  _display displaySetEventHandler ["KeyDown", " true "];
+ };
 };
 
 rtsGameInput =
@@ -131,7 +135,7 @@ params ["_display", "_key", "_shift", "_ctrl", "_alt"];
 
 private _handled = false;
 
-if(_key == DIK_ESCAPE) then
+if(_key == DIK_ESCAPE && (!debugMode)) then
 {
  call openMainMenu;
  _handled = true;
