@@ -64,7 +64,18 @@ _totalEffect = 0;
  _rankIndex = rankid _fldr;
 
  _rankEffect = _rankIndex / HIGHEST_RANK;
- _effectDist = MAX_EFFECT_DIST / (_fldr distance _ldr);
+
+ _dist = (_fldr distance _ldr);
+ _effectDist = 1;
+ if(_dist > 0) then
+ {
+ _effectDist = MAX_EFFECT_DIST / _dist;
+ }
+ else
+ {
+  ["Invalid leaders? %1 <> %2", _fldr, _ldr] call dbgmsg;
+ };
+
  if(_effectDist > 1) then { _effectDist = 1; };
 
  [DBGL_MORA,"e: %1 %2", _rankEffect, _effectDist ] call dbgmsgl;
@@ -97,7 +108,7 @@ _group setVariable ["fleeingValue", _applyEffect ];
 };
 
 
-#define MORALE_LOS_MAN  0.025
+#define MORALE_LOS_MAN  0.015
 #define MORALE_LOS_VEH  0.1   // only tanks atm
 #define MORALE_GAIN_MUL 0.1
 
@@ -118,6 +129,7 @@ changeSideMorale =
  _morale = _morale + _change;
 
  if(_morale < 0) then { _morale = 0; };
+ if(_morale > 1) then { _morale = 1; };
 
  morales set [_sideStr,_morale];
 
