@@ -254,10 +254,8 @@ getOwnGroups =
 
  private _ownGroups = allgroups select 
 { 
-private _bgcfg = _x getVariable ["cfg",confignull];
-//side _x == _side && !(player in (units _x)) 
 
-side _x == _side && !isnull _bgcfg
+side _x == _side && (_x call isValidGroup)
 
 };
 
@@ -395,14 +393,14 @@ if(count _near > 0) then // Own group attacking here?
   _arr params ["_entry","_eIndex"];
   _entry set [2 , (_entry # 2) + 1 ];
 
-  diag_log format[">>>>> Adding to att loc %1 -- %2", _near # VICLOC_ID, (_entry # 2)];
+  [DBGL_AICOM,">>>>> Adding to att loc %1 -- %2", _near # VICLOC_ID, (_entry # 2)] call dbgmsgl;
  }
  else
  {
  _attackLocs pushback [_near # VICLOC_ID,_near,1];
 
-  diag_log format[">>>>> New att loc %1", _near # VICLOC_ID];
-  diag_log format["%1", _attackLocs];
+  [DBGL_AICOM,">>>>> New att loc %1", _near # VICLOC_ID] call dbgmsgl;
+  [DBGL_AICOM,"%1", _attackLocs] call dbgmsgl;
  };
 
 //};
@@ -424,7 +422,8 @@ if(aiNumAttackLocations > _numPlacesToAttack) then
  {
   aiNumAttackLocations = 1;
  };
- diag_log format["AI NOW ATTACKING %1 LOCATIONS (%2)", aiNumAttackLocations, (count _enemyPlaces) ];
+
+ [DBGL_AICOM,"AI NOW ATTACKING %1 LOCATIONS (%2)", aiNumAttackLocations, (count _enemyPlaces) ] call dbgmsgl;
 };
 
 
@@ -434,14 +433,14 @@ if(count _attackLocs >= aiNumAttackLocations) then
 
  // Join the currently ongoing attacks
  _attackNowLoc = selectRandom _attackLocs # 1; // Get one place
- diag_log format["Attacking 1: %1", _attackNowLoc];
+ [DBGL_AICOM,"Attacking 1: %1", _attackNowLoc] call dbgmsgl;
 }
 else
 {
 
 // New attack loc, near the center of free friendly forces
 
-diag_log format["MAKING NEW ATTACK %1 / %2",count _attackLocs,aiNumAttackLocations];
+[DBGL_AICOM,"MAKING NEW ATTACK %1 / %2",count _attackLocs,aiNumAttackLocations] call dbgmsgl;
 
 _center = [0,0];
 {
@@ -530,6 +529,9 @@ if(_stuck <= 0) then
 {
  diag_log "AI ATTACKING STUCK";
 };
+
+// [DBGL_AICOM,"%1", _attackLocs] call dbgmsgl;
+[_side] call aiComUseArtillery;
 
  sleep 5;
 };
