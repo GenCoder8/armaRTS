@@ -83,6 +83,16 @@ class SetGroupStanceStand
  action = "'UP' call changeGroupStanceTo";
 };
 
+class SetGroupStanceAuto
+{
+ icon = "a3\ui_f\data\igui\rscingameui\rscunitinfo\si_crouch_up_ca.paa";
+ text = "Change group stance to auto";
+ condition = "'AUTO' call canSetGroupStanceTo";
+ action = "'AUTO' call changeGroupStanceTo";
+};
+
+
+
 
 class CasSupport
 {

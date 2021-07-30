@@ -591,7 +591,10 @@ if(count _infPos == 0) then
  _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
  // So that stance buttons are ok
+ /*if(_side == (call getPlayerSide)) then // Only for player
+ {
  _unit setUnitPos "UP";
+ };*/
 
  _unit call initObjectVisibility;
 
