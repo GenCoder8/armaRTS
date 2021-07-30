@@ -737,7 +737,13 @@ actionButtons = [];
 beginBattle =
 {
 
- removeAllCuratorEditingAreas  plrZeus;
+ removeAllCuratorEditingAreas plrZeus;
+
+// Disable zeus dragging
+if(!debugMode) then
+{
+plrZeus addCuratorEditingArea [0,[0,0,0],10];
+};
 
  //plrZeus removeCuratorEditableObjects [allunits, false];
 
