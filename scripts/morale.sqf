@@ -102,7 +102,7 @@ _group setVariable ["fleeingValue", _applyEffect ];
 
 } foreach [east,west];
 
- sleep 3;
+ sleep 5;
 };
 
 };
