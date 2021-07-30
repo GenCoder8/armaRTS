@@ -6,7 +6,7 @@
 private ["_center","_radius","_friendlySide","_areas","_curArea","_acenter","_oldCenter","_dist","_newCenter","_nummen","_allchecked","_areaSize","_smallest","_num","_i","_a","_delIndex","_retAreas"];
 
 #define TARGET_AREA_SIZE 75   // ideal target area size
-#define FRIENDLY_RANGE 250    // how close friendlies are too close
+#define FRIENDLY_RANGE 150    // how close friendlies are too close
 #define MIN_TARGETS 1         // minimum targets for valid target area
 #define DEBUG_TARGETS testmode
 

@@ -66,6 +66,8 @@ aiComUseArtillery =
 {
 params ["_side"];
 
+if(numAiSupports <= 0) exitwith {};
+
 _center = markerpos nextBattleMap;
 
 _targets = [_center,3000,_side] call artyTargets;
@@ -77,6 +79,15 @@ _target = selectRandom _targets; // Totally random arty
 _targetPos = _target # 0;
 
 hint "Arty target found!";
+
+// Show debug markers
+if(debugMode) then
+{
+_mrk = createmarker [format["artyTarget_%1",_targetPos], _targetPos];
+_mrk setMarkerShape "ICON";
+_mrk setMarkerColor "ColorGreen";
+_mrk setMarkerType "mil_destroy";
+};
 
  // Copy from player support (callArtilleryBarrage)
 [_side,_targetPos,markerpos nextBattleMap,nextBattleDir+180] spawn callArtilleryBarrage;
