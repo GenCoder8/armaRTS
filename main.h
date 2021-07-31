@@ -34,6 +34,7 @@
 #define DBGL_AIGM  4
 #define DBGL_VISI  8
 #define DBGL_MORA  16
+#define DBGL_GMGUI 32
 
 #define FORCE_ID         0
 #define FORCE_SIDE       1

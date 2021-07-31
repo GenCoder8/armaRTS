@@ -174,8 +174,7 @@ gmSelectNextBattle =
  }
  else
  {
- hint "End of battles";
-
+ [DBGL_GMGUI,"End of battles"] call dbgmsgl;
  };
 
 };
@@ -358,7 +357,8 @@ else
 */
 if(([_pos, call getPlayerSide] call getForceAtPos) != "") then
 {
- hintSilent "Over force";
+ //hintSilent "Over force";
+ //[DBGL_GMGUI,""] call dbgmsgl;
 };
 
 //};
@@ -492,26 +492,26 @@ _retBf = _bf;
 }
 else
 {
- hint "No connection";
+ [DBGL_GMGUI,"No connection"] call dbgmsgl;
 };
 
 }
 else
 {
- hint "loc occupied";
+ [DBGL_GMGUI,"loc occupied"] call dbgmsgl;
 };
 
 
 }
 else
 {
- hint "No more turns left";
+ [DBGL_GMGUI,"No more turns left"] call dbgmsgl;
 };
 
 }
 else
 {
- hint "Cant leave engagement";
+ [DBGL_GMGUI,"Cant leave engagement"] call dbgmsgl;
 };
 
 };
@@ -537,7 +537,7 @@ if(selectedForce == "") then
  _force = [_pos] call hoverOnForce;
  if(_force != "") then
  {
- hint "Force selected!";
+ [DBGL_GMGUI,"Force selected!"] call dbgmsgl;
  [_force] call onForceSelect;
  };
 }
@@ -552,7 +552,8 @@ if(_bf != "") then
 [selectedForce,_bf] call moveForceToBattleloc;
 
 call onForceDeselect;
-hint "Moved to battlefield";
+
+[DBGL_GMGUI,"Moved to battlefield"] call dbgmsgl;
 };
 
 };
@@ -608,6 +609,13 @@ if(curScreen != "globalmap") exitWith {};
 
 private _is = call getIconScale;
 
+private _meterInScreen = (_mapCtrl ctrlMapWorldToScreen [1, 0]) # 0 - (_mapCtrl ctrlMapWorldToScreen [0, 0]) # 0;
+   
+
+[BATTLE_AREA_SIZE,BATTLE_AREA_SIZE] apply {_x * _meterInScreen * 640 * 2} params ["_iconWidth", "_iconHeigth"];
+
+
+
 {
 
 if(_x # BATTLELOC_ISVICLOC) then
@@ -625,8 +633,8 @@ if(_side == east) then { _color = [1,0,0,1]; };
 		"uns_M113parts\art\starlg.paa",
 		_color,
 		markerpos _mrk,
-		_is * BL_SCALE,
-		_is * BL_SCALE,
+		_iconWidth,
+		_iconHeigth,
 		0,
 		"",
 		1,
@@ -650,8 +658,8 @@ _pmrk = selectedForce call getForcePosMarker;
 		"a3\ui_f\data\map\groupicons\selector_selectable_ca.paa",
 		[1,1,1,1],
 		markerpos _pmrk,
-		_is,
-		_is,
+		_iconWidth,
+		_iconHeigth,
 		0,
 		"",
 		1,
@@ -659,6 +667,8 @@ _pmrk = selectedForce call getForcePosMarker;
 		"TahomaB",
 		"right"
 	];
+
+
 
 if(mouseOverLoc != "") then
 {
@@ -673,8 +683,8 @@ if(mouseOverLoc == "enemy") then
 		_icon,
 		[1,1,1,1],
 		markerpos lastHighlight,
-		_is,
-		_is,
+		_iconWidth,
+		_iconHeigth,
 		0,
 		"",
 		1,
