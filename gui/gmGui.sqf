@@ -607,10 +607,10 @@ params ["_mapCtrl"];
 
 if(curScreen != "globalmap") exitWith {};
 
-private _is = call getIconScale;
+// private _is = call getIconScale;
 
 private _meterInScreen = (_mapCtrl ctrlMapWorldToScreen [1, 0]) # 0 - (_mapCtrl ctrlMapWorldToScreen [0, 0]) # 0;
-   
+
 
 [BATTLE_AREA_SIZE,BATTLE_AREA_SIZE] apply {_x * _meterInScreen * 640 * 2} params ["_iconWidth", "_iconHeigth"];
 

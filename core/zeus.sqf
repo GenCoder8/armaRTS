@@ -11,10 +11,12 @@ openZeus =
 [] spawn
 {
 
+[true,true] call BIS_fnc_forceCuratorInterface;
+
 waituntil 
 {
 sleep 0.01;
-openCuratorInterface;
+//openCuratorInterface;
 
 !isnull (findDisplay 312) 
 };
