@@ -81,9 +81,10 @@ _selBut ctrlSetPosition [EPADD, _contHeight, _selButtonWidth, LINEHEIGHT];
 _selBut ctrlCommit 0;
 
 _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
-};
 
-//_contHeight = _contHeight + LINEHEIGHT;
+};
+_contHeight = _contHeight + LINEHEIGHT;
+
 
 _typeInfo = _bgcfg call getBattlegroupIcon;
 
@@ -131,9 +132,18 @@ _contHeight = _contHeight + _h;
 
 _text2 = _display ctrlCreate ["RtsPoolText", -1, _cont];
 _text2 ctrlSetText format["%1", _vehText];
-_h = ctrlTextHeight _text;
+_h = ctrlTextHeight _text2;
 _text2 ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
 _text2 ctrlCommit 0;
+
+_contHeight = _contHeight + _h;
+
+
+_text3 = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text3 ctrlSetText format["%1",_bgcfg call getTraitDescs];
+_h = ctrlTextHeight _text3;
+_text3 ctrlSetPosition [EPADD, _contHeight, LINEWIDTH, _h];
+_text3 ctrlCommit 0;
 
 /*
 _text3 = _display ctrlCreate ["RscText", -1, _cont];

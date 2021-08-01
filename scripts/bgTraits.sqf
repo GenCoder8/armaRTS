@@ -36,3 +36,22 @@ private _traits = getArray(_bgcfg >> "traits");
 
 };
 
+getTraitDescs = 
+{
+params ["_bgcfg"];
+
+private _traits = getArray(_bgcfg >> "traits");
+
+private _ret = "";
+
+{
+ private _traitName = _x;
+
+ private _traitCls = missionConfigFile >> "BattleGroupTraits" >> _traitName;
+
+ _ret = _ret + getText (_traitCls >> "description");
+
+} foreach _traits;
+
+_ret
+};
