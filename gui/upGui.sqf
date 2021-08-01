@@ -83,7 +83,7 @@ _selBut ctrlCommit 0;
 _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
 };
 
-_contHeight = _contHeight + LINEHEIGHT;
+//_contHeight = _contHeight + LINEHEIGHT;
 
 _typeInfo = _bgcfg call getBattlegroupIcon;
 
