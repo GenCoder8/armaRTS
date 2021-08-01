@@ -83,6 +83,7 @@ class ReconTeam
  name = "Recon team";
  ranks[] = SQUAD_RANKS;
  units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF1","uns_men_USMC_68_RF2","uns_men_USMC_68_RF3","uns_men_USMC_68_AT"};
+ traits[] = {"Recon"};
 };
 
 class MachineGunTeam
@@ -132,6 +133,7 @@ class Sniper
  name = "Sniper";
  ranks[] = SNIPER_RANK;
  units[] = {"uns_men_USMC_68_MRK"};
+ traits[] = {"Sniper"};
 };
 
 };
@@ -188,6 +190,7 @@ class Sniper
  name = "Sniper";
  ranks[] = SNIPER_RANK;
  units[] = {"uns_men_NVA_65_MRK"};
+ traits[] = {"Sniper"};
 };
 
 // a animate ["plants1",1];

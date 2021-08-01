@@ -36,7 +36,9 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["AntiTankTeam",_area] call placeTestGroup;
 
+["ReconTeam",_area] call placeTestGroup;
 
+["Sniper",_area] call placeTestGroup;
 
 /*
 for "_i" from 0 to 15 do

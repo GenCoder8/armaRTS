@@ -5,7 +5,7 @@ debriefing = 0;
 
 #include "battleGroups.h"
 #include "forceRosters.h"
-
+#include "scripts\bgTraits.h"
 
 #include "gui\gridDefines.h"
 #include "gui\parent.h"

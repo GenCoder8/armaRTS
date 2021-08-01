@@ -477,6 +477,9 @@ _unit setSkill (_entry # MANP_SKILL);
 
 _unit setVariable ["orgSkill", skill _unit]; // Needed later
 
+// _ce in upper scope
+[_unit,_ce] call applyGroupTraits;
+
 if(side _unit == (call getPlayerSide)) then // Optimization
 {
 _unit addEventHandler ["FiredMan", unitFiring];
@@ -597,11 +600,6 @@ if(count _infPos == 0) then
  };*/
 
  _unit call initObjectVisibility;
-
-if((typeof _unit) call isSniper) then
-{
-_unit setSkill 1;
-};
 
  };
 

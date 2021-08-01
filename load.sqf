@@ -72,6 +72,8 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "scripts\bgFns.sqf" call execFile;
 
+"scripts\bgTraits.sqf" call execFile;
+
 "core\battleGroups.sqf" call execFile;
 
 "core\bgPool.sqf" call execFile;
