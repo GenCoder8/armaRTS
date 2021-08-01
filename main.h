@@ -51,3 +51,7 @@
 #define VEH_ATTRS_TYPE   0
 #define VEH_ATTRS_CREW   1
 #define VEH_ATTRS_SIZE   2
+
+
+#define BASE_MORALE 0.5 // Min morale
+

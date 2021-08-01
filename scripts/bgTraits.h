@@ -2,6 +2,12 @@
 class BattleGroupTraits
 {
 
+ class Morale
+ {
+  fn = "traitMorale";
+  description = "Good morale";
+ };
+
  class Recon
  {
   fn = "traitRecon";

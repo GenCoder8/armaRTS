@@ -1,3 +1,14 @@
+#include "..\main.h"
+
+traitMorale =
+{
+ params ["_man"];
+
+ private _group = group _man;
+
+ _group setVariable ["baseMorale",BASE_MORALE + 0.3];
+
+};
 
 traitRecon =
 {

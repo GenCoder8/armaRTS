@@ -4,7 +4,7 @@
 #define MAX_EFFECT_DIST 100
 #define MORALE_MULTIPLIER  0.25   // Best possible morale increase per group
 #define MAX_COURAGE 0.95
-#define BASE_MORALE 0.5 // Min morale
+
 
 
 addMissionEventHandler ["Draw3D", 
@@ -89,7 +89,9 @@ _totalEffect = 0;
 
 [DBGL_MORA,"TOTAL EFFECT: %1 ", _totalEffect ] call dbgmsgl;
 
-_applyEffect = BASE_MORALE + _totalEffect;
+ _bm = _group getVariable ["baseMorale",BASE_MORALE];
+
+_applyEffect = _bm + _totalEffect;
 if(_applyEffect > MAX_COURAGE) then { _applyEffect = MAX_COURAGE; };
 
 _group allowFleeing _applyEffect;
