@@ -11,6 +11,7 @@ class BattleGroupTraits
  class Sniper
  {
   fn = "traitSniper";
+  description = "Good accuracy";
  };
 
 };

@@ -42,7 +42,7 @@ _display = findDisplay UNITPOOLDLGID;
 _ReservePoolArea = _display displayCtrl _ctrlgId;
 
 _panelWidth = 0.2;
-_panelHeight = (EPADD + LINEHEIGHT) * 2 + 0.1;
+_panelHeight = (EPADD + LINEHEIGHT) * 3 + 0.1;
 
 _cont = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1, _ReservePoolArea];
 _cont ctrlSetPosition [_px * (0.2 + PANEL_PADD),_py * (_panelHeight + PANEL_PADD), _panelWidth, _panelHeight];
