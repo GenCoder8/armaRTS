@@ -104,7 +104,7 @@ _apos = aslToatl (aimPos _unit);
 _apos set [2, _apos # 2 + 5];
 
 
-#define IS 1
+#define IS 1.4
 drawIcon3D [_icon # 1, [1,1,1,1], _apos, IS, IS, 0, "", false];
 
 } foreach _groups;
