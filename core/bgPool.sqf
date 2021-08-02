@@ -459,15 +459,15 @@ createBattleGroupFromPool =
 
  if(count _manPool == 0) exitWith { ["Empty manpool %1",_side] call errmsg; };
 
- private _ce = [_side,_bgname] call getBattleGroupCfg;
+ private _bgCfg = [_side,_bgname] call getBattleGroupCfg;
 
- if(isnull _ce) exitWith { "Failed to get battlegroup cfg" call errmsg; };
+ if(isnull _bgCfg) exitWith { "Failed to get battlegroup cfg" call errmsg; };
 
  private _group = creategroup _side; // [_side,true];
 
-diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _ce];
+diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _bgCfg];
 
- _group setVariable ["cfg",_ce];
+ _group setVariable ["cfg",_bgCfg];
 
 _setupMan =
 {
@@ -477,8 +477,8 @@ _unit setSkill (_entry # MANP_SKILL);
 
 _unit setVariable ["orgSkill", skill _unit]; // Needed later
 
-// _ce in upper scope
-[_unit,_ce] call applyGroupTraits;
+// _bgCfg in upper scope
+[_unit,_bgCfg] call applyGroupTraits;
 
 if(side _unit == (call getPlayerSide)) then // Optimization
 {
@@ -503,8 +503,8 @@ if(_highestRank < (count _ranks)) then
 
 private _infPos = [];
 
- private _units = getArray(_ce >> "units");
- private _ranks = getArray(_ce >> "ranks");
+ private _units = getArray(_bgCfg >> "units");
+ private _ranks = getArray(_bgCfg >> "ranks");
 
  {
   private _ue = _x;
