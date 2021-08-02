@@ -100,8 +100,10 @@ private _groups = (call getPlayerSide) call getOwnGroups;
 
  private _unit = vehicle (leader _group);
 
-_apos = aslToatl (aimPos _unit);
 
+private _apos = unitAimPositionVisual _unit;
+
+ 
 _apos set [2, _apos # 2 + 5]; // Zeus icon is at this height
 
 // adjust to cover the zeus icon
