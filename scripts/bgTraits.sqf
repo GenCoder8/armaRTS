@@ -31,6 +31,7 @@ applyGroupTraits =
 {
 params ["_man","_bgcfg"];
 
+
 private _traits = getArray(_bgcfg >> "traits");
 
 {

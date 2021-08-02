@@ -88,6 +88,29 @@ if(curScreen == "battle" || curScreen == "placement") then
  drawIcon3D [_sf # 1, [1,1,1,1], _pos, 1, 1, 0, "", false];
 
  } foreach victoryLocations;
+
+
+private _groups = (call getPlayerSide) call getOwnGroups;
+
+{
+ private _group = _x;
+ private _gcfg = _group getVariable ["cfg",configNull];
+ private _icon = _gcfg call getBattlegroupIcon;
+
+ private _unit = vehicle (leader _group);
+
+_apos = aslToatl (aimPos _unit);
+
+_apos set [2, _apos # 2 + 5];
+
+
+#define IS 1
+drawIcon3D [_icon # 1, [1,1,1,1], _apos, IS, IS, 0, "", false];
+
+} foreach _groups;
+
+
+
 };
 
 }];

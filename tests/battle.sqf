@@ -40,6 +40,10 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["Sniper",_area] call placeTestGroup;
 
+["Patton",_area] call placeTestGroup;
+
+["Sheridan",_area] call placeTestGroup;
+
 /*
 for "_i" from 0 to 15 do
 {
