@@ -158,9 +158,11 @@ private _leadUnit = _units select 0;
  private _icon = switch (true) do
  {
   case ( !isnull(_bgCfg >> "mortar")  ): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
-  case (_isMan && count _units <= 3): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; // Antitank, MG, sniper
+  case ("Anti tank" in _name): { ["Anti tank",getMissionPath (RTSmainPath + "gui\images\b_at.paa")] };
+  case ("Machine gun" in _name): { ["Machine gun",getMissionPath (RTSmainPath + "gui\images\b_mg.paa")] }; // hacky, todo
   case ("HQ" in _name): { ["Headquarters","a3\ui_f\data\map\markers\nato\b_hq.paa"] }; // hacky, todo
   case ("Recon" in _name): { ["Recon","a3\ui_f\data\map\markers\nato\b_recon.paa"] }; // hacky, todo
+  case (_isMan && count _units <= 3): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; //  sniper....
   case _isMan: { ["Infantry","a3\ui_f\data\map\markers\nato\b_inf.paa"] };
   case ( _leadUnit iskindof "tank"): { ["Armor","a3\ui_f\data\map\markers\nato\b_armor.paa"] };
   case ( _leadUnit iskindof "truck_f"): { ["Truck","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
