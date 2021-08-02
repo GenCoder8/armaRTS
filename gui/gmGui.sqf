@@ -123,6 +123,7 @@ battlelocConArrows = [];
 
 uiNamespace setVariable ["gmNextButtton", controlNull];
 
+
 openMap [false,false];
 
 };

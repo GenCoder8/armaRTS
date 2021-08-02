@@ -6,7 +6,8 @@ openCustomBattleDlg =
 {
  isCustomBattle = true;
 
-"globalmap" call openGameScreen;
+// Not needed and causes mess
+//"globalmap" call openGameScreen;
 
 createDialog "CustomBattleDlg";
 
@@ -84,6 +85,7 @@ _forces lbSetCurSel 0;
 
 customBattleDone =
 {
+
 _display = findDisplay CUSTOMBATTLEDLGID;
 
 plrClass = configNull;
