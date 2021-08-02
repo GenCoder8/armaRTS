@@ -1,4 +1,4 @@
-/* #Boxezo
+/* #Dukoki
 $[
 	1.063,
 	["mainmenu",[["safeZoneX","safeZoneY","0","0"],"(5 * 0.5 * pixelW * pixelGrid)","(5 * 0.5 * pixelH * pixelGrid)","UI_GRID"],0,0,0],
@@ -7,10 +7,10 @@ $[
 	[1602,"",[2,"New campaign",["30 * UI_GRID_W + UI_GRID_X","7.5 * UI_GRID_H + UI_GRID_Y","8.5 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call closeMainMenu; false call startCampaign|;"]],
 	[1603,"",[2,"Continue",["30 * UI_GRID_W + UI_GRID_X","24.5 * UI_GRID_H + UI_GRID_Y","8.5 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"Continue the game","-1"],["action = | call closeMainMenu |;"]],
 	[1604,"",[2,"Load",["30 * UI_GRID_W + UI_GRID_X","15.5 * UI_GRID_H + UI_GRID_Y","8.5 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call closeMainMenu; false call openSavegameMenu|;"]],
-	[1605,"",[2,"Save",["30 * UI_GRID_W + UI_GRID_X","11.5 * UI_GRID_H + UI_GRID_Y","8.5 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call closeMainMenu; true call openSavegameMenu|;"]]
+	[1605,"",[2,"Save",["30 * UI_GRID_W + UI_GRID_X","11.5 * UI_GRID_H + UI_GRID_Y","8.5 * UI_GRID_W","3 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |call closeMainMenu; true call openSavegameMenu|;"]],
+	[1000,"",[2,"Version: 00",["46.5 * UI_GRID_W + UI_GRID_X","31 * UI_GRID_H + UI_GRID_Y","4.5 * UI_GRID_W","1.5 * UI_GRID_H"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
-
 
 
 
@@ -57,7 +57,7 @@ class controls
 
 
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by GC, v1.063, #Vezuve)
+// GUI EDITOR OUTPUT START (by GC, v1.063, #Dukoki)
 ////////////////////////////////////////////////////////
 
 class RscButton_1600: RscButton
@@ -96,7 +96,7 @@ class RscButton_1602: RscButton
 };
 class RscButton_1603: RscButton
 {
-	action = "call closeMainMenu ";
+	action = " call closeMainMenu ";
 
 	idc = 1603;
 	text = "Continue"; //--- ToDo: Localize;
@@ -127,6 +127,15 @@ class RscButton_1605: RscButton
 	y = 11.5 * UI_GRID_H + UI_GRID_Y;
 	w = 8.5 * UI_GRID_W;
 	h = 3 * UI_GRID_H;
+};
+class RscText_1000: RscText
+{
+	idc = 1000;
+	text = "Version: 00"; //--- ToDo: Localize;
+	x = 46.5 * UI_GRID_W + UI_GRID_X;
+	y = 31 * UI_GRID_H + UI_GRID_Y;
+	w = 4.5 * UI_GRID_W;
+	h = 1.5 * UI_GRID_H;
 };
 ////////////////////////////////////////////////////////
 // GUI EDITOR OUTPUT END

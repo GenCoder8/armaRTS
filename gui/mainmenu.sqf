@@ -10,6 +10,8 @@ openMainMenu =
  // Disable main menu keys (No esc quit)
  _display call disableDlgEscaping;
 
+_version = _display displayCtrl 1000;
+_version ctrlSetText format ["Version: %1", getNumber(missionConfigFile >> "RtsVersion")];
 };
 
 closeMainMenu =
