@@ -61,6 +61,9 @@ case "placement":
   call stopAiCom;
  };
 
+
+ curScreen = _screen; // Consider open
+
  // Open new screen
  switch (_screen) do
  {
@@ -91,7 +94,6 @@ case "placement":
   default { ["Invalid screen name '%1'", _screen] call errmsg; };
  };
 
- curScreen = _screen;
 };
 
 returnToPreviousScreen =
