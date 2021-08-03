@@ -20,23 +20,11 @@ if(_bgSide == (call getPlayerSide)) then
 _group enableAttack false;
 };
 
-/*
- _highlighted = [];
- {
 
+ private _gcfg = _group getVariable ["cfg",configNull];
+ private _icon = _gcfg call getBattlegroupIcon;
 
- if(vehicle _x != _x) then
- {
-  _highlighted pushbackUnique (vehicle _x);
- };
-
- _highlighted pushbackUnique _x;
-
- } foreach units _group;
-
- unitHighlights = unitHighlights + _highlighted;
-*/
-
+ _group setVariable ["bgIcon", _icon ];
 
 _group spawn
 {

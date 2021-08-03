@@ -95,8 +95,8 @@ private _groups = (call getPlayerSide) call getOwnGroups;
 
 {
  private _group = _x;
- private _gcfg = _group getVariable ["cfg",configNull];
- private _icon = _gcfg call getBattlegroupIcon;
+
+ private _icon = _group getVariable ["bgIcon", ["",""] ];
 
  private _unit = vehicle (leader _group);
 
