@@ -45,7 +45,7 @@ initGlobalMap =
 
 _battleLocations = gmBattleLocations;
 
-systemchat format ["found %1 locations", count _battleLocations];
+// systemchat format ["found %1 locations", count _battleLocations];
 
 battlelocConnections = createHashMap;
 
