@@ -140,6 +140,11 @@ class RtsPoolText : RscText
  SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 };
 
+class RtsUnitListText : RscText
+{
+ SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
+};
+
 class RtsBattleEndText : RscText
 {
 SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.4)";

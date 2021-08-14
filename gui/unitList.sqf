@@ -1,6 +1,6 @@
 #include "..\main.h"
 
-#define GE_WIDTH  7
+#define GE_WIDTH  6
 #define GE_HEIGHT 5
 
 
@@ -54,7 +54,7 @@ _ico ctrlSetText (_typeInfo # 1);
 _ico ctrlSetPosition ([0+PADD+0.2,_ctrlsY+PADD, 1, ROW_HEIGHT ,false] call getGuiPos);
 _ico ctrlCommit 0;
 
-_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text = _display ctrlCreate ["RtsUnitListText", -1, _cont];
 _text ctrlSetText format["%1", getText (_bgcfg >> "name")];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([1+PADD,_ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
@@ -63,7 +63,7 @@ _text ctrlCommit 0;
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
 // Strength
-_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text = _display ctrlCreate ["RtsUnitListText", -1, _cont];
 
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([0+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
@@ -88,7 +88,7 @@ _wpic ctrlSetTooltip (_secinfo # 1);
 
 _cont setVariable ["apic", _wpic];
 
-_text = _display ctrlCreate ["RtsPoolText", -1, _cont];
+_text = _display ctrlCreate ["RtsUnitListText", -1, _cont];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([1+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
 _text ctrlCommit 0;
@@ -160,7 +160,7 @@ if( { alive _x} count (units _group) > 0 ) then
 {
  // Big enough to have all the ctrls in it (Todo why 9 is good, why it effects both w & h?)
  // todo width from UNIT_LIST_WIDTH 
-_cont ctrlSetPosition ([_bgX * 7.1,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
+_cont ctrlSetPosition ([_bgX * 6,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
 }

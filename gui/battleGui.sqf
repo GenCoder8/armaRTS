@@ -846,7 +846,7 @@ actionButtons = _ab;
 };
 
 // The unit list size
-#define UNIT_LIST_WIDTH  7.7
+#define UNIT_LIST_WIDTH  6.5
 #define UNIT_LIST_HEIGHT  28
 
 
