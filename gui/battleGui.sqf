@@ -847,12 +847,12 @@ actionButtons = _ab;
 
 // The unit list size
 #define UNIT_LIST_WIDTH  7.7
-#define UNIT_LIST_HEIGHT  22
+#define UNIT_LIST_HEIGHT  28
 
 
 
 _ul = _display ctrlCreate ["RtsUnitList", -1];
-_ul ctrlSetPosition ([0,0,UNIT_LIST_WIDTH,UNIT_LIST_HEIGHT] call getGuiPos);
+_ul ctrlSetPosition ([0,0,UNIT_LIST_WIDTH*2,UNIT_LIST_HEIGHT] call getGuiPos);
 _ul ctrlCommit 0;
 
 with (uinamespace) do

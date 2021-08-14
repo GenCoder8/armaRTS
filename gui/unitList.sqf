@@ -1,3 +1,4 @@
+#include "..\main.h"
 
 #define GE_WIDTH  7
 #define GE_HEIGHT 5
@@ -115,7 +116,6 @@ _bgr ctrlCommit 0;
 unitListGroups pushback [_cont,_group];
 _conb buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
 
-
 } foreach _groups;
 
 call updateUnitListCtrls;
@@ -144,42 +144,55 @@ updateUnitListCtrls =
 {
  private _index = 0;
 
+_ul = uinamespace getvariable "unitList";
+_ulpos = ctrlPosition _ul;
+_ulpos params ["","","_ulw","_ulh"];
+
+_numBgsAtColumn = ceil (MAX_SELECTED_BGS / 2);
+_bgX = 0;
+_bgY = 0;
+
+
 {
  _x params ["_cont","_group"];
 
 if( { alive _x} count (units _group) > 0 ) then
 {
  // Big enough to have all the ctrls in it (Todo why 9 is good, why it effects both w & h?)
-_cont ctrlSetPosition ([0,(ulContHeight + 0.05) * _index, 9, ulContHeight ,false] call getGuiPos);
+ // todo width from UNIT_LIST_WIDTH 
+_cont ctrlSetPosition ([_bgX * 7.1,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
- _index = _index + 1;
 }
 else
 {
  ctrlDelete _cont;
 };
 
+
+_bgY = _bgY + 1;
+
+if(_bgY >= _numBgsAtColumn) then
+{
+ _bgY = 0;
+ _bgX = _bgX + 1;
+};
+
 } foreach unitListGroups;
 
 
-_gpos = ([0,0,0,((_index + 0) * ulContHeight )] call getGuiPos);
+_gpos = ([0,0,0,((_numBgsAtColumn + 0) * ulContHeight )] call getGuiPos);
 // prev: _gpos = ([0,0,0,((_index + 1) * GE_HEIGHT )] call getGuiPos);
 
 with (uinamespace) do
 {
 
-_ul = unitList;
+//_ul = unitList;
 _img = _ul getVariable "background";
 
-_pos = ctrlPosition _ul;
-_pos params ["","","_w","_h"];
-
-
-// _ipos = ctrlPosition _img;
 
  // Set the green background , minus scroll bar width
-_img ctrlSetPosition [0,0,_w-0.02, _gpos # 3];
+_img ctrlSetPosition [0,0,_ulw-0.02, _gpos # 3 + 0.02];
 _img ctrlCommit 0;
 
 };

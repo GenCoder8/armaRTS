@@ -94,7 +94,7 @@ class RtsControlsGroupNoScrollBars: RscControlsGroup
 	
 };
 
-class RtsUnitList: RscControlsGroup
+class RtsUnitList: RtsControlsGroupNoScrollBars
 {
 	idc = 2300;
 	x = 0.5 * UI_GRID_W + UI_GRID_X;

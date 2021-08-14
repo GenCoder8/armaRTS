@@ -48,12 +48,13 @@ _area = [_deployAreaPos,deployAreaSize];
 
 
 
-/*
-for "_i" from 0 to 15 do
+
+for "_i" from 1 to 9 do
 {
  ["HeavyMortarTeam",_area] call placeTestGroup;
 };
-*/
+
+
 ["placement"] call openGameScreen;
 
 waituntil { battleGuiReady };
