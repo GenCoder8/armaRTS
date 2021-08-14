@@ -12,12 +12,18 @@ enableSaving [false, false];
 
 _index = player createDiarySubject ["rtsEntry","arma RTS"];
 
+
 player createDiaryRecord ["rtsEntry", ["Credits", str composeText [
 "Thanks to the whole arma3 community for their help!<br/>" +
 "And special thanks to sarogahtyp for his pathfinding code"
 ]
 ]];
 
+player createDiaryRecord ["rtsEntry", ["About", str composeText [
+"Arma RTS mission by GC8 <br/>" +
+"Version: " + (str (getNumber(missionConfigFile >> "RtsVersion")))
+]
+]];
 
 errmsg =
 {
