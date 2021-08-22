@@ -109,7 +109,7 @@ _apos set [2, _apos # 2 + 5]; // Zeus icon is at this height
 // adjust to cover the zeus icon
 #define IS 1.4
 
-drawIcon3D [_icon # 1, [1,1,1,1], _apos, IS, IS, 0, "", false];
+drawIcon3D [_icon # 1, [52/255,155/255,235/255,1], _apos, IS, IS, 0, "", false];
 
 } foreach _groups;
 
