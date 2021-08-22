@@ -171,3 +171,10 @@ private _firstLetter = _str select [0, 1];
  ((toupper _firstLetter) + _strend)
 };
 
+isStrInArray =
+{
+ params ["_str","_array"];
+ ((_array findIf { _x == _str }) >= 0)
+};
+
+
