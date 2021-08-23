@@ -56,12 +56,13 @@ handleAiFire =
 // Exclude vehicle turret gunners
 if((_man call inVehicle) && !(_man call inVehShootingPos)) exitWith {};
 
-
+// optimazation check
 if((_man getVariable ["currentWeaponName", ""]) != _weapon) then
 {
 
 _itemType = _weapon call BIS_fnc_itemType;
 _itemType params ["_mainType","_childType"];
+
 
 _canJam = false;
 _jamChange = 0;
@@ -70,6 +71,9 @@ _jamChange = 0;
  _x params ["_change","_weapTypes"];
 
  _canJam = [_childType,_weapTypes] call isStrInArray;
+
+diag_log format ["_canJam_canJam_canJam %1",_canJam];
+
  if(_canJam) then
  {
   _jamChange = _change;
@@ -77,7 +81,7 @@ _jamChange = 0;
  };
 
 } foreach [
-[0.05,["AssaultRifle","Handgun","MachineGun","SubmachineGun"]],
+[1,["AssaultRifle","Handgun","MachineGun","SubmachineGun"]],
 [0.02,["Handgun","Rifle","SniperRifle","Shotgun"]]
 ];
 
@@ -86,11 +90,13 @@ _man setVariable ["currentWeaponStat", [_canJam,_jamChange] ];
 
 };
 
-(_man getVariable "currentWeaponStat") params ["_canJam","_jamChange"];
+private _jargs = _man getVariable ["currentWeaponStat",[false,0]];
+
+_jargs params ["_canJam","_jamChange"];
 
 if(_canJam && random 1 < _jamChange) then
 {
-systemchat format["Freezing: %1 %2 %3", _childType, _canJam, _jamChange];
+systemchat format["Freezing: %1 %2 %3", _canJam, _jamChange];
 
  _man spawn freezeWeapon;
 };
