@@ -110,6 +110,10 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "scripts\unitAi.sqf" call execFile;
 
+"scripts\weaponFreeze.sqf" call execFile;
+
+"scripts\weaponPickup.sqf" call execFile;
+
 "scripts\spawnArea.sqf" call execFile;
 
 "scripts\mortar.sqf" call execFile;
