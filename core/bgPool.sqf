@@ -485,6 +485,8 @@ if(side _unit == (call getPlayerSide)) then // Optimization
 _unit addEventHandler ["FiredMan", unitFiring];
 };
 
+_unit call registerForWeaponFreeze;
+
 };
 
 private _highestRank = 0;

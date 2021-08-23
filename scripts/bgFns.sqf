@@ -79,6 +79,17 @@ inVehicle =
  (vehicle _unit) != _unit
 };
 
+inVehShootingPos =
+{
+ params ["_unit"];
+
+private _role = assignedVehicleRole _unit;
+
+if(count _role < 2) exitWith { false };
+
+
+((_role # 0) == "gargo")
+};
 
 surrenderAI =
 {
