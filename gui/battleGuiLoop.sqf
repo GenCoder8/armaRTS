@@ -153,10 +153,24 @@ _wcfg = configfile >> "cfgWeapons" >> _mainWeapon;
 _weapName = getText(_wcfg >> "displayName");
 _weapPic = getText(_wcfg >> "picture");
 
+private _jamText = "";
 
-_groupView lnbAddRow [_rankStr, name _man, _weapName,"",_ammo];
+if(_man getVariable ["weaponJammed",false]) then
+{
+ _jamText = "Jammed";
+};
 
+_groupView lnbAddRow [_rankStr, name _man, _weapName,_jamText,_ammo];
+
+if((_man getVariable ["weaponJammed",false])) then
+{
+ _groupView lnbSetColor [[_row, 3], [255/255, 255/255, 102/255,1]];
+}
+else
+{
 _groupView lnbSetPicture [[_row, 3], _weapPic];
+};
+
 
 } foreach _men;
 
