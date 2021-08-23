@@ -487,6 +487,8 @@ _unit addEventHandler ["FiredMan", unitFiring];
 
 _unit call registerForWeaponFreeze;
 
+// _unit call registerForWeaponSalvage;
+
 };
 
 private _highestRank = 0;

@@ -328,12 +328,3 @@ if(_weap != "") then // Anything valuable to salvage?
 
 
 
-_group = group ldr;
-
-{
-_man = _x;
-
-_man call registerForWeaponSalvage;
-
-} foreach (units _group);
-
