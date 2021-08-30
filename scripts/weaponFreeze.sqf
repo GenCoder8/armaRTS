@@ -72,7 +72,7 @@ _jamChange = 0;
 
  _canJam = [_childType,_weapTypes] call isStrInArray;
 
-diag_log format ["_canJam_canJam_canJam %1",_canJam];
+//diag_log format ["_canJam_canJam_canJam %1",_canJam];
 
  if(_canJam) then
  {
@@ -81,7 +81,7 @@ diag_log format ["_canJam_canJam_canJam %1",_canJam];
  };
 
 } foreach [
-[1,["AssaultRifle","Handgun","MachineGun","SubmachineGun"]],
+[0.01,["AssaultRifle","Handgun","MachineGun","SubmachineGun"]],
 [0.02,["Handgun","Rifle","SniperRifle","Shotgun"]]
 ];
 
@@ -96,7 +96,7 @@ _jargs params ["_canJam","_jamChange"];
 
 if(_canJam && random 1 < _jamChange) then
 {
-systemchat format["Freezing: %1 %2 %3", _canJam, _jamChange];
+// systemchat format["Freezing: %1 %2 %3", _canJam, _jamChange];
 
  _man spawn freezeWeapon;
 };
