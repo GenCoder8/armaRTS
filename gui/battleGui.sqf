@@ -753,7 +753,7 @@ plrZeus addCuratorEditingArea [0,[0,0,0],10];
 activateBattleGui =
 {
 
- cutRsc["ComOverlay","PLAIN",0];
+ // cutRsc["ComOverlay","PLAIN",0];
 
 /*
 _bg = _overlay ctrlCreate ["RscPicture", 7000];
@@ -923,7 +923,7 @@ uinamespace setVariable [format["moraleBar%1", _side], _moraleBar ];
 
 
 
-_ul call fillUnitList; // Must call twice or unclickable
+_ul call fillUnitList;
 
 _buttonDefs = (missionConfigFile >> "RtsActionButtons");
 
@@ -987,6 +987,20 @@ _indpActs = [_buttonDefs,{ getNumber(_x >> "isIndependedAction")==1 } ] call sel
 };
 
 };
+
+
+// Todo size of this maybe little off
+_img = _display ctrlCreate ["RtsPicture", 7000];
+_img ctrlSetPosition ([47,25.5,22,12.5,true] call getGuiPos);
+_img ctrlCommit 0;
+
+_text = _display ctrlCreate ["RscText", 1000];
+_text = _display ctrlCreate ["RscText", 1001];
+
+_display ctrlCreate ["GroupViewListbox", 1500];
+
+// diag_log format ["_lb_lb_lb %1 -- %2", _display, _lb];
+
 
 };
 

@@ -4,7 +4,9 @@ newZeusSelect = false;
 addMissionEventHandler ["EachFrame",
 {
 
- _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
+ // _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
+
+ _overlay = finddisplay 312;
 
  if(!isnull _overlay) then
  {
@@ -12,6 +14,10 @@ addMissionEventHandler ["EachFrame",
 if(newZeusSelect || (time - lastViewUpdate) >= 1 ) then
 {
 _groupView = _overlay displayCtrl 1500;
+_groupInfo = _overlay displayCtrl 1000;
+_bg = _overlay displayCtrl 7000;
+
+//if(isnull _groupView || isnull _bg) exitWith {};
 
 
 _viewUnits = [];
@@ -38,8 +44,6 @@ else
 
 
 
-_groupInfo = _overlay displayCtrl 1000;
-_bg = _overlay displayCtrl 7000;
 
 private _bgcfg = _selGroup getVariable ["cfg",configNull];
 if(!isnull _bgcfg) then
@@ -186,6 +190,19 @@ _staticGunInfo ctrlSetText (_selGroup call getMortarAmmoInfo);
 // Set the Y and height of all group panel ctrls
 _ctrlPos = ctrlPosition _bg;
 
+_getGroupViewPos =
+{
+params ["_ctrl"];
+private _cPos = ctrlPosition _ctrl;
+
+_cPos set [0, _ctrlPos # 0];
+_cPos set [1, _ctrlPos # 1];
+
+_cPos set [2, (_ctrlPos # 2) - 0.01];
+
+_cPos
+};
+
 _gvSize = lnbSize _groupView;
 
 
@@ -193,10 +210,13 @@ _gvHeight = (_gvSize # 0) * (ctrlFontHeight _groupView) + 0.02;
 
 _panelHeight = _gvHeight + 0.075;  // + 0.125;
 
+
+
 if(ctrlText _staticGunInfo != "") then
 {
 _panelHeight = _panelHeight + 0.05;
 };
+
 
 
 _panelStartY = safeZoneH + safeZoneY - _panelHeight;
@@ -208,19 +228,19 @@ _listCurHeight = 0;
 
 #define PTEXT_HEIGHT 0.07
 
-_giPos = ctrlPosition _groupInfo;
+_giPos = _groupInfo call _getGroupViewPos;
 _groupInfo ctrlSetPosition [_giPos # 0,_panelStartY,_giPos # 2, PTEXT_HEIGHT];
 _groupInfo ctrlcommit 0;
 
 _listCurHeight = _listCurHeight + PTEXT_HEIGHT;
 
-_gvPos = ctrlPosition _groupView;
+_gvPos = _groupView call _getGroupViewPos;
 _groupView ctrlSetPosition [_gvPos # 0,_panelStartY + _listCurHeight,_gvPos # 2, _gvHeight];
 _groupView ctrlcommit 0;
 
 _listCurHeight = _listCurHeight + _gvHeight;
 
-_sgiPos = ctrlPosition _staticGunInfo;
+_sgiPos = _staticGunInfo call _getGroupViewPos;
 //_sgiPos set [1, (_ctrlPos # 1) + _panelHeight - 0.05 ];
 _sgiPos set [1, _panelStartY + _listCurHeight ];
 _staticGunInfo ctrlSetPosition _sgiPos;

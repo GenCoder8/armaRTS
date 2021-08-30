@@ -14,16 +14,20 @@ debriefing = 0;
 #include "gui\rtsCtrls.h"
 #include "gui\actions.h"
 
-
+/*
 class RscTitles
 {
  titles[]={ComOverlay}; 
    
  #include "gui\battleGui.h"
 };
+*/
+
+
 
 #include "gui\ctrlIds.h"
 #include "gui\mainmenu.h"
+#include "gui\battleGui.h"
 #include "gui\bgpool.h"
 #include "gui\customBattle.h"
 #include "gui\loading.h"

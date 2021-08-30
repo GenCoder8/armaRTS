@@ -157,7 +157,7 @@ _wpic ctrlSetStructuredText parseText (_secText + _priText  );
 _conb = _cont getVariable "cbut";
 
 
-//_cont ctrlSetTooltip format ["Primary weapon %1",_priinfo # 1];
+_conb ctrlSetTooltip format ["Primary weapon "];
 
 };
 

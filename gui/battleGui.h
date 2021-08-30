@@ -26,12 +26,19 @@ $[
 #define  GROUP_VIEW_COLS {0,0.07, 0.45, 0.65, 0.88}
 
 
+class GroupViewListbox : RscListbox
+{
+	type = CT_LISTNBOX;
+	columns[] = GROUP_VIEW_COLS;
+};
+
+/*
 class ComOverlay
 {
  titles[] = {};
  idd = 1357800;
  movingEnable = 0;
- duration = 1e10;   
+ duration = 1e10;
  name = "ComOverlay";
   
 
@@ -97,4 +104,4 @@ class RscText_1001: RscText
 };
 
 
-};
+};*/
