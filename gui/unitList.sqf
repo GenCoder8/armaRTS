@@ -78,23 +78,23 @@ _ctrlsY = _ctrlsY + ROW_HEIGHT;
 
 // Secondary Ammo
 
-_secinfo = _group call getBattleGroupSecWeapInfo;
+//_secinfo = _group call getBattleGroupSecWeapInfo;
 
-_wpic = _display ctrlCreate ["RscPicture", -1, _cont];
-_wpic ctrlSetPosition ([0+PADD, _ctrlsY+PADD, 1, ROW_HEIGHT ,false] call getGuiPos);
+_wpic = _display ctrlCreate ["RscStructuredText", -1, _cont];
+_wpic ctrlSetPosition ([0+PADD, _ctrlsY+PADD, 5, ROW_HEIGHT ,false] call getGuiPos);
 _wpic ctrlCommit 0;
-_wpic ctrlSetText (_secinfo # 0);
-_wpic ctrlSetTooltip (_secinfo # 1); 
+//_wpic ctrlSetText (_secinfo # 0);
+//_wpic ctrlSetTooltip (_secinfo # 1); 
 
 _cont setVariable ["apic", _wpic];
-
+/*
 _text = _display ctrlCreate ["RtsUnitListText", -1, _cont];
 _h = ctrlTextHeight _text;
 _text ctrlSetPosition ([1+PADD, _ctrlsY+PADD, GE_WIDTH, ROW_HEIGHT ,false] call getGuiPos);
 _text ctrlCommit 0;
 
 _cont setVariable ["ammoText", _text];
-
+*/
 [_cont,_group] call setAmmoText;
 
 _ctrlsY = _ctrlsY + ROW_HEIGHT;
@@ -135,9 +135,9 @@ setStrengthText =
 setAmmoText =
 {
  params ["_cont","_group"];
- _text = _cont getVariable "ammoText";
+ //_text = _cont getVariable "ammoText";
 
- _text ctrlSetText format["%1", _group call getBattleGroupAmmoText ];
+// _text ctrlSetText format["%1", _group call getBattleGroupAmmoText ];
 };
 
 updateUnitListCtrls =
@@ -162,6 +162,19 @@ if( { alive _x} count (units _group) > 0 ) then
  // todo width from UNIT_LIST_WIDTH 
 _cont ctrlSetPosition ([_bgX * 6,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
+
+
+_secinfo = _group call getBattleGroupSecWeapInfo;
+_priinfo = _group call getBattleGroupPriWeapInfo;
+
+_wpic = _cont getVariable "apic";
+
+
+_wpic ctrlSetStructuredText parseText format["<img size='0.3' image='%1'/> - %2", ( (_secinfo # 0)), _priinfo];
+_wpic ctrlSetTooltip (str (_secinfo # 0));
+
+
+
 
 }
 else

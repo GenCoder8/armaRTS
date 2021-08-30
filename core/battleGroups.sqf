@@ -212,8 +212,31 @@ if(_sec != "") then
 
 
 
-
 [_secPic,_secStr]
+};
+
+getBattleGroupPriWeapInfo =
+{
+ params ["_group"];
+
+private _totalMags = 0;
+
+{
+private _man = _x;
+
+if((_man call inVehicle) && !(_man call inVehShootingPos)) then { continue; };
+
+private _mags = magazines _man;
+
+private _magTypes = [primaryWeapon _man] call BIS_fnc_compatibleMagazines;
+
+private _numMags = { _magName = _x; ((_magTypes findIf { _x == _magName }) >= 0)  } count _mags;
+
+_totalMags = _totalMags + _numMags;
+
+} foreach ((units _group) select { alive _x });
+
+[str _totalMags,str _totalMags]
 };
 
 getBattleGroupAmmoText =
