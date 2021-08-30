@@ -54,7 +54,7 @@ handleAiFire =
  params ["_man", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
 // Exclude vehicle turret gunners
-if((_man call inVehicle) && !(_man call inVehShootingPos)) exitWith {};
+if(!(_man call canFirePrimaryWeapon)) exitWith {};
 
 // optimazation check
 if((_man getVariable ["currentWeaponName", ""]) != _weapon) then

@@ -192,6 +192,7 @@ else
 
 _sec = "";
 
+// Find one sec weap
  {
   _man = _x;
   if(secondaryWeapon _man != "") then
@@ -221,12 +222,12 @@ getBattleGroupPriWeapInfo =
 
 private _totalMags = 0;
 
+private _units = ((units _group) select { alive _x && _x call canFirePrimaryWeapon });
+
 {
 private _man = _x;
 
-if((_man call inVehicle) && !(_man call inVehShootingPos)) then { continue; };
-
-private _mags = magazines _man;
+private _mags = magazines _man + (primaryWeaponMagazine _man);
 
 private _magTypes = [primaryWeapon _man] call BIS_fnc_compatibleMagazines;
 
@@ -234,12 +235,40 @@ private _numMags = { _magName = _x; ((_magTypes findIf { _x == _magName }) >= 0)
 
 _totalMags = _totalMags + _numMags;
 
-} foreach ((units _group) select { alive _x });
+} foreach _units;
 
-[str _totalMags,str _totalMags]
+private _magRatio = _totalMags / count _units;
+
+private _ammoText = "Has ammo";
+private _ammoColor = "33cc33";
+
+if(_totalMags == 0) then
+{
+ _ammoText = "Out of ammo";
+ _ammoColor = "ff0000";
+}
+else
+{
+if(_magRatio < 2) then
+{
+ _ammoText = "Low on ammo";
+ _ammoColor = "ffff00";
+};
 };
 
-getBattleGroupAmmoText =
+// "a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomagall_ca.paa"
+// "a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa"
+
+["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor]
+};
+
+canFirePrimaryWeapon =
+{
+ params ["_man"];
+ !(_man call inVehicle) || (_man call inVehShootingPos)
+};
+
+getBattleGroupSecWeapAmmo =
 {
  params ["_group"];
 
