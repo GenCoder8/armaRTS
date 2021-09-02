@@ -989,18 +989,32 @@ _indpActs = [_buttonDefs,{ getNumber(_x >> "isIndependedAction")==1 } ] call sel
 };
 
 
+// Create in unique way...
+if(isnull (_display displayCtrl 7000)) then
+{
+
 // Todo size of this maybe little off
 _img = _display ctrlCreate ["RtsPicture", 7000];
 _img ctrlSetPosition ([47,25.5,22,12.5,true] call getGuiPos);
 _img ctrlCommit 0;
+_img ctrlShow false;
 
 _text = _display ctrlCreate ["RscText", 1000];
 _text = _display ctrlCreate ["RscText", 1001];
 
-_display ctrlCreate ["GroupViewListbox", 1500];
+
+_gw = _display ctrlCreate ["GroupViewListbox", 1500];
+
+//_gw ctrlSetPosition [0,0,0.1,0.1];
+//_gw ctrlCommit 0;
+
+//_display ctrlCreate ["RscButton", 12345];
+
+
 
 // diag_log format ["_lb_lb_lb %1 -- %2", _display, _lb];
 
+};
 
 };
 

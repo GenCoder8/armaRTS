@@ -26,11 +26,17 @@ $[
 #define  GROUP_VIEW_COLS {0,0.07, 0.45, 0.65, 0.88}
 
 
-class GroupViewListbox : RscListbox
+class GroupViewListbox : RscListNBox
 {
-	type = CT_LISTNBOX;
+	//type = CT_LISTNBOX;
+
 	columns[] = GROUP_VIEW_COLS;
+
+	idcLeft = 123;
+	idcRight = 234;
+
 };
+
 
 /*
 class ComOverlay

@@ -24,7 +24,6 @@ class RscTitles
 */
 
 
-
 #include "gui\ctrlIds.h"
 #include "gui\mainmenu.h"
 #include "gui\battleGui.h"

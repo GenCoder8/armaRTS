@@ -4,6 +4,8 @@ newZeusSelect = false;
 addMissionEventHandler ["EachFrame",
 {
 
+//if(true) exitWith {};
+
  // _overlay = uiNamespace getVariable ['ComOverlay', displayNull];
 
  _overlay = finddisplay 312;
