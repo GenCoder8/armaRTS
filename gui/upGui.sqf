@@ -56,9 +56,9 @@ _bgr ctrlSetPosition [0, 0, _panelWidth, _panelHeight];
 _bgr ctrlCommit 0;
 
 
-_selButtonWidth = LINEWIDTH;
+_selButtonWidth = LINEWIDTH - 0.004;
 
-_contHeight = EPADD;
+_contHeight = EPADD + 0.005;
 
 if(_ctrlgId != BGPOOLID) then
 {
@@ -73,8 +73,7 @@ _delBut buttonSetAction format["[%1,%2] call poolDeleteSelectedBG",_ctrlgId,numP
 
 };
 
-if(_active) then
-{
+
 _selBut = _display ctrlCreate ["RtsButton", -1, _cont];
 _selBut ctrlSetText format["%1", "Select"];
 _selBut ctrlSetPosition [EPADD, _contHeight, _selButtonWidth, LINEHEIGHT];
@@ -82,7 +81,9 @@ _selBut ctrlCommit 0;
 
 _selBut buttonSetAction format["[%1,%2] call poolSelectBG",_ctrlgId,numPoolPanels];
 
-};
+_selBut ctrlEnable _active;
+
+
 _contHeight = _contHeight + LINEHEIGHT;
 
 
