@@ -32,6 +32,7 @@ class GroupViewListbox : RscListNBox
 
 	columns[] = GROUP_VIEW_COLS;
 
+// these numbers are for bug fix!
 	idcLeft = 123;
 	idcRight = 234;
 
