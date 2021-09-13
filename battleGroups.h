@@ -7,23 +7,6 @@ class TankCrews
  units[] = {"uns_US_2MI_DRV","uns_men_NVA_crew_driver"};
 };
 
-class Infantry
-{
- units[] = {
- // West
- "uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RF4","uns_men_USMC_68_RTO","uns_men_USMC_68_MED","uns_men_USMC_68_HMG","uns_men_USMC_68_GL","uns_men_USMC_68_DEM","uns_men_USMC_68_AT",
- "uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2","uns_men_USMC_68_SCT","uns_men_USMC_68_ENG","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3",
-
- // East
- "uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", 
- "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP", "uns_men_NVA_65_HMG",
- "uns_men_NVA_65_off", "uns_men_NVA_65_AS3", "uns_men_NVA_65_AS4", "uns_men_NVA_65_AS6"
-
-};
-};
-
-
-
 class Snipers
 {
  units[] = {"uns_men_USMC_68_MRK","uns_men_NVA_65_MRK"};

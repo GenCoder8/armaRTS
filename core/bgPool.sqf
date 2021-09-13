@@ -219,20 +219,21 @@ isTankCrew =
  [_manType,_cfg] call isOfSpecialType
 };
 
-isInfantry =
-{
- params ["_manType"];
- private _cfg = missionconfigfile >> "RTSDefs" >> "Infantry";
-
- [_manType,_cfg] call isOfSpecialType
-};
-
 isSniper =
 {
  params ["_manType"];
  private _cfg = missionconfigfile >> "RTSDefs" >> "Snipers";
 
  [_manType,_cfg] call isOfSpecialType
+};
+
+isInfantry =
+{
+ params ["_manType"];
+ //private _cfg = missionconfigfile >> "RTSDefs" >> "Infantry";
+ //[_manType,_cfg] call isOfSpecialType
+
+ (!(_manType call isSniper) && !(_manType call isTankCrew))
 };
 
 isUnitType =
