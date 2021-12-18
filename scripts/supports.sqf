@@ -107,8 +107,12 @@ activateSupportCas =
 
 _planeType = selectRandom ["uns_F4J_AGM","uns_A7N_AGM"];
 
+private _casModule = "ModuleCas_F";
+
+_casModule = "uns_ModuleCAS";
+
 private _moduleGroup = createGroup [sideLogic,true];   
-private _unit = "uns_ModuleCAS" createUnit [
+private _unit = _casModule createUnit [
  _spos,   
  _moduleGroup,   
  format["  
