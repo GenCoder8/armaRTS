@@ -248,7 +248,7 @@ getBattleGroupCfg =
 
  _side = str _side;
 
- private _cfg = missionconfigfile >> "BattleGroups" >> _side;
+ private _cfg = (call getUsedBattlegroupsCfg) >> _side;
  private _ce = _cfg >> _bgname;
 
  if(isnull _ce) then
@@ -383,7 +383,7 @@ private _rosterCfg = configNull;
 
 if(_rosterName != "") then
 {
- _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> _rosterName;
+ _rosterCfg = (call getUsedForceRosterCfg) >> (_side call getSideStr) >> _rosterName;
 
  if(isnull _rosterCfg) exitWith { ["invalid roster name %1 '%2'",_side, _rosterName] call errmsg; };
 

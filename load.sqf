@@ -88,6 +88,8 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "scripts\bgTraits.sqf" call execFile;
 
+"core\mods.sqf" call execFile;
+
 "core\battleGroups.sqf" call execFile;
 
 "core\bgPool.sqf" call execFile;

@@ -193,7 +193,7 @@ if(!(_u iskindof "Man")) then
 
 };
 
-private _bgCfg = missionconfigfile >> "BattleGroups" >> (_side call getSideStr) >> _bgName;
+private _bgCfg = (call getUsedBattlegroupsCfg) >> (_side call getSideStr) >> _bgName;
 
 private _mpool = _side call getManPool;
 private _poolCounts = [_mpool,true] call countListTypeNumbers;
@@ -320,7 +320,7 @@ numPoolPanels = 0;
 for "_i" from 0 to (count _availBgs - 1) do
 {
  _bgName = _availBgs select _i;
- _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
+ _bgCfg = (call getUsedBattlegroupsCfg) >> (call getPlrSideStr) >> _bgName;
 
 private _canSel = false;
 
@@ -356,7 +356,7 @@ if(_bgListId == 2301) then
  _availBgs = selectableBgs;
  _bgName = _availBgs select _selBgIndex;
 
- _bgCfg = missionconfigfile >> "BattleGroups" >> (call getPlrSideStr) >> _bgName;
+ _bgCfg = (call getUsedBattlegroupsCfg) >> (call getPlrSideStr) >> _bgName;
 
  selectedReserveBG = _bgCfg;
 
@@ -496,7 +496,7 @@ for "_i" from 0 to 50 do // Todo maybe reconsider the attemb count
  
 if([_side,_bgName,_list] call canBgBeSelected) then
 {
- private _bgCfg = missionconfigfile >> "BattleGroups" >> (_side call getSideStr) >> _bgName;
+ private _bgCfg = (call getUsedBattlegroupsCfg) >> (_side call getSideStr) >> _bgName;
  _list pushback _bgCfg;
  _leftToPlace = _leftToPlace - 1;
  if(_leftToPlace == 0) then { break; };

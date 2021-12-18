@@ -58,7 +58,7 @@ params ["_side","_ctrlId"];
 
 _forces = _display displayCtrl _ctrlId;
 
-_rosters = missionConfigFile >> "ForceRosters" >> (str _side);
+_rosters =  (call getUsedForceRosterCfg) >> (str _side);
 
 for "_i" from 0 to (count _rosters - 1) do
 {
@@ -96,7 +96,7 @@ params ["_side","_ctrlId"];
 
 diag_log format["Preparing battle pool %1", _side];
 
-_rosters = missionConfigFile >> "ForceRosters" >> (_side call getSideStr);
+_rosters =  (call getUsedForceRosterCfg) >> (_side call getSideStr);
 
 _forces = _display displayCtrl _ctrlId;
 

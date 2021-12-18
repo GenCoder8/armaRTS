@@ -19,7 +19,7 @@ getForceRoster =
 
  private _side = _force # FORCE_SIDE;
 
- private _rosterCfg = missionconfigfile >> "ForceRosters" >> (_side call getSideStr) >> (_force # FORCE_ROSTER);
+ private _rosterCfg = (call getUsedForceRosterCfg) >> (_side call getSideStr) >> (_force # FORCE_ROSTER);
 
  _rosterCfg
 };
