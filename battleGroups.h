@@ -2,6 +2,7 @@
 
 class RTSDefs
 {
+
 class TankCrews
 {
  units[] = {"uns_US_2MI_DRV","uns_men_NVA_crew_driver"};
