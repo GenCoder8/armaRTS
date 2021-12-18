@@ -237,7 +237,13 @@ _totalMags = _totalMags + _numMags;
 
 } foreach _units;
 
-private _magRatio = _totalMags / count _units;
+private _magRatio = 0;
+
+
+if(count _units > 0) then 
+{
+_magRatio = _totalMags / count _units;
+};
 
 private _ammoText = "Has ammo";
 private _ammoColor = "33cc33";
