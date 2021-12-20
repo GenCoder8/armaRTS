@@ -93,6 +93,7 @@ _pushToPool =
 
 if(!(_type iskindOf "man")) then // If vehicle
 {
+
 _vattrs = _type call getVehicleAttrs;
 
 if(count _vattrs == 0) then
@@ -179,9 +180,18 @@ if(_selEntryIndex >= 0) then
  _entry = _manPool select _selEntryIndex;
  if(!_onlyCheck) then
  {
+/*
+if(_type iskindof "landVehicle" || (_entry # 0) iskindof "landVehicle" ) then
+{
+  diag_log format ["Deleting vehicle! '%1' %2", _type, _entry ];
+  diag_log (str _kindFn);
+};*/
+
   _manPool deleteAt _selEntryIndex;
  };
 };
+
+// diag_log format ["--> Getting '%1' from pool", _type];
 
 if(count _entry == 0 && !_onlyCheck) then
 {
@@ -230,8 +240,8 @@ isSniper =
 isInfantry =
 {
  params ["_manType"];
- //private _cfg = missionconfigfile >> "RTSDefs" >> "Infantry";
- //[_manType,_cfg] call isOfSpecialType
+
+ if(!(_manType iskindof "man")) exitWith { false };
 
  (!(_manType call isSniper) && !(_manType call isTankCrew))
 };
