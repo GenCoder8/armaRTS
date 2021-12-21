@@ -312,7 +312,7 @@ for "_i" from 0 to (count selectedBattleGroups - 1) do
 };
 
 
-_availBgs = selectableBgs; // missionconfigfile >> "BattleGroups" >> "west";
+_availBgs = selectableBgs;
 
 
 // Create battle groups pool
@@ -485,7 +485,7 @@ getBgSelectedList =
 {
  params ["_side","_rosClass"];
 
-private _bgsList = getArray (_rosClass >> "battleGroups");
+private _bgsList = _rosClass call getBattleGroupList;
 
 private _list = [];
 

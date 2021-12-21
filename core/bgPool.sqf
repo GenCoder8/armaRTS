@@ -445,7 +445,7 @@ createForceManPool =
 {
  params ["_side","_forceClass"];
 
- private _forceList = getArray(_forceClass >> "battleGroups");
+ private _forceList = _forceClass call getBattleGroupList;
 
 for "_i" from 0 to (count _forceList - 2) step 2 do
 {
