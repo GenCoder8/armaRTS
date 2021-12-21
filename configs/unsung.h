@@ -1,5 +1,7 @@
 
-
+class Test123 : DefaultForceGroups
+{
+};
 
 class RTSDefs
 {
@@ -23,14 +25,14 @@ class BattleGroups
 class west
 {
 
-class Patton
+class Armor1
 {
  name = "M-48A3 Patton";
  ranks[] = ARMORED_RANKS;
  units[] = {"uns_m48a3"};
 };
 
-class Sheridan
+class Armor2
 {
  name = "M-551 Sheridan";
  ranks[] = ARMORED_RANKS;
@@ -124,14 +126,14 @@ class Sniper
 class east
 {
 
-class TO55
+class Armor1
 {
  name = "TO-55";
  ranks[] = ARMORED_RANKS;
  units[] = {"uns_to55_nva"};
 };
 
-class T34
+class Armor2
 {
  name = "T-34";
  ranks[] = ARMORED_RANKS;
@@ -180,3 +182,92 @@ class Sniper
 };
 
 };
+
+
+
+
+
+
+class ForceRosters
+{
+
+ class west
+ {
+
+class USA1
+{
+ name = "The Avengers";
+ icon = "uns_M113parts\army\11acr_co.paa";
+ playable = true;
+
+class ForceGroups : DefaultForceGroups
+{
+
+
+};
+
+};
+
+class TestRosterWest : USA1
+{
+ name = "The Testers";
+ icon = "uns_M113parts\army\1id_co.paa";
+};
+
+ };
+
+
+class east
+{
+
+class NVA1
+{
+ name = "NVA";
+ icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
+ playable = true;
+
+class ForceGroups //: DefaultForceGroups
+{
+
+class Armor1
+{
+count = 5;
+};
+
+class HeavyTeam
+{
+count = 10;
+};
+
+class LightTeam
+{
+count = 10;
+};
+
+};
+
+};
+
+class VC1
+{
+ name = "VC";
+ icon = "uns_t34_t55\flags\vc_flag.paa";
+
+class ForceGroups //: DefaultForceGroups
+{
+class Armor1
+{
+count = 5;
+};
+class HeavyTeam
+{
+count = 5;
+};
+
+};
+};
+
+};
+
+};
+

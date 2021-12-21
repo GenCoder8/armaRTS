@@ -94,7 +94,7 @@ _preparePool =
 {
 params ["_side","_ctrlId"];
 
-diag_log format["Preparing battle pool %1", _side];
+diag_log format["Preparing battle pool %1 %2", _side, (call getUsedForceRosterCfg) ];
 
 _rosters =  (call getUsedForceRosterCfg) >> (_side call getSideStr);
 

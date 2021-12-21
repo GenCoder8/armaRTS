@@ -8,6 +8,8 @@ createdBgPanels = [];
 selectedBattleGroups = [];
 enemySelectedBgs = [];
 
+manpoolSelLeft = [0,0,0]; // just to avoid error
+
 #define BGPOOLID 2301
 
 openPoolDlg =
@@ -194,6 +196,8 @@ if(!(_u iskindof "Man")) then
 };
 
 private _bgCfg = (call getUsedBattlegroupsCfg) >> (_side call getSideStr) >> _bgName;
+
+// diag_log format["TESTING123 %1 %2 %3 %4",(call getUsedBattlegroupsCfg) , (_side call getSideStr) , _bgName, _bgCfg ];
 
 private _mpool = _side call getManPool;
 private _poolCounts = [_mpool,true] call countListTypeNumbers;
@@ -485,7 +489,7 @@ getBgSelectedList =
 {
  params ["_side","_rosClass"];
 
-private _bgsList = _rosClass call getBattleGroupList;
+private _bgsList = [_side,_rosClass] call getBattleGroupList;
 
 private _list = [];
 
@@ -493,6 +497,8 @@ _leftToPlace = MAX_SELECTED_BGS;
 for "_i" from 0 to 50 do // Todo maybe reconsider the attemb count
 {
  private _bgName = selectRandomWeighted _bgsList;
+
+if(isnil "_bgName") exitwith {};
  
 if([_side,_bgName,_list] call canBgBeSelected) then
 {

@@ -3,14 +3,9 @@ RtsVersion = 14;
 
 debriefing = 0;
 
-/*
-
-#include "configs\unsung.h"
-*/
 
 #include "configs\base.h"
-#include "forceRosters.h"
-#include "battleGroups.h"
+#include "configs\unsung.h"
 
 #include "scripts\bgTraits.h"
 
