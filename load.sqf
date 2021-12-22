@@ -15,7 +15,8 @@ _index = player createDiarySubject ["rtsEntry","arma RTS"];
 
 player createDiaryRecord ["rtsEntry", ["Credits", str composeText [
 "Thanks to the whole arma3 community for their help!<br/>" +
-"And special thanks to sarogahtyp for his pathfinding code"
+"And special thanks to sarogahtyp for his pathfinding code<br/>" +
+"And to hcpookie for the unsung graphics"
 ]
 ]];
 
