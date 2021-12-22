@@ -224,7 +224,7 @@ isOfSpecialType =
 isTankCrew =
 {
  params ["_manType"];
- private _cfg = missionconfigfile >> "RTSDefs" >> "TankCrews";
+ private _cfg = (call getRtsDefs) >> "TankCrews";
 
  [_manType,_cfg] call isOfSpecialType
 };
@@ -232,7 +232,7 @@ isTankCrew =
 isSniper =
 {
  params ["_manType"];
- private _cfg = missionconfigfile >> "RTSDefs" >> "Snipers";
+ private _cfg = (call getRtsDefs) >> "Snipers";
 
  [_manType,_cfg] call isOfSpecialType
 };

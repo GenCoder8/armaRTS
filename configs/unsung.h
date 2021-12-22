@@ -1,9 +1,6 @@
 
-class Test123 : DefaultForceGroups
-{
-};
 
-class RTSDefs
+class RTSDefsUnsung
 {
 
 class TankCrews
@@ -19,7 +16,7 @@ class Snipers
 };
 
 
-class BattleGroups
+class BattleGroupsUnsung
 {
 
 class west
@@ -188,7 +185,7 @@ class Sniper
 
 
 
-class ForceRosters
+class ForceRostersUnsung
 {
 
  class west
@@ -226,7 +223,7 @@ class NVA1
  icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
  playable = true;
 
-class ForceGroups //: DefaultForceGroups
+class ForceGroups : DefaultForceGroups
 {
 
 class Armor1
@@ -253,7 +250,7 @@ class VC1
  name = "VC";
  icon = "uns_t34_t55\flags\vc_flag.paa";
 
-class ForceGroups //: DefaultForceGroups
+class ForceGroups : DefaultForceGroups
 {
 class Armor1
 {
