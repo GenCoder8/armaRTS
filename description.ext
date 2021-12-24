@@ -5,6 +5,7 @@ debriefing = 0;
 
 
 #include "configs\base.h"
+#include "configs\vanilla.h"
 #include "configs\unsung.h"
 
 #include "scripts\bgTraits.h"

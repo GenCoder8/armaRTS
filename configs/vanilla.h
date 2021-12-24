@@ -5,12 +5,12 @@ class RTSDefsVanilla
 
 class TankCrews
 {
- units[] = {"B_crew_F"};
+ units[] = {"B_crew_F","O_crew_F"};
 };
 
 class Snipers
 {
- units[] = {"B_soldier_M_F"};
+ units[] = {"B_soldier_M_F","O_soldier_M_F"};
 };
 
 };
@@ -165,8 +165,6 @@ class Sniper
  units[] = {"O_soldier_M_F"};
  traits[] = {"Sniper"};
 };
-
-// a animate ["plants1",1];
 
 };
 

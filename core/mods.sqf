@@ -1,5 +1,5 @@
 
-usedmod = "Unsung";
+usedmod = "Vanilla";
 
 getUsedForceRosterCfg =
 {
