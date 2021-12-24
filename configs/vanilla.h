@@ -144,6 +144,14 @@ class LightTeam
  units[] = {"O_Soldier_SL_F", "O_Soldier_F", "O_Soldier_TL_F", "O_Soldier_A_F", "O_medic_F"};
 };
 
+class ReconTeam
+{
+ name = "Recon team";
+ ranks[] = SQUAD_RANKS;
+ units[] = {"O_recon_TL_F", "O_recon_medic_F", "O_recon_LAT_F", "O_recon_JTAC_F", "O_recon_exp_F"};
+ traits[] = {"Recon"};
+};
+
 class MachineGunTeam
 {
  name = "Machine gun team";
@@ -156,6 +164,15 @@ class AntiTankTeam
  name = "Anti tank team";
  ranks[] = TEAM_RANKS;
  units[] = {"O_Soldier_LAT_F", "O_Soldier_F"};
+};
+
+class LightMortarTeam
+{
+ name = "Mortar team (Light)";
+ ranks[] = TEAM_RANKS;
+ units[] = {"O_Soldier_F","O_Soldier_F","O_Soldier_F"};
+ mortar = "O_Mortar_01_F";
+ ammo[] = {"8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_Smoke_white"};
 };
 
 class Sniper
