@@ -55,7 +55,7 @@ class LightTeam
 {
  name = "Rifle team";
  ranks[] = SQUAD_RANKS;
- units[] = {"B_Soldier_SL_F", "B_Soldier_F", "B_Soldier_TL_F", "B_soldier_AR_F", "B_Soldier_A_F", "B_medic_F"};
+ units[] = {"B_Soldier_SL_F", "B_Soldier_F", "B_Soldier_TL_F", "B_Soldier_F", "B_Soldier_A_F", "B_medic_F"};
 };
 
 class ReconTeam
@@ -100,15 +100,6 @@ class HeavyMortarTeam
 };
 */
 
-/*
-class TestMortarTeam
-{
- name = "Test Mortar team";
- ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
- mortar = "B_Mortar_01_F";
- ammo[] = {"8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_shells"};
-};*/
 
 class Sniper
 {
@@ -126,16 +117,16 @@ class east
 
 class Armor1
 {
- name = "TO-55";
+ name = "T-100 Varsuk";
  ranks[] = ARMORED_RANKS;
- units[] = {"uns_to55_nva"};
+ units[] = {"O_MBT_02_cannon_F"};
 };
 
 class Armor2
 {
- name = "T-34";
+ name = "BTR-K Kamysh";
  ranks[] = ARMORED_RANKS;
- units[] = {"uns_t34_85_nva"};
+ units[] = {"O_APC_Tracked_02_cannon_F"};
 };
 
 
@@ -143,35 +134,35 @@ class HeavyTeam
 {
  name = "Heavy weapons team";
  ranks[] = SQUAD_RANKS;
- units[] = {"uns_men_NVA_65_COM", "uns_men_NVA_65_nco", "uns_men_NVA_65_RTO", "uns_men_NVA_65_AS8", "uns_men_NVA_65_MED", "uns_men_NVA_65_RF1", "uns_men_NVA_65_TRI", "uns_men_NVA_65_MTS", "uns_men_NVA_65_AA", "uns_men_NVA_65_AT", "uns_men_NVA_65_SAP" };
+ units[] = {"O_Soldier_SL_F", "O_Soldier_F", "O_Soldier_LAT_F", "O_Soldier_TL_F", "O_Soldier_A_F", "O_Soldier_F", "O_medic_F"};
 };
 
 class LightTeam
 {
  name = "Rifle team";
  ranks[] = SQUAD_RANKS;
- units[] = {"uns_men_NVA_65_off", "uns_men_NVA_65_RTO", "uns_men_NVA_65_MED", "uns_men_NVA_65_SAP", "uns_men_NVA_65_AS3", "uns_men_NVA_65_AS4", "uns_men_NVA_65_AS6", "uns_men_NVA_65_RF1"};
+ units[] = {"O_Soldier_SL_F", "O_Soldier_F", "O_Soldier_TL_F", "O_Soldier_A_F", "O_medic_F"};
 };
 
 class MachineGunTeam
 {
  name = "Machine gun team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_NVA_65_HMG","uns_men_NVA_65_RF1"};
+ units[] = {"O_Soldier_AR_F", "O_Soldier_F"};
 };
 
 class AntiTankTeam
 {
  name = "Anti tank team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_NVA_65_AT","uns_men_NVA_65_RF1"};
+ units[] = {"O_Soldier_LAT_F", "O_Soldier_F"};
 };
 
 class Sniper
 {
  name = "Sniper";
  ranks[] = SNIPER_RANK;
- units[] = {"uns_men_NVA_65_MRK"};
+ units[] = {"O_soldier_M_F"};
  traits[] = {"Sniper"};
 };
 
