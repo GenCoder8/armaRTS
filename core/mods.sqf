@@ -1,5 +1,65 @@
 
 usedmod = "Vanilla";
+usedDifficulty = 0;
+
+
+hasMod =
+{
+ params ["_mod"];
+ isClass (configfile >> "CfgPatches" >> _mod)
+};
+
+hasDLC =
+{
+ params ["_dlcId"];
+ private _found = false;
+ 
+ {
+ 
+ if(_dlcId == _x) exitWith
+ {
+  _found = true;
+ };
+ 
+ } foreach (getDLCs 1);
+_found
+};
+
+isModloaded =
+{
+ params ["_modCfg"];
+
+ if(getNumber (_modCfg >> "isVanilla") == 1) exitWith { true };
+
+ _dlcid = getNumber (_modCfg >> "DLCID");
+
+ if( _dlcid > 0 ) exitWith { _dlcid call hasDLC };
+
+ (getText (_modCfg >> "modName")) call hasMod
+};
+
+
+
+getAvailableModList =
+{
+private _modCfgs = missionconfigfile >> "SupportedMods";
+
+private _list = [];
+
+for "_i" from 0 to (count _modCfgs - 1) do
+{
+private _modCfg = _modCfgs select _i;
+
+if(_modCfg call isModloaded) then
+{
+ _list pushback (configname _modCfg);
+};
+
+};
+
+_list
+};
+
 
 getUsedForceRosterCfg =
 {

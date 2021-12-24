@@ -66,6 +66,28 @@ waituntil { scriptdone _w };
 };
 };
 
+
+"core\mods.sqf" call execFile; // here for the startup code
+
+
+usedMod = profilenamespace getVariable ["aRtsModUsed", "Vanilla" ];
+usedDifficulty = profilenamespace getVariable ["aRtsDifficulty", 0 ];
+
+_usedModCfg = missionconfigfile >> "SupportedMods" >> usedMod;
+
+if(!(_usedModCfg call isModloaded)) then // If unloaded mod
+{
+ _list = call getAvailableModList;
+ usedMod = "";
+ if(count _list == 0) exitWith {}; // Bad error
+
+ usedMod = _list # 0;
+};
+
+if(usedMod == "") exitWith { diag_log "Mission loading aborted"; }; // Abort loading
+
+
+
 findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 
@@ -88,8 +110,6 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 "scripts\bgFns.sqf" call execFile;
 
 "scripts\bgTraits.sqf" call execFile;
-
-"core\mods.sqf" call execFile;
 
 "core\battleGroups.sqf" call execFile;
 
@@ -153,6 +173,7 @@ findFromArray = RTSmainPath+"scripts\findFromArrayFn.sqf" call compileFile;
 
 "gui\savegame.sqf" call execFile;
 
+"gui\settings.sqf" call execFile;
 
 ["gui\battleGuiLoop.sqf",false] call execFile;
 

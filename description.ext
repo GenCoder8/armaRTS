@@ -4,6 +4,29 @@ RtsVersion = 14;
 debriefing = 0;
 
 
+class SupportedMods
+{
+/*
+class Apex
+{
+ DLCID = 395180;
+
+};*/
+
+class Vanilla
+{
+ isVanilla = true;
+};
+
+class Unsung
+{
+ modName = "uns_main";
+};
+
+};
+
+
+
 #include "configs\base.h"
 #include "configs\vanilla.h"
 #include "configs\unsung.h"
@@ -15,6 +38,7 @@ debriefing = 0;
 #include "gui\rtsCtrls.h"
 #include "gui\actions.h"
 
+
 /*
 class RscTitles
 {
@@ -24,8 +48,8 @@ class RscTitles
 };
 */
 
-
 #include "gui\ctrlIds.h"
+#include "gui\settings.h"
 #include "gui\mainmenu.h"
 #include "gui\battleGui.h"
 #include "gui\bgpool.h"
