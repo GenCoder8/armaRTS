@@ -39,7 +39,7 @@ class PlatoonHQ
 {
  name = "Platoon HQ";
  ranks[] = {"LIEUTENANT","SERGEANT","CORPORAL"};
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_RTO","uns_men_USMC_68_RF4"};
+ units[] = {"B_Soldier_SL_F","B_Soldier_TL_F","B_Soldier_F","B_Soldier_F"};
  traits[] = {"Morale"};
  max = 1;
 };
@@ -48,21 +48,21 @@ class HeavyTeam
 {
  name = "Heavy weapons team";
  ranks[] = SQUAD_RANKS;
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_GL","uns_men_USMC_68_RF4","uns_men_USMC_68_RF2","uns_men_USMC_68_AT"};
+ units[] = { "B_Soldier_SL_F", "B_Soldier_F", "B_soldier_LAT_F", "B_Soldier_TL_F", "B_Soldier_GL_F", "B_Soldier_A_F", "B_medic_F" };
 };
 
 class LightTeam
 {
  name = "Rifle team";
  ranks[] = SQUAD_RANKS;
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_SL","uns_men_USMC_68_MED","uns_men_USMC_68_RTO","uns_men_USMC_68_RF2","uns_men_USMC_68_RF1"};
+ units[] = {"B_Soldier_SL_F", "B_Soldier_F", "B_Soldier_TL_F", "B_soldier_AR_F", "B_Soldier_A_F", "B_medic_F"};
 };
 
 class ReconTeam
 {
  name = "Recon team";
  ranks[] = SQUAD_RANKS;
- units[] = {"uns_men_USMC_68_PL","uns_men_USMC_68_RF1","uns_men_USMC_68_RF2","uns_men_USMC_68_RF3","uns_men_USMC_68_AT"};
+ units[] = {"B_recon_TL_F", "B_recon_medic_F", "B_recon_LAT_F", "B_recon_JTAC_F", "B_recon_exp_F"};
  traits[] = {"Recon"};
 };
 
@@ -70,33 +70,35 @@ class MachineGunTeam
 {
  name = "Machine gun team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_HMG","uns_men_USMC_68_AHMG","uns_men_USMC_68_RF2"};
+ units[] = {"B_soldier_AR_F", "B_Soldier_A_F", "B_Soldier_F"};
 };
 
 class AntiTankTeam
 {
  name = "Anti tank team";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_AT","uns_men_USMC_68_RF1"};
+ units[] = {"B_soldier_AT_F", "B_Soldier_F"};
 };
 
 class LightMortarTeam
 {
  name = "Mortar team (Light)";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
- mortar = "uns_M2_60mm_mortar";
- ammo[] = {"uns_8Rnd_60mmHE_M2","uns_8Rnd_60mmSMOKE_M2"};
+ units[] = {"B_Soldier_F","B_Soldier_F","B_Soldier_F"};
+ mortar = "B_Mortar_01_F";
+ ammo[] = {"8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_Smoke_white"};
 };
 
+/*
 class HeavyMortarTeam
 {
  name = "Mortar team (Heavy)";
  ranks[] = TEAM_RANKS;
- units[] = {"uns_men_USMC_68_RF2","uns_men_USMC_68_RF1","uns_men_USMC_68_RF3"};
- mortar = "uns_M1_81mm_mortar";
- ammo[] = {"uns_8Rnd_81mmHE_M1","uns_8Rnd_81mmSMOKE_M1"};
+ units[] = {"","",""};
+ mortar = "";
+ ammo[] = {"",""};
 };
+*/
 
 /*
 class TestMortarTeam
@@ -112,7 +114,7 @@ class Sniper
 {
  name = "Sniper";
  ranks[] = SNIPER_RANK;
- units[] = {"uns_men_USMC_68_MRK"};
+ units[] = {"B_soldier_M_F"};
  traits[] = {"Sniper"};
 };
 
