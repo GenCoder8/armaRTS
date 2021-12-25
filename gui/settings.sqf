@@ -38,6 +38,7 @@ _difficultyList = _display displayCtrl 2101;
 _difficultyList lbAdd "Normal";
 _difficultyList lbAdd "Hard";
 _difficultyList lbAdd "Very Hard";
+_difficultyList lbAdd "Extreme";
 
 _difficultyList lbSetCurSel usedDifficulty;
 
