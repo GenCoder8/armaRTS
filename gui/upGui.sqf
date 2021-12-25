@@ -162,7 +162,7 @@ canBgBeSelected =
 {
  params ["_side","_bgName","_selectedBgs",["_retLeft",false]];
 
-if((count _selectedBgs) >= MAX_SELECTED_BGS) exitwith { false };
+if((count _selectedBgs) >= (_side call getMaxBgsForSide)) exitwith { false };
 
 private _neededMen = [0,0,0];
 private _usedPoolTypes = createHashMap;
@@ -493,7 +493,7 @@ private _bgsList = [_side,_rosClass] call getBattleGroupList;
 
 private _list = [];
 
-_leftToPlace = MAX_SELECTED_BGS;
+_leftToPlace = (_side call getMaxBgsForSide);
 for "_i" from 0 to 50 do // Todo maybe reconsider the attemb count
 {
  private _bgName = selectRandomWeighted _bgsList;
@@ -643,7 +643,21 @@ _ret
 };
 
 
+getMaxBgsForSide =
+{
+ params ["_side"];
 
+ private _max = MAX_SELECTED_BGS;
+
+_eside = call getEnemySide;
+
+if(_side == _eside) then // For enemy
+{
+ _max = _max + (3 * usedDifficulty);
+};
+
+_max
+};
 
 
 tt =
