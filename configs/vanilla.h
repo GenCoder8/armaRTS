@@ -13,6 +13,10 @@ class Snipers
  units[] = {"B_soldier_M_F","O_soldier_M_F"};
 };
 
+solImgs[] = {
+
+};
+
 };
 
 
@@ -201,7 +205,7 @@ class ForceRostersVanilla
 class USA1
 {
  name = "The Avengers";
- icon = "uns_M113parts\army\11acr_co.paa";
+ icon = "gui\images\fromUnsung\11acr_co.paa";
  playable = true;
 
 class ForceGroups : DefaultForceGroups
@@ -215,7 +219,7 @@ class ForceGroups : DefaultForceGroups
 class TestRosterWest : USA1
 {
  name = "The Testers";
- icon = "uns_M113parts\army\1id_co.paa";
+ icon = "gui\images\fromUnsung\1id_co.paa";
 };
 
  };

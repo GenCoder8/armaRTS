@@ -327,7 +327,9 @@ onForceSelect =
 
  selectedForce = _force;
 
- (uiNamespace getVariable "forceImg") ctrlSetText (selectRandom solImgs);
+ _solImgs = getArray ((call getRtsDefs) >> "solImgs");
+
+ (uiNamespace getVariable "forceImg") ctrlSetText (selectRandom _solImgs);
 
  (uiNamespace getVariable "forceInfoCtrl") ctrlSetText (selectedForce call getForceInfo);
 
@@ -631,7 +633,7 @@ if(_side == west) then { _color = [0,0,1,1]; };
 if(_side == east) then { _color = [1,0,0,1]; };
 
 	_mapCtrl drawIcon [
-		"uns_M113parts\art\starlg.paa",
+		"guiimages\fromUnsung\starLG.paa",
 		_color,
 		markerpos _mrk,
 		_iconWidth,

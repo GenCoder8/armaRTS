@@ -387,7 +387,7 @@ if((allforces getOrDefault [_name,""]) != "") then
 breakout "createf"; 
 };
 
-private _icon = "uns_M113parts\army\1id_co.paa";
+private _icon = "gui\images\fromUnsung\1id_co.paa";
 
 private _rosterCfg = configNull;
 
