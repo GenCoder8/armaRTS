@@ -213,7 +213,7 @@ if(_sec != "") then
 
 
 
-[_secPic,_secStr]
+[_secPic,_secStr,"ffffff"]
 };
 
 getBattleGroupPriWeapInfo =
@@ -245,28 +245,31 @@ if(count _units > 0) then
 _magRatio = _totalMags / count _units;
 };
 
-private _ammoText = "Has ammo";
-private _ammoColor = "33cc33";
+private _ammoText = "";
+private _ammoColor = "";
+private _ammoStatusState = 2;
 
 if(_totalMags == 0) then
 {
- _ammoText = "Out of ammo";
- _ammoColor = "ff0000";
+_ammoStatusState = 0;
 }
 else
 {
 if(_magRatio < 2) then
 {
- _ammoText = "Low on ammo";
- _ammoColor = "ffff00";
+_ammoStatusState = 1;
 };
 };
+
+(ammoStateVars # _ammoStatusState) params ["_ammoText","_ammoColor"];
 
 // "a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomagall_ca.paa"
 // "a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa"
 
 ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor]
 };
+
+ammoStateVars = [["Out of ammo","ff0000"],["Low on ammo","ffff00"],["Has ammo","33cc33"]];
 
 canFirePrimaryWeapon =
 {
@@ -303,4 +306,39 @@ if(_sec != "") then
 };
 
 _sec
+};
+
+
+getTankAmmoCounts =
+{
+ params ["_veh"];
+
+_curahm = createHashmap;
+_totalahm = createHashmap;
+
+{
+ _x params ["_magName","_ammoCount"];
+
+_mcfg = configFile >> "CfgMagazines" >> _magName;
+_ammoName = getText (_mcfg >> "ammo");
+
+_acfg = configFile >> "CfgAmmo" >> _ammoName;
+
+private _sn = getText (_acfg >> "simulation");
+
+
+
+if(_sn == "shotShell" || _sn == "shotBullet") then
+{
+ _total = _curahm getOrDefault [_sn,0];
+ _curahm set [_sn, _total + _ammoCount];
+
+ _max = _totalahm getOrDefault [_sn,0];
+ _totalahm set [_sn, _max + (getnumber (_mcfg >> "count"))];
+
+};
+
+} foreach magazinesAmmo _veh;
+
+[_curahm,_totalahm]
 };

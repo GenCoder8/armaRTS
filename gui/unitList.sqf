@@ -140,17 +140,88 @@ setAmmoText =
 
 // _text ctrlSetText format["%1", _group call getBattleGroupSecWeapAmmoText ];
 
+private _priinfo = "";
+private _secinfo = "";
 
-_secinfo = _group call getBattleGroupSecWeapInfo;
+private _ldr = leader _group;
+if(isnull _ldr && count (units _group) > 0) then
+{
+ _ldr = (units _group) # 0;
+};
+
+if(isnull _ldr) exitWith {}; // Error
+
+private _veh = vehicle _ldr;
+
+//assignedVehicleRole
+// In case vehicle crew
+if(_ldr call invehicle && (commander _veh == _ldr || driver _veh == _ldr || gunner _veh == _ldr)) then
+{
+ _ammos = _veh call getTankAmmoCounts;
+
+ _ammos params ["_ammoLeft","_ammoMax"];
+
+
+ _ammoColor = "";
+ _ammoText = "";
+
+_getAmmoTypeStatus =
+{
+ params ["_ammoType"];
+
+ _al = _ammoLeft get _ammoType;
+ _am = _ammoMax get _ammoType;
+
+ _ammoLeftPcto = 0;
+
+ if(_am > 0) then
+ {
+ _ammoLeftPcto = _al / _am;
+ };
+
+
+ _ammoStatusState = 2;
+
+ if(_ammoLeftPcto < 0.25) then
+ {
+ _ammoStatusState = 1;
+ };
+
+ if(_ammoLeftPcto <= 0) then
+ {
+  _ammoStatusState = 0;
+ };
+
+ (ammoStateVars # _ammoStatusState) params ["_ammoText","_ammoColor"];
+};
+ 
+"shotShell" call _getAmmoTypeStatus;
+
+_priinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa","",_ammoColor];
+
+"shotBullet" call _getAmmoTypeStatus;
+
+_secinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa","",_ammoColor];
+
+}
+else
+{
+
 _priinfo = _group call getBattleGroupPriWeapInfo;
+_secinfo = _group call getBattleGroupSecWeapInfo;
+
+};
+
+
+
 
 _wpic = _cont getVariable "apic";
 
 _priText = format["<img size='1' image='%1' color='#%2' />", _priinfo # 0,_priinfo # 2];
 
-_secText = format["<img size='1' image='%1' />", _secinfo # 0];
+_secText = format["<img size='1' image='%1' color='#%2' />", _secinfo # 0,_secinfo # 2];
 
-_wpic ctrlSetStructuredText parseText (_secText + _priText  );
+_wpic ctrlSetStructuredText parseText (_priText + _secText);
 
 // _wpic ctrlSetTooltip (str (_secinfo # 0));
 
@@ -158,6 +229,7 @@ _conb = _cont getVariable "cbut";
 
 
 _conb ctrlSetTooltip format ["Primary weapon "];
+
 
 };
 

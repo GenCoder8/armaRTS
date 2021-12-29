@@ -32,7 +32,7 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["LightMortarTeam",_area] call placeTestGroup;
 
-["HeavyMortarTeam",_area] call placeTestGroup;
+// ["HeavyMortarTeam",_area] call placeTestGroup;
 
 ["AntiTankTeam",_area] call placeTestGroup;
 
@@ -40,19 +40,19 @@ _area = [_deployAreaPos,deployAreaSize];
 
 ["Sniper",_area] call placeTestGroup;
 
-//["Patton",_area] call placeTestGroup;
+["Armor1",_area] call placeTestGroup;
 
 //["Sheridan",_area] call placeTestGroup;
 
 ["MachineGunTeam",_area] call placeTestGroup;
 
 
-
+/*
 
 for "_i" from 1 to 9 do
 {
  ["HeavyMortarTeam",_area] call placeTestGroup;
-};
+};*/
 
 
 ["placement"] call openGameScreen;
