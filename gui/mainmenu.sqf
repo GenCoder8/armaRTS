@@ -37,11 +37,11 @@ call initCampaign;
 
 if(!_customForces) then
 {
-[west,"usa1","USA1", "startWest" ] call createForce;
-[west,"usa2","TestRosterWest", "marker_17_vic" ] call createForce;
+[west,"usa1","Force1", "startWest" ] call createForce;
+[west,"usa2","Force2", "marker_17_vic" ] call createForce;
 
-[east,"nva1","NVA1", "startEast" ] call createForce;
-[east,"nva2","NVA1", "marker_12" ] call createForce;
+[east,"nva1","Force1", "startEast" ] call createForce;
+[east,"nva2","Force2", "marker_12" ] call createForce;
 };
 
 "globalmap" call openGameScreen;

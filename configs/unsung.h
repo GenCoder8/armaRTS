@@ -206,7 +206,7 @@ class ForceRostersUnsung
  class west
  {
 
-class USA1
+class Force1
 {
  name = "The Avengers";
  icon = "uns_M113parts\army\11acr_co.paa";
@@ -220,7 +220,7 @@ class ForceGroups : DefaultForceGroups
 
 };
 
-class TestRosterWest : USA1
+class Force2 : Force1
 {
  name = "The Testers";
  icon = "uns_M113parts\army\1id_co.paa";
@@ -232,7 +232,7 @@ class TestRosterWest : USA1
 class east
 {
 
-class NVA1
+class Force1
 {
  name = "NVA";
  icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
@@ -260,7 +260,7 @@ count = 10;
 
 };
 
-class VC1
+class Force2 : Force1
 {
  name = "VC";
  icon = "uns_t34_t55\flags\vc_flag.paa";

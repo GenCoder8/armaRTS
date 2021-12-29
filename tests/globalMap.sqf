@@ -44,9 +44,9 @@ sleep 0.1;
 
 true call startCampaign;
 
-[west,"Tester1","USA1", "marker_17" ] call createForce;
-[west,"testers2","TestRosterWest", "startWest" ] call createForce;
+[west,"Tester1","Force1", "marker_17" ] call createForce;
+[west,"testers2","Force2", "startWest" ] call createForce;
 
-[east,"testersE","NVA1", "marker_18" ] call createForce;
+[east,"testersE","Force1", "marker_18" ] call createForce;
 
 DBGL_NONE call setDebugFlags;

@@ -22,11 +22,11 @@ sleep 0.1;
 
 DBGL_AIGM call setDebugFlags;
 
-[west,"Tester1","USA1", west call getStartLoc ] call createForce;
+[west,"Tester1","Force1", west call getStartLoc ] call createForce;
 //[west,"testers2","Roster2", "marker_31" ] call createForce;
 
-[east,"testersE","NVA1", east call getStartLoc ] call createForce;
-[east,"testersE2","NVA1", east call getStartLoc ] call createForce;
+[east,"testersE","Force1", east call getStartLoc ] call createForce;
+[east,"testersE2","Force2", east call getStartLoc ] call createForce;
 
 
 call initGlobalMap;

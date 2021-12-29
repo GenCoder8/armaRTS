@@ -6,7 +6,7 @@ waituntil { scriptdone _w };
 
 debugMode = true;
 
-[west,"Tester1","USA1", "" ] call createForce;
+[west,"Tester1","Force1", "" ] call createForce;
 
 
 //[manPoolWest,"testteam"] call createBattleGroupFromPool;
