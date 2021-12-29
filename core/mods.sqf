@@ -115,7 +115,6 @@ for "_i" from 0 to (count _bgClasses - 1) step 1 do
  private _bgcount = getNumber (_bgEntry >> "count");
 
 
-
 if(_bgcount > 0) then
 {
 
