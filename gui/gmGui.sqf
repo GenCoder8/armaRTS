@@ -329,7 +329,10 @@ onForceSelect =
 
  _solImgs = getArray ((call getRtsDefs) >> "solImgs");
 
+ if(count _solImgs > 0) then
+ {
  (uiNamespace getVariable "forceImg") ctrlSetText (selectRandom _solImgs);
+ };
 
  (uiNamespace getVariable "forceInfoCtrl") ctrlSetText (selectedForce call getForceInfo);
 
