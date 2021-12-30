@@ -47,12 +47,12 @@ _area = [_deployAreaPos,deployAreaSize];
 ["MachineGunTeam",_area] call placeTestGroup;
 
 
-/*
+
 
 for "_i" from 1 to 9 do
 {
- ["HeavyMortarTeam",_area] call placeTestGroup;
-};*/
+ ["LightMortarTeam",_area] call placeTestGroup;
+};
 
 
 ["placement"] call openGameScreen;
