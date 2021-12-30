@@ -52,11 +52,11 @@ _yp = _yp + _coords # 1;
 
 systemchat format["test........ %1 %2 %3",_forEachIndex,_w,_h];
 
-_w = 0.1;
-_h = 0.1;
+_w = (_coords # 2) * _w;
+_h = (_coords # 3) * _h;
 
-if(_xpos > _xp && _xpos < (_xp+_w)
-&& _ypos > _yp && _ypos < (_yp+_h)) then
+if(_xpos > _xp && _xpos < (_xp + _w)
+&& _ypos > _yp && _ypos < (_yp + _h)) then
 {
  hint format ["Click! %1", _forEachIndex];
 
@@ -273,8 +273,6 @@ _ammoTooltip = "Primary weapon ammo and secondary weapon";
 };
 
 
-
-
 _wpic = _cont getVariable "apic";
 
 _priText = format["<img size='1' image='%1' color='#%2' />", _priinfo # 0,_priinfo # 2];
@@ -310,7 +308,7 @@ if( { alive _x} count (units _group) > 0 ) then
 {
  // Big enough to have all the ctrls in it (Todo why 9 is good, why it effects both w & h?)
  // todo width from UNIT_LIST_WIDTH 
-_cont ctrlSetPosition ([_bgX * 6,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
+_cont ctrlSetPosition ([_bgX * 6,(ulContHeight + 0.05) * _bgY, 16, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
 
