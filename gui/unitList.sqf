@@ -50,7 +50,7 @@ _coords = ctrlPosition _parent;
 _xp = _xp + _coords # 0;
 _yp = _yp + _coords # 1;
 
-systemchat format["test........ %1 %2 %3",_forEachIndex,_w,_h];
+// systemchat format["test........ %1 %2 %3",_forEachIndex,_w,_h];
 
 _w = (_coords # 2) * _w;
 _h = (_coords # 3) * _h;
@@ -58,9 +58,9 @@ _h = (_coords # 3) * _h;
 if(_xpos > _xp && _xpos < (_xp + _w)
 && _ypos > _yp && _ypos < (_yp + _h)) then
 {
- hint format ["Click! %1", _forEachIndex];
+ //hint format ["Click! %1", _forEachIndex];
 
-//(unitListGroups select _forEachIndex) call onUnitListSelect;
+(unitListGroups select _forEachIndex) call onUnitListSelect;
 
  break;
 };
