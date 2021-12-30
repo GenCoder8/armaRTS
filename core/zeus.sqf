@@ -175,6 +175,7 @@ _display displayAddEventHandler ["MouseButtonUp",
 {
  params ["_displayorcontrol", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
+_this call ulMouseUp;
 
 if(_button == 0) then
 {

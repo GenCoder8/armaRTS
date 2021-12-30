@@ -4,6 +4,8 @@
 #define GE_HEIGHT 5
 
 
+ulClickAreas = [];
+
 
 fillUnitList =
 {
@@ -23,6 +25,53 @@ _ctrlGroup setVariable ["background",_img];
 unitListGroups = [];
 
 
+
+if(isnil "ulMouseup") then
+{
+//waitUntil { !isNull findDisplay 312 };
+//_display = finddisplay 312;
+
+
+
+// ulMouseUp = _display displayAddEventHandler ["MouseButtonUp",
+ulMouseUp =
+{
+params ["_display", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+//systemchat format["test 123 ... %1 %2 %3", _button,_xPos,_yPos];
+
+{
+_x params ["_cont","_xp","_yp","_w","_h"];
+
+_parent = ctrlParentControlsGroup _cont;
+
+_coords = ctrlPosition _parent;
+
+_xp = _xp + _coords # 0;
+_yp = _yp + _coords # 1;
+
+systemchat format["test........ %1 %2 %3",_forEachIndex,_w,_h];
+
+_w = 0.1;
+_h = 0.1;
+
+if(_xpos > _xp && _xpos < (_xp+_w)
+&& _ypos > _yp && _ypos < (_yp+_h)) then
+{
+ hint format ["Click! %1", _forEachIndex];
+
+//(unitListGroups select _forEachIndex) call onUnitListSelect;
+
+ break;
+};
+
+} foreach ulClickAreas;
+
+};
+};
+
+
+
 {
 private _group = _x;
 
@@ -32,12 +81,13 @@ if(isnull _bgcfg) then { continue; };
 
 _cont = _display ctrlCreate ["RtsControlsGroupNoScrollBars", -1, _ctrlGroup];
 
+/*
 _conb = _display ctrlCreate ["RtsInvisibleButton", -1, _cont];
 
 _conb setVariable ["group", _group];
 
 _cont setVariable ["cbut", _conb];
-
+*/
 
 _typeInfo = _bgcfg call getBattlegroupIcon;
 
@@ -106,8 +156,10 @@ ulContHeight = _ctrlsY + 0.3; // Plus some padd
 _cont ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
 
+/*
 _conb ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
 _conb ctrlCommit 0;
+*/
 
 // Set background size
 _bgr ctrlSetPosition ([0,0, GE_WIDTH, ulContHeight ,false] call getGuiPos);
@@ -115,7 +167,8 @@ _bgr ctrlCommit 0;
 
 
 unitListGroups pushback [_cont,_group];
-_conb buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
+//_conb buttonSetAction format["(unitListGroups select %1) call onUnitListSelect", count unitListGroups - 1];
+
 
 } foreach _groups;
 
@@ -152,6 +205,8 @@ if(isnull _ldr && count (units _group) > 0) then
 if(isnull _ldr) exitWith {}; // Error
 
 private _veh = vehicle _ldr;
+
+_ammoTooltip = "";
 
 //assignedVehicleRole
 // In case vehicle crew
@@ -204,12 +259,16 @@ _priinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_
 
 _secinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor];
 
+_ammoTooltip = "Cannon and machinegun ammo";
+
 }
 else
 {
 
 _priinfo = _group call getBattleGroupPriWeapInfo;
 _secinfo = _group call getBattleGroupSecWeapInfo;
+
+_ammoTooltip = "Primary weapon ammo and secondary weapon";
 
 };
 
@@ -224,12 +283,8 @@ _secText = format["<img size='1' image='%1' color='#%2' />", _secinfo # 0,_secin
 
 _wpic ctrlSetStructuredText parseText (_priText + _secText);
 
-// _wpic ctrlSetTooltip (str (_secinfo # 0));
 
-_conb = _cont getVariable "cbut";
-
-
-_conb ctrlSetTooltip format ["Primary weapon "];
+_wpic ctrlSetTooltip format [_ammoTooltip];
 
 
 };
@@ -246,6 +301,7 @@ _numBgsAtColumn = ceil (MAX_SELECTED_BGS / 2);
 _bgX = 0;
 _bgY = 0;
 
+ulClickAreas = []; // Reset also
 
 {
  _x params ["_cont","_group"];
@@ -256,6 +312,9 @@ if( { alive _x} count (units _group) > 0 ) then
  // todo width from UNIT_LIST_WIDTH 
 _cont ctrlSetPosition ([_bgX * 6,(ulContHeight + 0.05) * _bgY, 9, ulContHeight ,false] call getGuiPos);
 _cont ctrlCommit 0;
+
+
+ulClickAreas pushback ([_cont] + (ctrlPosition _cont));
 
 }
 else
