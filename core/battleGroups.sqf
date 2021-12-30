@@ -327,7 +327,6 @@ _acfg = configFile >> "CfgAmmo" >> _ammoName;
 private _sn = getText (_acfg >> "simulation");
 
 
-
 if(_sn == "shotShell" || _sn == "shotBullet") then
 {
  _total = _curahm getOrDefault [_sn,0];
