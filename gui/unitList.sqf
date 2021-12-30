@@ -192,16 +192,17 @@ _getAmmoTypeStatus =
   _ammoStatusState = 0;
  };
 
- (ammoStateVars # _ammoStatusState) params ["_ammoText","_ammoColor"];
+ _ammoText = (ammoStateVars # _ammoStatusState) # 0;
+ _ammoColor = (ammoStateVars # _ammoStatusState) # 1;
 };
  
 "shotShell" call _getAmmoTypeStatus;
 
-_priinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa","",_ammoColor];
+_priinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor];
 
 "shotBullet" call _getAmmoTypeStatus;
 
-_secinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa","",_ammoColor];
+_secinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor];
 
 }
 else
