@@ -68,6 +68,7 @@ profilenamespace setVariable ["aRtsModUsed", usedMod ];
 profilenamespace setVariable ["aRtsDifficulty", usedDifficulty ];
 
 closeDialog 0;
+call openMainMenu;
 
 };
 
