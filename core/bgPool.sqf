@@ -387,7 +387,7 @@ if((allforces getOrDefault [_name,""]) != "") then
 breakout "createf"; 
 };
 
-private _icon = "gui\images\fromUnsung\1id_co.paa";
+private _icon = "";
 
 private _rosterCfg = configNull;
 
@@ -397,7 +397,23 @@ if(_rosterName != "") then
 
  if(isnull _rosterCfg) exitWith { ["invalid roster name %1 '%2'",_side, _rosterName] call errmsg; };
 
- _icon = getText (_rosterCfg >> "icon");
+ private _ipath = getText (_rosterCfg >> "icon");
+/*
+ _icon = (getMissionPath (RTSmainPath + _ipath));
+
+ if(!fileExists _icon) then
+ {
+  _icon = _ipath;
+ };*/
+
+
+_icon = _ipath;
+
+if(_ipath select [0, 1] != "\") then
+{
+ _icon = (getMissionPath (RTSmainPath + _ipath));
+};
+
 };
 
 if(_posMrk != "") then

@@ -193,8 +193,8 @@ setAmmoText =
 
 // _text ctrlSetText format["%1", _group call getBattleGroupSecWeapAmmoText ];
 
-private _priinfo = "";
-private _secinfo = "";
+private _priinfo = [];
+private _secinfo = [];
 
 private _ldr = leader _group;
 if(isnull _ldr && count (units _group) > 0) then
@@ -224,8 +224,12 @@ _getAmmoTypeStatus =
 {
  params ["_ammoType"];
 
+ if(!(_ammoType in _ammoLeft)) exitWith { false };
+
  _al = _ammoLeft get _ammoType;
  _am = _ammoMax get _ammoType;
+
+ diag_log format ["No ammo type 123: %1 %2  ---- %3", typeof _veh,_ammoType, _ammoMax];
 
  _ammoLeftPcto = 0;
 
@@ -249,15 +253,23 @@ _getAmmoTypeStatus =
 
  _ammoText = (ammoStateVars # _ammoStatusState) # 0;
  _ammoColor = (ammoStateVars # _ammoStatusState) # 1;
+
+ true
 };
  
-"shotShell" call _getAmmoTypeStatus;
+_hasAmmo = "shotShell" call _getAmmoTypeStatus;
 
+if(_hasAmmo) then
+{
 _priinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor];
+};
 
-"shotBullet" call _getAmmoTypeStatus;
+_hasAmmo = "shotBullet" call _getAmmoTypeStatus;
 
+if(_hasAmmo) then
+{
 _secinfo = ["a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",_ammoText,_ammoColor];
+};
 
 _ammoTooltip = "Cannon and machinegun ammo";
 
@@ -274,10 +286,18 @@ _ammoTooltip = "Primary weapon ammo and secondary weapon";
 
 
 _wpic = _cont getVariable "apic";
+_priText = "";
+_secText = "";
 
+if(count _priinfo > 0) then
+{
 _priText = format["<img size='1' image='%1' color='#%2' />", _priinfo # 0,_priinfo # 2];
+};
 
+if(count _secinfo > 0) then
+{
 _secText = format["<img size='1' image='%1' color='#%2' />", _secinfo # 0,_secinfo # 2];
+};
 
 _wpic ctrlSetStructuredText parseText (_priText + _secText);
 

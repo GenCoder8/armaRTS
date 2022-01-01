@@ -209,7 +209,7 @@ class ForceRostersUnsung
 class Force1
 {
  name = "The Avengers";
- icon = "uns_M113parts\army\11acr_co.paa";
+ icon = "\uns_M113parts\army\11acr_co.paa";
  playable = true;
 
 class ForceGroups : DefaultForceGroups
@@ -223,7 +223,7 @@ class ForceGroups : DefaultForceGroups
 class Force2 : Force1
 {
  name = "The Testers";
- icon = "uns_M113parts\army\1id_co.paa";
+ icon = "\uns_M113parts\army\1id_co.paa";
 };
 
  };
@@ -235,7 +235,7 @@ class east
 class Force1
 {
  name = "NVA";
- icon = "uns_wheeled_e\zil157\decals\nva_ca.paa";
+ icon = "\uns_wheeled_e\zil157\decals\nva_ca.paa";
  playable = true;
 
 class ForceGroups : DefaultForceGroups
@@ -263,7 +263,7 @@ count = 10;
 class Force2 : Force1
 {
  name = "VC";
- icon = "uns_t34_t55\flags\vc_flag.paa";
+ icon = "\uns_t34_t55\flags\vc_flag.paa";
 
 class ForceGroups : DefaultForceGroups
 {

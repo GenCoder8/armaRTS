@@ -42,7 +42,7 @@ uiNamespace setVariable ["forceInfoCtrl", _txt];
 
 
 _img = _display ctrlCreate ["RscPicture", -1, _ctrlg];
-_img ctrlSetText "uns_men_c\portrait\usarmy\port_soldier1.paa";
+_img ctrlSetText "";
 _img ctrlSetPosition ([7,0,5,5,false] call getGuiPos);
 _img ctrlCommit 0;
 
@@ -636,7 +636,7 @@ if(_side == west) then { _color = [0,0,1,1]; };
 if(_side == east) then { _color = [1,0,0,1]; };
 
 	_mapCtrl drawIcon [
-		"guiimages\fromUnsung\starLG.paa",
+		getMissionPath RTSmainPath + ("gui\images\fromUnsung\starLG.paa"),
 		_color,
 		markerpos _mrk,
 		_iconWidth,
