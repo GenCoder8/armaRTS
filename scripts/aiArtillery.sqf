@@ -96,7 +96,7 @@ numAiSupports = numAiSupports - 1;
 }
 else
 {
- hint "No arty targets!";
+ // hint "No arty targets!";
 };
 
 
