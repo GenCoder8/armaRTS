@@ -16,7 +16,7 @@ $[
 
 
 
-#define SAVEFILE_COLUMNS {0,0.5}
+#define SAVEFILE_COLUMNS {0,0.4, 0.8}
 
 class SavegameDlg
 {

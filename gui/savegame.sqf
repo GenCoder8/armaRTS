@@ -2,7 +2,7 @@
 #include "ctrlids.h"
 
 
-#define RTS_SAVEGAME_VERSION 1
+#define RTS_SAVEGAME_VERSION 2
 
 
 openSavegameMenu =
@@ -75,14 +75,26 @@ _saveList = _display displayctrl 1500;
 lnbClear _saveList;
 
 {
-_y params ["_timestamp","_version","_data"];
+_y params ["_timestamp","_version","_usedMod","_data"];
+
+if(_version != RTS_SAVEGAME_VERSION) then
+{
+ diag_log format ["DELETING OLD SAVE '%1'",_x];
+ savedGamesList deleteAt _x;
+ continue;
+};
 
 (_timestamp apply {if (_x < 10) then {"0" + str _x} else {str _x}}) params ["_year","_month","_day","_hour","_minute"];
 
 
-_saveList lnbAddRow [_x, format["%3.%2.%1 %4.%5",_year,_month,_day,_hour,_minute] ];
+_row = _saveList lnbAddRow [_x, format["%3.%2.%1 %4.%5",_year,_month,_day,_hour,_minute], _usedMod ];
 
-} foreach savedGamesList;
+if(usedmod != _usedMod) then
+{
+_saveList lnbSetColor [[_row,0],[1,0,0,1]];
+};
+
+} foreach +savedGamesList;
 
 };
 
@@ -112,7 +124,7 @@ systemchat format["Saving to '%1'", _selectedSave];
 
 _data = [true] call rtsSaveLoadData;
 
-savedGamesList set [_selectedSave, [systemTime,RTS_SAVEGAME_VERSION,+_data]];
+savedGamesList set [_selectedSave, [systemTime,RTS_SAVEGAME_VERSION,usedmod,+_data]];
 
 profilenamespace setVariable ["rtsSavedGames",savedGamesList];
 saveprofilenamespace;
@@ -129,12 +141,17 @@ _saveData = savedGamesList getOrDefault [_selectedSave,[]];
 
 if(count _saveData == 0) exitWith { hint "Error loading save"; };
 
-_saveData params ["_timestamp","_version","_data"];
+_saveData params ["_timestamp","_version","_usedMod","_data"];
 
 if(_version < RTS_SAVEGAME_VERSION) then
 {
  hint "You are loading save game of older version the version might be incompatible with the current mission version";
  diag_log format ["Older savegame version loaded %1", _version];
+};
+
+if(usedmod != _usedMod) exitWith
+{
+ hint "Cannot load game saved with different mod";
 };
 
 //systemchat format["_data > %1",_data];
