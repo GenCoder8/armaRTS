@@ -19,7 +19,7 @@ iscustombattle = true; // So that ending battle works properly
 
 
 
-[west,"Force1"] call createForce;
+[west,"battleTest","Force1"] call createForce;
 
 ["marker_0",110] call setNextBattleArgs;
 

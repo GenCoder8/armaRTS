@@ -112,7 +112,7 @@ _rosName = _forces lbData _rosIndex;
 _rosClass = _rosters >> _rosName;
 
 
-[_side,configname _rosClass,configname _rosClass] call createForce; // Todo clean this up after battle
+[_side,format["%1_%2",configname _rosClass, count allforces],configname _rosClass] call createForce; // Todo clean this up after battle
 
 if(_side == (call getPlayerSide)) then
 {
