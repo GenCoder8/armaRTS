@@ -6,6 +6,8 @@ openCustomBattleDlg =
 {
  isCustomBattle = true;
 
+ allforces = createHashMap; // Must always reset
+
 // Not needed and causes mess
 //"globalmap" call openGameScreen;
 
