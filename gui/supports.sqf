@@ -7,7 +7,7 @@ anythingSelected =
 {
  private _ret = false;
 
- { 
+ {
   if(count _x > 0) then { _ret = true; break; };  
  } foreach curatorSelected;
 
