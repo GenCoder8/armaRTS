@@ -1,5 +1,5 @@
 
-RtsVersion = 16;
+RtsVersion = 17;
 
 debriefing = 0;
 
@@ -15,7 +15,6 @@ class Apex
 
 class Vanilla
 {
- isVanilla = true;
 };
 
 class Unsung

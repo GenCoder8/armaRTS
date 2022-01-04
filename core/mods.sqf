@@ -29,7 +29,7 @@ isModloaded =
 {
  params ["_modCfg"];
 
- if(getNumber (_modCfg >> "isVanilla") == 1) exitWith { true };
+ if( (configname _modCfg) == "Vanilla" ) exitWith { true };
 
  _dlcid = getNumber (_modCfg >> "DLCID");
 
