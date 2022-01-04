@@ -20,12 +20,24 @@ getEnemySides =
 setUnitVisibility =
 {
  params ["_man","_isVis"];
+
+if(!(_man iskindof "man")) exitwith {
+ "TRYING TO HIDE VEHICLE" call errmsg;
+};
+
+// Never hide man inside of vehicle
+if(_man call invehicle && !_isVis) exitwith
+{
+
+};
+
  _man setVariable ["isHidden",!_isVis];
  _man hideObjectGlobal  (!_isVis); 
 
  // Always reset
  _man setvariable ["isFiring", false];
 
+/*
  private _veh = vehicle _man;
  if(_veh != _man) then
  {
@@ -36,6 +48,7 @@ setUnitVisibility =
    [_veh,_isVis] call setUnitVisibility;
   };
  };
+*/
 
 };
 
