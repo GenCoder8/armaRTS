@@ -1,5 +1,8 @@
 #include "..\main.h"
 
+#define XP_PER_KILL (1 / 40)
+
+
 traitMorale =
 {
  params ["_man"];
@@ -23,7 +26,7 @@ traitSniper =
 {
  params ["_man"];
 
-_man setskill 1;
+_man setskill 0.9;
 
 };
 
@@ -80,5 +83,5 @@ onKilled =
  
  _sk = skill _instigator;
 
- _instigator setskill (_ski + 0.05);  
+ _instigator setskill (_ski + XP_PER_KILL);  
 };
