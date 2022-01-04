@@ -110,11 +110,13 @@ activateSupportCas =
 _planeType = selectRandom (getArray ((call getRtsDefs) >> "casPlanes"));
 
 private _casModule = "ModuleCas_F";
+private _casweapType = 1;
 
 // Unsung has it's own CAS module
 if(usedmod == "Unsung") then
 {
 _casModule = "uns_ModuleCAS";
+_casweapType = 4;
 };
 
 private _moduleGroup = createGroup [sideLogic,true];   
@@ -123,8 +125,8 @@ private _unit = _casModule createUnit [
  _moduleGroup,   
  format["  
 this setVariable ['vehicle','%1'];    
-this setVariable ['type', 4];   
-this setVariable ['BIS_fnc_initModules_disableAutoActivation', false, true];",_planeType]   
+this setVariable ['type', %2];   
+this setVariable ['BIS_fnc_initModules_disableAutoActivation', false, true];",_planeType,_casweapType]   
 ];
 
 };
