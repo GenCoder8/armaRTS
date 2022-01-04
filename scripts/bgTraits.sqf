@@ -78,7 +78,12 @@ onKilled =
 
  // Check for other than shot deaths
  if(!(_instigator iskindof "man")) exitwith {
-  ["_instigator not a man"] call errmsg;
+
+if(debugMode) then
+{
+ ["_instigator not a man"] call errmsg; // Testing...
+};
+
  };
  
  _sk = skill _instigator;
