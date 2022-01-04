@@ -83,5 +83,5 @@ onKilled =
  
  _sk = skill _instigator;
 
- _instigator setskill (_ski + XP_PER_KILL);  
+ _instigator setskill (_sk + XP_PER_KILL);  
 };
