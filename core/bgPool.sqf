@@ -103,7 +103,6 @@ if(count _vattrs == 0) then
  createVehicleCrew _veh;
  _crew = crew _veh;
 
-
  private _size = _veh call getObjectSize;
  private _vehSize = ((_size select 0) / 2) max ((_size select 1) / 2);
 
@@ -494,7 +493,7 @@ createBattleGroupFromPool =
 
  private _group = creategroup _side; // [_side,true];
 
-diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _bgCfg];
+// diag_log format[">>> Unit created. cfg >>> %1 %2", _group, _bgCfg];
 
  _group setVariable ["cfg",_bgCfg];
 
@@ -517,6 +516,8 @@ _unit addEventHandler ["FiredMan", unitFiring];
 _unit call registerForWeaponFreeze;
 
 // _unit call registerForWeaponSalvage;
+
+_man addEventHandler ["Killed",onKilled];
 
 };
 
@@ -567,6 +568,8 @@ _sveh params ["_veh", "_crew", "_group"];
 _veh setVariable ["utypeNumber", UTYPE_NUMBER_VEHICLE]; // Not really needed
 
 _veh call noVeg; // No unsung vegetation
+
+// _veh lock 2;
 
 private _crewList = _vattrs # VEH_ATTRS_CREW;
 
