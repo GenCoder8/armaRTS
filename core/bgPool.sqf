@@ -625,7 +625,7 @@ if(count _infPos == 0) then
 };
 
  // Set skills, etc
- _unit = _group createUnit [_entry # MANP_TYPE, _infPos, [], 0, "FORM"];
+ _unit = _group createUnit [_ue, _infPos, [], 0, "FORM"]; // Infantry is always _ue type
  _unit call _setupMan;
  _unit setVariable ["utypeNumber", UTYPE_NUMBER_INFANTRY];
 
