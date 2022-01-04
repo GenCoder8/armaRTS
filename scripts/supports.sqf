@@ -19,11 +19,13 @@ _p set [2,ARTY_Z];
 
 _arty = [];
 
+_artyType = getText ((call getRtsDefs) >> "artyPiece");
+
 for "_i" from 1 to 3 do
 {
 
 _p set [0, (_p # 0) + 7 ];
-_a = [_p, 0, "Uns_M114_artillery", _side] call BIS_fnc_spawnVehicle;
+_a = [_p, 0, _artyType, _side] call BIS_fnc_spawnVehicle;
 _art = (_a # 0);
 
 
@@ -105,11 +107,15 @@ activateSupportArtillery =
 activateSupportCas =
 {
 
-_planeType = selectRandom ["uns_F4J_AGM","uns_A7N_AGM"];
+_planeType = selectRandom (getArray ((call getRtsDefs) >> "casPlanes"));
 
 private _casModule = "ModuleCas_F";
 
+// Unsung has it's own CAS module
+if(usedmod == "Unsung") then
+{
 _casModule = "uns_ModuleCAS";
+};
 
 private _moduleGroup = createGroup [sideLogic,true];   
 private _unit = _casModule createUnit [

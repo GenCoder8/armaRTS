@@ -13,6 +13,10 @@ class Snipers
  units[] = {"uns_men_USMC_68_MRK","uns_men_NVA_65_MRK"};
 };
 
+casPlanes[] = {"uns_F4J_AGM","uns_A7N_AGM"};
+
+artyPiece = "Uns_M114_artillery";
+
 solImgs[] = {
 "uns_men_c\portrait\usarmy\port_soldier8.paa",
 "uns_men_c\portrait\usarmy\port_soldier11.paa",
