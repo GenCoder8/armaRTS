@@ -13,6 +13,10 @@ class Snipers
  units[] = {"B_soldier_M_F","O_soldier_M_F"};
 };
 
+casPlanes[] = {"",""};
+
+artyPiece = "";
+
 solImgs[] = {
 
 };
