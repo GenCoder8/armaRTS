@@ -67,3 +67,18 @@ private _ret = "";
 
 _ret
 };
+
+// Located here for now
+onKilled =
+{
+ params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+ // Check for other than shot deaths
+ if(!(_instigator iskindof "man")) exitwith {
+  ["_instigator not a man"] call errmsg;
+ };
+ 
+ _sk = skill _instigator;
+
+ _instigator setskill (_ski + 0.05);  
+};
