@@ -2,7 +2,7 @@
 
 #define HIGHEST_RANK 4
 #define MAX_EFFECT_DIST 100
-#define MORALE_MULTIPLIER  0.25   // Best possible morale increase per group
+#define MORALE_MULTIPLIER  0.5   // Best possible morale increase per group
 #define MAX_COURAGE 0.95
 
 
