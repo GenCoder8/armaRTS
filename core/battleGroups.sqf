@@ -152,13 +152,13 @@ private _match =
 
  private _icon = switch (true) do
  {
-  case ("mortar" call _match): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
+  case ("Mortar" call _match): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
   case ("AntiTankTeam" call _match): { ["Anti tank",getMissionPath (RTSmainPath + "gui\images\b_at.paa")] };
   case ("MachineGunTeam" call _match): { ["Machine gun",getMissionPath (RTSmainPath + "gui\images\b_mg.paa")] };
   case ("PlatoonHQ" call _match): { ["Headquarters","a3\ui_f\data\map\markers\nato\b_hq.paa"] };
   case ("ReconTeam" call _match): { ["Recon","a3\ui_f\data\map\markers\nato\b_recon.paa"] };
   case ("Sniper" call _match): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; //  sniper....
-  case ("AA1" call _match): { ["Support","a3\ui_f\data\map\markers\nato\b_antiair.paa"] };
+  case ("AA" call _match): { ["Support","a3\ui_f\data\map\markers\nato\b_antiair.paa"] };
   case _isMan: { ["Infantry","a3\ui_f\data\map\markers\nato\b_inf.paa"] };
   case ( _leadUnit iskindof "tank"): { ["Armor","a3\ui_f\data\map\markers\nato\b_armor.paa"] };
   case ( _leadUnit iskindof "truck_f"): { ["Truck","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
