@@ -143,17 +143,26 @@ private _leadUnit = _units select 0;
 
  private _name = getText(_bgcfg >> "name");
 
+ private _cfgName = tolower configname _bgcfg;
+
+private _match =
+{
+ (tolower _this) in _cfgName
+};
+
  private _icon = switch (true) do
  {
-  case ( !isnull(_bgCfg >> "mortar")  ): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
-  case ("Anti tank" in _name): { ["Anti tank",getMissionPath (RTSmainPath + "gui\images\b_at.paa")] };
-  case ("Machine gun" in _name): { ["Machine gun",getMissionPath (RTSmainPath + "gui\images\b_mg.paa")] }; // hacky, todo
-  case ("HQ" in _name): { ["Headquarters","a3\ui_f\data\map\markers\nato\b_hq.paa"] }; // hacky, todo
-  case ("Recon" in _name): { ["Recon","a3\ui_f\data\map\markers\nato\b_recon.paa"] }; // hacky, todo
-  case (_isMan && count _units <= 3): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; //  sniper....
+  case ("mortar" call _match): { ["Mortar","a3\ui_f\data\map\markers\nato\b_mortar"] };
+  case ("AntiTankTeam" call _match): { ["Anti tank",getMissionPath (RTSmainPath + "gui\images\b_at.paa")] };
+  case ("MachineGunTeam" call _match): { ["Machine gun",getMissionPath (RTSmainPath + "gui\images\b_mg.paa")] };
+  case ("PlatoonHQ" call _match): { ["Headquarters","a3\ui_f\data\map\markers\nato\b_hq.paa"] };
+  case ("ReconTeam" call _match): { ["Recon","a3\ui_f\data\map\markers\nato\b_recon.paa"] };
+  case ("Sniper" call _match): { ["Support","a3\ui_f\data\map\markers\nato\b_support.paa"] }; //  sniper....
+  case ("AA1" call _match): { ["Support","a3\ui_f\data\map\markers\nato\b_antiair.paa"] };
   case _isMan: { ["Infantry","a3\ui_f\data\map\markers\nato\b_inf.paa"] };
   case ( _leadUnit iskindof "tank"): { ["Armor","a3\ui_f\data\map\markers\nato\b_armor.paa"] };
   case ( _leadUnit iskindof "truck_f"): { ["Truck","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
+  case ( _leadUnit iskindof "car"): { ["Car","a3\ui_f\data\map\markers\nato\b_motor_inf.paa"] };
   case ( [_leadUnit,"APC"] call checkForvehType ): { ["APC","a3\ui_f\data\map\markers\nato\b_mech_inf.paa"] };
   default { ["Unknown bg type '%1'", configname _bgcfg ] call errmsg; ["","a3\ui_f\data\map\markers\nato\b_unknown"] };
  };
