@@ -12,6 +12,22 @@ class DefaultForceGroups
   count = 2;
  };
 
+class AA1
+{
+ count = 2;
+};
+
+class CAR1
+{
+ count = 2;
+};
+
+class CAR2
+{
+ count = 2;
+};
+
+
 class PlatoonHQ
 {
  count = 1;
