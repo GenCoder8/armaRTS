@@ -2,27 +2,27 @@
 class DefaultForceGroups
 {
 
- class Armor1
- {
-  count = 2;
- };
+class Armor1
+{
+count = 2;
+};
 
- class Armor2
- {
-  count = 2;
- };
+class Armor2
+{
+count = 2;
+};
 
 class AA1
 {
  count = 2;
 };
 
-class CAR1
+class Car1
 {
  count = 2;
 };
 
-class CAR2
+class Car2
 {
  count = 2;
 };
