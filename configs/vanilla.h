@@ -37,9 +37,10 @@ class Armor1
  units[] = {"B_MBT_01_cannon_F"};
 };
 
-class Armor2 : Armor1
+class APC1
 {
  name = "AMV-7 Marshall";
+ ranks[] = ARMORED_RANKS;
  units[] = {"B_APC_Wheeled_01_cannon_F"};
 };
 
@@ -151,7 +152,7 @@ class Armor1
  units[] = {"O_MBT_02_cannon_F"};
 };
 
-class Armor2
+class APC1
 {
  name = "BTR-K Kamysh";
  ranks[] = ARMORED_RANKS;

@@ -55,6 +55,13 @@ class Armor2
  units[] = {"uns_m551"};
 };
 
+class APC1
+{
+ name = "M-113 (M2)";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_M113_M2"};
+};
+
 class AA1
 {
  name = "M163 Vulcan ADS";
@@ -168,6 +175,13 @@ class Armor2
  name = "T-34";
  ranks[] = ARMORED_RANKS;
  units[] = {"uns_t34_85_nva"};
+};
+
+class APC1
+{
+ name = "Type63";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_Type63_mg"};
 };
 
 class AA1
