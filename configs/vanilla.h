@@ -43,6 +43,27 @@ class Armor2 : Armor1
  units[] = {"B_APC_Wheeled_01_cannon_F"};
 };
 
+class AA1
+{
+ name = "IFV-6a Cheetah";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"B_APC_Tracked_01_AA_F"};
+};
+
+class Car1
+{
+ name = "Hunter HMG";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"B_MRAP_01_hmg_F"};
+};
+
+class Car2
+{
+ name = "Hunter GMG";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"B_MRAP_01_gmg_F"};
+};
+
 class PlatoonHQ
 {
  name = "Platoon HQ";
@@ -137,6 +158,26 @@ class Armor2
  units[] = {"O_APC_Tracked_02_cannon_F"};
 };
 
+class AA1
+{
+ name = "ZSU-39 Tigris";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"O_APC_Tracked_02_AA_F"};
+};
+
+class Car1
+{
+ name = "Ifrit HMG";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"O_MRAP_02_hmg_F"};
+};
+
+class Car2
+{
+ name = "Ifrit GMG";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"O_MRAP_02_gmg_F"};
+};
 
 class HeavyTeam
 {

@@ -55,6 +55,20 @@ class Armor2
  units[] = {"uns_m551"};
 };
 
+class AA1
+{
+ name = "M163 Vulcan ADS";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_m163"};
+};
+
+class Car1
+{
+ name = "M-151 MUTT";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_willysmg"};
+};
+
 class PlatoonHQ
 {
  name = "Platoon HQ";
@@ -154,6 +168,27 @@ class Armor2
  name = "T-34";
  ranks[] = ARMORED_RANKS;
  units[] = {"uns_t34_85_nva"};
+};
+
+class AA1
+{
+ name = "Zpu4";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_nvatruck_zpu"};
+};
+
+class Car1
+{
+ name = "Type 55 (PK)";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_Type55_LMG"};
+};
+
+class Car2
+{
+ name = "Type 55";
+ ranks[] = ARMORED_RANKS;
+ units[] = {"uns_Type55_patrol"};
 };
 
 
