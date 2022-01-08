@@ -109,11 +109,19 @@ getBattleGroupList =
 
 private _sidesBgCfgs = (call getUsedBattlegroupsCfg) >> _sideStr;
 
+private _difMultiplier = 0;
+if((call getEnemySide) == _side) then // Only for player's enemy
+{
+_difMultiplier = usedDifficulty;
+};
+
 for "_i" from 0 to (count _bgClasses - 1) step 1 do
 {
  private _bgEntry = _bgClasses select _i;
  private _bgcount = getNumber (_bgEntry >> "count");
+ private _incPerLevel = getNumber (_bgEntry >> "perLevel");
 
+ private _countAdd = round (_incPerLevel * _difMultiplier);
 
 if(_bgcount > 0) then
 {
