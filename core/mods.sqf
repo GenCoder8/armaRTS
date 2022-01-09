@@ -119,12 +119,12 @@ for "_i" from 0 to (count _bgClasses - 1) step 1 do
 {
  private _bgEntry = _bgClasses select _i;
  private _bgcount = getNumber (_bgEntry >> "count");
- private _incPerLevel = getNumber (_bgEntry >> "perLevel");
+ private _countAdd = getNumber (_bgEntry >> "maxDifAdd");
 
- private _countAdd = round (_incPerLevel * _difMultiplier);
 
 if(_bgcount > 0) then
 {
+ private _countAdd = (floor (_countAdd / 4)) * _difMultiplier;
 
  // Does battle group exist for side?
  if(isnull(_sidesBgCfgs >> (configname _bgEntry))) then
@@ -134,7 +134,7 @@ if(_bgcount > 0) then
  };
 
  _battleGroupList pushback (configname _bgEntry);
- _battleGroupList pushback _bgcount;
+ _battleGroupList pushback (_bgcount + _countAdd);
 };
 
 };
