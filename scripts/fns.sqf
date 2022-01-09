@@ -178,3 +178,16 @@ isStrInArray =
 };
 
 
+getSideIndex = {
+private ["_idx"];
+_idx = -1;
+
+if(_this==east)then{_idx=0;}; 
+if(_this==west)then{_idx=1;};
+if(_this==resistance)then{_idx=2;};
+if(_this==civilian)then{_idx=3;};
+
+if(_idx < 0) then { ["Could not determine side for %1",_this] call errmsg; };
+
+_idx
+};
