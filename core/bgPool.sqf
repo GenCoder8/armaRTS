@@ -118,11 +118,25 @@ vehicleAttributes pushback [_type,_crew apply { typeof _x },_vehSize];
 deleteVehicle _veh;
 };
 
+
 // Add crew to pool
 _vattrs = _type call getVehicleAttrs;
 {
 _crewtype = _x;
-if(!(_crewtype call isTankCrew)) then { ["Tank crew not listed '%1'", _crewtype] call errmsg; };
+if(!(_crewtype call isTankCrew)) then 
+{
+
+//["Tank crew not listed '%1'", _crewtype] call errmsg; 
+
+ // Hack fix for car crews (_side should be defined before this)
+ private _sideIndex = if (_side == west) then { 0 } else { 1 };
+ private _cfg = (call getRtsDefs) >> "TankCrews";
+ private _properCrewType = (getArray (_cfg >> "units")) select _sideIndex;
+
+ // ["Tank crew fixed to '%1' '%2' %3 %4 ",_side, _sideIndex, _properCrewType] call errmsg; 
+
+ _crewtype = _properCrewType;
+};
 
 private _rank = "PRIVATE";
 if(_foreachIndex < (count _ranks)) then { _rank = _ranks # _foreachIndex; };
