@@ -265,7 +265,7 @@ class Force1
  icon = "\uns_M113parts\army\11acr_co.paa";
  playable = true;
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceArmor
 {
 
 
@@ -277,6 +277,14 @@ class Force2 : Force1
 {
  name = "The Testers";
  icon = "\uns_M113parts\army\1id_co.paa";
+
+
+class ForceGroups : ForceMech
+{
+
+
+};
+
 };
 
  };
@@ -291,23 +299,9 @@ class Force1
  icon = "\uns_wheeled_e\zil157\decals\nva_ca.paa";
  playable = true;
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceArmor
 {
 
-class Armor1
-{
-count = 5;
-};
-
-class HeavyTeam
-{
-count = 10;
-};
-
-class LightTeam
-{
-count = 10;
-};
 
 };
 
@@ -318,16 +312,9 @@ class Force2 : Force1
  name = "VC";
  icon = "\uns_t34_t55\flags\vc_flag.paa";
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceArmor
 {
-class Armor1
-{
-count = 5;
-};
-class HeavyTeam
-{
-count = 5;
-};
+
 
 };
 };

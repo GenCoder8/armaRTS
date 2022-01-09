@@ -254,7 +254,7 @@ class Force1
  icon = "gui\images\fromUnsung\11acr_co.paa";
  playable = true;
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceArmor
 {
 
 
@@ -266,6 +266,13 @@ class Force2 : Force1
 {
  name = "The Testers";
  icon = "gui\images\fromUnsung\1id_co.paa";
+
+class ForceGroups : ForceMech
+{
+
+
+};
+
 };
 
  };
@@ -280,23 +287,10 @@ class Force1
  icon = "\A3\ui_f\data\map\markers\flags\CSAT_ca.paa";
  playable = true;
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceArmor
 {
 
-class Armor1
-{
-count = 5;
-};
 
-class HeavyTeam
-{
-count = 10;
-};
-
-class LightTeam
-{
-count = 10;
-};
 
 };
 
@@ -305,16 +299,9 @@ count = 10;
 class Force2 : Force1
 {
 
-class ForceGroups : DefaultForceGroups
+class ForceGroups : ForceMech
 {
-class Armor1
-{
-count = 5;
-};
-class HeavyTeam
-{
-count = 5;
-};
+
 
 };
 };

@@ -115,6 +115,8 @@ if((call getEnemySide) == _side) then // Only for player's enemy
 _difMultiplier = usedDifficulty;
 };
 
+_difMultiplier = usedDifficulty;
+
 for "_i" from 0 to (count _bgClasses - 1) step 1 do
 {
  private _bgEntry = _bgClasses select _i;
