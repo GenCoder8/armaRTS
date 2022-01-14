@@ -1,3 +1,4 @@
+#include "..\main.h"
 
 usedmod = "Vanilla";
 usedDifficulty = 0;
@@ -115,18 +116,18 @@ if((call getEnemySide) == _side) then // Only for player's enemy
 _difMultiplier = usedDifficulty;
 };
 
-_difMultiplier = usedDifficulty;
+/// _difMultiplier = usedDifficulty;
 
 for "_i" from 0 to (count _bgClasses - 1) step 1 do
 {
  private _bgEntry = _bgClasses select _i;
  private _bgcount = getNumber (_bgEntry >> "count");
- private _countAdd = getNumber (_bgEntry >> "maxDifAdd");
+ private _maxCountAdd = _bgcount; // getNumber (_bgEntry >> "maxDifAdd");
 
 
 if(_bgcount > 0) then
 {
- private _countAdd = (floor (_countAdd / 4)) * _difMultiplier;
+ private _countAdd = floor ((_maxCountAdd / MAX_DIFFICULTY_LEVELS) * _difMultiplier);
 
  // Does battle group exist for side?
  if(isnull(_sidesBgCfgs >> (configname _bgEntry))) then

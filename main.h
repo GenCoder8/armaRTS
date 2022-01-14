@@ -55,3 +55,4 @@
 
 #define BASE_MORALE 0.5 // Min morale
 
+#define MAX_DIFFICULTY_LEVELS 4
