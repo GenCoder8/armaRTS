@@ -191,3 +191,17 @@ if(_idx < 0) then { ["Could not determine side for %1",_this] call errmsg; };
 
 _idx
 };
+
+getCfgVehSide =
+{
+ params ["_type"];
+
+ private _sideIndex = getNumber(configFile >> "CfgVehicles" >> _type >> "side");
+
+ if(_sideIndex == 0) exitWith { east };
+ if(_sideIndex == 1) exitWith { west };
+ if(_sideIndex == 2) exitWith { resistance };
+
+ // Error
+ civilian
+};

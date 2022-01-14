@@ -129,13 +129,25 @@ if(!(_crewtype call isTankCrew)) then
 //["Tank crew not listed '%1'", _crewtype] call errmsg; 
 
  // Hack fix for car crews (_side should be defined before this)
- private _sideIndex = if (_side == west) then { 0 } else { 1 };
- private _cfg = (call getRtsDefs) >> "TankCrews";
- private _properCrewType = (getArray (_cfg >> "units")) select _sideIndex;
+ //private _sideIndex = if (_side == west) then { 0 } else { 1 };
 
- // ["Tank crew fixed to '%1' '%2' %3 %4 ",_side, _sideIndex, _properCrewType] call errmsg; 
+ private _crewSide = _crewtype call getCfgVehSide;
+
+ private _cfg = (call getRtsDefs) >> "TankCrews";
+ private _sideCrews = (getArray (_cfg >> "units")) select { (_x call getCfgVehSide) == _crewSide };
+
+if(count _sideCrews > 0) then
+{
+ private _properCrewType = _sideCrews # 0;
 
  _crewtype = _properCrewType;
+}
+else
+{
+ ["Could not replace crew '%1' %2", _crewtype,_crewSide] call errmsg;
+};
+ // ["Tank crew fixed to '%1' '%2' %3 %4 ",_side, _sideIndex, _properCrewType] call errmsg; 
+
 };
 
 private _rank = "PRIVATE";
