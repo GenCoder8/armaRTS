@@ -128,9 +128,6 @@ if(!(_crewtype call isTankCrew)) then
 
 //["Tank crew not listed '%1'", _crewtype] call errmsg; 
 
- // Hack fix for car crews (_side should be defined before this)
- //private _sideIndex = if (_side == west) then { 0 } else { 1 };
-
  private _crewSide = _crewtype call getCfgVehSide;
 
  private _cfg = (call getRtsDefs) >> "TankCrews";
