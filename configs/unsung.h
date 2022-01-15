@@ -312,7 +312,7 @@ class Force2 : Force1
  name = "VC";
  icon = "\uns_t34_t55\flags\vc_flag.paa";
 
-class ForceGroups : ForceArmor
+class ForceGroups : ForceMech
 {
 
 
