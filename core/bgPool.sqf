@@ -126,24 +126,7 @@ _crewtype = _x;
 if(!(_crewtype call isTankCrew)) then 
 {
 
-//["Tank crew not listed '%1'", _crewtype] call errmsg; 
-
- private _crewSide = _crewtype call getCfgVehSide;
-
- private _cfg = (call getRtsDefs) >> "TankCrews";
- private _sideCrews = (getArray (_cfg >> "units")) select { (_x call getCfgVehSide) == _crewSide };
-
-if(count _sideCrews > 0) then
-{
- private _properCrewType = _sideCrews # 0;
-
- _crewtype = _properCrewType;
-}
-else
-{
- ["Could not replace crew '%1' %2", _crewtype,_crewSide] call errmsg;
-};
- // ["Tank crew fixed to '%1' '%2' %3 %4 ",_side, _sideIndex, _properCrewType] call errmsg; 
+_crewtype = _crewtype call switchToCrewType;
 
 };
 
@@ -166,6 +149,33 @@ else
  };
 };
 
+};
+
+switchToCrewType =
+{
+ params ["_crewtype"];
+//["Tank crew not listed '%1'", _crewtype] call errmsg; 
+
+ private _crewSide = _crewtype call getCfgVehSide;
+
+ private _cfg = (call getRtsDefs) >> "TankCrews";
+ private _sideCrews = (getArray (_cfg >> "units")) select { (_x call getCfgVehSide) == _crewSide };
+
+ private _properCrewType = "";
+
+if(count _sideCrews > 0) then
+{
+  _properCrewType = _sideCrews # 0;
+
+// ["Vehicle crew fixed to '%1' '%2' -> '%3' ",_crewSide, _crewtype, _properCrewType] call dbgmsg; 
+
+}
+else
+{
+ ["Could not replace crew '%1' %2", _crewtype,_crewSide] call errmsg;
+};
+
+_properCrewType
 };
 
 printArray =
@@ -338,8 +348,18 @@ retBattleGroupToPool =
 
  {
   private _man = _x;
+  private _retType = typeof _man;
 
-  [_manPool,typeof _man,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
+if(_man getVariable ["isVehCrew", false]) then
+{
+if(!(_retType call isTankCrew)) then 
+{
+  //diag_log format["Replacing vehicle crew ret type"];
+ _retType = _retType call switchToCrewType;
+};
+};
+
+  [_manPool,_retType,rank _man,skill _man, _group getVariable "cfg"] call addUnitEntryToPool;
 
  } foreach ((units _group) select { alive _x });
 
@@ -360,6 +380,8 @@ retAllBattleGroupsToPool =
   params ["_side"];
 
   private _groups = _side call getOwnGroups;
+
+diag_log format["-= retAllBattleGroupsToPool =- %1", count _groups];
 
  // Loop backwards to keep same order as when picked from the pool
  for "_i" from (count _groups - 1) to 0 step -1 do
@@ -611,6 +633,8 @@ if(count _crewList != count _crew) then
  _cm = _crew # _foreachIndex;
  _cm call _setupMan;
  _cm setVariable ["utypeNumber", UTYPE_NUMBER_CREW];
+
+ _cm setVariable ["isVehCrew", true];
 
  } foreach _crewList;
  
