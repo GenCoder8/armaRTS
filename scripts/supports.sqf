@@ -40,6 +40,7 @@ _arty pushback _art;
 
 };
 
+// Keep arty in air
 addMissionEventHandler ["EachFrame",
 {
 
@@ -67,11 +68,16 @@ removeMissionEventHandler ["EachFrame",_thisEventHandler];
 },[_arty]];
 
 
+_artyAmmo = getText ((call getRtsDefs) >> "artyAmmo");
 
 {
 sleep (random 3);
 _art = _x;
-_art doArtilleryFire [_targetPos, "uns_30Rnd_155mmHE", 5]; // Todo ammo type
+_art doArtilleryFire [_targetPos, _artyAmmo, 5];
+
+/*systemchat format ["ARTY firing > %1 %2 %3 (%4)",_art, _art distance _targetPos, _artyAmmo,  
+_targetPos inRangeOfArtillery [[_art], _artyAmmo]];*/
+
 } foreach _arty;
 
 _art = _arty # 0;

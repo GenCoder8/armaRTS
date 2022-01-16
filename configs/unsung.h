@@ -16,6 +16,7 @@ class Snipers
 casPlanes[] = {"uns_F4J_AGM","uns_A7N_AGM"};
 
 artyPiece = "Uns_M114_artillery";
+artyAmmo = "uns_30Rnd_155mmHE";
 
 solImgs[] = {
 "uns_men_c\portrait\usarmy\port_soldier8.paa",

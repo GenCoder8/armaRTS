@@ -16,6 +16,7 @@ class Snipers
 casPlanes[] = {"B_Plane_CAS_01_dynamicLoadout_F","B_Plane_Fighter_01_F"};
 
 artyPiece = "B_MBT_01_arty_F";
+artyAmmo = "2Rnd_155mm_Mo_Cluster";
 
 solImgs[] = {
 
