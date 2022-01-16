@@ -295,7 +295,7 @@ class east
 
 class Force1
 {
- name = "NVA";
+ name = "NVA Armor";
  icon = "\uns_wheeled_e\zil157\decals\nva_ca.paa";
  playable = true;
 
@@ -309,7 +309,7 @@ class ForceGroups : ForceArmor
 
 class Force2 : Force1
 {
- name = "VC";
+ name = "NVA Mech";
  icon = "\uns_t34_t55\flags\vc_flag.paa";
 
 class ForceGroups : ForceMech

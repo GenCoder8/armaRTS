@@ -283,7 +283,7 @@ class east
 
 class Force1
 {
- name = "CSAT";
+ name = "CSAT Armor";
  icon = "\A3\ui_f\data\map\markers\flags\CSAT_ca.paa";
  playable = true;
 
@@ -298,6 +298,7 @@ class ForceGroups : ForceArmor
 
 class Force2 : Force1
 {
+ name = "CSAT Mech";
 
 class ForceGroups : ForceMech
 {
