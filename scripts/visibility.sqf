@@ -99,6 +99,39 @@ curLosStep = LOS_STEP_REVEAL;
 //curLosSide = east;
 
 
+hasLOStoUnit =
+{
+ params ["_enemy"];
+
+ private _hasLos = false;
+
+ private _friendlies = units (call getPlayerSide);
+
+// Check if any man sees this enemy
+{
+ // scopename "checkManVis";
+ private _man = _x;
+ if(_enemy distance2D _man < MAX_DIST_TO_ENEMY_REVEAL) then
+ {
+ private _epos = (getposASL _enemy);
+
+ private _hadj = (_enemy selectionPosition "pelvis") # 2;
+
+ _epos set [2, (_epos # 2) + _hadj ];
+
+ if(([_man, "VIEW", vehicle _man] checkVisibility [eyePos _man, _epos]) > 0) then
+ {
+  _hasLos = true;
+ //systemchat format["LOS check %1 ", _enemy];
+  break;
+ };
+ };
+} foreach _friendlies;
+
+_hasLos
+};
+
+
 addMissionEventHandler ["EachFrame",
 {
 
@@ -153,26 +186,10 @@ if((_friendlySide knowsAbout _enemy) >= KNOWS_ABOUT_UNREVEAL_VAL || (_enemy getv
 else
 {
 
-// Check if any man sees this enemy
+if([_enemy] call hasLOStoUnit) then
 {
- // scopename "checkManVis";
- private _man = _x;
- if(_enemy distance2D _man < MAX_DIST_TO_ENEMY_REVEAL) then
- {
- private _epos = (getposASL _enemy);
-
- private _hadj = (_enemy selectionPosition "pelvis") # 2;
-
- _epos set [2, (_epos # 2) + _hadj ];
-
- if(([_man, "VIEW"] checkVisibility [eyePos _man, _epos]) > 0) then
- {
-  _makeVisible = true;
- //systemchat format["LOS check %1 ", _enemy];
-  break;
- };
- };
-} foreach _friendlies;
+ _makeVisible = true;
+};
 
 };
 
@@ -209,7 +226,7 @@ if( (side _man) in [east,west,resistance] && (_man call isObjVisible) ) then
 
  _eneSides = (side _man) call getEnemySides;
 
- _numKnowns = { 
+ _numKnowns = {
 //systemchat format[">> %1 %2", _x, (_x knowsAbout _man)]; 
 (_x knowsAbout _man) > KNOWS_ABOUT_UNREVEAL_VAL 
 } count _eneSides;
@@ -223,7 +240,7 @@ _nearEnemies = (nearestObjects [_man, ["man"], MAX_DIST_TO_ENEMY_REVEAL]) select
  //systemchat format[">> %1 %2 %3  ", side _man, _numKnowns, count _nearEnemies];
 
 
-if(_numKnowns == 0 && count _nearEnemies == 0) then
+if(_numKnowns == 0 && count _nearEnemies == 0 && !([_man] call hasLOStoUnit)) then
 {
  [_man,false] call setUnitVisibility;
 }
