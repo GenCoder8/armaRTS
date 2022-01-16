@@ -8,7 +8,7 @@ private ["_center","_radius","_friendlySide","_areas","_curArea","_acenter","_ol
 #define TARGET_AREA_SIZE 75   // ideal target area size
 #define FRIENDLY_RANGE 150    // how close friendlies are too close
 #define MIN_TARGETS 1         // minimum targets for valid target area
-#define DEBUG_TARGETS testmode
+#define DEBUG_TARGETS debugmode
 
 _center = +(_this select 0);
 _radius = _this select 1;
