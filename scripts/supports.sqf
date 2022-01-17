@@ -2,20 +2,39 @@
 
 #define ARTY_Z 50
 
+setObjAboveSurface =
+{
+ params ["_obj","_z"];
+
+ private _p = getposATL _obj;
+
+ _p set [2, _z];
+
+ if(surfaceIsWater _p) then
+ {
+  _obj setPosASL _p;
+ }
+ else
+ {
+  _obj setPosATL _p;
+ };
+
+};
+
 callArtilleryBarrage =
 {
  params["_side","_targetPos","_deployPos","_dirFromTarget"];
 
 _p = _deployPos;
 
-_p = _p getpos [3000,_dirFromTarget];
+_p = _p getposATL [3000,_dirFromTarget];
 /*
 _marker = createMarker [format["teeeeeeeeeeest%1",_p],_p];
 _marker setMarkerShape "ICON";
 _marker setMarkerType "flag_un";
 _marker setMarkerColor "ColorWhite";
 */
-_p set [2,ARTY_Z];
+_p set [2,100000]; // Create on high
 
 _arty = [];
 
@@ -28,7 +47,7 @@ _p set [0, (_p # 0) + 7 ];
 _a = [_p, 0, _artyType, _side] call BIS_fnc_spawnVehicle;
 _art = (_a # 0);
 
-
+[_art,ARTY_Z] call setObjAboveSurface;
 
 _dir = _art getDir _targetPos;
 
@@ -51,9 +70,8 @@ if(alive _art) then
 {
 
 _art setVelocity [0,0,0];
-_p = getposATL _art;
-_p set [2,ARTY_Z];
-_art setposATL _p;
+
+[_art,ARTY_Z] call setObjAboveSurface;
 
 _numAlive = _numAlive + 1;
 };
