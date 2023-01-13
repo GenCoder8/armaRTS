@@ -530,6 +530,7 @@ _surfPos set [2,0];
 //_bldg = nearestBuilding _surfPos;
 
 _bldgs = nearestObjects [_surfPos, ["house"], 40, true];
+_bldgs = _bldgs select { count (_x buildingPos -1) > 0 }; // Want only these
 
 if(count _bldgs == 0) exitWith { objNull };
 

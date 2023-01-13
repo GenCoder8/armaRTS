@@ -952,7 +952,7 @@ _createActButtons =
  params ["_contGroup","_buttonDefs"];
 
 
-for "_i" from 0 to ( count _buttonDefs - 1) do
+for "_i" from 0 to (count _buttonDefs - 1) do
 {
 
 _bd = (_buttonDefs select _i);
@@ -964,7 +964,7 @@ _bt ctrlSetPosition [0.0 + (BUT_SIZE * (_i % NUM_IN_ROW)), 0.0 + (BUT_SIZE * (fl
 _bt ctrlCommit 0;
 
 _h = getText (_bd >> "help");
-if(_h != "") then { _h = format["hint '%1';",_h];  };
+if(_h != "") then { _h = format["hint '%1';",_h]; };
 
 _bt buttonSetAction format["%1 %2",_h , (getText (_bd >> "action"))];
 

@@ -157,7 +157,7 @@ _clear
 
 manBuildings =
 {
- params ["_units","_aroundPos","_distance","_useAngleFirst","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
+ params ["_units","_aroundPos","_distance","_closestTo","_onlyOneBldg","_maxMenUsed","_maxMenBldg"];
  
  
 /// _group enableAttack false;
@@ -166,6 +166,7 @@ manBuildings =
 //if(count _units == 0) exitWith {}; // All vehicles or something
 
 _bldgs = nearestObjects [_aroundPos, ["house"], _distance];
+_bldgs = _bldgs select { count (_x buildingPos -1) > 0 }; // Want only these
 
 _usedPositions = [];
 
@@ -284,7 +285,7 @@ if(_numPositions > 0) then
 //["_numMenPlaced: %1", _numMenPlaced] call dbgmsg;
 
 
-
+/*
 _selectPosFirst = {
 params ["_bpos","_bposDir"];
 
@@ -297,9 +298,15 @@ params ["_bpos","_bposDir"];
 
 _sf = _goodPositions select { _x call _selectPosFirst };
 _se = _goodPositions select { !(_x call _selectPosFirst) };
+
 // _se = [];
 
 _sortedPositions = _sf + _se;
+*/
+
+
+_sortedPositions = [_goodPositions, [], { (_x # 0) distance2D _closestTo }, "ASCEND"] call BIS_fnc_sortBy;
+
 
  _numInThisBldg = 0;
 
